@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: features
+    schema: "{{ target.schema }}"
+    tables:
+      - name: fact_freq_fga
+        description: >
+          Table de faits, de résolution CodePerm, année, Freq.
+          Cette table regroupe l'historique des inscriptions en FGA. Différentes informations liées au programme sont également disponibles.
+      - name: fact_freq_fp
+        description: >
+          Table de faits, de résolution CodePerm, année, Freq.
+          Cette table regroupe l'historique des inscriptions en FP. Différentes informations liées au programme sont également disponibles.
