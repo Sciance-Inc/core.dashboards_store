@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "core.data.pevr"
+name = "core.data.tbe"
 version = "0.1.0"
 description = ""
 authors = ["alluardj <alluardj@csvdc.qc.ca>"]

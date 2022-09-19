@@ -1,8 +1,8 @@
-name: 'pevr'
+name: 'tbe'
 version: '1.0.0'
 config-version: 2
 
-profile: "{{ env_var('DBT_PROFILE', 'cssvdc_pevr') }}"
+profile: 'replaceMeInLocals'
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -17,7 +17,7 @@ clean-targets:
     - "dbt_packages"
 
 models:
-    pevr:
+    tbe:
         +materialized: table
         adapters:
             +tags:
