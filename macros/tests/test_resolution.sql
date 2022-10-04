@@ -1,17 +1,18 @@
-{# make sure the resolution unique per CodePerm, Annee, Freq #}
-{% test resolution_cp_annee_freq(model) %}
+{# make sure the resolution unique per fiche / annee #}
+{% test resolution_fiche_annee(model) %}
 SELECT
     val.*
 FROM
     (
         SELECT
-            CodePerm,
-            Annee,
-            Freq,
+            fiche,
+            annee,
             COUNT(*) AS obs
         FROM
             {{ model }}
-        GROUP BY CodePerm, Annee, Freq
+        GROUP BY 
+            fiche,
+            annee
     ) AS val
 WHERE
     val.obs > 1 
