@@ -2,7 +2,7 @@ name: 'tbe'
 version: '1.0.0'
 config-version: 2
 
-profile: 'replaceMeInLocals'
+profile: "replaceMeInLocals"
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
