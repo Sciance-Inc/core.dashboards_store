@@ -4,7 +4,7 @@ WITH spine AS (
         spi.fiche,
         spi.sk_eleve
     FROM {{ ref("base_spine") }} AS spi
-    WHERE spi.sk_eleve_seqid = 1
+    --WHERE spi.sk_eleve_seqid = 1
 )
 
 SELECT
