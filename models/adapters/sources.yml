@@ -1,14 +1,16 @@
 version: 2
 
 sources:
-  - name: features
-    schema: "{{ target.schema }}"
+  - name: populations
+    description: >
+      Les populations identifient des regroupement d'étudiants aux profils cohérents, tels que les élèves réguliers ou les élèeves en FGA.
+      Toutes les métriques normalisées le sont par population de manière à ce qu'un étudiant soit toujours comparés à ses pairs.
+      --- 
+      Populations staging tables are discardable table used to build the population tables.
+      They encompass CSS specific data.
+    tags: ["population", "local_override"]
+    schema: "{{ target.schema }}_staging"
     tables:
-      - name: fact_freq_fga
+      - name: stg_pop_test
         description: >
-          Table de faits, de résolution CodePerm, année, Freq.
-          Cette table regroupe l'historique des inscriptions en FGA. Différentes informations liées au programme sont également disponibles.
-      - name: fact_freq_fp
-        description: >
-          Table de faits, de résolution CodePerm, année, Freq.
-          Cette table regroupe l'historique des inscriptions en FP. Différentes informations liées au programme sont également disponibles.
+          population test.
