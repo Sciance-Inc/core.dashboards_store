@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: bridge_sk_eleve_to_fiche
+    description: >
+      La table de bridge associe à chaque sk_eleve de LUMIX bon numéro de fiche correspondant.
+      Cette table permet l'aggrégation a un niveau fiche - annee.
+      ---
+      A bridge table. Used to map entity through distincs systems.
+      This bridge maps fiche, annee to sk_eleve.
+      Used to aggregate sk_fact to a 'fiche' level.
+    columns:
+      - name: sk_eleve
+        tests:
+          - unique
+          - not_null
