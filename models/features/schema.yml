@@ -7,3 +7,8 @@ models:
       Table de faits, de résolution fiche / année, qui identifie l'ensemble des élèves inscrits ces 10 dernieres années. 
     tests:
       - resolution_fiche_annee
+
+  - name: fact_tps_partial
+    tags: ["fact_table"]
+    description: >
+      Table de faits, de résolution année / ecole, qui comptabilise le nombre d'employés à temps partiel par année et école. 
