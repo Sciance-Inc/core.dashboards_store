@@ -1,14 +1,18 @@
 version: 2
 
 sources:
-  - name: features
+  - name: populations
+    description: >
+      Les populations identifient des regroupement d'étudiants aux profils cohérents, tels que les élèves réguliers ou les élèeves en FGA.
+    tags: ["population", "local_override"]
+    schema: "{{ target.schema }}_staging"
+    tables:
+      - name: stg_pop_test
+        description: >
+          Identification grossière des eleves du css à des fin d'entrainement.
+
+  - name: interfaces
+    tags: ["interface", "local_override"]
     schema: "{{ target.schema }}"
     tables:
-      - name: fact_freq_fga
-        description: >
-          Table de faits, de résolution CodePerm, année, Freq.
-          Cette table regroupe l'historique des inscriptions en FGA. Différentes informations liées au programme sont également disponibles.
-      - name: fact_freq_fp
-        description: >
-          Table de faits, de résolution CodePerm, année, Freq.
-          Cette table regroupe l'historique des inscriptions en FP. Différentes informations liées au programme sont également disponibles.
+      - name: i_pai_dos
