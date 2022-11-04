@@ -41,7 +41,7 @@ SELECT
     ind_repondant_mere,
     ind_repondant_tuteur
 FROM
-    {{ var("source_database") }}.{{ var(
+    {{ var("database_bi") }}.{{ var(
         "source_schema",
         "dbo"
     ) }}.dim_eleve
