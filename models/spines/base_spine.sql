@@ -3,7 +3,6 @@ WITH src AS (
         map.fiche,
         map.annee,
         pop.sk_eleve
- 
     FROM {{ ref('stg_pop_test') }} AS pop
     INNER JOIN {{ ref('bridge_sk_eleve_to_fiche') }} AS map
     ON pop.sk_eleve = map.sk_eleve

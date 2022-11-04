@@ -4,13 +4,9 @@ sources:
   - name: populations
     description: >
       Les populations identifient des regroupement d'étudiants aux profils cohérents, tels que les élèves réguliers ou les élèeves en FGA.
-      Toutes les métriques normalisées le sont par population de manière à ce qu'un étudiant soit toujours comparés à ses pairs.
-      --- 
-      Populations staging tables are discardable table used to build the population tables.
-      They encompass CSS specific data.
     tags: ["population", "local_override"]
     schema: "{{ target.schema }}_staging"
     tables:
       - name: stg_pop_test
         description: >
-          population test.
+          Identification grossière des élèves actifs (à des fins d'illustration).
