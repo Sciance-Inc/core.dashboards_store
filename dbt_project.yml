@@ -32,6 +32,8 @@ vars:
     # The source database to pull the data for a css.
     database_bi: "Replace me in the CSS repositery"
     database_paie: "Replace me in the CSS repositery"
+    database_geobus: "Replace me in the CSS repositery"
+    database_piastre: "Replace me in the CSS repositery"
     source_schema: dbo
     # The default schema to use
     source_schema: dbo
