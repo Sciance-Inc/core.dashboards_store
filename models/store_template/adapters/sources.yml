@@ -10,9 +10,3 @@ sources:
       - name: stg_pop_test
         description: >
           Identification grossière des eleves du css à des fin d'entrainement.
-
-  - name: interfaces
-    tags: ["interface", "local_override"]
-    schema: "{{ target.schema }}"
-    tables:
-      - name: i_pai_dos
