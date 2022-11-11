@@ -17,14 +17,30 @@ clean-targets:
     - "dbt_packages"
 
 models:
-    tbe:
+  tbe:
+    store_template:
+        +enabled: False
         +materialized: table
         adapters:
             +tags:
                 - adapters
             +materialized: ephemeral
+        bridges:
+            +schema: staging
+        interfaces:
+            +tags:
+                - interface
+            +materialized: ephemeral
         spines:
             +schema: staging
+
+    prospectif_cdp:
+        +enabled: False
+        +materialized: table
+        adapters:
+            +tags:
+                - adapters
+            +materialized: ephemeral
 
 vars:
     # Toggle the adapaters table to the sources tables. To run the package in standalone.
