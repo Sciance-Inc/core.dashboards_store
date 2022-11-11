@@ -1,0 +1,9 @@
+version: 2
+macros:
+  - name: get_current_year
+    description: >
+      Return the year (as in LUMIX year) we want the student to be scored for.
+      The macro checks the date the ETL is run at and return a parameter 'year' to be used in the scoring cohorts identification.
+      The macro implements the follwoing logic : 
+        If the scholar year is not over yet, then we want predictions for the students currently enrolled in a program, using their last full year of data.
+        Otherwise, we wan't prediction for the UPCOMMING year.

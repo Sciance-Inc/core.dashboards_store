@@ -19,7 +19,7 @@ clean-targets:
 models:
   tbe:
     store_template:
-        +enabled: False
+        +enabled: True
         +materialized: table
         adapters:
             +tags:
@@ -42,6 +42,10 @@ models:
                 - adapters
             +materialized: ephemeral
 
+    emp_conge:
+        +enabled: True
+        +materialized: table
+        
 vars:
     # Toggle the adapaters table to the sources tables. To run the package in standalone.
     is_context_core: true
