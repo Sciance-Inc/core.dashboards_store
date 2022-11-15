@@ -15,11 +15,12 @@ target-path: "target"
 clean-targets:
     - "target"
     - "dbt_packages"
-
+    
 models:
   tbe:
+    +enabled: False
     store_template:
-        +enabled: True
+        +tags: ["template"]
         +materialized: table
         adapters:
             +tags:
@@ -33,6 +34,14 @@ models:
             +materialized: ephemeral
         spines:
             +schema: staging
+    prospectif_cdp:
+        +tags: ["prospectif_cdp"]
+        +materialized: table
+    shared:
+        +tags: ["shared"]
+        bridges:
+            +schema: staging
+
 
     prospectif_cdp:
         +enabled: False
@@ -54,6 +63,4 @@ vars:
     database_paie: "Replace me in the CSS repositery"
     database_geobus: "Replace me in the CSS repositery" # contains routes, buses, contractors, student files, and related to db GPL. 
     database_piastre: "Replace me in the CSS repositery" # financial data on school transport. no connections to db Geobus.
-    source_schema: dbo
-    # The default schema to use
-    source_schema: dbo
+
