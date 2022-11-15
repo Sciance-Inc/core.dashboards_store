@@ -9,4 +9,4 @@ sources:
     tables:
       - name: stg_pop_test
         description: >
-          Identification grossière des élèves actifs (à des fins d'illustration).
+          Identification grossière des eleves du css à des fin d'entrainement.
