@@ -26,12 +26,6 @@ models:
             +tags:
                 - adapters
             +materialized: ephemeral
-        bridges:
-            +schema: staging
-        interfaces:
-            +tags:
-                - interface
-            +materialized: ephemeral
         spines:
             +schema: staging
     prospectif_cdp:
