@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: bridge_sk_eleve_to_fiche
+  - name: template_bridge_sk_eleve_to_fiche
     description: >
       La table de bridge associe à chaque sk_eleve de LUMIX le numéro de fiche correspondant.
       Cette table permet l'aggrégation a un niveau fiche - annee.
