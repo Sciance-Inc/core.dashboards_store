@@ -41,18 +41,8 @@ models:
         +tags: ["shared"]
         bridges:
             +schema: staging
-
-
-    prospectif_cdp:
-        +enabled: False
-        +materialized: table
-        adapters:
-            +tags:
-                - adapters
-            +materialized: ephemeral
-
     emp_conge:
-        +enabled: True
+        +tags: ["emp_conge"]
         +materialized: table
         
 vars:
