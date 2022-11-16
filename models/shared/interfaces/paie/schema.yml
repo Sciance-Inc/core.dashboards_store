@@ -5,3 +5,23 @@ models:
     tags: ["interface"]
     description: >
       Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'pai_dos' de la base de données source.
+models:
+  - name: i_pai_dosi_pai_tab_corp_empl
+    tags: ["interface"]
+    description: >
+      Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'i_pai_tab_corp_empl' de la base de données source.
+models:
+  - name: i_pai_tab_etat_empl_conge
+    tags: ["interface"]
+    description: >
+      Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'i_pai_tab_etat_empl_conge' de la base de données source.
+models:
+  - name: i_pai_tab_lieu_trav
+    tags: ["interface"]
+    description: >
+      Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'i_pai_tab_lieu_trav' de la base de données source.
+models:
+  - name: i_paie_hemp
+    tags: ["interface"]
+    description: >
+      Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'i_paie_hemp' de la base de données source.
