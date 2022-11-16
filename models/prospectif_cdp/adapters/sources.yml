@@ -1,8 +1,0 @@
-version: 2
-
-sources:
-  - name: interfaces
-    tags: ["interface", "local_override"]
-    schema: "{{ target.schema }}"
-    tables:
-      - name: i_pai_dos
