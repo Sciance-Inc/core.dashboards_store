@@ -40,6 +40,6 @@ WITH employes AS (
             )       
 )
 
-select * from employes
+SELECT * FROM employes
 
-where annee between {{  tbe.get_current_year() }} - 10 and {{  tbe.get_current_year() }}
+WHERE annee BETWEEN {{  tbe.get_current_year() }} - 10 AND {{  tbe.get_current_year() }}
