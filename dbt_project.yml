@@ -21,22 +21,31 @@ models:
     +enabled: False
     store_template:
         +tags: ["template"]
-        +materialized: table
+        +schema: "template"
         adapters:
             +tags:
                 - adapters
+            +materialized: ephemeral
+        bridges:
+            +schema: staging
+        interfaces:
+            +tags:
+                - interface
             +materialized: ephemeral
         spines:
             +schema: staging
     prospectif_cdp:
         +tags: ["prospectif_cdp"]
-        +materialized: table
+        +schema: "prospectif_cdp"
     shared:
         +tags: ["shared"]
+        +schema: "shared"
         bridges:
-            +schema: staging
-
-
+            +schema: shared_staging
+    emp_conge:
+        +tags: ["emp_conge"]
+        +schema: emp_conge
+        
 vars:
     # Toggle the adapaters table to the sources tables. To run the package in standalone.
     is_context_core: true
