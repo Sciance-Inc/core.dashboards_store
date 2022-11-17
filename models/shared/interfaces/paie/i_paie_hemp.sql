@@ -5,4 +5,4 @@ SELECT
     , CORP_EMPL
     , ETAT
 FROM
-    {{ var("database_paie") }}.dbo.PAI_HEMP
+    {{ var("database_paie") }}.dbo.pai_hemp

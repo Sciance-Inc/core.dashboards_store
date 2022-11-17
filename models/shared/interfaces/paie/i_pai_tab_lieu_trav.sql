@@ -2,4 +2,4 @@ SELECT
     DESCR
     , LIEU_TRAV
 FROM
-    {{ var("database_paie") }}.dbo.PAI_TAB_LIEU_TRAV
+    {{ var("database_paie") }}.dbo.pai_tab_lieu_trav 
