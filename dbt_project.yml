@@ -17,42 +17,54 @@ clean-targets:
     - "dbt_packages"
     
 models:
+  +materialized: table
   tbe:
     +enabled: False
     store_template:
         +tags: ["template"]
-        +schema: "template"
+        +schema: 'store_template'
         adapters:
             +tags:
                 - adapters
-            +materialized: ephemeral
-        bridges:
-            +schema: staging
-        interfaces:
+        features:
             +tags:
-                - interface
-            +materialized: ephemeral
+                - fact_tables
         spines:
-            +schema: staging
+            +schema: store_template_staging
     emp_conge:
         +tags: ["emp_conge"]
         +schema: emp_conge
     prospectif_cdp:
         +tags: ["prospectif_cdp"]
-        +schema: "prospectif_cdp"
+        +schema: 'prospectif_cdp'
+        adapters:
+            +tags:
+                - adapters
+        features:
+            +schema: prospectif_cdp
+            +tags:
+                - fact_tables
+        spines:
+            +schema: prospectif_cdp_staging
+        pbi_tables:
+            +schema: prospectif_cdp_reporting
+            +tags:
+                - reporting
     shared:
-        +tags: ["shared"]
-        +schema: "shared"
+        +tags: shared
+        +schema: 'shared'
         bridges:
             +schema: shared_staging
+        interfaces:
+            +materialized: ephemeral
 
-        
 vars:
     # Toggle the adapaters table to the sources tables. To run the package in standalone.
     is_context_core: true
     # The source database to pull the data for a css.
     database_bi: "Replace me in the CSS repositery"
     database_paie: "Replace me in the CSS repositery"
+    database_gpi: "Replace me in the CSS repositery"
     database_geobus: "Replace me in the CSS repositery" # contains routes, buses, contractors, student files, and related to db GPL. 
     database_piastre: "Replace me in the CSS repositery" # financial data on school transport. no connections to db Geobus.
 

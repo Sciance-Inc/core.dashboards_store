@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: i_gpm_e_dan
+    tags: ["interface"]
+    description: >
+      Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'gpm_e_dan' de la base de données source.
+
+  - name: i_gpm_t_eco
+    tags: ["interface"]
+    description: >
+      Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'gpm_t_eco' de la base de données source.

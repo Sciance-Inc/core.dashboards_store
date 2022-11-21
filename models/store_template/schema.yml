@@ -1,6 +1,12 @@
 version: 2
 
 models:
+  - name: fact_eleve
+    tags: ["fact_table"]
+    description: >
+      Table de faits, de résolution fiche / année, qui identifie l'ensemble des élèves inscrits ces 10 dernieres années. 
+    tests:
+      - resolution_fiche_annee
   - name: base_spine
     description: >
       La table de spine contient l'ensemble des numéros de fiches par année scolaire.
