@@ -34,6 +34,9 @@ models:
             +materialized: ephemeral
         spines:
             +schema: staging
+    emp_conge:
+        +tags: ["emp_conge"]
+        +schema: emp_conge
     prospectif_cdp:
         +tags: ["prospectif_cdp"]
         +schema: "prospectif_cdp"
@@ -42,9 +45,7 @@ models:
         +schema: "shared"
         bridges:
             +schema: shared_staging
-    emp_conge:
-        +tags: ["emp_conge"]
-        +schema: emp_conge
+
         
 vars:
     # Toggle the adapaters table to the sources tables. To run the package in standalone.
