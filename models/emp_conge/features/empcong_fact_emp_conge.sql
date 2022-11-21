@@ -11,13 +11,13 @@ WITH employes AS (
         , corpe.descr AS 'corps_demploi_description'
         , emp.etat
         , etat.descr AS 'etat_description'
-    FROM {{ ref('stg_paie_hemp') }} AS emp
+    FROM {{ ref('i_paie_hemp') }} AS emp
 
-    INNER JOIN {{ ref('stg_pai_tab_etat_empl_conge') }} AS etat 
+    INNER JOIN {{ ref('i_pai_tab_etat_empl_conge') }} AS etat 
         ON emp.etat = etat.etat_empl
-    INNER JOIN {{ ref('stg_pai_tab_corp_empl') }} AS corpe 
+    INNER JOIN {{ ref('i_pai_tab_corp_empl') }} AS corpe 
         ON emp.corp_empl = corpe.corp_empl
-    INNER JOIN {{ ref('stg_pai_tab_lieu_trav') }}  AS lieu 
+    INNER JOIN {{ ref('i_pai_tab_lieu_trav') }}  AS lieu 
         ON emp.lieu_trav = lieu.lieu_trav    
     WHERE
         (
