@@ -43,21 +43,21 @@ cssxx_prodrome:
 
 ## Executing the ETLs
 * The ETLs schould be executed **from** your **css** package/project. 
-* Your **css** project schOuld override the configurations defined in the `dbt_project.yml` file of the **core.store** project.
+* Your **css** project schould override the configurations defined in the `dbt_project.yml` file of the **core.store** project.
 
 
 # User guidelines
 > How to `install` a new dashboard in my CSS ?
 
-## How to enable a dahsbord ?
+## How to enable a dahsboard ?
 
-* To enable the ETL for a dashbaod, the analyst schould update it's **inherited dbt_project** to trigger the computation of the required tables. Basically the analyst has to :
+* To enable the ETL for a dahsboard, the analyst schould update it's **inherited dbt_project** to trigger the computation of the required tables. Basically the analyst has to :
   * Move the required data from the source server to the analytical one.
     * (For instance, if you want a dashboard related to geobus, you must first move the raw geobus data into the analytical server (don't forget to pseudo-anonymize the data))
   * Activate all the **sources** required by the dashboard
   * Acticate the ETL folder corresponding to the dahsboard I want to compute the data for.
 
-* The the next section showcases the main datasources used by the dashboards.
+* The next section showcases the main datasources used by the dashboards.
 
 ## Which dashboards are available ?
 > This section provides a quick overvierw of each ones of the dashboards available in the store. Please, refers to the next section for more details about the dashboard you are interested in.
@@ -71,24 +71,72 @@ cssxx_prodrome:
 ## Dashboards depencies and datasources
 > For a dashboard to be computed, the analyst must ensure that the required datasources are available in the analytical server.
 
+### How to add a new dashboard to my environement ?
+generally speaking, a dashboard can be added by setting the following lines in your inherited `dbt_project.yml`.
+
+```bash
+models:
+  tbe:
+    <dashboard name>
+      +enabled: True
+    shared:
+      <dashboard source name>
+        +enabled: True
+```
+
+where `dashboard name` and `dashboard source name` are to be adapted to the dashboard you want to enable.
+
+
+Some dashbaords require you add tables very specifis to your inherited repo. Thoose tables are generally described in the `sources` / `adaptders/sources.yml` files of the dashboard you want to enable (in the core repo). You will need to use 9and adapt) the following snippet to enable the dashboard.
+
+
+
+```bash
+models:
+  tbe:
+    <dashboard name>
+      +enabled: True
+    shared:
+      <dashboard source name>
+        +enabled: True
+  <css profile name>
+    <dashboard name>
+      +enabled: True
+      <custom folder with specifics names> 
+        +schema: <schema name as indicated in the core source>
+```
+
+> The following section describe the specific for each dashboard.
+
 ### Prospectif_cdep
 
 #### Data dependencies
-* **Sources** :
+* **Databases** :
   * paie
+  * gpi
+* **Sources** :
+  * *populations* : The dashboard requiers some population tables to be defined in you css-specific repository. Please, refers to `core.tbe/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
 * **Dashboards**  
 
 ### Dbt project specification
+> Update your `cssxx_tbe/dbt_project.yml` file.
 
 ```yaml
 models:
-  tbe:
-    prospectif_cdp: # Activate the dashbaord
+  tbe: # Enable the models from the core repo
+    prospectif_cdp: # Enable the prospectif_cdep
         +enabled: True
-  shared: 
-    interfaces:  # Active the paie source
-        paie:
-            +enabled: True
+    shared:
+        interfaces: # Both the paie and gpi databases are needed for this dashboard
+            paie:
+                +enabled: True
+            gpi:
+                +enabled: True
+  cssXX_tbe:  # the CSSXX_TBE is the name of your inherited project.
+    prospectif_cdp:
+      +tags: ["prospectif_cdp"]
+      populations:  # core.prospectif_cdep expects sources to be in the staging schema. So we need to override the default schema (prospectif_cdpe). Please note that the name `population` schould be adapt to the place you store your population tables.
+        +schema: 'prospectif_cdp_staging'
 ```
   
 
@@ -98,7 +146,7 @@ models:
 
 * Use your own schema for developmment, configured through the `dbt_project.yml` file.
 to be done on your own schema
-* To ease collabotion, please, use `git flow` to manage your branch and create your features. Try to rebase your branch onto `develop`.
+* To ease collaboration, please, use `git flow` to manage your branch and create your features. Try to rebase your branch onto `develop`.
 
 ## Building the documentation
 > You can build the DBT documentation with the following command
@@ -116,10 +164,19 @@ dbt docs serve
 
 #### Folders conventions
 * All the code lives in the `models` folder.
-* All the dasboards live in the `reporting` folder.
+* All the dashboards live in the `reporting` folder.
 * Each subfolder of `models` should be named after the corresponding dashboard it's belongs to (one dashboard, one folder containing it's SQL code).
   * The only exceptions is the `shared` folder. that contains code to be reused accros the various dashboards.
-  
+
+| subfolder | Description                                                                                                                                                                                                                                        
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------ |
+| adapters       | Subfolder where we specify the tables defined in the project dbt css necessary.                                                                                                                                                                                                              
+| features  | sub-folder that contains all the definitions of fact tables                                                                                                                                                                                                  
+| spines     | sub-folder that contains all the definitions of staging tables                                                                                                                                                                                                                                                                                                                                                        
+| pbi_tables    | subfolders where we store all the tables necessary for the proper functioning of the dashboard
+
+
+
 #### Variable conventions
 * Don't use spaces in your variables names
 * Please, stick to a _snake_case_ naming convention
@@ -147,7 +204,7 @@ models: # Already here, for reference only
 
 | Table type | Description                                                                                                                                                                                                                                        | Prefix   | Exemple                  |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------ |
-| fact       | Contains metrics describing a student                                                                                                                                                                                                              | fact_    | fact_eleve               |
+| fact       | Contains tables of facts                                                                                                                                                                                                              | fact_    | fact_eleve               |
 | dimension  | A map between an arbitrary ID and a friendly name                                                                                                                                                                                                  | dim_     | dim_subject_category     |
 | bridge     | A mapping of between-systems-primarish-key                                                                                                                                                                      | bridge_  | NA |
 | base       | A base table is a skeleton table used to build fact tables                                                                                                                                                                                         | base_    | NA   | 
