@@ -1,3 +1,5 @@
+{{ config(alias='fact_tps_partial') }}
+
 SELECT
     YEAR(date_entr) AS 'annee'
     , lieu_trav AS 'ecole'
