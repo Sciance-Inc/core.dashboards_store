@@ -1,8 +1,51 @@
 version: 2
 
 sources:
-  - name: interfaces
-    tags: ["interface", "local_override"]
-    schema: "{{ target.schema }}"
+
+  - name: populations
+    description: >
+      Les populations identifient des regroupement d'étudiants aux profils cohérents, tels que les élèves réguliers ou les élèeves en FGA.
+    tags: ["population", "prospectif_cdp"]
+    schema: "{{ target.schema }}_prospectif_cdp_staging"
     tables:
-      - name: i_pai_dos
+      - name: prspctf_stg_el_prescolaire
+        description: >
+          Identification de la population en maternelle 4 ans / passe partout / maternelle 5 ans.
+        columns:
+          - name: fiche
+            description: The specific fiche for a student
+          - name: id_eco
+            description: unique identifier of a school for a given year
+      - name: prspctf_stg_el_primaire_reg
+
+        description: >
+          Identification de la population au primaire avec un profil régulier.
+        columns:
+          - name: fiche
+            description: The specific fiche for a student
+          - name: id_eco
+            description: unique identifier of a school for a given year
+      - name: prspctf_stg_el_primaire_adapt
+        description: >
+          Identification de la population au primaire inscrits en adaptation scolaire.
+        columns:
+          - name: fiche
+            description: The specific fiche for a student
+          - name: id_eco
+            description: unique identifier of a school for a given year
+      - name: prspctf_stg_el_sec_reg
+        description: >
+          Identification de la population au secondaire avec un profil régulier.
+        columns:
+          - name: fiche
+            description: The specific fiche for a student
+          - name: id_eco
+            description: unique identifier of a school for a given year
+      - name: prspctf_stg_el_sec_adapt
+        description: >
+          Identification de la population au secondaire en adaptation scolaire.
+        columns:
+          - name: fiche
+            description: The specific fiche for a student
+          - name: id_eco
+            description: unique identifier of a school for a given year
