@@ -31,6 +31,9 @@ models:
                 - fact_tables
         spines:
             +schema: store_template_staging
+    emp_conge:
+        +tags: ["emp_conge"]
+        +schema: emp_conge
     prospectif_cdp:
         +tags: ["prospectif_cdp"]
         +schema: 'prospectif_cdp'
