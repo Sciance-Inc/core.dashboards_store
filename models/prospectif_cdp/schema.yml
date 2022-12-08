@@ -5,7 +5,11 @@ models:
     description: >
       Table auxilaire de resolution fiche, id_eco et contenant l'assignement d'une fiche à une population pour le calcul de métriques inter-populationelles.
     tests:
-      - resolution_fiche_id_eco
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - id_eco
+            - population
 
   - name: prspctf_base_spine
     description: >
@@ -14,7 +18,11 @@ models:
       ---
       A spine table of resolution fiche, id_eco. Used as a backbone for all the Prodrome fact tables.
     tests:
-      - resolution_fiche_id_eco
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - id_eco
+            - population
 
   - name: prspctf_fact_tps_partial
     description: >
