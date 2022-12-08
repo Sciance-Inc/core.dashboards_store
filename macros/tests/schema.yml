@@ -1,0 +1,9 @@
+version: 2
+
+macros:
+  - name: test_resolution
+    description: Test the resolution of a table
+    arguments:
+      - name: combination_of_columns
+        type: array
+        description: lists all the columns to be taken into account to test the uniqueness
