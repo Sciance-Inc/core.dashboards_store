@@ -19,7 +19,23 @@ models:
   - name: prspctf_fact_tps_partial
     description: >
       Table de faits, de résolution année / ecole, qui comptabilise le nombre d'employés à temps partiel par année et école. 
- 
+
+  - name: prspctf_fact_freq_fga
+    description: >
+      Table qui enregistre l'ensemble des fréquentations FGA. 
+
+  - name: prspctf_fact_freq_fp
+    description: >
+      Table qui enregistre l'ensemble des fréquentations FP. 
+
   - name: prspctf_nb_el_fgj
     description: >
-      Table qui comptabilise le nombre d'élèves inscrits au régulier, en FGJ par école ces 10 dernière années. 
+      Table qui comptabilise le nombre d'élèves inscrits en FGJ chaque année par école. 
+
+  - name: prspctf_nb_el_fga
+    description: >
+      Table qui comptabilise le nombre d'élèves inscrits en FGA chaque année par centre. 
+
+  - name: prspctf_nb_el_p
+    description: >
+      Table qui comptabilise le nombre d'élèves inscrits en FP chaque année par centre. 

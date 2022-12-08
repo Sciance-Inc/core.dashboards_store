@@ -114,6 +114,7 @@ models:
 * **Databases** :
   * paie
   * gpi
+  * jade
 * **Sources** :
   * *populations* : The dashboard requiers some population tables to be defined in you css-specific repository. Please, refers to `core.tbe/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
 * **Dashboards**  

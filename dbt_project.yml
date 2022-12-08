@@ -41,7 +41,6 @@ models:
             +tags:
                 - adapters
         features:
-            +schema: prospectif_cdp
             +tags:
                 - fact_tables
         spines:
@@ -65,6 +64,7 @@ vars:
     database_bi: "Replace me in the CSS repositery"
     database_paie: "Replace me in the CSS repositery"
     database_gpi: "Replace me in the CSS repositery"
+    database_jade: "Replace me in the CSS repositery"
     database_geobus: "Replace me in the CSS repositery" # contains routes, buses, contractors, student files, and related to db GPL. 
     database_piastre: "Replace me in the CSS repositery" # financial data on school transport. no connections to db Geobus.
 
