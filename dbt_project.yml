@@ -16,6 +16,13 @@ clean-targets:
     - "target"
     - "dbt_packages"
     
+seeds:
+    +enabled: False
+    res_etapes:
+        +tags: ["res_etapes"]
+        +schema: 'res_etapes_seeds'
+
+
 models:
   +materialized: table
   tbe:
@@ -49,6 +56,13 @@ models:
             +schema: prospectif_cdp_reporting
             +tags:
                 - reporting
+    res_etapes:
+        +tags: ["res_etapes"]
+        +schema: 'res_etapes'
+        pbi_tables:
+            +schema: res_etapes_reporting
+            +tags:
+                - reporting
     shared:
         +tags: shared
         +schema: 'shared'
@@ -67,4 +81,6 @@ vars:
     database_jade: "Replace me in the CSS repositery"
     database_geobus: "Replace me in the CSS repositery" # contains routes, buses, contractors, student files, and related to db GPL. 
     database_piastre: "Replace me in the CSS repositery" # financial data on school transport. no connections to db Geobus.
-
+    # res_etapes's dashboard variables:
+    res_etapes:
+        threshold: 70
