@@ -67,6 +67,7 @@ cssxx_prodrome:
 | prospectif_cdep  |  High-level metrics to be looked at by the c-levels	| Mohamed Sadqi (CSSVDC)	| 
 | transport  |  Operational dashboard. To track the financial metrics of the school board transportation system	| Maryna Zhuravlova (CSSHR)	|
 | emo_conge | Monitor employees absences and leaves 	| Gabriel Thiffault (CSSVT)	|
+| res_etapes | Track the percentage of success for each one of the mandatory and optional evaluations of the schoold board | hugo juhel, Mohamed Sadqi (CSSVDC)	|
 
 ## Dashboards depencies and datasources
 > For a dashboard to be computed, the analyst must ensure that the required datasources are available in the analytical server.
@@ -119,7 +120,7 @@ models:
   * *populations* : The dashboard requiers some population tables to be defined in you css-specific repository. Please, refers to `core.tbe/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
 * **Dashboards**  
 
-### Dbt project specification
+#### Dbt project specification
 > Update your `cssxx_tbe/dbt_project.yml` file.
 
 ```yaml
@@ -139,7 +140,75 @@ models:
       populations:  # core.prospectif_cdep expects sources to be in the staging schema. So we need to override the default schema (prospectif_cdpe). Please note that the name `population` schould be adapt to the place you store your population tables.
         +schema: 'prospectif_cdp_staging'
 ```
+
+### resultats_etapes
+> Provides a quick overview of the results of the mandatory and optional evaluations by the school board.
   
+#### Data dependencies
+* **Databases** :
+  * gpi
+* **Sources** :
+* **Dashboards**  
+
+#### Dbt project specification
+> Update your `cssxx_tbe/dbt_project.yml` file.
+> This table needs some seeds. Make sure to run `dbt seed --full-refresh` to populate the seeds.
+
+```yaml
+seeds:
+    tbe:
+        res_etapes:
+            +tags: ["res_etapes"]
+            +schema: 'res_etapes_seeds'
+            +enabled: True
+    -- Add, if any, a CSV named `custom_subject_evaluation` with your `in-house` evaluations
+    cssXXX_tbe:
+        res_etapes:
+            +tags: ["res_etapes"]
+            +schema: 'res_etapes_seeds'
+
+models:
+  tbe: # Enable the models from the core repo
+    res_etapes:
+      +enabled: True
+    shared:
+        interfaces: # The dashboard only needs the GPI database
+            gpi:
+                +enabled: True
+```
+### Adding a specific list of `in-house` evaluations
+> This step is optional. By default, the dashboard will track the mandatory evaluations only.
+
+* Add a CSV named `custom_subject_evaluation` here :  `cssXX/seeds/res_etapes/custom_subject_evaluation.csv`
+* Add a `schema.yml` file here : `cssXX/seeds/res_etapes/schema.yml` (with the following content) :
+
+```yaml
+version: 2
+
+seeds:
+  - name: custom_subject_evaluation
+    description: Custom mapping of the custom evaluations to their cod_matiere
+    config:
+      column_types:
+        cod_matiere: varchar(32)
+        no_competence: varchar(32)
+        cod_etape: varchar(32)
+        friendly_name: varchar(64)
+```
+
+Populate the `csv`, with the 4 columns. Use the `GPI.Edo.ResultatsCompetenceEtape` table to find the appropriate mapping.
+
+### Setting a custom `threshold`
+> The threshold is used to compute the identify the overachieving students. It is set to 70% by default.
+
+You can override the default threshold by adding the following var in your `dbt_project.yml` file.
+
+```yaml
+vars:
+    # res_etapes's dashboard variables:
+    res_etapes:
+        threshold: 70
+```
 
 # Contributing guidelines
 

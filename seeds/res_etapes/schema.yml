@@ -1,0 +1,10 @@
+version: 2
+
+seeds:
+  - name: default_subject_evaluation
+    description: Mapping of the mandatory evaluation to their cod_matiere
+    config:
+      column_types:
+        code_matiere: varchar(32)
+        no_competence: varchar(32)
+        friendly_name: varchar(64)
