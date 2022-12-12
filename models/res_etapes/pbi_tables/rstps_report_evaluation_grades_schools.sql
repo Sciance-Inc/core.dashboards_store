@@ -66,6 +66,7 @@ WITH agg AS (
 -- Add the school friendly name
 SELECT 
     -- Dimensions
+    {{ dbt_utils.surrogate_key(['dim.annee', 'stats.friendly_name']) }} as id_friendly_name,
     dim.annee,
     dim.ecole,
     dim.nom_ecole,
