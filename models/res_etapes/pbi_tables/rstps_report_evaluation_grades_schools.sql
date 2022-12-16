@@ -54,8 +54,8 @@ WITH agg AS (
             resultat_avg,
             resultat_stdev,
             -- Add the RUNNING raw statistics
-            SUM(resultat_avg) OVER (PARTITION BY ecole, friendly_name ORDER BY annee ROWS BETWEEN 5 PRECEDING AND CURRENT ROW) AS running_resultat_avg,
-            SUM(resultat_stdev) OVER (PARTITION BY ecole, friendly_name ORDER BY annee ROWS BETWEEN 5 PRECEDING AND CURRENT ROW) AS running_resultat_stdev,
+            SUM(resultat_avg * n_obs) OVER (PARTITION BY ecole, friendly_name ORDER BY annee ROWS BETWEEN 5 PRECEDING AND CURRENT ROW) AS running_resultat_avg,
+            SUM(resultat_stdev * n_obs) OVER (PARTITION BY ecole, friendly_name ORDER BY annee ROWS BETWEEN 5 PRECEDING AND CURRENT ROW) AS running_resultat_stdev,
             SUM(n_success) OVER (PARTITION BY ecole, friendly_name ORDER BY annee ROWS BETWEEN 5 PRECEDING AND CURRENT ROW) AS running_success,
             SUM(n_success_threshold) OVER (PARTITION BY ecole, friendly_name ORDER BY annee ROWS BETWEEN 5 PRECEDING AND CURRENT ROW) AS running_thresholded_success,
             SUM(n_obs) OVER (PARTITION BY ecole, friendly_name ORDER BY annee ROWS BETWEEN 5 PRECEDING AND CURRENT ROW) AS running_count
