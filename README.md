@@ -109,6 +109,61 @@ models:
 
 > The following section describe the specific for each dashboard.
 
+
+### Transport
+> This dashboard shows operational data about the schoolboard transport system.
+
+#### Data dependencies
+> Thoose dependies schould be toogle on for the models to be computed.
+* **Databases** :
+   * geobus  #  schoolboard transport
+   * piastre #  payment system for the schoolboard transport
+* **Sources** :
+  * *pdatabase_geobus* : The dashboard requiers some population tables to be defined in you css-specific repository. Please, refers to `core.tbe/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
+* **Dashboards**  
+
+### Dbt project specification
+> Update your `cssxx_tbe/dbt_project.yml` file.
+
+```yaml
+models:
+  tbe: # Enable the models from the core repo
+    prospectif_cdp: # Enable the prospectif_cdep
+        +enabled: True
+    shared:
+transport:
+        +tags: ["transport"]
+        +schema: 'transport_gbus_anne'
+
+        name: i_geobus_parc
+    tags: ["interface"]
+    shared:
+        +tags: shared
+        +schema: 'shared'
+        bridges:
+            +schema: shared_staging
+        
+    shared: 
+      interfaces:  # Active the paie source
+          geobus:
+            +enabled: True
+```
+
+### Dbt project specification
+
+```yaml
+models:
+  tbe:
+    transport: # Activate the dashbaord
+        +enabled: True
+    shared: 
+      interfaces:  # Active the piastre source
+          geobus:
+            +enabled: True
+          piastre:
+            +enabled: True
+```
+
 ### Prospectif_cdep
 
 #### Data dependencies
@@ -139,6 +194,10 @@ models:
       +tags: ["prospectif_cdp"]
       populations:  # core.prospectif_cdep expects sources to be in the staging schema. So we need to override the default schema (prospectif_cdpe). Please note that the name `population` schould be adapt to the place you store your population tables.
         +schema: 'prospectif_cdp_staging'
+    shared: 
+      interfaces:  # Active the paie source
+          paie:
+            +enabled: True
 ```
 
 ### resultats_etapes
@@ -267,6 +326,8 @@ models: # Already here, for reference only
       +tags: ['dummy']
       +schema: 'dummy'
 ```
+### Naming conventions
+* use _snake_case_ to names your variables.
 
 #### Table conventions
 * Use _snake_case_ naming conventions.
