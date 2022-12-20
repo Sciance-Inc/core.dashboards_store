@@ -43,6 +43,7 @@ models:
         +schema: emp_conge
     prospectif_cdp:
         +tags: ["prospectif_cdp"]
+        +materialized: table
         +schema: 'prospectif_cdp'
         adapters:
             +tags:
@@ -56,6 +57,13 @@ models:
             +schema: prospectif_cdp_reporting
             +tags:
                 - reporting
+    transport:
+        +enabled: True
+        +tags: ["transport"]
+        +schema: 'transport_intern'
+        pbi_tables:
+            - parcurs_transport_par10y
+    
     res_etapes:
         +tags: ["res_etapes"]
         +schema: 'res_etapes'
