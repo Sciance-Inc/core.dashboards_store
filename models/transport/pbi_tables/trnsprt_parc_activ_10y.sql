@@ -1,3 +1,8 @@
+{{ config(
+    alias='parc_activ_10y', 
+    ) 
+}}
+
 SELECT DISTINCT 
       annee
       , CASE 
