@@ -1,13 +1,14 @@
-SELECT Annee
-    ,CODE_SIMUL
-    ,CODE_CONTRAT
-    ,TYPE_CONTRAT
-    ,DESCR
-    ,CODE_TRANSP
-    ,CODE_CAL
-    ,DATE_DEB
-    ,DATE_FIN
-    ,POSTE_BUD_AM_PM_REG
-    ,DATE_MODIF
+SELECT 
+    Annee AS annee
+    , code_simul
+    , code_contrat
+    , type_contrat
+    , descr
+    , code_transp
+    , code_cal
+    , date_deb
+    , date_fin
+    , poste_bud_am_pm_reg
+    , date_modif
 FROM 
-    {{ var("database_piastre") }}.dbo.PIA_CONTRAT
+    {{ var("database_piastre") }}.dbo.pia_contrat
