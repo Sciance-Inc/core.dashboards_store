@@ -128,10 +128,10 @@ models:
 ```yaml
 models:
   tbe:
-    transport: # Activate the dashbaord
+    transport: # Activate the dashboard
         +enabled: True
     shared: 
-      interfaces:  # Active the piastre source
+      interfaces:  # Active the geobus source
           geobus:
             +enabled: True
 ```
