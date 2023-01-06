@@ -22,7 +22,6 @@ seeds:
         +tags: ["res_etapes"]
         +schema: 'res_etapes_seeds'
 
-
 models:
   +materialized: table
   tbe:
@@ -58,12 +57,12 @@ models:
             +tags:
                 - reporting
     transport:
-        +enabled: True
         +tags: ["transport"]
-        +schema: 'transport_intern'
+        +schema: 'transport'
         pbi_tables:
-            - parcurs_transport_par10y
-    
+            +schema: transport_reporting 
+            +tags:
+                - reporting 
     res_etapes:
         +tags: ["res_etapes"]
         +schema: 'res_etapes'
