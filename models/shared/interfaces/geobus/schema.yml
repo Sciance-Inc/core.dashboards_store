@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: i_geobus_parc
+    tags: ["interface"]
+    description: >
+      Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table GEO_P_PARC de la base de données source.

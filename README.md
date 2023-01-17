@@ -109,6 +109,33 @@ models:
 
 > The following section describe the specific for each dashboard.
 
+
+### Transport
+> This dashboard shows operational data about the schoolboard transport system.
+
+#### Data dependencies
+> Thoose dependies schould be toogle on for the models to be computed.
+* **Databases** :
+   * geobus  #  schoolboard transport
+   * piastre #  payment system for the schoolboard transport
+* **Sources** :
+  * *database_geobus*
+* **Dashboards**  
+
+### Dbt project specification
+> Update your `cssxx_tbe/dbt_project.yml` file.
+
+```yaml
+models:
+  tbe:
+    transport: # Activate the dashboard
+        +enabled: True
+    shared: 
+      interfaces:  # Active the geobus source
+          geobus:
+            +enabled: True
+```
+
 ### Prospectif_cdep
 
 #### Data dependencies
@@ -139,6 +166,10 @@ models:
       +tags: ["prospectif_cdp"]
       populations:  # core.prospectif_cdep expects sources to be in the staging schema. So we need to override the default schema (prospectif_cdpe). Please note that the name `population` schould be adapt to the place you store your population tables.
         +schema: 'prospectif_cdp_staging'
+    shared: 
+      interfaces:  # Active the paie source
+          paie:
+            +enabled: True
 ```
 
 ### resultats_etapes
@@ -267,6 +298,8 @@ models: # Already here, for reference only
       +tags: ['dummy']
       +schema: 'dummy'
 ```
+### Naming conventions
+* use _snake_case_ to names your variables.
 
 #### Table conventions
 * Use _snake_case_ naming conventions.
