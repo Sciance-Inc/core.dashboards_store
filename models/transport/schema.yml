@@ -1,0 +1,6 @@
+version: 2
+
+models:
+  - name: trnsprt_parc_activ_10y
+    description: >
+      Table de faits, de résolution parcuer/Circuit, qui  inscrits ces 10 dernieres années. 

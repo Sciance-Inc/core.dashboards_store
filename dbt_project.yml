@@ -22,7 +22,6 @@ seeds:
         +tags: ["res_etapes"]
         +schema: 'res_etapes_seeds'
 
-
 models:
   +materialized: table
   tbe:
@@ -43,6 +42,7 @@ models:
         +schema: emp_conge
     prospectif_cdp:
         +tags: ["prospectif_cdp"]
+        +materialized: table
         +schema: 'prospectif_cdp'
         adapters:
             +tags:
@@ -56,6 +56,13 @@ models:
             +schema: prospectif_cdp_reporting
             +tags:
                 - reporting
+    transport:
+        +tags: ["transport"]
+        +schema: 'transport'
+        pbi_tables:
+            +schema: transport_reporting 
+            +tags:
+                - reporting 
     res_etapes:
         +tags: ["res_etapes"]
         +schema: 'res_etapes'
