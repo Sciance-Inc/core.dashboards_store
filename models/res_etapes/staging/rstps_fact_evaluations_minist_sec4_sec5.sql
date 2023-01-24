@@ -19,7 +19,7 @@ WITH resmin AS (
         , CASE WHEN resoffconv > 59 THEN 'R' ELSE 'E' END AS code_reussite
     FROM {{ ref('i_e_ri_resultats')}} AS resmin
     WHERE mois_resultat = '6' AND annee NOT IN ('2019', '2020') AND typeformcharl = 'FG' AND secteurEnseignFreq = 'JE'
-), AS srcmin (
+), AS srcmini (
     SELECT 
         ele.fiche
         , ele.annee 
@@ -30,4 +30,4 @@ WITH resmin AS (
     FROM {{ ref('i_e_ele')}} AS ele
     LEFT JOIN resmin AS resmin ON resmin.fiche = ele.fiche AND resmin.annee = ele.annee
 )
-SELECT * FROM srcmin
+SELECT * FROM srcmini
