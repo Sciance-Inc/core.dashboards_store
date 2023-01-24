@@ -33,8 +33,8 @@ WITH res as (
         resmin.resultat, 
         resmin.resultat_numerique, 
         resmin.code_reussite
-    FROM "tbe_dev"."dbo_sadqimo_res_etapes"."dim_subject_evaluation" AS dim
-    JOIN "tbe_dev"."dbo_sadqimo_res_etapes_staging"."fact_evaluations_minist_sec4_sec5" AS resmin
+    FROM {{ ref('rstps_dim_subject_evaluation')}} AS dim
+    JOIN {{ ref('rstps_fact_evaluations_minist_sec4_sec5')}} AS resmin
     ON dim.code_matiere = resmin.code_matiere
 	where resmin.ecole != ''
 )

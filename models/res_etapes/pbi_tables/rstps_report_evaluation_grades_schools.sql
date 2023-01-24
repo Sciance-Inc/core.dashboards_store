@@ -29,7 +29,7 @@ WITH agg AS (
         annee,
         ecole,
         friendly_name,
-        {{ dbt_utils.surrogate_key(['annee', 'friendly_name']) }} as id_friendly_name,
+        {{ dbt_utils.generate_surrogate_key(['annee', 'friendly_name']) }} as id_friendly_name,
         -- Compute the point-in-time statistics
         n_obs,
         resultat_avg,
