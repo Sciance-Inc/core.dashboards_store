@@ -178,7 +178,10 @@ models:
 #### Data dependencies
 * **Databases** :
   * gpi
+  * jade (jeunes)
 * **Sources** :
+  * *edo.ResultatsCompetenceEtape* : contains results of the mandatory and optional evaluations corrected by the CSS
+  * *dbo.E_RI_Resultats* : contains results of the mandatory and optional evaluations corrected by the MEQ
 * **Dashboards**  
 
 #### Dbt project specification
@@ -240,7 +243,17 @@ vars:
     res_etapes:
         threshold: 70
 ```
+### Setting a custom `cod_css`
+> cod_css will be used to filter Jade table by the organisation code to exclude student belonging to other CSS
 
+You can set it by adding the following var in your `dbt_project.yml` file.
+
+```yaml
+vars:
+    # res_etapes's dashboard variables:
+    res_etapes:
+        cod_css: ###% --the first 3 digits of your organization code
+```
 # Contributing guidelines
 
 **Read me first**
