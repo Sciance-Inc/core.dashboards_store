@@ -15,5 +15,7 @@ SELECT
     , ResOffConv AS resoffconv
     , ResOffFinal AS resofffinal
     , Annee AS annee
+    , typeformcharl  
+    , secteurEnseignFreq AS secteurenseignfreq
 FROM 
     {{ var("database_jade") }}.dbo.E_RI_Resultats
