@@ -91,3 +91,4 @@ vars:
     # res_etapes's dashboard variables:
     res_etapes:
         threshold: 70
+        cod_css: "Replace me in the CSS repositery"
