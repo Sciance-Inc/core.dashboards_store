@@ -17,7 +17,8 @@ models:
   
   - name: rstps_fact_evaluations_minist_sec4_sec5
     description: >
-      La table extrait les données relatives au épreuves ministéerielles uniques et les adaptent à la forme des données des autre épreuves(locales et obligatoires)
+      La table extrait les données relatives au épreuves ministéerielles uniques et les adaptent à la forme des données des autres épreuves(locales et obligatoires)
+  
   - name: rstps_report_evaluation_grades_schools
     description:
       La table calcule des métriques de taux de succès par évaluation (obligatoire ou maison), par établissement et par année.
