@@ -1,7 +1,0 @@
-models:
-  - name: stg_parc_activ_10y
-    tags: ["stg_parc_activ_10y"]
-    description: >
-      Table de faits, de résolution parcuer/Circuit, qui  inscrits ces 10 dernieres années. 
-    tests:
-      - stg_parc_activ_10y
