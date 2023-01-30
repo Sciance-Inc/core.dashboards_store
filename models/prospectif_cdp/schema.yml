@@ -44,6 +44,6 @@ models:
     description: >
       Table qui comptabilise le nombre d'élèves inscrits en FGA chaque année par centre. 
 
-  - name: prspctf_nb_el_p
+  - name: prspctf_nb_el_fp
     description: >
       Table qui comptabilise le nombre d'élèves inscrits en FP chaque année par centre. 

@@ -119,7 +119,7 @@ models:
    * geobus  #  schoolboard transport
    * piastre #  payment system for the schoolboard transport
 * **Sources** :
-  * *pdatabase_geobus* : The dashboard requiers some population tables to be defined in you css-specific repository. Please, refers to `core.tbe/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
+  * *database_geobus*
 * **Dashboards**  
 
 ### Dbt project specification
@@ -127,40 +127,12 @@ models:
 
 ```yaml
 models:
-  tbe: # Enable the models from the core repo
-    prospectif_cdp: # Enable the prospectif_cdep
-        +enabled: True
-    shared:
-transport:
-        +tags: ["transport"]
-        +schema: 'transport_gbus_anne'
-
-        name: i_geobus_parc
-    tags: ["interface"]
-    shared:
-        +tags: shared
-        +schema: 'shared'
-        bridges:
-            +schema: shared_staging
-        
-    shared: 
-      interfaces:  # Active the paie source
-          geobus:
-            +enabled: True
-```
-
-### Dbt project specification
-
-```yaml
-models:
   tbe:
-    transport: # Activate the dashbaord
+    transport: # Activate the dashboard
         +enabled: True
     shared: 
-      interfaces:  # Active the piastre source
+      interfaces:  # Active the geobus source
           geobus:
-            +enabled: True
-          piastre:
             +enabled: True
 ```
 
