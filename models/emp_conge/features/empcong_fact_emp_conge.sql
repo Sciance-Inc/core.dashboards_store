@@ -1,3 +1,4 @@
+
 {{ config(alias='fact_emp_conge') }}
 
 WITH employes AS (
