@@ -7,6 +7,12 @@ models:
       La table est constuite en unionant la dimension par défaut (core/seeds/res_etapes/default_subject_evaluation.csv) et la dimension custom (cssss/seeds/res_etapes/custom_subject_evaluation.csv).
       La table `custom` peut-etre adaptée pour chaque CSS pour rajouter des épreuves.
 
+  - name: rstps_fact_evaluations_grades_from_dim
+    description: >
+      La table regroupe les notes des matières sujettes à examens. 
+      Cette table accumule les résultats pour les matières identifées dans 'rstps_dim_subject_evaluation'.
+      Elle sert de point d'entrée à la table 'rstps_fact_evaluations_grades' qui combine ces résultats à ceux d'une éventuelle table custom.
+
   - name: rstps_dim_unique_subj_evaluation
     description: >
       La table constitue une liste de clé unique (nom de l'épreuve+année) pour servire de jointure entre les deux table de reporting 
