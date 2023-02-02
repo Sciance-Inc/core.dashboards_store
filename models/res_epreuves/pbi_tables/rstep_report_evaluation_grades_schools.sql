@@ -17,7 +17,7 @@ WITH agg AS (
         CAST(SUM(cod_reussite_threshold) AS float) AS n_success_threshold,
         AVG(resultat_numerique) AS resultat_avg,
         COALESCE(STDEV(resultat_numerique), 0) AS resultat_stdev
-    FROM {{ ref('rstps_fact_evaluations_grades') }}
+    FROM {{ ref('rstep_fact_evaluations_grades') }}
     GROUP BY
         annee,
         ecole,
@@ -70,7 +70,7 @@ WITH agg AS (
     (stats.resultat_avg)-(stcss.resultat_avg) AS ecart_resultat_avg,
     (stats.resultat_stdev)-(stcss.resultat_stdev) AS ecart_resultat_stdev
 FROM stats
-LEFT JOIN {{ ref('rstps_report_evaluation_grades') }} AS stcss
+LEFT JOIN {{ ref('rstep_report_evaluation_grades') }} AS stcss
 ON stats.id_friendly_name = stcss.id_friendly_name 
 )
 -- Add the school friendly name

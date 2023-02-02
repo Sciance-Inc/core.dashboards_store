@@ -1,10 +1,10 @@
 
 {#
-    Extract the grades from the resultatsCompentenceEtape using the data provided by the rstps_dim_subject_evaluation.
+    Extract the grades from the resultatsCompentenceEtape using the data provided by the rstep_dim_subject_evaluation.
 #}
 
 {{ config(
-    alias='rstps_fact_evaluations_grades_from_dim'
+    alias='fact_evaluations_grades_from_dim'
     ) 
 }}
 
@@ -17,7 +17,7 @@ WITH res as (
         res.resultat, 
         res.resultat_numerique, 
         res.code_reussite
-    FROM {{ ref('rstps_dim_subject_evaluation') }} AS dim
+    FROM {{ ref('rstep_dim_subject_evaluation') }} AS dim
     left JOIN {{ ref('i_gpm_edo_resultatsCompetenceEtape')}} AS res
     ON 
         dim.code_matiere = res.code_matiere and
@@ -32,8 +32,8 @@ WITH res as (
         resmin.resultat, 
         resmin.resultat_numerique, 
         resmin.code_reussite
-    FROM {{ ref('rstps_dim_subject_evaluation')}} AS dim
-    JOIN {{ ref('rstps_fact_evaluations_minist_sec4_sec5')}} AS resmin
+    FROM {{ ref('rstep_dim_subject_evaluation')}} AS dim
+    JOIN {{ ref('rstep_fact_evaluations_minist_sec4_sec5')}} AS resmin
     ON dim.code_matiere = resmin.code_matiere
 	where resmin.ecole != ''
 )

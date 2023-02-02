@@ -5,7 +5,7 @@
 
 {{ config(
     alias='fact_evaluations_minist_sec4_sec5', 
-    schema='res_etapes_staging'
+    schema='res_epreuves_staging'
     ) 
 }}
 WITH resmin AS (
@@ -14,15 +14,15 @@ WITH resmin AS (
         , ecole
         , matiere AS code_matiere
         , annee 
-        , resoffconv AS resultat
-        , resoffconv AS resultat_numerique
-        , CASE WHEN resoffconv > 59 THEN 'R' ELSE 'E' END AS code_reussite
+        , res_off_conv AS resultat
+        , res_off_conv AS resultat_numerique
+        , CASE WHEN res_off_conv > 59 THEN 'R' ELSE 'E' END AS code_reussite
     FROM {{ ref('i_e_ri_resultats')}} AS resmin
     WHERE mois_resultat = '6' 
         AND annee NOT IN ('2019', '2020')
-        AND typeformcharl = 'FG'
-        AND secteurenseignfreq = 'JE'
-       AND ecole LIKE ('{{ var('res_etapes')['cod_css'] }}' )
+        AND type_form_charl = 'FG'
+        AND secteur_enseign_freq = 'JE'
+       AND ecole LIKE ('{{ var('res_epreuves')['cod_css'] }}' )
  --       AND ecole like ('866%')
 )
 SELECT * FROM resmin

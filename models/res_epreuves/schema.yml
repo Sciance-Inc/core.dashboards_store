@@ -1,35 +1,35 @@
 version: 2
 
 models:
-  - name: rstps_dim_subject_evaluation
+  - name: rstep_dim_subject_evaluation
     description: >
       Table de dimensions mappant à chaque épreuve unique / obligatoire / maison, les codes_matières, les no_competences et les cod_etapes requis.
-      La table est constuite en unionant la dimension par défaut (core/seeds/res_etapes/default_subject_evaluation.csv) et la dimension custom (cssss/seeds/res_etapes/custom_subject_evaluation.csv).
+      La table est constuite en unionant la dimension par défaut (core/seeds/res_epreuves/default_subject_evaluation.csv) et la dimension custom (cssss/seeds/res_epreuves/custom_subject_evaluation.csv).
       La table `custom` peut-etre adaptée pour chaque CSS pour rajouter des épreuves.
 
-  - name: rstps_fact_evaluations_grades_from_dim
+  - name: rstep_fact_evaluations_grades_from_dim
     description: >
       La table regroupe les notes des matières sujettes à examens. 
-      Cette table accumule les résultats pour les matières identifées dans 'rstps_dim_subject_evaluation'.
-      Elle sert de point d'entrée à la table 'rstps_fact_evaluations_grades' qui combine ces résultats à ceux d'une éventuelle table custom.
+      Cette table accumule les résultats pour les matières identifées dans 'rstep_dim_subject_evaluation'.
+      Elle sert de point d'entrée à la table 'rstep_fact_evaluations_grades' qui combine ces résultats à ceux d'une éventuelle table custom.
 
-  - name: rstps_dim_unique_subj_evaluation
+  - name: rstep_dim_unique_subj_evaluation
     description: >
       La table constitue une liste de clé unique (nom de l'épreuve+année) pour servire de jointure entre les deux table de reporting 
   
-  - name: rstps_fact_evaluations_grades
+  - name: rstep_fact_evaluations_grades
     description: >
-      La table regroupe les notes des matières sujettes à examens. Cette table accumulate à la fois les résultats extrait par le processus automatique basé sur rstps_dim_subject_evaluation et aussi les éventuelles tables customs (to be done.)
+      La table regroupe les notes des matières sujettes à examens. Cette table accumulate à la fois les résultats extrait par le processus automatique basé sur rstep_dim_subject_evaluation et aussi les éventuelles tables customs (to be done.)
   
-  - name: rstps_fact_evaluations_minist_sec4_sec5
+  - name: rstep_fact_evaluations_minist_sec4_sec5
     description: >
       La table extrait les données relatives au épreuves ministéerielles uniques et les adaptent à la forme des données des autres épreuves(locales et obligatoires)
   
-  - name: rstps_report_evaluation_grades_schools
+  - name: rstep_report_evaluation_grades_schools
     description:
       La table calcule des métriques de taux de succès par évaluation (obligatoire ou maison), par établissement et par année.
   
-  - name: rstps_report_evaluation_grades
+  - name: rstep_report_evaluation_grades
     description:
       La table calcule des métriques de taux de succès par évaluation (obligatoire ou maison) par année, au niveau (aggrégé) du CSS.
   
