@@ -16,7 +16,7 @@ WITH agg AS (
         CAST(SUM(cod_reussite_threshold) AS float) AS n_success_threshold,
         AVG(resultat_numerique) AS resultat_avg,
         COALESCE(STDEV(resultat_numerique), 0) AS resultat_stdev
-    FROM {{ ref('rstps_fact_evaluations_grades') }}
+    FROM {{ ref('rstep_fact_evaluations_grades') }}
     GROUP BY
         annee,
         friendly_name
@@ -62,7 +62,7 @@ WITH agg AS (
 -- Add the school friendly name
 SELECT 
     -- Dimensions
-    {{ dbt_utils.surrogate_key(['stats.annee', 'stats.friendly_name']) }} as id_friendly_name,
+    {{ dbt_utils.generate_surrogate_key(['stats.annee', 'stats.friendly_name']) }} as id_friendly_name,
     stats.annee,
     stats.friendly_name,
     -- Metrics

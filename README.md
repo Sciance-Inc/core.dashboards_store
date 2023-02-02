@@ -67,7 +67,7 @@ cssxx_prodrome:
 | prospectif_cdep  |  High-level metrics to be looked at by the c-levels	| Mohamed Sadqi (CSSVDC)	| 
 | transport  |  Operational dashboard. To track the financial metrics of the school board transportation system	| Maryna Zhuravlova (CSSHR)	|
 | emo_conge | Monitor employees absences and leaves 	| Gabriel Thiffault (CSSVT)	|
-| res_etapes | Track the percentage of success for each one of the mandatory and optional evaluations of the schoold board | hugo juhel, Mohamed Sadqi (CSSVDC)	|
+| res_epreuves | Track the percentage of success for each one of the mandatory and optional evaluations of the schoold board | hugo juhel, Mohamed Sadqi (CSSVDC)	|
 
 ## Dashboards depencies and datasources
 > For a dashboard to be computed, the analyst must ensure that the required datasources are available in the analytical server.
@@ -178,7 +178,10 @@ models:
 #### Data dependencies
 * **Databases** :
   * gpi
+  * jade (jeunes)
 * **Sources** :
+  * *edo.ResultatsCompetenceEtape* : contains results of the mandatory and optional evaluations corrected by the CSS
+  * *dbo.E_RI_Resultats* : contains results of the mandatory and optional evaluations corrected by the MEQ
 * **Dashboards**  
 
 #### Dbt project specification
@@ -188,19 +191,19 @@ models:
 ```yaml
 seeds:
     tbe:
-        res_etapes:
-            +tags: ["res_etapes"]
-            +schema: 'res_etapes_seeds'
+        res_epreuves:
+            +tags: ["res_epreuves"]
+            +schema: 'res_epreuves_seeds'
             +enabled: True
     -- Add, if any, a CSV named `custom_subject_evaluation` with your `in-house` evaluations
     cssXXX_tbe:
-        res_etapes:
-            +tags: ["res_etapes"]
-            +schema: 'res_etapes_seeds'
+        res_epreuves:
+            +tags: ["res_epreuves"]
+            +schema: 'res_epreuves_seeds'
 
 models:
   tbe: # Enable the models from the core repo
-    res_etapes:
+    res_epreuves:
       +enabled: True
     shared:
         interfaces: # The dashboard only needs the GPI database
@@ -210,8 +213,8 @@ models:
 ### Adding a specific list of `in-house` evaluations
 > This step is optional. By default, the dashboard will track the mandatory evaluations only.
 
-* Add a CSV named `custom_subject_evaluation` here :  `cssXX/seeds/res_etapes/custom_subject_evaluation.csv`
-* Add a `schema.yml` file here : `cssXX/seeds/res_etapes/schema.yml` (with the following content) :
+* Add a CSV named `custom_subject_evaluation` here :  `cssXX/seeds/res_epreuves/custom_subject_evaluation.csv`
+* Add a `schema.yml` file here : `cssXX/seeds/res_epreuves/schema.yml` (with the following content) :
 
 ```yaml
 version: 2
@@ -236,11 +239,21 @@ You can override the default threshold by adding the following var in your `dbt_
 
 ```yaml
 vars:
-    # res_etapes's dashboard variables:
-    res_etapes:
+    # res_epreuves's dashboard variables:
+    res_epreuves:
         threshold: 70
 ```
+### Setting a custom `cod_css`
+> cod_css will be used to filter Jade table by the organisation code to exclude student belonging to other CSS
 
+You can set it by adding the following var in your `dbt_project.yml` file.
+
+```yaml
+vars:
+    # res_epreuves's dashboard variables:
+    res_epreuves:
+        cod_css: ###% --the first 3 digits of your organization code
+```
 # Contributing guidelines
 
 **Read me first**

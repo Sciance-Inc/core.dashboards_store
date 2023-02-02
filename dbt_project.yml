@@ -18,9 +18,9 @@ clean-targets:
     
 seeds:
     +enabled: False
-    res_etapes:
-        +tags: ["res_etapes"]
-        +schema: 'res_etapes_seeds'
+    res_epreuves:
+        +tags: ["res_epreuves"]
+        +schema: 'res_epreuves_seeds'
 
 models:
   +materialized: table
@@ -63,11 +63,15 @@ models:
             +schema: transport_reporting 
             +tags:
                 - reporting 
-    res_etapes:
-        +tags: ["res_etapes"]
-        +schema: 'res_etapes'
+    res_epreuves:
+        +tags: ["res_epreuves"]
+        +schema: 'res_epreuves'
+        staging:
+            +schema: res_epreuves_staging
+            +tags:
+                - staging            
         pbi_tables:
-            +schema: res_etapes_reporting
+            +schema: res_epreuves_reporting
             +tags:
                 - reporting
     shared:
@@ -88,6 +92,7 @@ vars:
     database_jade: "Replace me in the CSS repositery"
     database_geobus: "Replace me in the CSS repositery" # contains routes, buses, contractors, student files, and related to db GPL. 
     database_piastre: "Replace me in the CSS repositery" # financial data on school transport. no connections to db Geobus.
-    # res_etapes's dashboard variables:
-    res_etapes:
+    # res_epreuves's dashboard variables:
+    res_epreuves:
         threshold: 70
+        cod_css: "Replace me in the CSS repositery"
