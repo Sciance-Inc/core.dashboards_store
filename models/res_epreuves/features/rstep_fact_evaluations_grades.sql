@@ -22,8 +22,8 @@ SELECT
     END AS cod_reussite,
     -- Create a customly thresolded code reussite.
     CASE 
-        WHEN resultat_numerique >= {{ var('res_etapes', {'threshold': 70})['threshold'] }} THEN 1
+        WHEN resultat_numerique >= {{ var('res_epreuves', {'threshold': 70})['threshold'] }} THEN 1
         ELSE 0
     END AS cod_reussite_threshold
-FROM {{ ref('rstps_fact_evaluations_grades_from_dim') }}
+FROM {{ ref('rstep_fact_evaluations_grades_from_dim') }}
 WHERE resultat_numerique IS NOT NULL 
