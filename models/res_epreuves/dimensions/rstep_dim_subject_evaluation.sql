@@ -6,19 +6,19 @@
     The code check for the custom table existence and adds it to the default table
     For the CUSTOM table to be detected, the table must be :
         * named 'custom_subject_evaluation'
-        * located in the schema 'res_etapes_seeds'
+        * located in the schema 'res_epreuves_seeds'
 #}
 {{ config(alias='dim_subject_evaluation') }}
 
 {%- set source_relation = adapter.get_relation(
       database=target.database,
-      schema=target.schema +'_res_etapes_seeds',
+      schema=target.schema +'_res_epreuves_seeds',
       identifier='custom_subject_evaluation') -%}
 {% set table_exists=source_relation is not none %}
 
 {% if table_exists %}
     {% if execute %}
-    {{ log("The seed '*_res_etapes_seeds.custom_subject_evaluation' DOES EXIST and will be added to the 'default_subject_evaluation'", true) }}
+    {{ log("The seed '*_res_epreuves_seeds.custom_subject_evaluation' DOES EXIST and will be added to the 'default_subject_evaluation'", true) }}
     {% endif %}
 
 SELECT 
@@ -37,7 +37,7 @@ from {{ source_relation }}
 
 {% else %}
     {% if execute %}
-    {{ log("The seed '*_res_etapes_seeds.custom_subject_evaluation' DOES NOT exists. The 'rstp_dim_subject_evaluation' table will be defaulted to 'default_subject_evaluation'.", true) }}
+    {{ log("The seed '*_res_epreuves_seeds.custom_subject_evaluation' DOES NOT exists. The 'rstp_dim_subject_evaluation' table will be defaulted to 'default_subject_evaluation'.", true) }}
     {% endif %}
 
 SELECT 

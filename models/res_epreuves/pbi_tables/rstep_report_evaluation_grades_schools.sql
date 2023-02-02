@@ -17,7 +17,7 @@ WITH agg AS (
         CAST(SUM(cod_reussite_threshold) AS float) AS n_success_threshold,
         AVG(resultat_numerique) AS resultat_avg,
         COALESCE(STDEV(resultat_numerique), 0) AS resultat_stdev
-    FROM {{ ref('rstps_fact_evaluations_grades') }}
+    FROM {{ ref('rstep_fact_evaluations_grades') }}
     GROUP BY
         annee,
         ecole,
@@ -29,6 +29,7 @@ WITH agg AS (
         annee,
         ecole,
         friendly_name,
+        {{ dbt_utils.generate_surrogate_key(['annee', 'friendly_name']) }} as id_friendly_name,
         -- Compute the point-in-time statistics
         n_obs,
         resultat_avg,
@@ -61,28 +62,45 @@ WITH agg AS (
         FROM agg
     ) AS src
 
+), ecart AS(
+    SELECT
+    stats.*,
+    (stats.percent_of_success)-(stcss.percent_of_success) AS ecart_percent_of_success,
+    (stats.percent_of_thresholded_success)-(stcss.percent_of_thresholded_success) AS ecart_percent_of_thresholded_success,
+    (stats.resultat_avg)-(stcss.resultat_avg) AS ecart_resultat_avg,
+    (stats.resultat_stdev)-(stcss.resultat_stdev) AS ecart_resultat_stdev
+FROM stats
+LEFT JOIN {{ ref('rstep_report_evaluation_grades') }} AS stcss
+ON stats.id_friendly_name = stcss.id_friendly_name 
 )
-
 -- Add the school friendly name
 SELECT 
     -- Dimensions
-    {{ dbt_utils.surrogate_key(['dim.annee', 'stats.friendly_name']) }} as id_friendly_name,
     dim.annee,
     dim.ecole,
     dim.nom_ecole,
-    stats.friendly_name,
+    ecart.friendly_name,
+    ecart.id_friendly_name,
     -- Metrics
-    stats.n_obs,
-    stats.resultat_avg,
-    stats.resultat_stdev,
-    stats.percent_of_success,
-    stats.percent_of_thresholded_success,
-    stats.running_resultat_avg_ma5,
-    stats.running_resultat_stdev_ma5,
-    stats.percent_of_success_ma5,
-    stats.percent_of_thresholded_success_ma5
-FROM stats
-JOIN {{ ref('i_gpm_edo_ecoles') }} AS dim
+    ecart.n_obs,
+    ecart.resultat_avg,
+    ecart.resultat_stdev,
+    ecart.percent_of_success,
+    ecart.percent_of_thresholded_success,
+    ecart.running_resultat_avg_ma5,
+    ecart.running_resultat_stdev_ma5,
+    ecart.percent_of_success_ma5,
+    ecart.percent_of_thresholded_success_ma5,
+    ecart.ecart_percent_of_success,
+    ecart.ecart_percent_of_thresholded_success,
+    ecart.ecart_resultat_avg,
+    ecart.ecart_resultat_stdev
+FROM ecart
+LEFT JOIN {{ ref('i_gpm_edo_ecoles') }} AS dim
 ON 
-    stats.ecole = dim.ecole AND
-    stats.annee = dim.annee
+    ecart.ecole = dim.ecole AND
+    ecart.annee = dim.annee
+
+
+
+
