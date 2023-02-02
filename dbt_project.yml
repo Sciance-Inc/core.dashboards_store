@@ -66,6 +66,10 @@ models:
     res_etapes:
         +tags: ["res_etapes"]
         +schema: 'res_etapes'
+        staging:
+            +schema: res_etapes_staging
+            +tags:
+                - staging            
         pbi_tables:
             +schema: res_etapes_reporting
             +tags:
