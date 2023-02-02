@@ -9,13 +9,13 @@ SELECT
     , MoisSanct AS mois_resultat
     , DateObtensionRes AS date_resultat
     , GrpCharl AS groupe
-    , ResEcoBrute AS resecobrute
-    , ResEcoMod AS resecomod
-    , ResOffBrute AS resoffbrute
-    , ResOffConv AS resoffconv
-    , ResOffFinal AS resofffinal
+    , ResEcoBrute AS res_eco_brute
+    , ResEcoMod AS res_eco_mod
+    , ResOffBrute AS res_off_brute
+    , ResOffConv AS res_off_conv
+    , ResOffFinal AS res_off_final
     , Annee AS annee
     , typeformcharl  
-    , secteurEnseignFreq AS secteurenseignfreq
+    , secteurEnseignFreq AS secteur_enseign_freq
 FROM 
     {{ var("database_jade") }}.dbo.E_RI_Resultats
