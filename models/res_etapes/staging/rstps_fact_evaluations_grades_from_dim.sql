@@ -4,8 +4,7 @@
 #}
 
 {{ config(
-    alias='rstps_fact_evaluations_grades_from_dim', 
-    schema='res_etapes_staging'
+    alias='rstps_fact_evaluations_grades_from_dim'
     ) 
 }}
 
