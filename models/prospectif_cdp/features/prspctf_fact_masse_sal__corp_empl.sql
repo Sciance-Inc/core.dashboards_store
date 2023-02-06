@@ -1,4 +1,4 @@
-{{ config(alias='fact_masse_sal') }}
+{{ config(alias='fact_masse_sal_copr_emp') }}
 
 WITH src AS (
     SELECT 
@@ -12,9 +12,10 @@ WITH src AS (
 
 SELECT 
     annee_budgetaire
+    , corp_emploi
     , SUM(cumulatif) as masse_salariale
 FROM src
-GROUP BY annee_budgetaire
+GROUP BY annee_budgetaire, corp_emploi
 
 
 
