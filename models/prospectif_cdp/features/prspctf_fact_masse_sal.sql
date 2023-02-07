@@ -7,7 +7,7 @@ WITH src AS (
     FROM {{ ref('i_pai_cum_budg') }} AS pcb
     INNER JOIN {{ ref('i_pai_tab_corp_empl') }} AS tce 
         ON pcb.corp_emploi = tce.CORP_EMPL
-    WHERE  (pcb.code_pmnt_ded NOT LIKE '402%') AND (pcb.code_pmnt_ded NOT LIKE '401%')
+    WHERE  (code_pmnt_ded like '1%'or code_pmnt_ded like '2%' )                 -- salaire brute (1% et 2%)
 ) 
 
 SELECT 
