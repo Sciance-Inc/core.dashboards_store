@@ -1,4 +1,4 @@
-{{ config(alias='fact_masse_sal_copr_emp') }}
+{{ config(alias='fact_masse_sal_corp_emp') }}
 
 WITH src AS (
     SELECT 
