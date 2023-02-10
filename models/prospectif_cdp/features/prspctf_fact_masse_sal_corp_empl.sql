@@ -2,7 +2,10 @@
 
 WITH src AS (
     SELECT 
-        pcb.*
+        pcb.annee_budgetaire
+        , pcb.cumulatif
+        , pcb.code_pmnt_ded
+        , pcb.corp_empl as corp_empl
         , tce.DESCR as descr
     FROM {{ ref('i_pai_cum_budg') }} AS pcb
     INNER JOIN {{ ref('i_pai_tab_corp_empl') }} AS tce 
@@ -16,7 +19,3 @@ SELECT
     , avg(cumulatif) as masse_salariale
 FROM src
 GROUP BY annee_budgetaire, corp_empl
-
-
-
-
