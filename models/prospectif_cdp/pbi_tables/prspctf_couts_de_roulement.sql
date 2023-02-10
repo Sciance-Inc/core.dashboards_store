@@ -5,7 +5,7 @@ WITH src AS (
         msce.*
         , ms.masse_salariale_an
         , emoq.nb_empl_aremp
-    FROM {{ ref('prspctf_fact_masse_sal__corp_empl') }} AS msce
+    FROM {{ ref('prspctf_fact_masse_sal_corp_empl') }} AS msce
     LEFT JOIN {{ ref('prspctf_fact_masse_sal') }} AS ms
         ON msce.annee_budgetaire = ms.annee_budgetaire
     LEFT JOIN {{ ref('prspctf_fact_emp_quitter') }} AS emoq
