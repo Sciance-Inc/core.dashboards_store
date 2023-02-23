@@ -1,0 +1,9 @@
+version: 2
+
+seeds:
+  - name: default_code_matiere
+    description: mappage du code matière, du friendly name et du niveau scolaire pour les matière sélectionnées pour l'indicateur des résultats scolaire
+    config:
+      column_types:
+        code_matiere: varchar(32)
+        name_niveau_scolaire: varchar(64)
