@@ -151,6 +151,27 @@ models:
 > Update your `cssxx_tbe/dbt_project.yml` file.
 
 ```yaml
+seeds:
+    +enabled: False
+    res_epreuves:
+        +tags: ["res_epreuves"]
+        +schema: 'res_epreuves_seeds'
+    prospectif_cdp:
+        +tags: ["prospectif_cdp"]
+        +schema: 'prospectif_cdp_seeds'
+
+seeds:
+    tbe:
+        prospectif_cdp:
+            +tags: ["prospectif_cdp"]
+            +schema: 'prospectif_cdp_seeds'
+            +enabled: True
+    -- Add, if any, a CSV named `custom_code_matiere` with your `custom` subject
+    cssXXX_tbe:
+        prospectif_cdp:
+            +tags: ["prospectif_cdp"]
+            +schema: 'prospectif_cdp_seeds'        
+
 models:
   tbe: # Enable the models from the core repo
     prospectif_cdp: # Enable the prospectif_cdep
