@@ -1,6 +1,13 @@
 version: 2
 
 models:
+  
+  - name: prspctf_dim_mat_selct
+    description: >
+      Table qui mappe chaque matière séléctionnée le code matière, le nom de la matière et le niveau scolaire.
+      La table est constuite en faisant une union de la dimension par défaut (core/seeds/prospectif_cdp/res_matieres/default_code_matiere.csv) et la dimension custom (cssss/seeds/prospectif_cdp/res_matieres/custom_code_matiere.csv).
+      La table `custom` peut-etre adaptée pour chaque CSS pour rajouter des épreuves. 
+
   - name: prspctf_stg_populations_fgj
     description: >
       Table auxilaire de resolution fiche, id_eco et contenant l'assignement d'une fiche à une population pour le calcul de métriques inter-populationelles.
@@ -36,6 +43,12 @@ models:
     description: >
       Table qui enregistre l'ensemble des fréquentations FP. 
 
+  - name: prspctf_fact_rslt_mat_select
+    description: >
+      La table regroupe les notes des matières sélectionnées dans le cadre de l'indicateur lié aux résultats scolaire. 
+      Cette table accumule les résultats pour les matières identifées dans 'prspctf_dim_mat_selct'.
+      Elle sert de point d'entrée à la table 'prspctf_nb_ele_plus_de_66'.
+
   - name: prspctf_nb_el_fgj
     description: >
       Table qui comptabilise le nombre d'élèves inscrits en FGJ chaque année par école. 
@@ -47,3 +60,7 @@ models:
   - name: prspctf_nb_el_fp
     description: >
       Table qui comptabilise le nombre d'élèves inscrits en FP chaque année par centre. 
+
+  - name: prspctf_nb_ele_plus_de_66
+    description: >
+      La table regroupe les notes des matières sélectionnées. Cette table calcul la proportion des élèves ayant eu plus de 66% aux matière sélectionnées et ce pour chaque année

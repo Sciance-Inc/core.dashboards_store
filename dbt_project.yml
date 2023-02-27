@@ -21,6 +21,9 @@ seeds:
     res_epreuves:
         +tags: ["res_epreuves"]
         +schema: 'res_epreuves_seeds'
+    prospectif_cdp:
+        +tags: ["prospectif_cdp"]
+        +schema: 'prospectif_cdp_seeds'
 
 models:
   +materialized: table
