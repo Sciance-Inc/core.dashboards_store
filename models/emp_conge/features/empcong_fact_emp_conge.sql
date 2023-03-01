@@ -16,7 +16,7 @@ WITH employes AS (
         , etat.descr AS 'etat_description'
     FROM {{ ref('i_paie_hemp') }} AS emp
 
-    INNER JOIN {{ ref('i_pai_tab_etat_empl_conge') }} AS etat 
+    INNER JOIN {{ ref('i_pai_tab_etat_empl') }} AS etat 
         ON emp.etat = etat.etat_empl
     INNER JOIN {{ ref('i_pai_tab_corp_empl') }} AS corpe 
         ON emp.corp_empl = corpe.corp_empl

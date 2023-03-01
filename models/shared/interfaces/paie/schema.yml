@@ -1,15 +1,16 @@
 version: 2
 
 models:
-  - name: i_pai_dos
+  - name: i_pai_dos_empl
     tags: ["interface"]
     description: >
       Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'pai_dos' de la base de données source.
+       départs à la retraite pour les postes permanents. JOIN avec des tables des  i_pai_tab_stat_eng, i_pai_tab_corp_empl avec descriptions et  avec des tables: i_pai_dos, i_pai_etat_empl
   - name: i_pai_tab_corp_empl
     tags: ["interface"]
     description: >
       Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'i_pai_tab_corp_empl' de la base de données source.
-  - name: i_pai_tab_etat_empl_conge
+  - name: i_pai_tab_etat_empl
     tags: ["interface"]
     description: >
       Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'i_pai_tab_etat_empl_conge' de la base de données source.
@@ -21,3 +22,12 @@ models:
     tags: ["interface"]
     description: >
       Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'i_paie_hemp' de la base de données source.
+  - name: i_pai_dos
+    tags: ["interface"]
+    description: >
+      Table d'interface.1 case: Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'pai_dos' de la base de données source.
+      2 case: Utilisée pour Ratio de la prévision du nombre de départs à la retraite pour les postes permanents. 
+  - name: i_tab_stat_eng
+    tags: ["interface"]
+    description: >
+      Table d'interface.1 case:  Utilisée pour Ratio de la prévision du nombre de départs à la retraite pour les postes permanents. 

@@ -1,11 +1,8 @@
 SELECT
     matr
-    , date_entr
-    , lieu_trav
-    , stat_eng
-    , ref_empl
-    , corp_empl
-    , etat
-    , date_dern_jr_trav
+    , nom_legal
+    , date_nais
+    , date_deb_serv
+    , date_fin_serv 
 FROM
-    {{ var("database_paie") }}.dbo.pai_dos_empl
+    {{ var("database_paie") }}.dbo.pai_dos

@@ -14,7 +14,7 @@ WITH src AS (
             WHEN MONTH(date_dern_jr_trav) < 8 THEN YEAR(date_dern_jr_trav) - 1 
             ELSE YEAR(date_dern_jr_trav)
             END AS annee_budgetaire
-    FROM {{ ref('i_pai_dos') }}
+    FROM {{ ref('i_pai_dos_empl') }}
     WHERE date_dern_jr_trav IS NOT NULL
     AND etat like 'C%'                                                                     -- liste des etat_empl qui ont quitté et sont susceptibles d'être remplacer
 
