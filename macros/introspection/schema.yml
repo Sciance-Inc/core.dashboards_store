@@ -1,0 +1,7 @@
+version: 2
+macros:
+  - name: drop_schema
+    description: >
+      The macro will drop all the table under the both current schema, and the inherited schemas.
+      The macro is usefull when you want to drop all the tables in "your" database start from a clean slate.
+      The macro is designed to be called with the following command : `dbt run-operation drop_schema`
