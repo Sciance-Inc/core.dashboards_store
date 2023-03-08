@@ -185,13 +185,23 @@ models:
   cssXX_tbe:  # the CSSXX_TBE is the name of your inherited project.
     prospectif_cdp:
       +tags: ["prospectif_cdp"]
-      populations:  # core.prospectif_cdep expects sources to be in the staging schema. So we need to override the default schema (prospectif_cdpe). Please note that the name `population` schould be adapt to the place you store your population tables.
+      populations:  # core.prospectif_cdp expects the populations to live in the prospectif_cdp_staging schema. Please refers to core/models/prospectif_cdep/adapters/sources.yml for more details about the concrete implementation you must provide the core with.
         +schema: 'prospectif_cdp_staging'
-    shared: 
-      interfaces:  # Active the paie source
-          paie:
-            +enabled: True
-```
+
+### configuration of CSSXX cstmrs_stat_eng.sql seed file 
+
+```yaml
+sources:
+  - name: cstmrs_stat_eng
+    description: >
+      Indicators of the current state of  employee's files. using to determine retirement(empl_retraite)
+      etat_stat-  etat_st- filterong for general status groups, where 1 -  on service , 2 - on vacance, 3 - inacif, finished the service.
+      For mor ditals read sources.yml in the core models
+    config:
+      column_types:
+        etat_empll: varchar(5)
+        etat_discr: varchar(50)
+        etat_st: int
 
 ### resultats_etapes
 > Provides a quick overview of the results of the mandatory and optional evaluations by the school board.
