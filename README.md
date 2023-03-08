@@ -154,22 +154,13 @@ models:
 
 ```yaml
 seeds:
-    +enabled: False
-    res_epreuves:
-        +tags: ["res_epreuves"]
-        +schema: 'res_epreuves_seeds'
-    prospectif_cdp:
-        +tags: ["prospectif_cdp"]
-        +schema: 'prospectif_cdp_seeds'
-
-seeds:
     tbe:
         prospectif_cdp:
             +tags: ["prospectif_cdp"]
             +schema: 'prospectif_cdp_seeds'
             +enabled: True
   
-  /* --  You must add a CSV named  'cstmrs_stat_eng.csv' file to define the permanent employees selection criterion,  with your CSS 'custom' values.  Please read 'Configuration of CSSXX cstmrs_stat_eng.sql seed file'  section.
+  /* --  You must add a CSV named  'cstmrs_stat_eng.csv' file to define the permanent employees selection criterion,  with your CSS 'custom' values.  Please read the 'Configuration of CSSXX cstmrs_stat_eng.sql seed file' section.
     cssXXX_tbe:
         prospectif_cdp:
             +tags: ["prospectif_cdp"]
@@ -190,6 +181,10 @@ models:
       +tags: ["prospectif_cdp"]
       populations:  # core.prospectif_cdp expects the populations to live in the prospectif_cdp_staging schema. Please refers to core/models/prospectif_cdep/adapters/sources.yml for more details about the concrete implementation you must provide the core with.
         +schema: 'prospectif_cdp_staging'
+```
+
+### Configuring the population
+TODO : add the population configuration detailss
 
 ### configuration of CSSXX cstmrs_stat_eng.sql seed file 
 
@@ -205,6 +200,7 @@ sources:
         etat_empll: varchar(5)
         etat_discr: varchar(50)
         etat_st: int
+```
 
 ### resultats_etapes
 > Provides a quick overview of the results of the mandatory and optional evaluations by the school board.
@@ -262,10 +258,6 @@ seeds:
         no_competence: varchar(32)
         cod_etape: varchar(32)
         friendly_name: varchar(64)
-  
- 
-  
- 
 ```
 
 Populate the `csv`, with the 4 columns. Use the `GPI.Edo.ResultatsCompetenceEtape` table to find the appropriate mapping.
