@@ -1,0 +1,6 @@
+version: 2
+
+models:
+  - name: prspctf_fact_hemp_post_permanant_age
+    description: >
+        Table de fait qui liste les employés qui occupent un poste permanent

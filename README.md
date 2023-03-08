@@ -145,6 +145,8 @@ models:
   * jade
 * **Sources** :
   * *populations* : The dashboard requiers some population tables to be defined in you css-specific repository. Please, refers to `core.tbe/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
+  * *employees_status* : The dashboard requiers some employees status tables to be defined in you css-specific repository. Please, refers to `core.tbe/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
+  * *employees_status* : The dashboard requiers some employees status tables to be defined in you css-specific repository. Please, refers to `core.tbe/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
 * **Dashboards**  
 
 #### Dbt project specification
@@ -166,7 +168,8 @@ seeds:
             +tags: ["prospectif_cdp"]
             +schema: 'prospectif_cdp_seeds'
             +enabled: True
-    -- Add, if any, a CSV named `custom_code_matiere` with your `custom` subject
+  
+  /* --  You must add a CSV named  'cstmrs_stat_eng.csv' file to define the permanent employees selection criterion,  with your CSS 'custom' values.  Please read 'Configuration of CSSXX cstmrs_stat_eng.sql seed file'  section.
     cssXXX_tbe:
         prospectif_cdp:
             +tags: ["prospectif_cdp"]
@@ -259,6 +262,10 @@ seeds:
         no_competence: varchar(32)
         cod_etape: varchar(32)
         friendly_name: varchar(64)
+  
+ 
+  
+ 
 ```
 
 Populate the `csv`, with the 4 columns. Use the `GPI.Edo.ResultatsCompetenceEtape` table to find the appropriate mapping.
@@ -357,7 +364,7 @@ models: # Already here, for reference only
 | base       | A base table is a skeleton table used to build fact tables                                                                                                                                                                                         | base_    | NA   | 
 | staging    | A staging table is a by product of the construction of fact table. <br>The table kind of acts as a fact table, but is not be queried by itself.<br>Staging tables are generally combined together or joined on a base table to create a fact table | stg_     | stg_droppers_raw         |
 | interface     | The all mighty. Interfaces are tables mapping to the raw data from the operational system. It's basically a select clause followed by a list of the fields used in the downstream tasks. Those tables can be overriden in the inherited package to map the CSS requirements. Please, only add the columns you need. | target_  | target_perseverance      |
-
+| reporting     | Reporting tabel. Used as an eaye-catcher to easily detect the tables we need to plug the dashboard on. | rprt_  | rprt_emp65_ann_bdgt      |
 # How to 
 
 ## Between projects conflicting tables names
