@@ -420,5 +420,3 @@ Compilation Error
    * The friendly name schould be short. Maybe 3-to-10 letters. `dummy` could become `dmy`
 2. Add a DBT directive into your table code to output the table under it's original name by setting the alias property
 
-
-
