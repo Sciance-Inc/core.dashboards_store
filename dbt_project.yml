@@ -24,6 +24,9 @@ seeds:
     prospectif_cdp:
         +tags: ["prospectif_cdp"]
         +schema: 'prospectif_cdp_seeds'
+    suivi_resultats:
+        +tags: ["suivi_resultats"]
+        +schema: 'suivi_resultats_seeds'
 
 models:
   +materialized: table
@@ -75,6 +78,17 @@ models:
                 - staging            
         pbi_tables:
             +schema: res_epreuves_reporting
+            +tags:
+                - reporting
+    suivi_resultats:
+        +tags: ["suivi_resultats"]
+        +schema: 'suivi_resultats'
+        staging:
+            +schema: suivi_resultats_staging
+            +tags:
+                - staging            
+        pbi_tables:
+            +schema: suivi_resultats_reporting
             +tags:
                 - reporting
     shared:

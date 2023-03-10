@@ -68,6 +68,7 @@ cssxx_prodrome:
 | transport  |  Operational dashboard. To track the financial metrics of the school board transportation system	| Maryna Zhuravlova (CSSHR)	|
 | emo_conge | Monitor employees absences and leaves 	| Gabriel Thiffault (CSSVT)	|
 | res_epreuves | Track the percentage of success for each one of the mandatory and optional evaluations of the schoold board | hugo juhel, Mohamed Sadqi (CSSVDC)	|
+| suivi_resultats | Track the resusts of the students with a failed course | Mohamed Sadqi (CSSVDC), hugo juhel |
 
 ## Dashboards depencies and datasources
 > For a dashboard to be computed, the analyst must ensure that the required datasources are available in the analytical server.
@@ -273,6 +274,66 @@ vars:
     res_epreuves:
         threshold: 70
 ```
+
+### suivi_resultats
+> Monitor the grades of students (s1 to s3) in maths and french . The dashboard displays, for each students currently enrolled in s1 to s3, the history of it's grades for all courses belonging to the same group of courses (maths or french). The dashboard conditionally renders the student status. Only the last grade for a given course code is taken into considerations.
+
+#### TODOS
+* Plug the dashboard to the yet-to-be-born populations mechanism
+* Add the `reprises`
+* Add the RLS mechanism
+
+#### Data dependencies
+* **Databases** :
+  * gpi
+
+#### Dbt project specification
+> Update your `cssxx_tbe/dbt_project.yml` file.
+
+```yaml
+seeds: 
+  tbe:
+    suivi_resultats:
+      +enabled: True
+
+models: 
+  tbe:
+    suivi_resultats:
+      +enabled: True
+```
+
+#### Overriding the default list of tracked courses
+> This step is optional. By default, the dashboard will only monitor the courses listed in `tbe/seeds/suivi_resultats/tracked_courses.csv`
+
+You can provide your own implementation of `tracked_courses`. To do so, just write a CSV file named `tracked_courses` in the `cssXX/seeds/suivi_resultats` folder and disable the default one by adding the following line in your `dbt_project.yml` file.
+
+```yaml
+seeds:
+  tbe:
+    suivi_resultats:
+      +enabled: true
+      tracked_courses:
+        +enabled: False
+```
+
+__When overriding the tracked courses, you might want to override the tracked level as well.__
+
+#### Overriding the default list of tracked levels
+> This step is optional. By default, the dashboard will only monitor the students currently enrolled in the livels listed in `tbe/seeds/suivi_resultats/tracked_level.csv`
+
+You can provide you own list of `tracked_levels`. If, for instance, you add a new tracked course in sec 4, you will want to add the level 4 to the list of tracked levels. To do so, just write a CSV file named `tracked_levels` in the `cssXX/seeds/suivi_resultats` folder and disable the default one by adding the following line in your `dbt_project.yml` file.
+
+```yaml
+seeds:
+  tbe:
+    suivi_resultats:
+      +enabled: true
+      tracked_levels:
+        +enabled: False
+```
+
+To override both the tracked courses and the tracked levels, just DON'T enable the `tbe/suivi_resultats/seeds`.
+
 ### Setting a custom `cod_css`
 > cod_css will be used to filter Jade table by the organisation code to exclude student belonging to other CSS
 

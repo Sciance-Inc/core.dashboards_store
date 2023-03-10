@@ -19,3 +19,5 @@ SELECT
     , secteurEnseignFreq AS secteur_enseign_freq
 FROM 
     {{ var("database_jade") }}.dbo.E_RI_Resultats
+
+

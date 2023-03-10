@@ -1,0 +1,42 @@
+version: 2
+
+seeds:
+  - name: tracked_courses
+    description: >
+      List all the courses to tracked by default.
+      You can override this dimension in your css specific repo.
+    columns:
+      - name: course_code
+        description: The code of the course to track.
+        tests:
+          - not_null
+          - unique
+      - name: course_name
+        description: The friendly name of the course to track.
+        tests:
+          - not_null
+      - name: course_group
+        description: A arbitrary way to regroup courses together. Each group will be diplayed in it's own vue in the final report.
+        tests:
+          - not_null
+      - name: level
+        description: The school level the course is supposed to be taken. 
+        tests:
+          - not_null
+    config:
+      column_types:
+        course_code: varchar(32)
+        course_name: varchar(128)
+        course_group: varchar(32)
+        level: varchar(32) 
+
+  - name: tracked_levels
+    description: >
+      List all the levels to tracked by default. If you add some custom courses, you might want to add some custom levels to, to be able to track them. 
+      You can override this dimension in your css specific repo.
+    columns:
+      - name: level
+        description: The school level to track. By default, only 'sec1', 'sec2', 'sec3' are tracked.
+        tests:
+          - not_null
+          - unique
