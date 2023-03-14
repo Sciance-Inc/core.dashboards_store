@@ -1,8 +1,13 @@
 code_matiere,no_competence,friendly_name
+FRA200,1,Francais - primaire 2 - lecture
 FRA400,1,Francais - primaire 4 - lecture
-FRA400,2,Francais - primaire 4 - ecriture 
+FRA400,2,Francais - primaire 4 - ecriture
 FRA600,1,Francais - primaire 6 - lecture
 FRA600,2,Francais - primaire 6 - ecriture
+MAT200,1,Maths - primaire 2 - raisonner
+MAT200,2,Maths - primaire 2 - resoudre
+MAT400,1,Maths - primaire 4 - raisonner
+MAT400,2,Maths - primaire 4 - resoudre
 MAT600,1,Maths - primaire 6 - raisonner
 MAT600,2,Maths - primaire 6 - resoudre
 132208,2,Francais - secondaire 2 - ecriture
@@ -13,4 +18,8 @@ MAT600,2,Maths - primaire 6 - resoudre
 136550,,Anglais PE - secondaire 5- pe
 063420,,Maths CST - secondaire 4 - raisonner
 065420,,Maths SN- secondaire 4 - raisonner
+064420,,Maths STS -  secondaire 4
+132226,2,Maths - secondaire 2 -resoudre
 055410,,Science - secondaire 4 - theorie
+057410,,Science - secondaire 4 - theorie
+085404,,Histoire QC - secondaire5
