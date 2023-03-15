@@ -20,7 +20,8 @@ models:
             - fiche
             - annee
             - niveau_scolaire
-  
+
+
   - name: rslt_fact_resultats
     description: >
       A fact table tracking the grades obtained in critical courses by students in difficulty.
@@ -32,6 +33,11 @@ models:
             - fiche
             - niveau_scolaire
             - course_code
+    columns:
+      - name: resultat
+        tests:
+          - not_null
+
   
   - name: rslt_reporting_resultats
     description: >
@@ -45,6 +51,9 @@ models:
             - course_code
     columns:
       - name: status
+        tests:
+          - not_null
+      - name: resultat
         tests:
           - not_null
 
