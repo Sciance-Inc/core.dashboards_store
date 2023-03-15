@@ -17,7 +17,8 @@ WITH upToDate AS (
     ON  res.code_matiere = dim.course_code  -- Only keep the tracked courses
     WHERE 
         -- TODO : refactor to properly flag and handle `reprises`
-        groupe_matiere NOT IN ('H0', 'F0') -- Summer reprise
+        groupe_matiere NOT IN ('H0', 'F0') AND -- Summer reprise
+        resultat IS NOT NULL
 )
 -- A numerical result is requiered to properly compute the text color in the dashboard. If (for a given student, year, course) there is no numerical result, I compute one using the code_reussite as a proxy.
 -- Get the numerical result if available or a proxy (0 or 100) if the course is not sanctioned through a numerical result.
