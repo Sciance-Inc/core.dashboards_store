@@ -138,6 +138,15 @@ models:
 ```
 
 ### Prospectif_cdep
+* **Indicateurs** :
+  * Pour l'objectif "Attirer et retenir du personnel qualifié et engagé"(C6), l'ICP équivaut au: 
+    * Nb d'employés actifs sur un poste régulier dont la date actuelle - date d'entrée en poste > 2 ans / Nb employés actifs  à l'emploi régulier (toute ancienneté confondue). Employé = qui relève des services du centre administratif (hors service à l'élève direct)(ex. : TL : gens qui relèvent du 130) 
+  * Pour l'objectif "Planifier la main-d'oeuvre de façon intégrée"(PI7), l'ICP équivaut au: 
+    * Ratio du Nb de personnes en âge de départ (55-65 ans) à la retraite pour les postes permanents / Nb total employés permanents
+  * Pour l'objectif "Développer des stratégies de fidélisation innovantes"(AI6), l'ICP équivaut au:
+    * 100% - Nb de départ volontaire à partir du 1 juillet à la fin juin (ayant été actif à au moins un moment dans l'année) / Nb d'employés régulier global
+  * Pour l'objectif "Diminuer l'impact financier du roulement du personnel"(F7), l'ICP équivaut au: 
+    * Nb de dossier ouvert (poste existant)  * Coûts spécifiques à la dotation /  Masse salariale de l'année dernière
 
 #### Data dependencies
 * **Databases** :
