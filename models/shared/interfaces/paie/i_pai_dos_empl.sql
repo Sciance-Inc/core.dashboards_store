@@ -8,5 +8,6 @@ SELECT
     , corp_empl -- indicator to filter -engagement status. abbreviations do not match between CSS, so it is suggested to use the description descr AS 'etat_description'
     , etat
     , date_dern_jr_trav
+    , type
 FROM
     {{ var("database_paie") }}.dbo.pai_dos_empl

@@ -148,6 +148,11 @@ models:
   * Pour l'objectif "Diminuer l'impact financier du roulement du personnel"(F7), l'ICP équivaut au: 
     * Nb de dossier ouvert (poste existant)  * Coûts spécifiques à la dotation /  Masse salariale de l'année dernière
 
+* **Calcul des indicateurs** :
+  * Pour l'objectif "Attirer et retenir du personnel qualifié et engagé"(C6), le calcul de l'ancienneté a été calculer en additionnant le nombre de jour par période pour chaque employé. Periode = Passage de l'employé de l'état actif à inactif.
+    * TODO: Filtrer seulement les employés du centre administratif
+  * Pour l'objectif "Développer des stratégies de fidélisation innovantes"(AI6), le calcul de la fidélité prend en compte le nombre d'employé qui quitte volontairement entre le 1er juillet au 30 juin la CSS.
+
 #### Data dependencies
 * **Databases** :
   * paie
@@ -155,7 +160,6 @@ models:
   * jade
 * **Sources** :
   * *populations* : The dashboard requiers some population tables to be defined in you css-specific repository. Please, refers to `core.tbe/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
-  * *employees_status* : The dashboard requiers some employees status tables to be defined in you css-specific repository. Please, refers to `core.tbe/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
   * *employees_status* : The dashboard requiers some employees status tables to be defined in you css-specific repository. Please, refers to `core.tbe/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
 * **Dashboards**  
 
@@ -170,7 +174,7 @@ seeds:
             +schema: 'prospectif_cdp_seeds'
             +enabled: True
   
-  /* --  You must add a CSV named  'cstmrs_stat_eng.csv' file to define the permanent employees selection criterion,  with your CSS 'custom' values.  Please read the 'Configuration of CSSXX cstmrs_stat_eng.sql seed file' section.
+  /* --  You must add a CSV named  'cstmrs_stat_eng.csv' file to define the permanent employees selection criterion,  with your CSS 'custom' values.  Please read 'Configuration of CSSXX cstmrs_stat_eng.sql seed file'  section.
     cssXXX_tbe:
         prospectif_cdp:
             +tags: ["prospectif_cdp"]
@@ -268,6 +272,10 @@ seeds:
         no_competence: varchar(32)
         cod_etape: varchar(32)
         friendly_name: varchar(64)
+  
+ 
+  
+ 
 ```
 
 Populate the `csv`, with the 4 columns. Use the `GPI.Edo.ResultatsCompetenceEtape` table to find the appropriate mapping.

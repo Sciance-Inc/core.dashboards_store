@@ -4,5 +4,6 @@ SELECT
     , date_nais
     , date_deb_serv
     , date_fin_serv 
+    , date_eng
 FROM
     {{ var("database_paie") }}.dbo.pai_dos
