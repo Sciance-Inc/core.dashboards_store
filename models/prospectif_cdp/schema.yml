@@ -35,6 +35,16 @@ models:
     description: >
       Table de faits, de résolution année / ecole, qui comptabilise le nombre d'employés à temps partiel par année et école. 
 
+  - name: prspctf_fact_anc_2y
+    description: >
+      Table qui calcul le nombre total d'employé qui ont fait au minimum 2 ans d'ancienneté.
+      Elle sert de point d'entré à la table 'prspctf_ratio_anc'
+    
+  - name: prspctf_fact_demission
+    description: >
+      Table qui calcul le nombre d'employé ayant démissionné volontairement entre la période du 1er juillet au 30 juin.
+      Elle sert de point d'entré à la table 'prspctf_taux_fidelite'
+
   - name: prspctf_fact_freq_fga
     description: >
       Table qui enregistre l'ensemble des fréquentations FGA. 
@@ -48,6 +58,14 @@ models:
       La table regroupe les notes des matières sélectionnées dans le cadre de l'indicateur lié aux résultats scolaire. 
       Cette table accumule les résultats pour les matières identifées dans 'prspctf_dim_mat_selct'.
       Elle sert de point d'entrée à la table 'prspctf_nb_ele_plus_de_66'.
+
+  - name: prspctf_ratio_anc
+    description: >
+      Table qui fait un ratio entre le nombre d'employé avec 2 ans d'ancienneté sur le total de nombre d'employé par année
+
+  - name: prspctf_taux_fidelite
+    description: >
+      Table qui fait la ratio sur le nombre d'employé démissioné volontairement par rapport au nombre d'employé total. 
 
   - name: prspctf_nb_el_fgj
     description: >
