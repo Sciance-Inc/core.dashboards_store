@@ -98,7 +98,8 @@ models:
             +schema: shared_staging
         interfaces:
             +materialized: ephemeral
-
+        rls:
+            +schema: 'rls'
 vars:
     # Toggle the adapaters table to the sources tables. To run the package in standalone.
     is_context_core: true

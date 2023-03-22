@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: utilisateurs_ecoles
+    tags: ["rls"]
+    description: >
+      Table utilisée uniquement pour avoir les directeurs, directrices, enseignant(e)s et les écoles.
+    tests: 
+      - resolution: 
+          combination_of_columns: 
+            - matr
+            - courriel_portail
+            - code_ecole
+    columns:
+      - name: courriel_portail
+        tests: 
+            - not_null
+      - name: code_ecole
+        tests: 
+            - not_null            
