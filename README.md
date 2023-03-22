@@ -498,3 +498,15 @@ Compilation Error
    * The friendly name schould be short. Maybe 3-to-10 letters. `dummy` could become `dmy`
 2. Add a DBT directive into your table code to output the table under it's original name by setting the alias property
 
+
+
+### RLS
+  Les table utilisée:
+    utilisateurs_ecoles
+      tables utilisées dans la PAIE-GRH   
+      . paie_dos
+      . paie_dos_2
+      . paie_dos_empl
+      . paie_tab_corp_empl
+      . pai_tab_lieu_trav
+    Il suffit de faire un join avec qu'une table contient avec le code d'école.

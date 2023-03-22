@@ -31,3 +31,7 @@ models:
     tags: ["interface"]
     description: >
       Table d'interface.1 case:  Utilisée pour Ratio de la prévision du nombre de départs à la retraite pour les postes permanents. 
+  - name: i_pai_dos_2
+    tags: ["interface"]
+    description: >
+      Table d'interface. Utilisée uniquement pour aller chercher les courriels des employé(e)s.           
