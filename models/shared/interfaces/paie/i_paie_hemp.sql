@@ -5,6 +5,6 @@ SELECT
     , corp_empl
     , etat
     , stat_eng
-    , Type
+    , type
 FROM
     {{ var("database_paie") }}.dbo.pai_hemp

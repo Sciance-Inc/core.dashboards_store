@@ -11,7 +11,11 @@ WITH src AS (
 ), agg AS(
     SELECT 
         annee_budgetaire
-        ,masse_salariale_an
+        ,CASE 
+            WHEN annee_budgetaire =  {{ tbe.get_current_year() }} 
+            THEN  LAG(masse_salariale_an)over(ORDER BY annee_budgetaire asc) 
+        ELSE masse_salariale_an 
+        END AS masse_salariale_an
         ,sum(sal_moy_corp_emp*nb_empl_aremp) as couts_de_roulement
 
     FROM src
@@ -19,5 +23,5 @@ WITH src AS (
 )
 SELECT
     annee_budgetaire        
-    ,CAST(((couts_de_roulement/masse_salariale_an)*100) AS DECIMAL(5,2)) AS ratio_couts_roulement
+    ,CAST(((couts_de_roulement/masse_salariale_an)) AS DECIMAL(5,5)) AS ratio_couts_roulement
  FROM agg
