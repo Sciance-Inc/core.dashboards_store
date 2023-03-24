@@ -152,7 +152,8 @@ models:
   * Pour l'objectif "Attirer et retenir du personnel qualifié et engagé"(C6), le calcul de l'ancienneté a été calculer en additionnant le nombre de jour par période pour chaque employé. Periode = Passage de l'employé de l'état actif à inactif.
     * TODO: Filtrer seulement les employés du centre administratif
   * Pour l'objectif "Développer des stratégies de fidélisation innovantes"(AI6), le calcul de la fidélité prend en compte le nombre d'employé qui quitte volontairement entre le 1er juillet au 30 juin la CSS.
-
+  * Pour l'objectif "Diminuer l'impact financier du roulement du personnel"(F7), l'ICP équivaut au: 
+    * Nb d'employés qui ne travaillent plus au CSS par corp d'emploi  * le salaire moyen par corp d'emploi /  Masse salariale de l'année dernière
 #### Data dependencies
 * **Databases** :
   * paie
