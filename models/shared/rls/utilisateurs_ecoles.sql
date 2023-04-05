@@ -1,31 +1,46 @@
-    WITH utilisateurs_ecoles as (
-	SELECT  
-         util.matr
-        ,nom
-        ,prnom                  AS prenom
-        ,adr_electrnq_portail   AS courriel_portail
-        ,lieu.lieu_trav         AS code_ecole
-        ,lieu.descr             AS desc_ecole
-        ,ROW_NUMBER() OVER (PARTITION BY  util.matr,adr_electrnq_portail,lieu.lieu_trav
-						ORDER BY date_eff DESC ) AS seqId   
-                              
-    FROM {{ ref("i_pai_dos") }}              AS util
-        LEFT JOIN {{ ref('i_pai_dos_2') }}         AS info 
-            ON util.matr = info.matr
-        LEFT JOIN {{ ref('i_pai_dos_empl') }}      AS empl 
-            ON empl.matr = util.matr            
-        LEFT JOIN {{ ref('i_pai_tab_corp_empl') }} AS corp
-            ON corp.corp_empl = empl.corp_empl
-        LEFT JOIN {{ ref('i_pai_tab_lieu_trav') }} AS lieu
-            ON lieu.lieu_trav = empl.lieu_trav                
-
-    WHERE
-        etat NOT LIKE  'C%'                AND
-        adr_electrnq_portail IS NOT NULL   AND
-        etat_doss  ='A'                    AND -- Actif
-        date_eff >='2020-07-01 00:00:00'   AND
-        (corp.corp_empl LIKE '1%' OR corp.corp_empl LIKE '3%') AND
-	   eco_off IS NOT NULL    -- Écoles seulement
-    )
-
-    SELECT matr,nom,prenom,courriel_portail,code_ecole,desc_ecole FROM utilisateurs_ecoles WHERE seqId =1
+{# identifier les usagers qui ont le droit d'accéder au TdB #}
+WITH users AS (
+    SELECT
+        CleOrganisationnelle
+        , CompteAuthentification
+        , Nom
+        , Prenom
+        , Ecoles
+        , RIGHT(LieuTravailPrincipal, 4) AS CorpsEmploi
+        , LEFT(LieuTravailPrincipal, 3) AS Ecole_principale
+        , DescriptionCorpsEmploiPrincipal
+    FROM {{  var("database_paie") }}.GI.Identite
+    
+    WHERE RIGHT(LieuTravailPrincipal, 4) IN (
+            '1155','1255',-- directions / directions adj secondaire
+            '1150','1250',-- directions / directions adj primaire
+             -- enseignant secondaire
+            '3108',-- Form. gén. angl. sec.
+            '3109',-- Form. gén. éd. phys. sec.
+            '3110',-- Form. gén. musique sec.
+            '3111',-- Frm. gén. arts plas. sec.
+            '3112',-- Form. gén. franç. sec.
+            '3113',-- Form. gén. math. sc. sec.
+            '3114',-- Éthique et cult. rel
+            '3117',-- Frm. gn. géo.hist. éduc.c
+                -- enseignant ele en dif.        
+            '3101',-- Ens. auprès élè. en diff.
+            '3120',-- Ens. francais accueil
+                -- enseignant primaire
+            '3140',-- Ens ortho. prim. (art.42)
+            '3103'-- enseignant primaire
+            )
+)
+{# Mettre au format usager/ecole #}
+SELECT
+    CleOrganisationnelle
+    , CompteAuthentification
+    , Nom
+    , Prenom
+    , Ecoles
+    , CorpsEmploi
+    , Ecole_principale
+    , DescriptionCorpsEmploiPrincipal
+    , value AS Ecole
+FROM users
+CROSS APPLY STRING_SPLIT(Ecoles, ',')  
