@@ -23,6 +23,7 @@ WITH res as (
         dim.code_matiere = res.code_matiere and
         dim.code_etape = res.etape and
         dim.no_competence = res.no_competence
+    WHERE res.resultat_numerique IS NOT NULL
 ), resmin as (
     SELECT 
         resmin.fiche,
@@ -35,7 +36,9 @@ WITH res as (
     FROM {{ ref('rstep_dim_subject_evaluation')}} AS dim
     JOIN {{ ref('rstep_fact_evaluations_minist_sec4_sec5')}} AS resmin
     ON dim.code_matiere = resmin.code_matiere
-	where resmin.ecole != ''
+	WHERE resmin.ecole != '' AND 
+    SUBSTRING(dim.code_matiere, 4, 1) in ('4', '5') AND
+    resmin.resultat_numerique IS NOT NULL    
 )
 
 SELECT * FROM res
