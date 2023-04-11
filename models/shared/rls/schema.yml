@@ -8,13 +8,12 @@ models:
     tests: 
       - resolution: 
           combination_of_columns: 
-            - matr
-            - courriel_portail
-            - code_ecole
+            - CompteAuthentification
+            - Ecole
     columns:
-      - name: courriel_portail
+      - name: CompteAuthentification
         tests: 
             - not_null
-      - name: code_ecole
+      - name: Ecole
         tests: 
             - not_null            
