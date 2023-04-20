@@ -1,0 +1,27 @@
+version: 2
+
+seeds:
+  - name: cstmrs_etat_empl
+    description: Mapping est nécessaire pour les états d'un employé
+    columns:
+      - name: etat_empl
+        description: code état d'un employé .
+        tests:
+          - unique
+          - not_null     
+      - name: etat_actif
+        description: déterminer l'état d'un employé qui est actif ou inactif.
+        tests:
+          - not_null       
+    config:
+      column_types:
+        etat_empl: varchar(3)
+        descr: varchar(25)
+        empl_retr: boolean
+        empl_cong: boolean
+        empl_cong_ct: boolean
+        empl_cong_lt: boolean
+        etat_actif: boolean
+
+
+

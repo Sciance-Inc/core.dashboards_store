@@ -27,7 +27,7 @@ models:
     description: >
       Table d'interface.1 case: Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'pai_dos' de la base de données source.
       2 case: Utilisée pour Ratio de la prévision du nombre de départs à la retraite pour les postes permanents. 
-  - name: i_tab_stat_eng
+  - name: i_pai_tab_stat_eng
     tags: ["interface"]
     description: >
       Table d'interface.1 case:  Utilisée pour Ratio de la prévision du nombre de départs à la retraite pour les postes permanents. 

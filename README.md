@@ -69,6 +69,7 @@ cssxx_prodrome:
 | emo_conge | Monitor employees absences and leaves 	| Gabriel Thiffault (CSSVT)	|
 | res_epreuves | Track the percentage of success for each one of the mandatory and optional evaluations of the schoold board | hugo juhel, Mohamed Sadqi (CSSVDC)	|
 | suivi_resultats | Track the resusts of the students with a failed course | Mohamed Sadqi (CSSVDC), hugo juhel |
+| emp_actif | La liste des employés actifs | (CSSSDGS) Nicolas Pham, Simon Robitaille |
 
 ## Dashboards depencies and datasources
 > For a dashboard to be computed, the analyst must ensure that the required datasources are available in the analytical server.
@@ -255,7 +256,8 @@ models:
             gpi:
                 +enabled: True
 ```
-### Adding a specific list of `in-house` evaluations
+
+#### Adding a specific list of `in-house` evaluations
 > This step is optional. By default, the dashboard will track the mandatory evaluations only.
 
 * Add a CSV named `custom_subject_evaluation` here :  `cssXX/seeds/res_epreuves/custom_subject_evaluation.csv`
@@ -291,6 +293,56 @@ vars:
     # res_epreuves's dashboard variables:
     res_epreuves:
         threshold: 70
+```
+
+### empl_actif
+> Ce tdb est pour but d'avoir les employés actifs
+  
+#### Data dependencies
+* **Databases** :
+  * paie
+* **Sources** :
+  * *dbo.cstmrs_etat_empl* : le tdb empl_actif a besoin la colonne etat_actif dans cette table. Cette table est définie dans le repo cssxx_tbe
+* **Dashboards** 
+
+#### Dbt project specification
+> La MAJ du fichier `cssxx_tbe/dbt_project.yml`.
+> Ce tdb a besoin des données poussés par seeds. Pour être sur, tapez `dbt seed --full-refresh` pour pousser des données de la table cstmrs_etat_empl dans DB.
+
+```yaml
+seeds:
+    cssXXX_tbe:
+        emp_actif:
+            +tags: ["emp_actif"]
+            +schema: 'emp_actif'
+
+models:
+  tbe: # Enable the models from the core repo
+    emp_actif:
+      +enabled: True
+    shared:
+        interfaces: # ce tdb utilise seulement la paie
+            paie:
+                +enabled: True
+```
+
+### Ajouté les fichiers `in-house` 
+* Ajouté un fichier CSV `cstmrs_etat_empl.csv` comme suit :  `cssXX/seeds/empl_actif/cstmrs_etat_empl.csv` (un exemple du contenu ci-bas):
+  etat_empl,descr,empl_retr,empl_cong,empl_cong_ct,empl_cong_lt,etat_actif
+  A01,En service,,,,,1
+  C01,Autre emploi dans la C.S.,,,,,0
+ 
+```
+
+### Configuration personnalisée de la variable `nbrs_sem_dern_paie`
+> nbrs_sem_dern_paie: variable indiquée en semaine pour couvrir la dernière semaine de paie. Par défaut est égale à une semaine de retard.
+
+On peut définir une autre valeur que celle par défaut dans ce fichier `dbt_project.yml`.
+
+```yaml
+vars:
+    # variables du tdb emp_actif:
+     nbrs_sem_dern_paie: 1
 ```
 
 ### suivi_resultats
@@ -505,9 +557,32 @@ Compilation Error
   Les table utilisée:
     utilisateurs_ecoles
       tables utilisées dans la PAIE-GRH   
+      . GI.Identite
+    ecole
+      tables utilisées dans la PAIE-GRH
+      . GI.Identite
+    ecole
+      tables utilisées dans la PAIE-GRH
+      . pai_tab_lieu_trav
+    Il suffit d'appliquer ces 2 tables ci-hauts pour filter les données dans les tableaux de bords.
+
+### emp_actif
+  Les table utilisée:
+    emp_actif
+      tables utilisées dans la PAIE-GRH   
       . paie_dos
       . paie_dos_2
       . paie_dos_empl
       . paie_tab_corp_empl
       . pai_tab_lieu_trav
-    Il suffit de faire un join avec qu'une table contient avec le code d'école.
+      . pai_tab_stat_eng
+      . pai_tab_etat_empl
+    On prend seulement
+       . Emploi: principal
+       . Courriel: n'est pas null
+       . État: actif
+       . État: pas en cessation d'emploi
+       . Depuis: 2020-07-01
+       . Date dernière paie: à partir de la date d'aujourd'hui moins une semaine.
+    Il y a une variable: nbrs_sem_dern_paie: par défaut = 1
+  c'est un rapport pour avoir tous les employés actifs.
