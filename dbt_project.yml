@@ -46,6 +46,13 @@ models:
     emp_conge:
         +tags: ["emp_conge"]
         +schema: emp_conge
+    emp_actif:
+        +tags: ["emp_actif"]
+        +schema: emp_actif   
+        pbi_tables:
+            +schema: emp_actif_reporting
+            +tags:
+                - reporting               
     prospectif_cdp:
         +tags: ["prospectif_cdp"]
         +materialized: table
@@ -114,3 +121,5 @@ vars:
     res_epreuves:
         threshold: 70
         cod_css: "Replace me in the CSS repositery"
+    emp_actif:
+        nbrs_sem_dern_paie: 1        

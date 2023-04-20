@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: ema_report_emp_actif
+    description: >
+        Table uniquement pour les employés actifs.
+    tests: 
+      - resolution: 
+          combination_of_columns: 
+            - matr
+            - courriel_portail
+    columns:
+      - name: matr
+        description: le matricule de l'employé
+        tests:
+          - not_null
+          - unique  
+      - name: nom_empl
+        description: le nom complet de l'employé           
+      - name: courriel_portail
+        description: le courriel de l'employé
+        tests: 
+            - not_null
+            - unique
+      - name: lieu_trav
+        description: le lieu de travail de l'employé
+      - name: corps_empl
+        description: le corps de travail de l'employé                           
+      - name: etat_empl
+        description: l'état de l'employé  
+      - name: stat_eng
+        description: le statut d'engagement de l'employé              

@@ -7,6 +7,7 @@ SELECT
     , date_eng
     , nom            
     , prnom
-    , etat_doss    
+    , etat_doss
+    , date_dern_paie  
 FROM
     {{ var("database_paie") }}.dbo.pai_dos
