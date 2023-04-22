@@ -8,12 +8,13 @@
 # Update the code
 git checkout core.data.tbe/feature/<feature_name>
 git pull
-poetry shell && poetry lock && poetry install
-dbt deps
+# Might be required if you update either the poetry file or the lock file
+# poetry shell && poetry lock && poetry install 
 cd ../<project_name>
-git checkout <project_name>/feature/<feature_name>
+git checkout feature/<feature_name>
 git pull  
-
+# Might be required if you add a new DBT dependency
+#dbt deps
 # Run dbt 
 dbt build --select tag:<my ressources tag>
 ```
