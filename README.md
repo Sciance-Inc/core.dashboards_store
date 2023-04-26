@@ -296,26 +296,30 @@ vars:
 ```
 
 ### empl_actif
-> Ce tdb est pour but d'avoir les employés actifs
+> This dashboard list the active employees of the CSS. It is used to compute the number of employees in the CSS.
   
 #### Data dependencies
 * **Databases** :
   * paie
-* **Sources** :
-  * *dbo.cstmrs_etat_empl* : le tdb empl_actif a besoin la colonne etat_actif dans cette table. Cette table est définie dans le repo cssxx_tbe
 * **Dashboards** 
+* **Marts**
+  * human_resources (seeds)
 
-#### Dbt project specification
-> La MAJ du fichier `cssxx_tbe/dbt_project.yml`.
-> Ce tdb a besoin des données poussés par seeds. Pour être sur, tapez `dbt seed --full-refresh` pour pousser des données de la table cstmrs_etat_empl dans DB.
+#### Deploying the dashboard
+##### 1) Populating the seeds
+> This dashboard requiers the specification of the seeds in the `human_resources` mart.  `cssxx_tbe/dbt_project.yml`.
+
+The seed must be populated in `cssXX/seeds/marts/human_resources/` and as per the definition of the `core/seeds/marts/human_resources/schema.yml` mart. 
+
+Please refer to the `human_resources` mart documentation for more details.
+
+Do not forget to refresh your seeds with the `dbt seeds --full-refresh` command.
+
+##### 2) Updating your `cssXX/dbt_project.yml` file
+> This dashboard requiers the `paie` interfaces to be enabled. Integrate the following code to your `cssXX/dbt_project.yml` file to enable the dasboard.
 
 ```yaml
-seeds:
-    cssXXX_tbe:
-        emp_actif:
-            +tags: ["emp_actif"]
-            +schema: 'emp_actif'
-
+# cssXX/dbt_project.yml
 models:
   tbe: # Enable the models from the core repo
     emp_actif:
@@ -326,23 +330,25 @@ models:
                 +enabled: True
 ```
 
-### Ajouté les fichiers `in-house` 
-* Ajouté un fichier CSV `cstmrs_etat_empl.csv` comme suit :  `cssXX/seeds/empl_actif/cstmrs_etat_empl.csv` (un exemple du contenu ci-bas):
-  etat_empl,descr,empl_retr,empl_cong,empl_cong_ct,empl_cong_lt,etat_actif
-  A01,En service,,,,,1
-  C01,Autre emploi dans la C.S.,,,,,0
- 
+##### 3) Smoketesting the dashboard
+
+```bash
+dbt build --select tag:emp_actif
 ```
 
-### Configuration personnalisée de la variable `nbrs_sem_dern_paie`
-> nbrs_sem_dern_paie: variable indiquée en semaine pour couvrir la dernière semaine de paie. Par défaut est égale à une semaine de retard.
+#### Configuring the dashboard
 
-On peut définir une autre valeur que celle par défaut dans ce fichier `dbt_project.yml`.
+##### Configuring the `nbrs_sem_dern_paie`
+> The `nbrs_sem_dern_paie` variable is used as a recency parameters. It's used to filter out employeed for which the last paye occuperd for too long time. It is set to 1 by default.
+
+The variable can be overriden by setting the `nbrs_sem_dern_paie` variable in the `dbt_project.yml` file, in the `vars` section and under the `emp_actif` key. Please consults  `core/dbt_project.yml` to find the default value and see an example of the specification of this variable.
+
 
 ```yaml
+# cssXX/dbt_project.yml
 vars:
-    # variables du tdb emp_actif:
-     nbrs_sem_dern_paie: 1
+  empt_actif:
+    nbrs_sem_dern_paie: 1
 ```
 
 ### suivi_resultats
