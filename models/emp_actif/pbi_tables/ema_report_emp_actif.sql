@@ -50,5 +50,5 @@
             ,CONCAT(statut.etat_empl,' - ',desc_etat_empl)     AS etat_empl
             ,CONCAT(stat_eng, ' - ',desc_stat_eng)      AS stat_eng
     FROM empl_actif
-    INNER JOIN  {{ ref('cstmrs_etat_empl') }} AS statut   ON statut.etat_empl = etat AND  statut.etat_actif = 1
+    INNER JOIN  {{ ref('etat_empl') }} AS statut   ON statut.etat_empl = etat AND  statut.etat_actif = 1
     WHERE  seqId = 1

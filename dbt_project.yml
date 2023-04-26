@@ -17,21 +17,30 @@ clean-targets:
     - "dbt_packages"
     
 seeds:
-    +enabled: False
-    res_epreuves:
-        +tags: ["res_epreuves"]
-        +schema: 'res_epreuves_seeds'
-    prospectif_cdp:
-        +tags: ["prospectif_cdp"]
-        +schema: 'prospectif_cdp_seeds'
-    suivi_resultats:
-        +tags: ["suivi_resultats"]
-        +schema: 'suivi_resultats_seeds'
+    +tags: ["seeds"]
+    tbe: 
+        marts:
+            human_resources:
+                +tags: ["human_resources"]
+                +schema: 'human_resources_seeds'
+        dashboards:
+            res_epreuves:
+                +tags: ["res_epreuves"]
+                +schema: 'res_epreuves_seeds'
+            prospectif_cdp:
+                +tags: ["prospectif_cdp"]
+                +schema: 'prospectif_cdp_seeds'
+            suivi_resultats:
+                +tags: ["suivi_resultats"]
+                +schema: 'suivi_resultats_seeds'
 
 models:
   +materialized: table
   tbe:
     +enabled: False
+    marts:
+        human_resources:
+            +tags: ["human_resources"]
     store_template:
         +tags: ["template"]
         +schema: 'store_template'
