@@ -2,47 +2,53 @@
 {{ config(alias='fact_emp_conge') }}
 
 WITH employes AS (
-    SELECT DISTINCT
+    SELECT 
         CASE 
-            WHEN MONTH(emp.date_eff) < 8 THEN YEAR(emp.date_eff) - 1 
+            WHEN MONTH(emp.date_eff) < 7 THEN YEAR(emp.date_eff) - 1 
             ELSE YEAR(emp.date_eff)
-        END AS 'annee'
-        , emp.matr
-        , emp.lieu_trav AS 'ecole_code'
-        , lieu.descr AS 'ecole_description'
-        , emp.corp_empl AS 'corps_emploi'
-        , corpe.descr AS 'corps_demploi_description'
-        , emp.etat
-        , etat.descr AS 'etat_description'
+        END AS annee
+        , emp.date_eff AS date_eff
+        , emp.matr AS matricule
+        , emp.lieu_trav
+        , lieu.descr AS lieu_trav_descr
+        , emp.corp_empl AS corps_emploi
+        , corp.descr AS corps_demploi_description
+        , emp.etat AS etat
+        , etat.descr AS etat_description
+        , empl_status.cong_lt
     FROM {{ ref('i_paie_hemp') }} AS emp
-
     INNER JOIN {{ ref('i_pai_tab_etat_empl') }} AS etat 
         ON emp.etat = etat.etat_empl
-    INNER JOIN {{ ref('i_pai_tab_corp_empl') }} AS corpe 
-        ON emp.corp_empl = corpe.corp_empl
+    INNER JOIN {{ ref('i_pai_tab_corp_empl') }} AS corp 
+        ON emp.corp_empl = corp.corp_empl
     INNER JOIN {{ ref('i_pai_tab_lieu_trav') }}  AS lieu 
-        ON emp.lieu_trav = lieu.lieu_trav    
-    WHERE
-        (
-            etat.etat_empl = 'A02' OR
-            etat.etat_empl = 'A07' OR
-            etat.etat_empl = 'A08' OR 
-            etat.etat_empl = 'A11' OR 
-            etat.etat_empl = 'A13' OR 
-            etat.etat_empl = 'A20' OR 
-            etat.etat_empl = 'A21' OR 
-            etat.etat_empl = 'P01' OR 
-            etat.etat_empl = 'P03' OR 
-            etat.etat_empl = 'P04' OR 
-            etat.etat_empl = 'P06' OR 
-            etat.etat_empl = 'S01' OR 
-            etat.etat_empl = 'S02' OR 
-            etat.etat_empl = 'S09' OR 
-            etat.etat_empl = 'S16' OR 
-            etat.etat_empl = 'S20'
-            )       
+        ON emp.lieu_trav = lieu.lieu_trav   
+    INNER JOIN {{ adapt('employees_status','cstmrs_etat_empl') }} AS empl_status
+        ON emp.etat = empl_status.etat_empl
+    WHERE empl_status.empl_cong = 1 --Empl en congé  
+),
+
+row_num AS (
+	SELECT 
+        *
+		, ROW_NUMBER() OVER (PARTITION BY annee, matricule, etat ORDER BY date_eff DESC) AS seqid
+	FROM employes
+), 
+
+columns AS (
+    SELECT 
+        date_eff
+        , annee
+        , matricule
+        , lieu_trav
+        , lieu_trav_descr
+        , corps_emploi
+        , corps_demploi_description
+        , etat_description 
+        , cong_lt
+    FROM row_num
+    WHERE seqid = 1
 )
 
-SELECT * FROM employes
+SELECT * FROM columns
 
-WHERE annee BETWEEN {{  tbe.get_current_year() }} - 10 AND {{  tbe.get_current_year() }}

@@ -491,6 +491,49 @@ vars:
     res_epreuves:
         cod_css: ###% --the first 3 digits of your organization code
 ```
+### Emp_conge
+> Monitor the leaves of each employee for each related state during a specified timeline . The dashboard display the total amount of each state in each workplace, the total amount of a specific state overall and a historic of each state. 
+
+#### Data dependencies
+* **Databases** :
+  * Paie
+
+#### db project specification
+> update your `cssxx_tbe/dbt_project.yml` file.
+
+```yaml
+seeds:
+    CSSXX:
+        paie:
+            +enabled: true
+            +tags: ["paie"]
+            +schema: 'paie_seeds'
+
+models: 
+  tbe:
+      emp_conge:
+        +enabled: true
+```
+#### Overriding the default list of cstmrs_etat_empl
+> This step is mandatory. The dashboard will only monitor the leaves listed in `tbe/seeds/paie/cstmrs_etat_empl.csv`
+
+You can provide your own implementation of `cstmrs_etat_empl`. To do so, just write a CSV file named `cstmrs_etat_empl` in the `CSSXX/seeds/paie` folder. The seed needs 5 columns. The first columns and the second columns are the state and the description respectively. Those 2 columns, empl_cong and cong_lt respectively, are boolean in which you need to ask yourself those questions in order : 
+* Column 4 - Is it an employee on leave?
+* Column 5 - Is it a long-term leave?
+You write 0 if it doesn't apply. Otherwise, 1
+The logic we apply on the column 5 is the following : if the leave is lower than 6 months then short term, otherwise, long-term. 
+In short :  
+leave < 6 then short 
+leave >= 6 then long
+
+seeds:
+    CSSXX:
+        paie:
+            +enabled: true
+            +tags: ["paie"]
+            +schema: 'paie_seeds'
+```
+
 # Developer guidelines
 
 **Read me first**
