@@ -2,4 +2,23 @@ version: 2
 
 models:
   - name: empcong_fact_emp_conge
-    description: Count the number of days of leave taken by employees per year, school, job and status
+    description: >
+        Table de faits qui comptabilise le nombre d'employé ayant un congé'
+    tests:
+      - resolution:
+          combination_of_columns:
+            - date_eff 
+            - matricule
+            - corps_emploi 
+            - etat_description
+  - name: reporting_emp_conge
+    description: >
+        Table de rapports qui comptabilise le nombre de congés des employés selon l'année, le lieu de travail et le corps d'emploi.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - annee
+            - lieu_trav
+            - corps_demploi_description
+            - etat_description
+            - n_matr
