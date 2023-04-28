@@ -431,6 +431,20 @@ vars:
     nbrs_sem_dern_paie: 1
 ```
 
+### Report builder: empl_actif.rdl
+> It's a SSRS report to have a list active employees of the CSS.
+> emp_actif.rdl file is in a repo core.data.tbe/report/reportBuilder/emp_actif/
+
+#### Data dependencies
+* **Databases** :
+  * tbe
+* **Sources** :
+  * *dbo_emp_actif_reporting.report_emp_actif* : This empl_actif.rdl report needs this table. This table is defined in the repo cssxx_tbe
+* **Report in SSRS** 
+# How to install
+> Consult in Wiki- section "Publier un rapport en rdl sur le Power BI Serveur de Rapports"
+
+
 ### suivi_resultats
 > Monitor the grades of students (s1 to s3) in maths and french . The dashboard displays, for each students currently enrolled in s1 to s3, the history of it's grades for all courses belonging to the same group of courses (maths or french). The dashboard conditionally renders the student status. Only the last grade for a given course code is taken into considerations.
 
