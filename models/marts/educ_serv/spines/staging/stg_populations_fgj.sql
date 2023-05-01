@@ -2,30 +2,35 @@
 
 SELECT 
     fiche
+    , annee
     , id_eco
     ,'prescolaire' AS population
-FROM {{ adapt('populations', 'prspctf_stg_el_prescolaire') }}
+FROM {{ adapt('populations', 'stg_ele_prescolaire') }}
 UNION  
 SELECT 
     fiche
+    , annee
     , id_eco
     ,'primaire_reg' AS population
-FROM {{ adapt('populations', 'prspctf_stg_el_primaire_reg') }}
+FROM {{ adapt('populations', 'stg_ele_primaire_reg') }}
 UNION  
 SELECT 
     fiche
+    , annee
     , id_eco
     ,'primaire_adapt' AS population
-FROM {{ adapt('populations', 'prspctf_stg_el_primaire_adapt') }}
+FROM {{ adapt('populations', 'stg_ele_primaire_adapt') }}
 UNION  
 SELECT 
     fiche
+    , annee
     , id_eco
     ,'secondaire_reg' AS population
-FROM {{ adapt('populations', 'prspctf_stg_el_sec_reg') }}
+FROM {{ adapt('populations', 'stg_ele_secondaire_reg') }}
 UNION  
 SELECT 
     fiche
+    , annee
     , id_eco
     ,'secondaire_adapt' AS population
-FROM {{ adapt('populations', 'prspctf_stg_el_sec_adapt') }}
+FROM {{ adapt('populations', 'stg_ele_secondaire_adapt') }}

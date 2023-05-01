@@ -10,7 +10,3 @@ models:
           combination_of_columns:
             - fiche
             - annee
-  - name: base_spine
-    description: >
-      La table de spine contient l'ensemble des numéros de fiches par année scolaire.
-      Elle permet la construction des tables de faits via l'utilisation de left joins.
