@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  
+  - name: stg_populations_fgj
+    description: >
+      Table auxilaire de resolution fiche, id_eco et contenant l'assignement d'une fiche à une population pour le calcul de métriques inter-populationelles.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - id_eco
+            - population
+
+  - name: base_spine
+    description: >
+      La table de spine de résolution fiche, id_eco qui contient l'ensemble des numéros de fiches par année scolaire et population.
+      Elle permet la construction des tables de faits via l'utilisation de left joins.
+      ---
+      A spine table of resolution fiche, id_eco. Used as a backbone for all the Prodrome fact tables.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - id_eco
+            - population
+    
+  - name: fact_freq_fga
+    description: >
+      Table qui enregistre l'ensemble des fréquentations FGA. 
+
+  - name: fact_freq_fp
+    description: >
+      Table qui enregistre l'ensemble des fréquentations FP.
+
+  - name: fact_tps_partial
+    description: >
+      Table de faits, de résolution année / ecole, qui comptabilise le nombre d'employés à temps partiel par année et école.  

@@ -41,6 +41,8 @@ models:
     marts:
         human_resources:
             +tags: ["human_resources"]
+        educ_serv:
+            +tags: ["educ_serv"]
     store_template:
         +tags: ["template"]
         +schema: 'store_template'

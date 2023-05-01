@@ -8,33 +8,6 @@ models:
       La table est constuite en faisant une union de la dimension par défaut (core/seeds/prospectif_cdp/res_matieres/default_code_matiere.csv) et la dimension custom (cssss/seeds/prospectif_cdp/res_matieres/custom_code_matiere.csv).
       La table `custom` peut-etre adaptée pour chaque CSS pour rajouter des épreuves. 
 
-  - name: prspctf_stg_populations_fgj
-    description: >
-      Table auxilaire de resolution fiche, id_eco et contenant l'assignement d'une fiche à une population pour le calcul de métriques inter-populationelles.
-    tests:
-      - resolution:
-          combination_of_columns:
-            - fiche
-            - id_eco
-            - population
-
-  - name: prspctf_base_spine
-    description: >
-      La table de spine de résolution fiche, id_eco qui contient l'ensemble des numéros de fiches par année scolaire et population.
-      Elle permet la construction des tables de faits via l'utilisation de left joins.
-      ---
-      A spine table of resolution fiche, id_eco. Used as a backbone for all the Prodrome fact tables.
-    tests:
-      - resolution:
-          combination_of_columns:
-            - fiche
-            - id_eco
-            - population
-
-  - name: prspctf_fact_tps_partial
-    description: >
-      Table de faits, de résolution année / ecole, qui comptabilise le nombre d'employés à temps partiel par année et école. 
-
   - name: prspctf_fact_anc_2y
     description: >
       Table qui calcul le nombre total d'employé qui ont fait au minimum 2 ans d'ancienneté.
@@ -44,14 +17,6 @@ models:
     description: >
       Table qui calcul le nombre d'employé ayant démissionné volontairement entre la période du 1er juillet au 30 juin.
       Elle sert de point d'entré à la table 'prspctf_taux_fidelite'
-
-  - name: prspctf_fact_freq_fga
-    description: >
-      Table qui enregistre l'ensemble des fréquentations FGA. 
-
-  - name: prspctf_fact_freq_fp
-    description: >
-      Table qui enregistre l'ensemble des fréquentations FP. 
 
   - name: prspctf_fact_rslt_mat_select
     description: >
