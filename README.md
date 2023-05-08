@@ -224,7 +224,7 @@ Some dashboards might need extra configuration to be provided through `seeds`. I
 |-----------	|-------------	|-------	|
 | [prospectif_cdep](#prospectif_cdep)  |  High-level metrics to be looked at by the c-levels	| Mohamed Sadqi (CSSVDC)	| 
 | [transport](#transport)  |  Operational dashboard. To track the financial metrics of the school board transportation system	| Maryna Zhuravlova (CSSHR)	|
-| [emp_conge](#emp_conge) | Monitor employees absences and leaves 	| Gabriel Thiffault (CSSVT), Frérédyk Busque (CSSVT) |
+| [emp_conge](#emp_conge) | Monitor employees absences and leaves 	| Gabriel Thiffault (CSSVT), Frédéryk Busque (CSSVT) |
 | [res_epreuves](#res_epreuves) | Track the percentage of success for each one of the mandatory and optional evaluations of the schoold board | Hugo Juhel (ext), Mohamed Sadqi (CSSVDC)	|
 | [suivi_resultats](#suivi_resultats) | Track the results of the students with a failed course | Mohamed Sadqi (CSSVDC), Hugo Juhel (ext) |
 | [emp_actif](#empl_actif) | List all employees currently enroled in the CSS | (CSSSDGS) Nicolas Pham |
