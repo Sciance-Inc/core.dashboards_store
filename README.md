@@ -10,7 +10,17 @@
 **Disclaimer** 
 This `README` is not an exhaustive documentation of the various techs underlying the store. The `README` aims at providing general information and assumes the reader has already some common knowledge about computers, computer science and business intelligence. Stuffs like environement variables, terminals, parsing, YAML, SQL, execution plans, indexes, syntax, KPI, relational-algebra, copy-pasting-from-stack overflow (the hallmark of great programmers) are out of this readme scope and assumed to be already known. A list of usefull-ish documentation links is provided as a reference in the next section to help the reader getting started. The reader is encourage to google-up the things he doesn't get a good grasp of, and add them to the documentation \o/.
 
-## How to find informations missing from the README ?
+
+## Table Of Contents
+
+* [How to find informations in the Readme ?](#finding-missing-informations-from-the-readme)
+* [Configuring my computer and repos](#configuration-guidelines)
+* [How to DEPLOY an existing dashboard ?](#integrator-guidelines)
+* [Which dashboard are available ?](#available-dashboards)
+* [How to CREATE a new dashboard ?](#conventions-and-developement-guidelines)
+
+
+## Finding missing informations from the README
 > The store uses a lot of technologies such as DBT, SQL, YAML and the likes. As it would be quite cumberstome to document EVERYTHING about ANYTHING, the reader schould first look for missing information in the following links, each one being a technlogy used as a building block of the store.
 
 * __DBT__ [a tool to run and orchestrate data transformations](https://docs.getdbt.com/docs/introduction)
@@ -203,17 +213,21 @@ Some dashboards might need extra configuration to be provided through `seeds`. I
 
 *Please refer to the awsome and always up-to-date dbt documentation to learn about the `Seeds`.*
 
-## Show me the money ! Which dashboards are available ?
+## Available dashboards
+> Show me the money ! Which dashboards are available ?
+
 > This section provides a quick overvierw of each ones of the dashboards available in the store. Please, refers to the next section for more details about the dashboard you are interested in. 
+
+**Click on a dashboard's name to go to it's section.**
 
 | Dashboard 	| Description 	| Owner 	|
 |-----------	|-------------	|-------	|
-| prospectif_cdep  |  High-level metrics to be looked at by the c-levels	| Mohamed Sadqi (CSSVDC)	| 
-| transport  |  Operational dashboard. To track the financial metrics of the school board transportation system	| Maryna Zhuravlova (CSSHR)	|
-| emp_conge | Monitor employees absences and leaves 	| Gabriel Thiffault (CSSVT), Frédéryk Busque (CSSVT) |
-| res_epreuves | Track the percentage of success for each one of the mandatory and optional evaluations of the schoold board | Hugo Juhel (ext), Mohamed Sadqi (CSSVDC)	|
-| suivi_resultats | Track the resusts of the students with a failed course | Mohamed Sadqi (CSSVDC), Hugo Juhel (ext) |
-| emp_actif | List all employees currently enroled in the CSS | (CSSSDGS) Nicolas Pham |
+| [prospectif_cdep](#prospectif_cdep)  |  High-level metrics to be looked at by the c-levels	| Mohamed Sadqi (CSSVDC)	| 
+| [transport](#transport)  |  Operational dashboard. To track the financial metrics of the school board transportation system	| Maryna Zhuravlova (CSSHR)	|
+| [emp_conge](#emp_conge) | Monitor employees absences and leaves 	| Gabriel Thiffault (CSSVT), Frérédyk Busque (CSSVT) |
+| [res_epreuves](#res_epreuves) | Track the percentage of success for each one of the mandatory and optional evaluations of the schoold board | Hugo Juhel (ext), Mohamed Sadqi (CSSVDC)	|
+| [suivi_resultats](#suivi_resultats) | Track the results of the students with a failed course | Mohamed Sadqi (CSSVDC), Hugo Juhel (ext) |
+| [emp_actif](#empl_actif) | List all employees currently enroled in the CSS | (CSSSDGS) Nicolas Pham |
 
 
 > The following section describe the specific for each dashboard. Bear with me, we are gonna drill down into the specifics of each dashboard ! Stay focused ! In each of the following section, you will learn how to tame a specific dashboard.
