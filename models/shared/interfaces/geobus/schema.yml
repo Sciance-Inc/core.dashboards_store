@@ -1,7 +1,12 @@
 version: 2
 
 models:
-  - name: i_geobus_parc
+  - name: i_geo_p_parc
     tags: ["interface"]
     description: >
-      Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table GEO_P_PARC de la base de données source.
+      Table d'interface. liste des parcours et connexion avec circuit_id (second_key)
+  - name: i_geo_p_circ
+    tags: ["interface"]
+    description: >
+      Table d'interface. Utilisée uniquement pour pallier à une list des  cercuites et la connection with nomer contractors
+  

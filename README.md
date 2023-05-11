@@ -233,13 +233,14 @@ Some dashboards might need extra configuration to be provided through `seeds`. I
 > The following section describe the specific for each dashboard. Bear with me, we are gonna drill down into the specifics of each dashboard ! Stay focused ! In each of the following section, you will learn how to tame a specific dashboard.
 
 ### Transport
-> This dashboard shows operational data about the schoolboard transport system.
+> Get operational data about the Transport system of the school board. KPI include the number of circuits per parcours.
 
 | Interfaces  | Marts 	| Marts seeds | Dashboard seeds | Additional config |
 |-----------	|-------------	|-------	|-------	| -------	|
 | geobus   |  No | No 	| No 	| No 	|
-#### Dbt project specification
-> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet.
+
+### Dbt project specification
+> Update your `cssxx_tbe/dbt_project.yml` file.
 
 ```yaml
 models:
