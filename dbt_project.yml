@@ -86,7 +86,15 @@ models:
         pbi_tables:
             +schema: transport_reporting 
             +tags:
-                - reporting 
+                - reporting
+        dimensions:
+            +schema: transport_dimensions
+            +tags:
+                - dimensions
+        features:
+            +tags:
+                - fact_tables
+                
     res_epreuves:
         +tags: ["res_epreuves"]
         +schema: 'res_epreuves'

@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: rpt_trnsprt_details
+    description: >
+      - list of active transport and routes, taking into account tomorrow's and afternoon work shifts
+    tests: 
+      - resolution: 
+          combination_of_columns: 
+            - annee
+            - parcours_id
+            - circuit_id
+            - parcours_periode
+    columns: 
+      - name: annee
+        tests: 
+            - not_null
+      - name: parcours_id
+        tests: 
+            - not_null
+      - name: circuit_id
+        tests: 
+            - not_null
