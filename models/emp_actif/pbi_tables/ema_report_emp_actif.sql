@@ -17,6 +17,7 @@
         ,empl.stat_eng          AS stat_eng
         ,eng.descr_stat_eng     AS desc_stat_eng
         ,etat
+        ,perm.code_perm
         ,ROW_NUMBER() OVER (PARTITION BY  util.matr,adr_electrnq_portail,lieu.lieu_trav
 						ORDER BY date_eff DESC ) AS seqId   
                               
@@ -32,7 +33,9 @@
         LEFT JOIN  {{ ref('i_pai_tab_stat_eng') }} AS eng
             ON eng.stat_eng = empl.stat_eng
         LEFT JOIN  {{ ref('i_pai_tab_etat_empl') }} AS etat
-           ON etat.etat_empl = empl.etat    
+           ON etat.etat_empl = empl.etat  
+       LEFT JOIN  {{ ref('i_pai_dos_perc') }} AS perm
+           ON perm.matr = empl.matr
                 
     WHERE
         empl.ind_empl_princ = '1'          AND -- emploi principal
@@ -49,6 +52,9 @@
             ,CONCAT(corp, ' - ',desc_corp)              AS corps_empl
             ,CONCAT(statut.etat_empl,' - ',desc_etat_empl)     AS etat_empl
             ,CONCAT(stat_eng, ' - ',desc_stat_eng)      AS stat_eng
+            ,CASE WHEN code_perm = 1 THEN 1
+	            ELSE 0
+	        END AS isEmployePermanent
     FROM empl_actif
     INNER JOIN  {{ ref('etat_empl') }} AS statut   ON statut.etat_empl = etat AND  statut.etat_actif = 1
     WHERE  seqId = 1

@@ -141,4 +141,4 @@ vars:
         threshold: 70
         cod_css: "Replace me in the CSS repositery"
     emp_actif:
-        nbrs_sem_dern_paie: 1        
+        nbrs_sem_dern_paie: 1
