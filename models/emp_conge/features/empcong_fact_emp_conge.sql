@@ -23,7 +23,7 @@ WITH employes AS (
         ON emp.corp_empl = corp.corp_empl
     INNER JOIN {{ ref('i_pai_tab_lieu_trav') }}  AS lieu 
         ON emp.lieu_trav = lieu.lieu_trav   
-    INNER JOIN {{ adapt('employees_status','cstmrs_etat_empl') }} AS empl_status
+    INNER JOIN {{ ref('etat_empl') }} AS empl_status
         ON emp.etat = empl_status.etat_empl
     WHERE empl_status.empl_cong = 1 --Empl en congé  
 ),
