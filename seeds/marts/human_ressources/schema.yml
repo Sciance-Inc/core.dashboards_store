@@ -4,6 +4,7 @@ seeds:
   - name: etat_empl
     description: >
       A mapping table between the employees status and arbitray meta-datas such as the description of the status, the status of the employee (active or not), the status of the employee (on leave or not), the status of the employee (on leave with pay or not), the status of the employee (on leave without pay or not).
+      The code to be poppulated are the ones we can find in the i_paie_hemp.etat column.
     columns:
       - name: etat_empl
         description: The codified representation of the etat_employe.
@@ -26,25 +27,20 @@ seeds:
         description: Is the code identifiing a currently on leave employee ?
         tests:
           - not_null
-      - name: empl_cong_ct
-        description: Is the code identifiing a currently on short-terme leave employee ?
-        tests:
-          - not_null
-      - name: empl_cong_lt
+      - name: cong_lt
         description: Is the code identifiing a currently on long-terme leave employee ?
         tests:
           - not_null
     config:
       tags:
-        - "emp_conge"
-        - "emp_actif"
+        - human_resources
+        - emp_actif
       schema: human_resources_seeds
       column_types:
-        etat_empl: varchar(3)
-        descr: varchar(25)
+        etat_empl: nvarchar(3)
+        descr: nvarchar(25)
         empl_retr: bit
         empl_cong: bit
-        empl_cong_ct: bit
         empl_cong_lt: bit
         etat_actif: bit
 

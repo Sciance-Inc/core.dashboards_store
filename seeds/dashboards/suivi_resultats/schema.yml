@@ -24,16 +24,24 @@ seeds:
         tests:
           - not_null
     config:
+      tags:
+        - suivi_resultats
       column_types:
-        course_code: varchar(32)
-        course_name: varchar(128)
-        course_group: varchar(32)
-        level: varchar(32) 
+        course_code: nvarchar(32)
+        course_name: nvarchar(128)
+        course_group: nvarchar(32)
+        level: nvarchar(32) 
 
   - name: tracked_levels
     description: >
       List all the levels to tracked by default. If you add some custom courses, you might want to add some custom levels to, to be able to track them. 
       You can override this dimension in your css specific repo.
+    config:
+      tags:
+        - suivi_resultats
+      schema: suivi_resultats_seeds
+      column_type:
+        level: nvarchar(32)
     columns:
       - name: level
         description: The school level to track. By default, only 'sec1', 'sec2', 'sec3' are tracked.

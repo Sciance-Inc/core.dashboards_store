@@ -4,7 +4,21 @@ seeds:
   - name: default_subject_evaluation
     description: Mapping of the mandatory evaluation to their cod_matiere
     config:
+      tags: 
+        - res_epreuves
+      schema: res_epreuves_seeds
       column_types:
-        code_matiere: varchar(32)
-        no_competence: varchar(32)
-        friendly_name: varchar(64)
+        code_matiere: nvarchar(32)
+        no_competence: nvarchar(32)
+        friendly_name: nvarchar(64)
+  
+  - name: custom_subject_evaluation
+    description: An optional mapping of evaluation to be tracked by the dahsboard
+    config:
+      tags: 
+        - res_epreuves
+      schema: res_epreuves_seeds
+      column_types:
+        code_matiere: nvarchar(32)
+        no_competence: nvarchar(32)
+        friendly_name: nvarchar(64)

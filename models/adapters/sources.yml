@@ -8,17 +8,6 @@ sources:
     tags: ["prospectif_cdp"]
     schema: "{{ target.schema }}_prospectif_cdp_seeds"
     tables:
-      - name: cstmrs_etat_empl
-        description: > 
-            état employers/employment status csv file. is used to determine if an employee  on service, on vacance or finiched the service
-        columns: 
-          - name: etat_empl
-            description: code status empl,
-          - name: etat_descr  
-            description: descriptions of etat_empl, 
-          - name: etat_st 
-            description: filterong for general status groups, where 1 -  on service , 2 - on vacance, 3 - inacif, finished the service.
-      
       - name: cstmrs_stat_eng
         description: >
           engagement status csv file. Determines the full or partial employment of the employee and whethe it's a permanant or temporary position

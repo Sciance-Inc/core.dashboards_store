@@ -254,6 +254,8 @@ models:
 ```
 
 ### Prospectif_cdep
+> DEPRECATED. This section is not up-to-date and has to be rewritted. 
+> START OF DEPRECATION >>>
 * **Indicateurs** :
   * Pour l'objectif "Attirer et retenir du personnel qualifié et engagé"(C6), l'ICP équivaut au: 
     * Nb d'employés actifs sur un poste régulier dont la date actuelle - date d'entrée en poste > 2 ans / Nb employés actifs  à l'emploi régulier (toute ancienneté confondue). Employé = qui relève des services du centre administratif (hors service à l'élève direct)(ex. : TL : gens qui relèvent du 130) 
@@ -313,9 +315,7 @@ models:
       populations:  # core.prospectif_cdp expects the populations to live in the prospectif_cdp_staging schema. Please refers to core/models/prospectif_cdep/adapters/sources.yml for more details about the concrete implementation you must provide the core with.
         +schema: 'prospectif_cdp_staging'
 ```
-
 #### Configuring the population
-
 
 #### configuration of CSSXX cstmrs_stat_eng.sql seed file 
 
@@ -332,13 +332,14 @@ sources:
         etat_discr: varchar(50)
         etat_st: int
 ```
+> \>\>\> END OF DEPRECATION
 
 ### res_epreuves
 > Provides a quick overview of the results of the mandatory and optional evaluations by the school board.
 
 | Interfaces  | Marts 	| Marts seeds | Dashboard seeds | Additional config |
 |-----------	|-------------	|-------	|-------	| -------	|
-| gpi |  No | No 	| No 	| Yes 	|
+| gpi |  No | No 	| Yes 	| Yes 	|
 
 #### Dbt project specification
 > Update your `cssxx_tbe/dbt_project.yml` file with the following snippet.
@@ -354,43 +355,25 @@ models:
                 +enabled: True
 ```  
 
+#### Additional configuration
+> These steps are optional.
 ##### Customizing the tracked courses
 > Update your `cssxx_tbe/dbt_project.yml` file.
 > This table needs some seeds. Make sure to run `dbt seed --full-refresh` to populate the seeds.
-> For experienced reader only. Optional.
 
-```yaml
-# cssxx_tbe/dbt_project.yml
-seeds:
-    # Add, if any, a CSV named `custom_subject_evaluation` with your `in-house` evaluations. The expectif `custom_subject_evalutaiton` config is indicated there after : 
-    cssXXX_tbe:
-        res_epreuves:
-            +tags: ["res_epreuves"]
-            +schema: 'res_epreuves_seeds'
+* To add a list of in-house courses to be tracked :
+  1. Add a `.csv` file in your `cssxx_tbe/seeds/res_epreuves` folder. The file must be named `custom_subject_evaluation.csv`. The file must be populated with the colums described in `core.data.tbe/seeds/res_epreuves/schema.yml` (refers to the `custom_subject_evaluation` seed). You might want to use the `GPI.Edo.ResultatsCompetenceEtape` table to find the appropriate mapping.
+
+  2. Trigger a refresh of your seeds 
+
+```bash
+dbt seed --full-refresh
 ```
-
-```yaml
-# cssXX/seeds/res_epreuves/schema.yml
-version: 2
-
-seeds:
-  # cssXX/seeds/res_epreuves/custom_subject_evaluation.csv
-  - name: custom_subject_evaluation
-    description: Custom mapping of the custom evaluations to their cod_matiere
-    config:
-      column_types:
-        cod_matiere: varchar(32)
-        no_competence: varchar(32)
-        cod_etape: varchar(32)
-        friendly_name: varchar(64)
-```
-
-Populate the `csv`, with the 4 columns. Use the `GPI.Edo.ResultatsCompetenceEtape` table to find the appropriate mapping.
 
 ##### Setting a custom `threshold`
 > The threshold is used to compute the identify the overachieving students. It is set to 70% by default.
 
-You can override the default threshold by adding the following var in your `dbt_project.yml` file.
+You can override the default threshold by adding the following variable in your `dbt_project.yml` file.
 
 ```yaml
 # cssxx_tbe/dbt_project.yml
@@ -407,18 +390,19 @@ vars:
 |-----------	|-------------	|-------	|-------	| -------	|
 | paie |  No | human_resources 	| No 	| Yes 	|
 
+> This dashboard requiers the specification of a seed.
 
 ##### Populating the marts seed
 > This dashboard requiers the specification of the seeds in the `human_resources` mart.  
 
-The seed must be populated in `cssXX/seeds/marts/human_resources/` and as per the definition of the `core/seeds/marts/human_resources/schema.yml` mart. 
+The seed must be populated in `cssXX.data.tbe/seeds/marts/human_resources/` and as per the definition of the `core.data.tbe/seeds/marts/human_resources/schema.yml` mart. 
 
-Please refer to the `human_resources` mart documentation (the schema file) for more details.
+Please refer to the `core.data.tbe/seeds/marts/human_resources/schema.yml` mart documentation to get the concrete implementation.
 
-Do not forget to refresh your seeds with the `dbt seeds --full-refresh` command.
+Do not forget to refresh your seeds with the `dbt seeds --select tag:human_resources --full-refresh` command.
 
 #### Dbt project specification
-> This dashboard requiers the `paie` interfaces to be enabled. Integrate the following code to your `cssXX/dbt_project.yml` file to enable the dasboard.
+> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet.
 
 ```yaml
 # cssXX/dbt_project.yml
@@ -432,12 +416,12 @@ models:
                 +enabled: True
 ```
 
-
-#### Configuring the `nbrs_sem_dern_paie`
+#### Additional configuration
+> These steps are optional.
+##### Configuring the `nbrs_sem_dern_paie`
 > The `nbrs_sem_dern_paie` variable is used as a recency parameters. It's used to filter out employeed for which the last paye occuperd for too long time. It is set to 1 by default.
 
-The variable can be overriden by setting the `nbrs_sem_dern_paie` variable in the `dbt_project.yml` file, in the `vars` section and under the `emp_actif` key. Please consults  `core/dbt_project.yml` to find the default value and see an example of the specification of this variable.
-
+The variable can be overriden by setting the `nbrs_sem_dern_paie` variable in the `dbt_project.yml` file, in the `vars` section and under the `emp_actif` key. Please consults  `core.data.tbe/dbt_project.yml` to find the default value and see an example of the specification of this variable. 
 
 ```yaml
 # cssXX/dbt_project.yml
@@ -446,18 +430,8 @@ vars:
     nbrs_sem_dern_paie: 1
 ```
 
-### Report builder: empl_actif.rdl
-> It's a SSRS report to have a list active employees of the CSS.
-> emp_actif.rdl file is in a repo core.data.tbe/report/reportBuilder/emp_actif/
-
-#### Data dependencies
-* **Databases** :
-  * tbe
-* **Sources** :
-  * *dbo_emp_actif_reporting.report_emp_actif* : This empl_actif.rdl report needs this table. This table is defined in the repo cssxx_tbe
-* **Report in SSRS** 
-# How to install
-> Consult in Wiki- section "Publier un rapport en rdl sur le Power BI Serveur de Rapports"
+##### Using the Report builder: empl_actif.rdl
+> An SSRS report is available to export the list of active employees of the CSS. The `emp_actif.rdl` can be found in a `core.data.tbe/reporting/emp_actif/emp_actif.rdl`
 
 
 ### suivi_resultats
@@ -465,12 +439,14 @@ vars:
 
 | Interfaces  | Marts 	| Marts seeds | Dashboard seeds | Additional config |
 |-----------	|-------------	|-------	|-------	| -------	|
-| gpi |  No | No 	| No 	| No 	|
+| gpi |  No | No 	| No 	| Yes 	|
 
 #### Dbt project specification
-> Update your `cssxx_tbe/dbt_project.yml` file.
+> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet and add the `cod_css` variable.
 
+1. Enabling the models
 ```yaml
+#cssXX.data.dbe/dbt_project.yml
 models: 
   tbe:
     suivi_resultats:
@@ -481,88 +457,85 @@ models:
           +enabled: True
 ```
 
-#### Overriding the default list of tracked courses
-> This step is optional. By default, the dashboard will only monitor the courses listed in `tbe/seeds/suivi_resultats/tracked_courses.csv`
-
-You can provide your own implementation of `tracked_courses`. To do so, just write a CSV file named `tracked_courses` in the `cssXX/seeds/suivi_resultats` folder and disable the default one by adding the following line in your `dbt_project.yml` file.
+2. Setting a custom `cod_css`
+> cod_css will be used to filter Jade table by the organisation code to exclude student belonging to other CSS. This variable MUST be set for the dashboard to work.
 
 ```yaml
-seeds:
-  tbe:
-    suivi_resultats:
-      tracked_courses:
-        +enabled: False
-```
-
-__When overriding the tracked courses, you might want to override the tracked level as well.__
-
-#### Overriding the default list of tracked levels
-> This step is optional. By default, the dashboard will only monitor the students currently enrolled in the livels listed in `tbe/seeds/suivi_resultats/tracked_level.csv`
-
-You can provide you own list of `tracked_levels`. If, for instance, you add a new tracked course in sec 4, you will want to add the level 4 to the list of tracked levels. To do so, just write a CSV file named `tracked_levels` in the `cssXX/seeds/suivi_resultats` folder and disable the default one by adding the following line in your `dbt_project.yml` file.
-
-```yaml
-seeds:
-  tbe:
-    suivi_resultats:
-      tracked_levels:
-        +enabled: False
-```
-
-#### Setting a custom `cod_css`
-> cod_css will be used to filter Jade table by the organisation code to exclude student belonging to other CSS
-
-You can set it by adding the following var in your `dbt_project.yml` file.
-
-```yaml
+#cssXX.data.dbe/dbt_project.yml
 vars:
     # res_epreuves's dashboard variables:
     res_epreuves:
         cod_css: ###% --the first 3 digits of your organization code
 ```
-### Emp_conge
-> Monitor the leaves of each employee for each related state during a specified timeline . The dashboard display the total amount of each state in each workplace, the total amount of a specific state overall and a historic of each state. 
 
-#### Data dependencies
-* **Databases** :
-  * Paie
+#### Additional configuration
+> These steps are optional. 
 
-#### db project specification
-> update your `cssxx_tbe/dbt_project.yml` file.
+##### Overriding the default list of tracked courses
+> By default, the dashboard will only monitor the courses listed in `core.data.tbe/seeds/dashboard/suivi_resultats/tracked_courses.csv`
+
+You can provide your own implementation of `tracked_courses`. To do so :
+1. Write a CSV file named `tracked_courses` in the `cssXX.data.dbe/seeds/dashboards/suivi_resultats` folder populated as per the `core.data.tbe/seeds/dashboards/suivi_resultats/schema.yml`'s definition.
+2. Disable the default seed by using the the following snippet in your `dbt_project.yml` file : 
+
+```yaml
+#cssXX.data.dbe/dbt_project.yml
+seeds:
+  tbe:
+    dashboards:
+      suivi_resultats:
+        tracked_courses:
+          +enabled: False
+```
+
+__When overriding the tracked courses, you might want to override the tracked level as well.__
+
+##### Overriding the default list of tracked levels
+> This step is optional. By default, the dashboard will only monitor the students currently enrolled in the livels listed in `core.data.tbe/seeds/dashboards/suivi_resultats/tracked_level.csv`
+
+You can provide you own list of `tracked_levels`. If, for instance, you add a new tracked course in sec 4, you will want to add the level 4 to the list of tracked levels. To do so, just write a CSV file named `tracked_levels` in the `cssXX/seeds/dashboards/suivi_resultats` folder and disable the default one by adding the following line in your `dbt_project.yml` file.
 
 ```yaml
 seeds:
-    CSSXX:
-        paie:
-            +enabled: true
-            +tags: ["paie"]
-            +schema: 'paie_seeds'
+  tbe:
+    dashboards:
+      suivi_resultats:
+        tracked_levels:
+          +enabled: False
+```
 
+### Emp_conge
+> Monitor the leaves of each employee for each related state during a specified timeline. The dashboard display the total amount of each state in each workplace, the total amount of a specific state overall and a historic of each state. 
+
+| Interfaces  | Marts 	| Marts seeds | Dashboard seeds | Additional config |
+|-----------	|-------------	|-------	|-------	| -------	|
+| paie |  No | human_resources 	| No 	| No 	|
+
+> This dashboard requiers the specification of a seed.
+
+##### Populating the marts seed
+> This dashboard requiers the specification of the seeds in the `human_resources` mart.  
+
+The seed must be populated in `cssXX.data.tbe/seeds/marts/human_resources/` and as per the definition of the `core.data.tbe/seeds/marts/human_resources/schema.yml` mart. 
+
+Please refer to the `core.data.tbe/seeds/marts/human_resources/schema.yml` mart documentation to get the concrete implementation.
+
+Do not forget to refresh your seeds with the `dbt seeds --select tag:human_resources --full-refresh` command.
+
+#### Dbt project specification
+> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet
+
+```yaml
+# cssXX.data.tbe/dbt_project.yml
 models: 
   tbe:
-      emp_conge:
-        +enabled: true
-```
-#### Overriding the default list of cstmrs_etat_empl
-> This step is mandatory. The dashboard will only monitor the leaves listed in `tbe/seeds/paie/cstmrs_etat_empl.csv`
-
-You can provide your own implementation of `cstmrs_etat_empl`. To do so, just write a CSV file named `cstmrs_etat_empl` in the `CSSXX/seeds/paie` folder. The seed needs 5 columns. The first columns and the second columns are the state and the description respectively. Those 2 columns, empl_cong and cong_lt respectively, are boolean in which you need to ask yourself those questions in order : 
-* Column 4 - Is it an employee on leave?
-* Column 5 - Is it a long-term leave?
-You write 0 if it doesn't apply. Otherwise, 1
-The logic we apply on the column 5 is the following : if the leave is lower than 6 months then short term, otherwise, long-term. 
-In short :  
-leave < 6 then short 
-leave >= 6 then long
-
-seeds:
-    CSSXX:
+    emp_conge:
+      +enabled: true
+    shared:
+      interfaces:
         paie:
-            +enabled: true
-            +tags: ["paie"]
-            +schema: 'paie_seeds'
+          +enabled: true
 ```
-
 # Developer guidelines
 
 **Read me first**
