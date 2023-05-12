@@ -41,7 +41,7 @@ seeds:
         descr: nvarchar(25)
         empl_retr: bit
         empl_cong: bit
-        empl_cong_lt: bit
+        cong_lt: bit
         etat_actif: bit
 
 
