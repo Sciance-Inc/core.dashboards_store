@@ -200,12 +200,12 @@ The placeholder `<dashboard name>` schould be replaced by the name of the dashbo
 # cssXX.data.tbe/project.yml
 models:
   tbe:
-    <dashboard name>
-      +enabled: True
-    shared:
-      interfcaces:
-        <dashboard data source name>
-          +enabled: True
+    dashboards:
+      <dashboard name>
+        +enabled: True
+    interfaces:
+      <dashboard data source name>
+        +enabled: True
 ```
 
 ### "One does not simply enable a dashboard"
@@ -245,12 +245,12 @@ Some dashboards might need extra configuration to be provided through `seeds`. I
 ```yaml
 models:
   tbe:
-    transport: # Activate the dashboard
-        +enabled: True
-    shared: 
-      interfaces:  # Active the geobus source
-          geobus:
-            +enabled: True
+    dashboards:
+      transport: # Activate the dashboard
+          +enabled: True
+    interfaces:  # Active the geobus source
+        geobus:
+          +enabled: True
 ```
 
 ### Prospectif_cdep
@@ -407,13 +407,13 @@ Do not forget to refresh your seeds with the `dbt seeds --select tag:human_resou
 ```yaml
 # cssXX/dbt_project.yml
 models:
-  tbe: # Enable the models from the core repo
-    emp_actif:
-      +enabled: True
-    shared:
-        interfaces: # Enable the paie interface
-            paie:
-                +enabled: True
+  tbe: #
+    dashboards:
+      emp_actif:
+        +enabled: True #  Enable the models from the core repo
+      interfaces: # Enable the paie interface
+          paie:
+              +enabled: True
 ```
 
 #### Additional configuration
@@ -449,12 +449,12 @@ vars:
 #cssXX.data.dbe/dbt_project.yml
 models: 
   tbe:
-    suivi_resultats:
-      +enabled: True
-    shared:
-      interfaces:
-        gp:
-          +enabled: True
+    dashboards: 
+      suivi_resultats:
+        +enabled: True
+    interfaces:
+      gp:
+        +enabled: True
 ```
 
 2. Setting a custom `cod_css`
@@ -529,12 +529,12 @@ Do not forget to refresh your seeds with the `dbt seeds --select tag:human_resou
 # cssXX.data.tbe/dbt_project.yml
 models: 
   tbe:
-    emp_conge:
-      +enabled: true
-    shared:
-      interfaces:
-        paie:
-          +enabled: true
+    dashboards:
+      emp_conge:
+        +enabled: true
+    interfaces:
+      paie:
+        +enabled: true
 ```
 # Developer guidelines
 

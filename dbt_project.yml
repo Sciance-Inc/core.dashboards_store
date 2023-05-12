@@ -32,89 +32,79 @@ models:
             +tags: ["human_resources"]
         educ_serv:
             +tags: ["educ_serv"]
-    store_template:
-        +tags: ["template"]
-        +schema: 'store_template'
-        adapters:
-            +tags:
-                - adapters
-        features:
-            +tags:
-                - fact_tables
-        spines:
-            +schema: store_template_staging
-    emp_conge:
-        +tags: ["emp_conge"]
-        +schema: emp_conge
-    emp_actif:
-        +tags: ["emp_actif"]
-        +schema: emp_actif   
-        pbi_tables:
-            +schema: emp_actif_reporting
-            +tags:
-                - reporting               
-    prospectif_cdp:
-        +tags: ["prospectif_cdp"]
-        +materialized: table
-        +schema: 'prospectif_cdp'
-        adapters:
-            +tags:
-                - adapters
-        features:
-            +tags:
-                - fact_tables
-        spines:
-            +schema: prospectif_cdp_staging
-        pbi_tables:
-            +schema: prospectif_cdp_reporting
-            +tags:
-                - reporting
-    transport:
-        +tags: ["transport"]
-        +schema: 'transport'
-        pbi_tables:
-            +schema: transport_reporting 
-            +tags:
-                - reporting
-        dimensions:
-            +schema: transport_dimensions
-            +tags:
-                - dimensions
-        features:
-            +tags:
-                - fact_tables
-                
-    res_epreuves:
-        +tags: ["res_epreuves"]
-        +schema: 'res_epreuves'
-        staging:
-            +schema: res_epreuves_staging
-            +tags:
-                - staging            
-        pbi_tables:
-            +schema: res_epreuves_reporting
-            +tags:
-                - reporting
-    suivi_resultats:
-        +tags: ["suivi_resultats"]
-        +schema: 'suivi_resultats'
-        staging:
-            +schema: suivi_resultats_staging
-            +tags:
-                - staging            
-        pbi_tables:
-            +schema: suivi_resultats_reporting
-            +tags:
-                - reporting
-    shared:
-        +tags: shared
-        +schema: 'shared'
-        bridges:
-            +schema: shared_staging
-        interfaces:
-            +materialized: ephemeral
-        rls:
-            +schema: 'rls'
+            spines:
+                staging:
+                    +schema: educ_serv_staging
+    dashboards: 
+        emp_conge:
+            +tags: ["emp_conge"]
+            +schema: emp_conge
+
+        emp_actif:
+            +tags: ["emp_actif"]
+            +schema: emp_actif   
+            pbi_tables:
+                +schema: emp_actif_reporting
+                +tags:
+                    - reporting     
+              
+        prospectif_cdp:
+            +tags: ["prospectif_cdp"]
+            +materialized: table
+            +schema: 'prospectif_cdp'
+            adapters:
+                +tags:
+                    - adapters
+            features:
+                +tags:
+                    - fact_tables
+            spines:
+                +schema: prospectif_cdp_staging
+            pbi_tables:
+                +schema: prospectif_cdp_reporting
+                +tags:
+                    - reporting
+        transport:
+            +tags: ["transport"]
+            +schema: 'transport'
+            pbi_tables:
+                +schema: transport_reporting 
+                +tags:
+                    - reporting
+            dimensions:
+                +schema: transport_dimensions
+                +tags:
+                    - dimensions
+            features:
+                +tags:
+                    - fact_tables
+
+        res_epreuves:
+            +tags: ["res_epreuves"]
+            +schema: 'res_epreuves'
+            staging:
+                +schema: res_epreuves_staging
+                +tags:
+                    - staging            
+            pbi_tables:
+                +schema: res_epreuves_reporting
+                +tags:
+                    - reporting
+        suivi_resultats:
+            +tags: ["suivi_resultats"]
+            +schema: 'suivi_resultats'
+            staging:
+                +schema: suivi_resultats_staging
+                +tags:
+                    - staging            
+            pbi_tables:
+                +schema: suivi_resultats_reporting
+                +tags:
+                    - reporting
+    interfaces:
+        +materialized: ephemeral
+    rls:
+        +schema: rls
 vars:
     # Toggle the adapaters table to the sources tables. To run the package in standalone.
     is_context_core: true
