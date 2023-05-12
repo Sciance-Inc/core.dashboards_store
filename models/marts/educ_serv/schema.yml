@@ -32,7 +32,3 @@ models:
   - name: fact_freq_fp
     description: >
       Table qui enregistre l'ensemble des fréquentations FP.
-
-  - name: fact_tps_partial
-    description: >
-      Table de faits, de résolution année / ecole, qui comptabilise le nombre d'employés à temps partiel par année et école.  
