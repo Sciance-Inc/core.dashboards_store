@@ -179,10 +179,9 @@ Just toogle the `+enabled: True` flag in your `cssXX.data.tbe/project.yml` file.
 # cssXX.data.tbe/project.yml
 models:
   tbe:
-    shared: 
-      interfaces:  # Active the geobus source
-          <name of your interface>:
-            +enabled: True
+    interfaces:  # Active the geobus source
+        <name of your interface>:
+          +enabled: True
 ```
 
 **How to enable an interface if you are a black cat !**
