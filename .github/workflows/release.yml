@@ -1,0 +1,22 @@
+name: Release on Github
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    concurrency: release
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.CICD_PAT_TOKEN }}
+
+    - name: Tag and semantic release
+      uses: relekang/python-semantic-release@master
+      with:
+        github_token: ${{ secrets.CICD_PAT_TOKEN }}
