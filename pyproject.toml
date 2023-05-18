@@ -24,5 +24,6 @@ version_variable = [
     "pyproject.toml:tool.poetry.version",
 ]
 build_command = false
+upload_to_pypi = false
 upload_to_release = false
 upload_to_repository = false
