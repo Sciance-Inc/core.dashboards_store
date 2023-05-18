@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.0 (2023-05-18)
+### Feature
+* Disabling all release ([`4961730`](https://github.com/Sciance-Inc/core.dashboards_store/commit/49617308bb30b2f26ace0add93dd84f4c288fbb1))
+
 ## v0.1.0 (2023-05-18)
 ### Feature
 * Adding semantic release ([`b5db5fe`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b5db5fe2bac7d50ca1250810ac29137fd084c02d))
