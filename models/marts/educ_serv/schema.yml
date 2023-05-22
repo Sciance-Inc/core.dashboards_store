@@ -3,6 +3,11 @@ version: 2
 models:
   
   - name: stg_populations_fgj
+    config:
+      tags:
+        - population
+        - educ_serv
+        - prospectif_cdp    
     description: >
       Table auxilaire de resolution fiche, id_eco et contenant l'assignement d'une fiche à une population pour le calcul de métriques inter-populationelles.
     tests:
@@ -12,7 +17,12 @@ models:
             - id_eco
             - population
 
-  - name: base_spine
+  - name: spine
+    config:
+      tags:
+        - population
+        - educ_serv
+        - prospectif_cdp  
     description: >
       La table de spine de résolution fiche, id_eco qui contient l'ensemble des numéros de fiches par année scolaire et population.
       Elle permet la construction des tables de faits via l'utilisation de left joins.
@@ -26,9 +36,19 @@ models:
             - population
     
   - name: fact_freq_fga
+    config:
+      tags:
+        - population
+        - educ_serv
+        - prospectif_cdp  
     description: >
       Table qui enregistre l'ensemble des fréquentations FGA. 
 
   - name: fact_freq_fp
+    config:
+      tags:
+        - population
+        - educ_serv
+        - prospectif_cdp  
     description: >
       Table qui enregistre l'ensemble des fréquentations FP.

@@ -1,4 +1,3 @@
-{{ config(alias='fact_freq_fga') }}
 
 SELECT 
 	el.code_perm
