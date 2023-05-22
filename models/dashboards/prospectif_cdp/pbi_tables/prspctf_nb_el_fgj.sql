@@ -6,7 +6,7 @@ WITH src AS (
         , spi.population
         , eco.annee
         , eco.eco
-    FROM {{ ref('prspctf_base_spine') }} AS spi
+    FROM {{ ref('spine') }} AS spi
     LEFT JOIN {{ ref('i_gpm_t_eco') }} AS eco
         ON spi.id_eco = eco.id_eco
     WHERE spi.seqid = 1

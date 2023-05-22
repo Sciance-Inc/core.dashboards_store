@@ -32,6 +32,8 @@ models:
             +tags: ["human_resources"]
         educ_serv:
             +tags: ["educ_serv"]
+            +schema: educ_serv            
+            features:
             spines:
                 staging:
                     +schema: educ_serv_staging
@@ -102,6 +104,7 @@ models:
                 +tags:
                     - reporting
     interfaces:
+        +tags: ["interfaces"]
         +materialized: ephemeral
     rls:
         +schema: rls

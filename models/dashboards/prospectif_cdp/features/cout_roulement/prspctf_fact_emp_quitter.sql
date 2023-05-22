@@ -12,9 +12,9 @@ WITH src AS (
             ELSE YEAR(his.date_eff)
             END AS annee_budgetaire
     FROM {{ ref('i_paie_hemp') }} AS his
-    LEFT JOIN {{ adapt('employees_status','cstmrs_stat_eng') }} AS se 
+    LEFT JOIN {{ ref('stat_eng') }} AS se 
         ON (se.stat_eng = his.stat_eng) 
-    WHERE se.stat_st = 1                                            --on garde que les employées permanent
+    WHERE se.is_perm = 1                                            --on garde que les employées permanent
 	    AND his.type = 'A'                                           --on garde que les employées avec paiement auto    
 
 -- on detecte les employés avec un code etat débute par un C% 
