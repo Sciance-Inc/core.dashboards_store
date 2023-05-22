@@ -253,8 +253,12 @@ models:
 ```
 
 ### Prospectif_cdep
-> DEPRECATED. This section is not up-to-date and has to be rewritted. 
-> START OF DEPRECATION >>>
+
+| Interfaces  | Marts 	| Marts seeds | Dashboard seeds | Additional config |
+|-----------	|-------------	|-------	|-------	| -------	|
+| gpi paie  jade  |  Yes| Yes 	| No 	| No 	|
+         
+
 * **Indicateurs** :
   * Pour l'objectif "Attirer et retenir du personnel qualifié et engagé"(C6), l'ICP équivaut au: 
     * Nb d'employés actifs sur un poste régulier dont la date actuelle - date d'entrée en poste > 2 ans / Nb employés actifs  à l'emploi régulier (toute ancienneté confondue). Employé = qui relève des services du centre administratif (hors service à l'élève direct)(ex. : TL : gens qui relèvent du 130) 
@@ -282,56 +286,47 @@ models:
 * **Dashboards**  
 
 #### Dbt project specification
-> Update your `cssxx_tbe/dbt_project.yml` file.
+> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet.
 
 ```yaml
-seeds:
-    tbe:
-        prospectif_cdp:
-            +tags: ["prospectif_cdp"]
-            +schema: 'prospectif_cdp_seeds'
-            +enabled: True
-  
-  /* --  You must add a CSV named  'cstmrs_stat_eng.csv' file to define the permanent employees selection criterion,  with your CSS 'custom' values.  Please read 'Configuration of CSSXX cstmrs_stat_eng.sql seed file'  section.
-    cssXXX_tbe:
-        prospectif_cdp:
-            +tags: ["prospectif_cdp"]
-            +schema: 'prospectif_cdp_seeds'        
 
 models:
   tbe: # Enable the models from the core repo
-    prospectif_cdp: # Enable the prospectif_cdep
+
+    marts:
+      human_resources:
         +enabled: True
-    shared:
-        interfaces: # Both the paie and gpi databases are needed for this dashboard
-            paie:
-                +enabled: True
-            gpi:
-                +enabled: True
-  cssXX_tbe:  # the CSSXX_TBE is the name of your inherited project.
-    prospectif_cdp:
-      +tags: ["prospectif_cdp"]
-      populations:  # core.prospectif_cdp expects the populations to live in the prospectif_cdp_staging schema. Please refers to core/models/prospectif_cdep/adapters/sources.yml for more details about the concrete implementation you must provide the core with.
-        +schema: 'prospectif_cdp_staging'
+      educ_serv:
+        +enabled: True     
+    dashboards: 
+      prospectif_cdp: # Enable the prospectif_cdep
+          +enabled: True
+    interfaces: # Both the paie and gpi databases are needed for this dashboard
+      paie:
+        +enabled: True
+      gpi:
+        +enabled: True
+      jade:
+        +enabled: True
 ```
 #### Configuring the population
 
-#### configuration of CSSXX cstmrs_stat_eng.sql seed file 
 
+#### configuration of CSSXX stat_eng.sql seed file 
+ >  You must add a CSV named  'stat_eng.csv' file to define the permanent employees selection criterion,  with your CSS 'custom' values. 
 ```yaml
 sources:
-  - name: cstmrs_stat_eng
+  - name: stat_eng
     description: >
       Indicators of the current state of  employee's files. using to determine retirement(empl_retraite)
       etat_stat-  etat_st- filterong for general status groups, where 1 -  on service , 2 - on vacance, 3 - inacif, finished the service.
       For mor ditals read sources.yml in the core models
     config:
       column_types:
-        etat_empll: varchar(5)
-        etat_discr: varchar(50)
-        etat_st: int
+        stat_eng: varchar(5)
+        stat_dscr: varchar(50)
+        is_perm: int
 ```
-> \>\>\> END OF DEPRECATION
 
 ### res_epreuves
 > Provides a quick overview of the results of the mandatory and optional evaluations by the school board.
@@ -611,7 +606,7 @@ models: # Already here, for reference only
 # How to 
 
 ## Between projects conflicting tables names
-> Some tables names are quite generic (base_spine, dim_school) and can be used in various contexts without refering to the same underlying table. To avoid confusion, please, use the following pattern to disambiguate the tables.
+> Some tables names are quite generic (spine, dim_school) and can be used in various contexts without refering to the same underlying table. To avoid confusion, please, use the following pattern to disambiguate the tables.
 
 
 ##### Exemple

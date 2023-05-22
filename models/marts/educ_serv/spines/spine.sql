@@ -1,4 +1,4 @@
-{{ config(alias='base_spine') }}
+
 
 WITH src AS (
     SELECT 
