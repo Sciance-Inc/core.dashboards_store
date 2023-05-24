@@ -21,3 +21,9 @@ models:
       - name: circuit_id
         tests: 
             - not_null
+      - name: name_sector
+        tests: 
+            - not_null
+      - name: abbr_sector
+        tests: 
+            - not_null
