@@ -232,14 +232,27 @@ Some dashboards might need extra configuration to be provided through `seeds`. I
 > The following section describe the specific for each dashboard. Bear with me, we are gonna drill down into the specifics of each dashboard ! Stay focused ! In each of the following section, you will learn how to tame a specific dashboard.
 
 ### Transport
-> Get operational data about the Transport system of the school board. KPI include the number of circuits per parcours.
+> Get operational data about the Transport system of the school board. KPI include the number of circuits per parcours, etc..
 
 | Interfaces  | Marts 	| Marts seeds | Dashboard seeds | Additional config |
 |-----------	|-------------	|-------	|-------	| -------	|
 | geobus   |  No | No 	| No 	| No 	|
 
-### Dbt project specification
-> Update your `cssxx_tbe/dbt_project.yml` file.
+> A `source` must be implemented in your cssXX.data.tbe repo for the dashboard to work.
+
+#### Populating the `source`
+> This dashboard requiers the specification of the source file in your `cssXX.data.tbe` project.
+
+The source's code must be populated in `cssXX.data.tbe/models/dashboards/transport/staging/trnsprt_stg_sectors.sql` and as per the definition of the `core.data.tbe/models/dashboards/transport/adapters.yml` file. Your file must be aliased to `stg_sectors`. Please, add the following config cartouche at the top of your file.
+
+```sql
+{{ config(alias='stg_sectors') }}
+```
+
+Please refer to the `core.data.tbe/models/dashboards/transport/adapters.yml`file to get the concrete implementation of the file. Make sure your implementation matches the one described in the file, including for the columns data types. 
+
+#### Dbt project specification
+> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet.
 
 ```yaml
 models:
