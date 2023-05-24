@@ -1,3 +1,4 @@
+{{ config(alias='rpt_details') }}
 
 {# Extract the non-simulated parcours for the last 10 years #}
 WITH parcours AS (
@@ -73,13 +74,19 @@ GROUP BY
 
 SELECT 
     annee
-    ,circuit_id
+    ,sec.circuit_id
     ,circuit_name
+    ,name_sector
+    ,abbr_sector
     ,parcours_id
     ,parcours_name
     ,CASE 
         WHEN parcours_periode = 1 THEN 'AM' 
-        WHEN parcours_periode = 8 THEN 'PM' 
+        WHEN parcours_periode = 8 THEN 'PM'
+        WHEN parcours_periode NOT LIKE '1' AND parcours_periode  NOT LIKE '8' THEN 'Midi' 
      END AS parcours_periode
      ,'Oui' AS actif 
-    FROM agg
+FROM agg AS src
+LEFT JOIN {{ adapt('transport', 'stg_sectors') }} AS sec 
+ON src.circuit_id = sec.circuit_id
+
