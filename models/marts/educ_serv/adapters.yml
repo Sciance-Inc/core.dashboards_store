@@ -3,65 +3,56 @@ version: 2
 sources:
   - name: populations
     description: >
-      Les populations identifient des regroupement d'étudiants aux profils cohérents, tels que les élèves réguliers ou les élèeves en FGA.
+      The populations identify groups of students with consistent profiles, such as regular students, students in special education or students in general adult education.
     tags: 
       - population
       - educ_serv
       - prospectif_cdp
+      - effectif_css  
     schema: "{{ target.schema }}_educ_serv_staging"
     tables:
       - name: stg_ele_prescolaire
         description: >
-          Identification de la population en maternelle 4 ans / passe partout / maternelle 5 ans.
+          Identification of the population in 4-year-old kindergarten / passe partout / 5-year-old kindergarten.
         columns:
-          - name: fiche
-            description: The specific fiche for a student
-          - name: id_eco
-            description: unique identifier of a school for a given year
+          - name: code_perm
+            description: The specific unique identifier for a student
           - name: annee
             description: The years the student was active
 
       - name: stg_ele_primaire_reg
         description: >
-          Identification de la population au primaire avec un profil régulier.
+          Identification of the primary school population with a regular course
         columns:
-          - name: fiche
-            description: The specific fiche for a student
-          - name: id_eco
-            description: unique identifier of a school for a given year
+          - name: code_perm
+            description: The specific unique identifier for a student
           - name: annee
             description: The years the student was active
 
       - name: stg_ele_primaire_adapt
         description: >
-          Identification de la population au primaire inscrits en adaptation scolaire.
+          Identification of the primary school population with adjustment or learning difficulties
         columns:
-          - name: fiche
-            description: The specific fiche for a student
-          - name: id_eco
-            description: unique identifier of a school for a given year
+          - name: code_perm
+            description: The specific unique identifier for a student
           - name: annee
             description: The years the student was active
 
       - name: stg_ele_secondaire_reg
         description: >
-          Identification de la population au secondaire avec un profil régulier.
+          Identification of the secondary school population with a regular course.
         columns:
-          - name: fiche
-            description: The specific fiche for a student
-          - name: id_eco
-            description: unique identifier of a school for a given year
+          - name: code_perm
+            description: The specific unique identifier for a student
           - name: annee
             description: The years the student was active
 
       - name: stg_ele_secondaire_adapt
         description: >
-          Identification de la population au secondaire en adaptation scolaire.
+          Identification of the secondary school population with adjustment or learning difficulties
         columns:
-          - name: fiche
-            description: The specific fiche for a student
-          - name: id_eco
-            description: unique identifier of a school for a given year
+          - name: code_perm
+            description: The specific unique identifier for a student
           - name: annee
             description: The years the student was active
 
@@ -73,49 +64,116 @@ models:
         - population
         - educ_serv
         - prospectif_cdp
+        - effectif_css  
     description: >
-          Identification de la population en maternelle 4 ans / passe partout / maternelle 5 ans.
+          Identification of the population in 4-year-old kindergarten / passe partout / 5-year-old kindergarten.
+    tests: 
+      - resolution: 
+          combination_of_columns: 
+            - code_perm
+            - annee
     columns:
+      - name: code_perm
+        description: The specific unique identifier for a student
+        tests:
+            - not_null
       - name: annee
-        tests: 
-          - not_null
-
+        description: The years the student was active
+        tests:
+            - not_null
   - name: stg_ele_primaire_reg
     description: >
-          Identification de la population au primaire avec un profil régulier.
+          Identification of the primary school population with a regular profile.
     config:
       schema: "educ_serv_staging"      
       tags:
         - population
         - educ_serv
         - prospectif_cdp
-
+        - effectif_css  
+    tests: 
+      - resolution: 
+          combination_of_columns: 
+            - code_perm
+            - annee
+    columns:
+      - name: code_perm
+        description: The specific unique identifier for a student
+        tests:
+            - not_null
+      - name: annee
+        description: The years the student was active
+        tests:
+            - not_null
   - name: stg_ele_primaire_adapt
     description: >
-          Identification de la population au primaire inscrits en adaptation scolaire.
+          Identification of the primary school population enrolled in special education.
     config:
       schema: "educ_serv_staging"      
       tags:
         - population
         - educ_serv
         - prospectif_cdp
-
+        - effectif_css  
+    tests: 
+      - resolution: 
+          combination_of_columns: 
+            - code_perm
+            - annee
+    columns:
+      - name: code_perm
+        description: The specific unique identifier for a student
+        tests:
+            - not_null
+      - name: annee
+        description: The years the student was active
+        tests:
+            - not_null
   - name: stg_ele_secondaire_reg
     description: >
-          Identification de la population au secondaire avec un profil régulier.
+          Identification of the secondary school population with a regular profile.
     config:
       schema: "educ_serv_staging"      
       tags:
         - population
         - educ_serv
         - prospectif_cdp
-
+        - effectif_css  
+    tests: 
+      - resolution: 
+          combination_of_columns: 
+            - code_perm
+            - annee
+    columns:
+      - name: code_perm
+        description: The specific unique identifier for a student
+        tests:
+            - not_null
+      - name: annee
+        description: The years the student was active
+        tests:
+            - not_null
   - name: stg_ele_secondaire_adapt
     description: >
-          Identification de la population au secondaire en adaptation scolaire.
+          Identification of the secondary school population in special education.
     config:
       schema: "educ_serv_staging"      
       tags:
         - population
         - educ_serv
         - prospectif_cdp
+        - effectif_css
+    tests: 
+      - resolution: 
+          combination_of_columns: 
+            - code_perm
+            - annee
+    columns:
+      - name: code_perm
+        description: The specific unique identifier for a student
+        tests:
+            - not_null
+      - name: annee
+        description: The years the student was active
+        tests:
+            - not_null
