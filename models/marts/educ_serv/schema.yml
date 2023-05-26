@@ -7,14 +7,15 @@ models:
       tags:
         - population
         - educ_serv
-        - prospectif_cdp    
+        - prospectif_cdp
+        - effectif_css    
     description: >
       Table auxilaire de resolution fiche, id_eco et contenant l'assignement d'une fiche à une population pour le calcul de métriques inter-populationelles.
     tests:
       - resolution:
           combination_of_columns:
-            - fiche
-            - id_eco
+            - code_perm
+            - annee
             - population
 
   - name: spine
@@ -22,18 +23,18 @@ models:
       tags:
         - population
         - educ_serv
-        - prospectif_cdp  
+        - prospectif_cdp
+        - effectif_css  
     description: >
-      La table de spine de résolution fiche, id_eco qui contient l'ensemble des numéros de fiches par année scolaire et population.
+      La table de spine de résolution code_perm, annee, population, eco qui contient l'ensemble des numéros de fiches par année scolaire et population.
       Elle permet la construction des tables de faits via l'utilisation de left joins.
-      ---
-      A spine table of resolution fiche, id_eco. Used as a backbone for all the Prodrome fact tables.
     tests:
       - resolution:
           combination_of_columns:
-            - fiche
-            - id_eco
+            - code_perm
+            - annee
             - population
+            - eco
     
   - name: fact_freq_fga
     config:
