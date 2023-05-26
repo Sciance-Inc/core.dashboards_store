@@ -227,6 +227,7 @@ Some dashboards might need extra configuration to be provided through `seeds`. I
 | [res_epreuves](#res_epreuves) | Track the percentage of success for each one of the mandatory and optional evaluations of the schoold board | Hugo Juhel (ext), Mohamed Sadqi (CSSVDC)	|
 | [suivi_resultats](#suivi_resultats) | Track the results of the students with a failed course | Mohamed Sadqi (CSSVDC), Hugo Juhel (ext) |
 | [emp_actif](#empl_actif) | List all employees currently enroled in the CSS | (CSSSDGS) Nicolas Pham |
+| [effectif_css](#effectif_css) | Track the population count in each school in the CSS | (CSSVT) Frédéryk Busque , Mohamed Sadqi (CSSVDC)
 
 
 > The following section describe the specific for each dashboard. Bear with me, we are gonna drill down into the specifics of each dashboard ! Stay focused ! In each of the following section, you will learn how to tame a specific dashboard.
@@ -543,6 +544,34 @@ models:
       paie:
         +enabled: true
 ```
+
+### Effectif_css
+> Tracks a defined population within a school service centre. The dashboard shows the number of total students in each school
+
+| Interfaces  | Marts 	| Marts seeds     | Dashboard seeds | Additional config |
+|-------------|---------|-----------------|-----------------| ------------------|
+| gpi         |educ_serv|NO             	| No              | No 	              |
+
+##### Populating the marts
+> This dashboard requiers the definition of a specicied population in the `educ_serv` mart.
+
+The marts must be populated in `cssXX.data.tbe/models/marts/educ_serv/populations/` and as per the definition of the `core.data.tbe/marts/educ_serv/adapters.yml`.
+
+#### Dbt project specification
+> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet
+
+```yaml
+# cssXX.data.tbe/dbt_project.yml
+models: 
+  tbe:
+    dashboards:
+        effectif_css:
+            +enabled: true
+    interfaces:
+      gpi:
+        +enabled: true
+```
+
 # Developer guidelines
 
 **Read me first**
@@ -572,7 +601,7 @@ dbt docs serve
   * The only exceptions is the `shared` folder. that contains code to be reused accros the various dashboards.
 
 | subfolder  | Description                                                                                    |
-| ---------- | ---------------------------------------------------------------------------------------------- |  |  |
+| ---------- | ---------------------------------------------------------------------------------------------- |
 | adapters   | Subfolder where we specify the tables defined in the project dbt css necessary.                |
 | features   | sub-folder that contains all the definitions of fact tables                                    |
 | spines     | sub-folder that contains all the definitions of staging tables                                 |

@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: eff_fact_effectif_css
+    description: >
+        Table de faits qui comptabilise la population au sein de la CSS'
+    tests:
+      - resolution:
+          combination_of_columns:
+            - code_perm
+            - annee
+  - name: eff_reporting_effectif_css
+    description: >
+        Table de rapports qui comptabilise la population au sein de la CSS selon l'année, l'école, la classe, l'ordre d'enseignement
+        le niveau scolaire de l'élève, la difficulte et son type de population.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - annee
+            - code_ecole
+            - ordre_ens
+            - cod_niveau_scolaire
+            - Difficulte
+            - dist
+            - sexe
+            - population
+            - plan_interv_ehdaa
+            - grp_rep

@@ -37,7 +37,18 @@ models:
             spines:
                 staging:
                     +schema: educ_serv_staging
-    dashboards: 
+    dashboards:
+        effectif_css:
+            +tags: ["effectif_css"]
+            +schema: effectif_css
+            features:
+                +tags:
+                    - fact_tables
+            pbi_tables:
+                +schema: effectif_css_reporting
+                +tags:
+                    - reporting
+
         emp_conge:
             +tags: ["emp_conge"]
             +schema: emp_conge
