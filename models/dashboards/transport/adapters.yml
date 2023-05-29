@@ -28,19 +28,12 @@ sources:
           - name: circuit_id
             description: id de circuit 
             data_type: integer
-            tests: 
-              - not_null
-              - unique
           - name: name_sector 
             description: nom de secteur
             data_type: nvarchar
-            tests: 
-              - not_null
           - name: abbr_sector 
             description: code clé de secteur 
             data_type: nvarchar
-            tests: 
-              - not_null
 
 # Specifies tags and schema for the later-to-be-defined concrete implementation of the adapters.
 models:
@@ -53,3 +46,14 @@ models:
       tags: 
         - transport
         - adapter
+    columns:
+      - name: circuit_id
+        tests: 
+              - not_null
+              - unique
+      - name: name_sector
+        tests:
+            - not_null
+      - name: abbr_sector
+        tests:
+            - not_null
