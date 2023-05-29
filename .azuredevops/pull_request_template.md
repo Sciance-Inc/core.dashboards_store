@@ -8,7 +8,7 @@
 # Assuming you are in a folder containing both the core.data.tbe and the <cssXX>.data.tbe folder.
 # Update the code
 cd core.data.tbe
-git feature/<feature_name>
+git checkout feature/<feature_name>
 git pull
 # Might be required if you update either the poetry file or the lock file
 # poetry shell && poetry lock && poetry install 
