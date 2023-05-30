@@ -2,6 +2,17 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.0 (2023-05-30)
+### Feature
+
+* Adding the effectif_css dashboard ([`eda7eef`](https://github.com/Sciance-Inc/core.dashboards_store/commit/eda7eefc06b8817a74673c056db7d8288792f7c9))
+* Adding sectors and filter-by-sectors to the transport dashboard ([`4228f3f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4228f3f5203089e492e0425910da81acfa394082))
+
+### Fix
+
+* Transports tests are now only executed if the transport is available ([`f2cba73`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f2cba738fad124ede43b68383cea2ec5faef0e08))
+* The school filter selection is now limited to one item to avoid misinterpretations with the CSS view ([`6493f0a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6493f0a1e9efafbfd6d72d2fd70d8c96ce9ae361))
+
 ## v0.1.0 (2023-05-18)
 ### Feature
 * Adding semantic release ([`b5db5fe`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b5db5fe2bac7d50ca1250810ac29137fd084c02d))
