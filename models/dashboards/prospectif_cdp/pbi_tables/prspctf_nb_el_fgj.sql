@@ -8,7 +8,7 @@ WITH src AS (
         , eco.eco
     FROM {{ ref('spine') }} AS spi
     LEFT JOIN {{ ref('i_gpm_t_eco') }} AS eco
-        ON spi.id_eco = eco.id_eco
+        ON spi.eco = eco.eco AND spi.annee = eco.annee
     WHERE spi.seqid = 1
 
 {# Sum the number of students by population #}
