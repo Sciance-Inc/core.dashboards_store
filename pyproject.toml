@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "core.data.tbe"
-version = "0.1.0"
+version = "0.0.0"
 description = ""
 authors = ["alluardj <alluardj@csvdc.qc.ca>"]
 
@@ -19,4 +19,11 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.semantic_release]
-version_variable = "dbt_project.yml:version"
+version_variable = [
+    "dbt_project.yml:version",
+    "pyproject.toml:tool.poetry.version",
+]
+build_command = false
+upload_to_pypi = false
+upload_to_release = false
+upload_to_repository = false

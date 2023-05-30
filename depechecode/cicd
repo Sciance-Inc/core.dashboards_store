@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+# Compile the project
+cdbt compile --full-refresh --target ${DBT_TARGET}
+
+# Move the manifest to the depeche code folder
+mv target/manifest.json depechecode/manifest.json
+
+# Zip the depeche code folder
+cd /src && zip -r artifact.zip depechecode
+
+# Upload the artifact to the S3 bucket
+aws s3 cp /src/artifact.zip "s3://cicd.deployments/${DEPLOYMENT_NAME}_${DBT_TARGET}.zip"
+
