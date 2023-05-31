@@ -57,4 +57,4 @@ RUN mkdir -p -m 0600 ~/.ssh && \
     ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
 # Add the content of depechecode for downstream build
-COPY depechecode depechecode
+COPY depechecode/DAG depechecode/DAG
