@@ -8,8 +8,8 @@ cdbt compile --full-refresh --target ${DBT_TARGET}
 mv target/manifest.json depechecode/manifest.json
 
 # Zip the depeche code folder
-cd /src && zip -r artifact.zip depechecode/DAG
+cd /src/depechecode && zip -r artifact.zip DAG
 
 # Upload the artifact to the S3 bucket
-aws s3 cp /src/artifact.zip "s3://cicd.deployments/${DEPLOYMENT_NAME}_${DBT_TARGET}.zip"
+aws s3 cp /src/depechecode/artifact.zip "s3://cicd.deployments/${DEPLOYMENT_NAME}_${DBT_TARGET}.zip"
 
