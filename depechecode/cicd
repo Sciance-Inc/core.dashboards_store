@@ -5,7 +5,7 @@ set -e
 cdbt compile --full-refresh --target ${DBT_TARGET}
 
 # Move the manifest to the depeche code folder
-mv target/manifest.json depechecode/manifest.json
+mv target/manifest.json depechecode/DAG/manifest.json
 
 # Zip the depeche code folder
 cd /src/depechecode && zip -r artifact.zip DAG
