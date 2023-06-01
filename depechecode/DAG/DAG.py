@@ -2,12 +2,12 @@
 
 # DAG.py
 #
-# Project name: cssvdc.dashboard_store
+# Project name: core.dashboards_store
 # Author: Hugo Juhel
 #
 # description:
 """
-    Build the DAG for the cssvdc.dashboard_store.
+    Build the DAG for the core.dashboards_store.
 """
 
 import os
@@ -19,6 +19,7 @@ from airflow import DAG # type: ignore
 from airflow.providers.docker.operators.docker import DockerOperator  # type: ignore
 from airflow.utils.task_group import TaskGroup  # type: ignore
 from onepasswordconnectsdk.client import new_client # type: ignore
+import requests
 
 # Extract the root path to to read the manifest and the config from.
 ROOT_PATH = Path(__file__).absolute().parent
@@ -104,6 +105,44 @@ with open(ROOT_PATH / "manifest.json", "r") as f:
     manifest = json.load(f)
 
 
+def dag_failure_callback(context):
+    """
+    Callback to send a message on Microsoft Teams when the DAG fails.
+    """
+
+    payload = {
+        "@type": "MessageCard",
+        "@context": "http://schema.org/extensions",
+        "themeColor": "0076D7",
+        "summary": f"DAG execution failed for '{config['css_name']}' on '{TARGET}'",
+        "sections": [{
+            "activityTitle": f"DAG execution failed for '{config['css_name']}' on '{TARGET}'",
+            "activitySubtitle": "Dashboards store",
+            "activityImage": "https://m.media-amazon.com/images/I/51trRVcd7gL._AC_UF1000,1000_QL80_.jpg",
+            "facts": [{
+                "name": "CSS",
+                "value": config['css_name']
+            }, {
+                "name": "Environnement",
+                "value": TARGET
+            }, {
+                "name": "Execution date",
+                "value": context['execution_date']
+            }],
+            "markdown": True
+        }],
+        "potentialAction": [{
+            "@type": "OpenUri",
+            "name": "Who's been a bad DAG ?",
+            "targets": [{
+                "os": "default",
+                "uri": f"https://airflow.maas.sciance.ca/dags/{context['dag_run'].dag_id}/grid"
+            }]
+        }]
+    }
+
+    requests.post(config['teams_webhook'], json=payload)
+
 with DAG(
     dag_id=f"{config['css_name']}_dashboards_store_{TARGET}",
     default_args=DEFAULT_ARGS,
@@ -112,6 +151,7 @@ with DAG(
     dagrun_timeout=timedelta(minutes=config['timeout']),
     max_active_tasks=config['concurrency'],
     tags=["dashboards store", config['css_name'], TARGET],
+    on_failure_callback=dag_failure_callback,
 ) as dag: 
     
     seed = DBTDockerFactory(
