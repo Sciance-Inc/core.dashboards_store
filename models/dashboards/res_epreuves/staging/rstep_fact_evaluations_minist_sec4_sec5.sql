@@ -22,7 +22,7 @@ WITH resmin AS (
         AND annee NOT IN ('2019', '2020')
         AND type_form_charl = 'FG'
         AND secteur_enseign_freq = 'JE'
-       AND ecole LIKE ('{{ var('res_epreuves')['cod_css'] }}' )
- --       AND ecole like ('866%')
+        AND ecole LIKE ('{{ var('res_epreuves')['cod_css'] }}' )
+        AND res_off_conv != '' 
 )
 SELECT * FROM resmin
