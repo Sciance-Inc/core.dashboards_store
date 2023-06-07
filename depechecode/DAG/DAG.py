@@ -38,8 +38,8 @@ DEFAULT_ARGS = {
     "retries": 3,
 }
 
-DOCKER_URL = config['docker_url'] or "tcp://192.168.26.100:2375"   # The backend to run the ETL on
-OP_URL = "http://192.168.26.100:8079"  # The 1Password Connect URL, located on the backend 
+DOCKER_URL = config['docker_url'] or "unix://var/run/docker.sock"   # The backend to run the ETL on
+OP_URL = config['onepassword_url'] or "http://192.168.26.100:8079"  # The 1Password Connect URL, located on the backend 
 
 # creates a client by supplying hostname and 1Password Connect API token
 def get_runtime_env():
