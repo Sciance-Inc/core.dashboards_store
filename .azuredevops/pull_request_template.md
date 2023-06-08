@@ -32,6 +32,7 @@ dbt build --select tag:<my ressources tag>
   * [ ]  I have updated the documentation (README) accordingly to my changes.
   * [ ]  The models I have added are documented in a `schema.yml` file.
 * **Pull-request** : 
+  * [ ]  I have edited the merge commit message to remove the `Merged PR XXX :` so that my message is something like `<feat|fix|chore|doc|refactor|perf|style>: foo bar` 
   * [ ]  The code *provided to run the pull request* is working. **I understand that my PR will be rejected as-is otherwise.**
   * [ ]  I have added my CSS lead as a reviewer.
   * [ ]  My pull request is documented.
