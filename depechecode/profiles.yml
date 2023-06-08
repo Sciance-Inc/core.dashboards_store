@@ -1,4 +1,4 @@
-cssvdc_tbe:
+etl_profile:
   target: staging
   outputs:
     staging:
