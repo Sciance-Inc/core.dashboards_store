@@ -141,7 +141,7 @@ def dag_failure_callback(context):
         }]
     }
 
-    requests.post(config['teams_webhook'], json=payload)
+    requests.post(config['teams_webhook'], data=payload)
 
 with DAG(
     dag_id=f"{config['css_name']}_dashboards_store_{TARGET}",
