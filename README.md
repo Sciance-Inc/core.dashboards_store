@@ -557,6 +557,10 @@ models:
 
 The marts must be populated in `cssXX.data.tbe/models/marts/educ_serv/populations/` and as per the definition of the `core.data.tbe/marts/educ_serv/adapters.yml`.
 
+In order to build your population, you must define for each population the business rules for the previous years, including the current year, and for the forecast year. 
+
+It must be taken into account that the 'Groupe-Repere' data cannot be used for the forecast year as it's not available until the end of the current year. You need to analyze which data you can use to ensure the veracity of the data. We recommend using the 'distribution' data, if possible, for the forecast year.
+
 #### Dbt project specification
 > Update your `cssxx_tbe/dbt_project.yml` file with the following snippet
 
