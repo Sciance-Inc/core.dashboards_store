@@ -148,7 +148,7 @@ with DAG(
     default_args=DEFAULT_ARGS,
     catchup=False,
     schedule_interval=config['schedule'][TARGET],
-    dagrun_timeout=timedelta(minutes=config['timeout']),
+    dagrun_timeout=timedelta(minutes=int(config['timeout'])),
     max_active_tasks=config['concurrency'],
     tags=["dashboards store", config['css_name'], TARGET],
     on_failure_callback=dag_failure_callback,
