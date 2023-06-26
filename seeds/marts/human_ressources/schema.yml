@@ -33,9 +33,9 @@ seeds:
           - not_null
     config:
       tags:
-        - human_resources
+        - human_ressources
         - emp_actif
-      schema: human_resources_seeds
+      schema: human_ressources_seeds
       column_types:
         etat_empl: nvarchar(3)
         descr: nvarchar(25)
@@ -63,9 +63,9 @@ seeds:
           - not_null
     config:
       tags:
-        - human_resources
+        - human_ressources
         - prospectif_cdp
-      schema: human_resources_seeds
+      schema: human_ressources_seeds
       column_types:
         stat_eng: nvarchar(3)
         stat_dscr: nvarchar(25)
