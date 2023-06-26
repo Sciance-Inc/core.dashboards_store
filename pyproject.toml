@@ -21,7 +21,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.semantic_release]
 version_variable = [
     "dbt_project.yml:version",
-    "pyproject.toml:tool.poetry.version",
+    "pyproject.toml:tool.poetry:version",
 ]
 build_command = false
 upload_to_pypi = false
