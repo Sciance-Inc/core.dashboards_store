@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.2 (2023-06-26)
+
+### Fix
+
+* Casting the timeout as integer to allow for string like definition in the inherited dags ([`76f17c9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/76f17c9688ec9634251dc40ab6fd07e2ef335f87))
+
 ## v0.3.1 (2023-06-08)
 
 ### Fix
