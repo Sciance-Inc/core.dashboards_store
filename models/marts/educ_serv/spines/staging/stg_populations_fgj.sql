@@ -29,3 +29,9 @@ SELECT
     , annee
     ,'secondaire_adapt' AS population
 FROM {{ adapt('populations', 'stg_ele_secondaire_adapt') }}
+UNION
+SELECT 
+    code_perm,
+    annee,
+    population
+FROM {{ ref('custom_fgj_populations') }}

@@ -18,6 +18,23 @@ models:
             - annee
             - population
 
+  - name: custom_fgj_populations
+    config:
+      tags:
+        - population
+        - educ_serv
+        - prospectif_cdp
+        - effectif_css    
+    description: >
+      This table is a placeholder to be overrded to add custom population definitions.
+      Every populations defined here will be added to the stg_populations_fgj table.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - code_perm
+            - annee
+            - population
+
   - name: spine
     config:
       tags:
