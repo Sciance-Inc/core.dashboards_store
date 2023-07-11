@@ -578,39 +578,76 @@ models:
 
 # Developer guidelines
 
-**Read me first**
-
-* Use your own schema for developmment, configured through the `dbt_project.yml` file.
-to be done on your own schema
+## Environment setup
+* Use your own schema for developmment, configured through the `profiles.yml` file, so that we won't conflict with each other while working on the same database.
 * To ease collaboration, please, use `git flow` to manage your branch and create your features. Try to rebase your branch onto `develop`.
-
-## Building the documentation
-> You can build the DBT documentation with the following command
-
-* Use the following code snippet to build and serve the documentation
-
-```bash
-dbt docs generate
-dbt docs serve
-```
 
 ## Conventions and developement guidelines
 
-### Naming, and folders structure conventions
+### Folders structure and convention
 
-#### Folders conventions
-* All the code lives in the `models` folder.
-* All the dashboards live in the `reporting` folder.
-* Each subfolder of `models` should be named after the corresponding dashboard it's belongs to (one dashboard, one folder containing it's SQL code).
-  * The only exceptions is the `shared` folder. that contains code to be reused accros the various dashboards.
+* All the SQL / Python code live in the `models` folder.
+* All dashboards and reports live in the `reporting` folder.
 
-| subfolder  | Description                                                                                    |
-| ---------- | ---------------------------------------------------------------------------------------------- |
-| adapters   | Subfolder where we specify the tables defined in the project dbt css necessary.                |
-| features   | sub-folder that contains all the definitions of fact tables                                    |
-| spines     | sub-folder that contains all the definitions of staging tables                                 |
-| pbi_tables | subfolders where we store all the tables necessary for the proper functioning of the dashboard |
+**About the `models` folder**
 
+The `models` folder is organized as follow :
+
+```
+.
+└── models/
+    ├── interfaces/
+    │   └── database_spame/
+    │       └── mart_foobar 
+    ├── marts/
+    │   └── mart_foobar 
+    └── dashboards/
+        ├── spam/
+        │   ├── features/
+        │   │   └── fact_absences.sql
+        │   └── pbi_tables/
+        │      └── fact_absences.sql
+        └── egg/
+            ...
+```
+Where :
+* `dashboards` Each subfolder of `models/dashboards` should be named after the corresponding dashboard it's belongs to (**one dashboard, one folder containing it's SQL code**).
+* `interfaces` contains mapping to the interfaces tables. Each interface table can be overrided to add custom connection logic to the undelrying database..
+* `marts` contains the ... marts. A `mart` is a collection of tables reused/shared accross between dashboards.
+
+
+### Marts
+
+#### `educ_serv`
+> This mart gather all the data related to the education service.
+
+##### Populations
+`Populations` are sets of students used as a filter by various dashboards. The following populations are mandatory (cf `adatpers`) and schould be defined : 
+* `stg_ele_prescolaire`
+* `stg_ele_primaire_reg`
+* `stg_ele_primaire_adapt`
+* `stg_ele_secondaire_reg`
+* `stg_ele_secondaire_adapt`
+
+The integrator can add new populations by overrding the `custom_fgj_populations.sql` model. To do so : 
+1. Create a new file in `cssXX.data.tbe/models/marts/educ_serv/spines/staging` named `custom_fgj_populations.sql` 
+2. Your `custom_fgj_populations` model schould be implemeted as a union of your own custom populations. 
+3. Disable the core's placeholder in the `cssXX.data.tbe`:
+
+```yaml
+# cssXX.data.tbe/dbt_project.yml
+
+models: 
+  tbe:
+    marts:
+      educ_serv:
+        spines:
+          staging:
+            custom_fgj_populations:
+              +enabled: false
+```
+
+  
 
 
 #### Variable conventions
@@ -669,6 +706,7 @@ Let's consider the following two dashboards : `employees_absences` and `dummy`.
             └── fact_absences.sql
 ```
 
+
 ```yaml
 models:
   +employees_absences:
@@ -711,19 +749,3 @@ Compilation Error
 1. Prefix your table with the (unique) friendly name of your dashboard.
    * The friendly name schould be short. Maybe 3-to-10 letters. `dummy` could become `dmy`
 2. Add a DBT directive into your table code to output the table under it's original name by setting the alias property
-
-
-
-### RLS
-  Les table utilisée:
-    utilisateurs_ecoles
-      tables utilisées dans la PAIE-GRH   
-      . GI.Identite
-    ecole
-      tables utilisées dans la PAIE-GRH
-      . GI.Identite
-    ecole
-      tables utilisées dans la PAIE-GRH
-      . pai_tab_lieu_trav
-    Il suffit d'appliquer ces 2 tables ci-hauts pour filter les données dans les tableaux de bords.
-
