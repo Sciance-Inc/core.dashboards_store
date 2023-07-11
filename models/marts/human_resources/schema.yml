@@ -8,7 +8,7 @@ models:
   - name: fact_permanence
     config:
       tags:
-        - human_ressources
+        - human_resources
         - rh_permanence    
     description: >
       Table qui enregistre l'ensemble des employés actifs avec l'état de leur permanence. 

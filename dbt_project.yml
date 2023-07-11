@@ -28,8 +28,8 @@ models:
   tbe:
     +enabled: False
     marts:
-        human_ressources:
-            +tags: ["human_ressources"]
+        human_resources:
+            +tags: ["human_resources"]
         educ_serv:
             +tags: ["educ_serv"]
             +schema: educ_serv            

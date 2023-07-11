@@ -18,7 +18,7 @@ git pull
 # Might be required if you add a new DBT dependency
 #dbt deps
 # Run dbt 
-dbt build --select tag:<my ressources tag>
+dbt build --select tag:<my resources tag>
 ```
 
 # Pull request's checklist 
