@@ -31,11 +31,11 @@ FROM
         annee
         , fiche
         , niveau_scolaire
-        , CASE WHEN freindly_name = 'Français'  THEN resultat_numerique END AS res_fr
-        , CASE WHEN freindly_name = 'Maths' THEN resultat_numerique END AS res_maths
-        , CASE WHEN freindly_name = 'Anglais'  THEN resultat_numerique END AS res_ang
-        , CASE WHEN freindly_name = 'Science' THEN resultat_numerique END AS res_sc
-        , CASE WHEN freindly_name = 'Histoire' THEN resultat_numerique END AS res_his
+        , CASE WHEN friendly_name = 'Français'  THEN resultat_numerique END AS res_fr
+        , CASE WHEN friendly_name = 'Maths' THEN resultat_numerique END AS res_maths
+        , CASE WHEN friendly_name = 'Anglais'  THEN resultat_numerique END AS res_ang
+        , CASE WHEN friendly_name = 'Science' THEN resultat_numerique END AS res_sc
+        , CASE WHEN friendly_name = 'Histoire' THEN resultat_numerique END AS res_his
     FROM src
     
 ) AS srctable 
