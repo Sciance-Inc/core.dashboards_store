@@ -53,7 +53,7 @@ seeds:
         tests:
           - unique
           - not_null     
-      - name: stat_dscr
+      - name: descr
         description: The description of the etat_employe.
         tests:
           - not_null
@@ -68,5 +68,5 @@ seeds:
       schema: human_resources_seeds
       column_types:
         stat_eng: nvarchar(3)
-        stat_dscr: nvarchar(25)
+        descr: nvarchar(25)
         is_reg: bit

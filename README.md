@@ -228,6 +228,7 @@ Some dashboards might need extra configuration to be provided through `seeds`. I
 | [suivi_resultats](#suivi_resultats) | Track the results of the students with a failed course | Mohamed Sadqi (CSSVDC), Hugo Juhel (ext) |
 | [emp_actif](#empl_actif) | List all employees currently enroled in the CSS | (CSSSDGS) Nicolas Pham |
 | [effectif_css](#effectif_css) | Track the population count in each school in the CSS | (CSSVT) Frédéryk Busque , Mohamed Sadqi (CSSVDC)
+| [retirement](#retirement) | Tracks the number of retired employees by job categories and workplace. Forecast, for up to five years, the number of retiring employees | (Sciance) Hugo Juhel
 
 
 > The following section describe the specific for each dashboard. Bear with me, we are gonna drill down into the specifics of each dashboard ! Stay focused ! In each of the following section, you will learn how to tame a specific dashboard.
@@ -576,6 +577,31 @@ models:
         +enabled: true
 ```
 
+### Retirement 
+> Monitor the number of retired employes for the past 10 years and provide some forecast for the upcoming five years.
+
+| Interfaces  | Marts 	| Marts seeds | Dashboard seeds | Additional config |
+|-----------	|-------------	|-------	|-------	| -------	|
+| paie |  human_resources | human_resources 	| No 	| No 	|
+
+#### Dbt project specification
+> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet and add the `cod_css` variable.
+
+1. Enabling the models
+```yaml
+#cssXX.data.dbe/dbt_project.yml
+models: 
+  tbe:
+    dashboards: 
+      retirement:
+        +enabled: True
+    interfaces:
+      paie:
+        +enabled: True
+```
+
+> This dashboard requiers the specification of the `human_resources` seeds.
+
 # Developer guidelines
 
 ## Environment setup
@@ -648,6 +674,17 @@ models:
 ```
 
   
+### human resources
+> This mart gather all the data related to the human resources departement
+> 
+##### Populating the marts seed
+> This dashboard requiers the specification of the seeds in the `human_resources` mart.  
+
+The seed must be populated in `cssXX.data.tbe/seeds/marts/human_resources/` and as per the definition of the `core.data.tbe/seeds/marts/human_resources/schema.yml` mart. 
+
+Please refer to the `core.data.tbe/seeds/marts/human_resources/schema.yml` mart documentation to get the concrete implementation.
+
+Do not forget to refresh your seeds with the `dbt seeds --select tag:human_resources --full-refresh` command.
 
 
 #### Variable conventions

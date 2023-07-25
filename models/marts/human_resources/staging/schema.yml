@@ -1,0 +1,39 @@
+
+
+version: 2
+
+models:
+  - name: stg_retirement_survival_curve
+    config:
+      tags:
+        - human_resources
+    description: >
+      This table compute the `survival curve` of the retirement between 50 and 70 years old.
+      The survival curve is estimated through a Kaplan-Meier estimator.
+    columns:
+      - name: age
+        description: A given age S(t) is estimated for.
+        tests:
+          - unique
+          - not_null
+      - name: instantaneous_death_rate
+        description: >
+          The instantaneous death rate is the probability of retiring at age t, conditional on survival to age t.
+          It is estimated by the number of retiring employees at age t divided by the number of people at risk of retiring at age t.
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1
+              inclusive: true
+
+      - name: survival_rate
+        description: >
+          The survival rate is the probability of surviving to age t, conditional on survival to age t-1.
+          It is estimated by the product of the survival rates at all previous ages.
+        tests:
+          - not_null 
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1
+              inclusive: true
