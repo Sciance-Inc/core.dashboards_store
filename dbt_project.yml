@@ -19,6 +19,8 @@ clean-targets:
 seeds:
     +tags: ["seeds"]
     tbe: 
+        common:
+            +schema: common_seeds
         dashboards:
             prospectif_cdp:
                 +tags: ["prospectif_cdp"]
@@ -30,6 +32,9 @@ models:
     marts:
         human_resources:
             +tags: ["human_resources"]
+            +schema: human_resources
+            staging:
+                +schema: human_resources_staging
         educ_serv:
             +tags: ["educ_serv"]
             +schema: educ_serv            
@@ -114,6 +119,11 @@ models:
                 +schema: suivi_resultats_reporting
                 +tags:
                     - reporting
+
+        retirement:
+            +tags: ["retirement"]
+            +schema: 'dashboard_retirement'
+
     interfaces:
         +tags: ["interfaces"]
         +materialized: ephemeral
