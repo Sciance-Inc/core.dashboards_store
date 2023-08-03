@@ -47,3 +47,11 @@ models:
   - name: prspctf_nb_ele_plus_de_66
     description: >
       La table regroupe les notes des matières sélectionnées. Cette table calcul la proportion des élèves ayant eu plus de 66% aux matière sélectionnées et ce pour chaque année
+    
+  - name: prspctf_fact_freq_fga
+    description: >
+      Table qui enregistre l'ensemble des fréquentations FGA. 
+
+  - name: prspctf_fact_freq_fp
+    description: >
+      Table qui enregistre l'ensemble des fréquentations FP.
