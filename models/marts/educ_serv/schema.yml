@@ -1,14 +1,11 @@
 version: 2
 
 models:
-  
   - name: stg_populations_fgj
     config:
       tags:
         - population
         - educ_serv
-        - prospectif_cdp
-        - effectif_css    
     description: >
       Table auxilaire de resolution fiche, id_eco et contenant l'assignement d'une fiche à une population pour le calcul de métriques inter-populationelles.
     tests:
@@ -23,8 +20,6 @@ models:
       tags:
         - population
         - educ_serv
-        - prospectif_cdp
-        - effectif_css    
     description: >
       This table is a placeholder to be overrded to add custom population definitions.
       Every populations defined here will be added to the stg_populations_fgj table.
@@ -40,8 +35,6 @@ models:
       tags:
         - population
         - educ_serv
-        - prospectif_cdp
-        - effectif_css  
     description: >
       La table de spine de résolution code_perm, annee, population, eco qui contient l'ensemble des numéros de fiches par année scolaire et population.
       Elle permet la construction des tables de faits via l'utilisation de left joins.

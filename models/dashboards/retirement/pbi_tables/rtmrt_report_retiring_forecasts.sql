@@ -22,7 +22,7 @@ WITH observed AS (
         FROM {{ ref('fact_retirement') }} As src
         LEFT JOIN {{ ref('dim_mapper_job_group') }} AS job ON src.corp_empl = job.job_group -- Add the job group category here as I want to aggreagte by job group categories and not by job group.
     ) AS src
-    WHERE src.school_year >= {{ tbe.get_current_year() }} - 10
+    WHERE src.school_year >= {{ store.get_current_year() }} - 10
     GROUP BY 
         src.job_group_category
         , src.school_year

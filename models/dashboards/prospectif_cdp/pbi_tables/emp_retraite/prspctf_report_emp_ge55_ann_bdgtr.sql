@@ -1,4 +1,4 @@
-{{ config(alias='emp_ge55_ann_bdgtr') }}
+{{ config(alias='report_emp_ge55_ann_bdgtr') }}
 SELECT 
     annee_budgetaire
     , COUNT(matr) as number_of_permanent_employee

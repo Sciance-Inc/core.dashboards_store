@@ -31,7 +31,7 @@ with age_1_september AS (
     ) AS src
     -- Add the current_year date to compute the age at semptember the first of the current scholar year
     CROSS JOIN (
-        SELECT CONCAT({{ tbe.get_current_year() }},'-09-01') AS current_year 
+        SELECT CONCAT({{ store.get_current_year() }},'-09-01') AS current_year 
     ) AS crt
 
 -- Group together active employes by cohorts
@@ -96,7 +96,7 @@ with age_1_september AS (
 ), padding AS (
     SELECT 
         job.job_group_category,
-        CONVERT(DATE, CONCAT({{ tbe.get_current_year() }} + hrz.horizon,'-09-01'), 102) AS school_year,
+        CONVERT(DATE, CONCAT({{ store.get_current_year() }} + hrz.horizon,'-09-01'), 102) AS school_year,
         hrz.horizon AS forecast_horizon
     FROM (SELECT DISTINCT job_group_category FROM {{ ref('dim_mapper_job_group') }}) AS job
     CROSS JOIN (SELECT seq_value AS horizon FROM {{ ref('int_sequence_0_to_1000')}} WHERE seq_value BETWEEN 1 AND 5) AS hrz

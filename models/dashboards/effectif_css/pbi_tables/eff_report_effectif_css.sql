@@ -1,4 +1,4 @@
-{{ config(alias='effectif_css') }}
+{{ config(alias='report_effectif_css') }}
 
 
 SELECT

@@ -1,6 +1,6 @@
 version: 2
 
 models:
-  - name: prspctf_couts_de_roulement
+  - name: prspctf_report_couts_de_roulement
     description: >
         Table de reporting qui calcul le ratio du coup de roulement sur la masse salariale totale par année budgétaire

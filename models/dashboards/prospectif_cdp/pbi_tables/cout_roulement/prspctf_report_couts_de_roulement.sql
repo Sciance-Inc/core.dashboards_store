@@ -1,4 +1,4 @@
-{{ config(alias='couts_de_roulement') }}
+{{ config(alias='report_couts_de_roulement') }}
 
 WITH src AS (
     SELECT
@@ -12,7 +12,7 @@ WITH src AS (
     SELECT 
         annee_budgetaire
         ,CASE 
-            WHEN annee_budgetaire =  {{ tbe.get_current_year() }} 
+            WHEN annee_budgetaire =  {{ store.get_current_year() }} 
             THEN  LAG(masse_salariale_an)over(ORDER BY annee_budgetaire asc) 
         ELSE masse_salariale_an 
         END AS masse_salariale_an

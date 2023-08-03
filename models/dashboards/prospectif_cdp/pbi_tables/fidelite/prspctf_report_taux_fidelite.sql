@@ -1,4 +1,4 @@
-{{ config(alias='taux_fidelite') }}
+{{ config(alias='report_taux_fidelite') }}
 
 SELECT
     annee_budgetaire

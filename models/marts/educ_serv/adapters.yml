@@ -62,9 +62,7 @@ models:
       schema: "educ_serv_staging"      
       tags:
         - population
-        - educ_serv
-        - prospectif_cdp
-        - effectif_css  
+        - educ_serv  
     description: >
           Identification of the population in 4-year-old kindergarten / passe partout / 5-year-old kindergarten.
     tests: 
@@ -89,8 +87,6 @@ models:
       tags:
         - population
         - educ_serv
-        - prospectif_cdp
-        - effectif_css  
     tests: 
       - resolution: 
           combination_of_columns: 
@@ -113,8 +109,6 @@ models:
       tags:
         - population
         - educ_serv
-        - prospectif_cdp
-        - effectif_css  
     tests: 
       - resolution: 
           combination_of_columns: 
@@ -137,8 +131,6 @@ models:
       tags:
         - population
         - educ_serv
-        - prospectif_cdp
-        - effectif_css  
     tests: 
       - resolution: 
           combination_of_columns: 
@@ -161,8 +153,6 @@ models:
       tags:
         - population
         - educ_serv
-        - prospectif_cdp
-        - effectif_css
     tests: 
       - resolution: 
           combination_of_columns: 

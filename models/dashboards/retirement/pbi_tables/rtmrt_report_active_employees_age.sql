@@ -10,7 +10,7 @@
 
 -- Create the start-of-year date
 WITH current_year AS (
-    SELECT CONCAT({{ tbe.get_current_year() }},'-09-01') AS current_year  
+    SELECT CONCAT({{ store.get_current_year() }},'-09-01') AS current_year  
 
 
 -- Add the birth date and the sex to the active employes table

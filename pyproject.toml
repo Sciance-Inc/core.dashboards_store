@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "core.data.tbe"
+name = "core.data.store"
 version = "0.2.0"
 description = ""
 authors = ["alluardj <alluardj@csvdc.qc.ca>"]

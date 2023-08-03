@@ -13,7 +13,7 @@ WITH agg AS (
         , cong_lt
         , COUNT(matricule) AS n_matr
     FROM  {{ ref('empcong_fact_emp_conge') }}
-    WHERE annee BETWEEN {{  tbe.get_current_year() }} - 10 AND {{  tbe.get_current_year() }}
+    WHERE annee BETWEEN {{  store.get_current_year() }} - 10 AND {{  store.get_current_year() }}
     GROUP BY 
         annee
         , lieu_trav
