@@ -38,7 +38,7 @@ WITH source AS (
         retirement_age,
         COUNT(*) AS n_retirees
     FROM source
-    WHERE school_year >= {{ tbe.get_current_year() }} - 10
+    WHERE school_year >= {{ store.get_current_year() }} - 10
     GROUP BY 
         sexe,
         etat,
@@ -57,7 +57,7 @@ SELECT
     lieu_trav,
     stat_eng,
     CONVERT(DATE, CONCAT(school_year, '-09-30'), 102) AS school_year,
-    CASE WHEN {{ tbe.get_current_year() }} = school_year THEN 1 ELSE 0 END AS is_current_year,
+    CASE WHEN {{ store.get_current_year() }} = school_year THEN 1 ELSE 0 END AS is_current_year,
     retirement_age, 
     n_retirees,
     {{ dbt_utils.generate_surrogate_key(['sexe', 'job_group_category', 'lieu_trav', 'stat_eng', 'etat']) }} AS filter_key

@@ -9,14 +9,14 @@
 > Provide the code required to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected. The following code / placeholder is only provided as documentation / helper to get you started and you will need to adjust it.**
 
 ```bash
-# Assuming you are in a folder containing both the core.data.tbe and the <cssXX>.data.tbe folder.
+# Assuming you are in a folder containing both the core.data.store and the <cssXX>.data.store folder.
 # Update the code
-cd core.data.tbe
+cd core.data.store
 git checkout feature/<feature_name>
 git pull
 # Might be required if you update either the poetry file or the lock file
 # poetry shell && poetry lock && poetry install 
-cd ../<cssXX>.data.tbe
+cd ../<cssXX>.data.store
 git checkout feature/<feature_name>
 git pull  
 # Might be required if you add a new DBT dependency

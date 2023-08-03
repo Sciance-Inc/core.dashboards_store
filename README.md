@@ -67,14 +67,14 @@ The `readme` is organized as follow :
 
 ## A tale of two repos
 
-> Once upon a time, in the CdeP, a little `core.data.tbe` repo was born. The repo tried very hard to provide ETLs for all the CSS belonging to the CdeP. But the CSS were many and the SQL capabilites to retrofit itself to the CSS's context were few. So the `core.data.tbe` repo decided to split itself into many little repos, one for each CSS.And the `cssXX.data.tbe` repo was born. And the `cssXX.data.tbe` repo was granted the power to override anything from `core.data.tbe`. And the `core.data.tbe` repo was happy. And the `cssXX.data.tbe` repo was happy. And the CdeP was happy. And they all merged develop into master happily ever after. 
+> Once upon a time, in the CdeP, a little `core.data.store` repo was born. The repo tried very hard to provide ETLs for all the CSS belonging to the CdeP. But the CSS were many and the SQL capabilites to retrofit itself to the CSS's context were few. So the `core.data.store` repo decided to split itself into many little repos, one for each CSS.And the `cssXX.data.store` repo was born. And the `cssXX.data.store` repo was granted the power to override anything from `core.data.store`. And the `core.data.store` repo was happy. And the `cssXX.data.store` repo was happy. And the CdeP was happy. And they all merged develop into master happily ever after. 
 
-The moral of the story is that the `core.data.tbe` repo is the parent repo of all the `cssXX.data.tbe` repos. The `core.data.tbe` repo contains all the ETLs that are common to all the CSS. The `cssXX.data.tbe` repo contains all the ETLs' code that are specific to the CSS XX. I you have already been exposed to some Object-Oriented Programing, the `core.data.tbe` repo is the parent class and the `cssXX.data.tbe` repo is the child class. Yes, that's that simple.
+The moral of the story is that the `core.data.store` repo is the parent repo of all the `cssXX.data.store` repos. The `core.data.store` repo contains all the ETLs that are common to all the CSS. The `cssXX.data.store` repo contains all the ETLs' code that are specific to the CSS XX. I you have already been exposed to some Object-Oriented Programing, the `core.data.store` repo is the parent class and the `cssXX.data.store` repo is the child class. Yes, that's that simple.
 
 Hence every CSS will end WITH TWO REPOS : 
-* `core.data.tbe` : the parent repo providing sensitive default for all CSS
-* `cssXX.data.tbe` : the child repo containing the ETLs specifics to the CSS XX
-  * `XX` schould be replaced with the friendly name of your CSS (ex: cssdgs.data.tbe for Des-Grandes-Seigneuries)
+* `core.data.store` : the parent repo providing sensitive default for all CSS
+* `cssXX.data.store` : the child repo containing the ETLs specifics to the CSS XX
+  * `XX` schould be replaced with the friendly name of your CSS (ex: cssdgs.data.store for Des-Grandes-Seigneuries)
 
 Thoose two repos are to be cloned in the same directory, the `<working directory>` of your choice. It's actually not mandatory but the `README` expects to do so..
 
@@ -87,7 +87,7 @@ Thoose two repos are to be cloned in the same directory, the `<working directory
 We assume the reader as already set-up :
 * A working computer from the last decade (or a Potato (a Minitel won't work) connected to internet with a screen and a keyboard)
 * A working environement with `Python`, `Pyodbc`, `Poetry`, `wsl2` as per the wiki
-* The two repositories `core.data.tbe` and `cssXX.data.tbe` cloned on his computer in the `<working directory>` of his choice. 
+* The two repositories `core.data.store` and `cssXX.data.store` cloned on his computer in the `<working directory>` of his choice. 
   * The *Tale of two repos* explains why you need two repos : the core is common, the child is specific to your CSS. If you haven't read it yet, do-it ! It's a nice bedtime story.
 
 
@@ -97,17 +97,17 @@ We assume the reader as already set-up :
 * Activate an configure the _Poetry_ environement with the following snippet and install the required dependencies
 
 ```bash
-cd <working_directory>/core.data.tbe
+cd <working_directory>/core.data.store
 poetry shell
 poetry install
 ```
 ## Configuring DBT
-* You must have a valid dbt profile WITH THE SAME NAME AS THE ONE USED IN your `<cssXX.data.tbe>dbt_project.yml` file.
+* You must have a valid dbt profile WITH THE SAME NAME AS THE ONE USED IN your `<cssXX.data.store>dbt_project.yml` file.
 
 Here is a snippet of a profile to use (all placeholders schould be replaced).
 
 ```yaml
-cssxx_tbe:
+cssxx_store:
   target: dev
   outputs:
     dev:
@@ -115,7 +115,7 @@ cssxx_tbe:
       driver: 'ODBC Driver 17 for SQL Server'
       server: <your server's IP >
       port: <your server's port>
-      database: <the database to store the ETLs results into> # Schould be tbe_dev
+      database: <the database to store the ETLs results into> # Schould be store_dev
       schema: <your name> # Lowercase, not spaces of any sort
       user: <The username to use to connect to the DB>
       password: <The password associated to the user you are connecting to>
@@ -129,12 +129,12 @@ cssxx_tbe:
 > The ETLs schould be executed **from** your **css** package/project. 
 
 **Why schould ETLs being executed from your CSS repo ?**
-Remember the *Tale of Two Repos* and how little `cssXX.data.tbe` was granted the right to override everything ? Well that's it ! Since you are executing the ETLs from `cssXX.data.tbe` what you are overriding in your CSS WILL HAVE PRIORITY OVER what is defined in `core.data.tbe` **Including what you are defining in `<working_directory>/cssXX.data.tbe/dbt_project.yml`**. That's the magic of the `dbt_project.yml` file.
+Remember the *Tale of Two Repos* and how little `cssXX.data.store` was granted the right to override everything ? Well that's it ! Since you are executing the ETLs from `cssXX.data.store` what you are overriding in your CSS WILL HAVE PRIORITY OVER what is defined in `core.data.store` **Including what you are defining in `<working_directory>/cssXX.data.store/dbt_project.yml`**. That's the magic of the `dbt_project.yml` file.
 
 Let's get wild and run the ETL, with the following snippet :
 
 ```bash
-cd <working_directory>/cssXX.data.tbe
+cd <working_directory>/cssXX.data.store
 dbt build --full-refresh
 ```
 
@@ -145,16 +145,16 @@ dbt build --full-refresh
 
 ## How to enable a dahsboard ?
 
-### `cssXX.data.tbe/project.yml`
+### `cssXX.data.store/project.yml`
 > It's mandatory.
 
-* To enable the ETL for a dahsboard, the integrator schould MINIMALY update it's `cssXX.data.tbe/project.yml` to trigger the computation of the tables underlying the dashboard the integrator wants to ... integrate.
-* To enable a dashboard, the integrator schould set the `enabled` flag to `true` in the `dashboards` section of the `cssXX.data.tbe/project.yml` file.
+* To enable the ETL for a dahsboard, the integrator schould MINIMALY update it's `cssXX.data.store/project.yml` to trigger the computation of the tables underlying the dashboard the integrator wants to ... integrate.
+* To enable a dashboard, the integrator schould set the `enabled` flag to `true` in the `dashboards` section of the `cssXX.data.store/project.yml` file.
 
 ```yaml
-# cssXX.data.tbe/project.yml
+# cssXX.data.store/project.yml
 models:
-  tbe:
+  store:
     <name of the dashboard to deploy>:
       +enabled: True
 ```
@@ -165,27 +165,27 @@ models:
 * The dashboard might need NEW raw data to be transformed.
 * ETLs won't run well if there is no data for them to transform.
 * In the `store`, raw datas are accessed through `interfaces`.
-* By default, interfaces expects data to be exposed through *linked server*. If your CSS doesn't expose it's data through linked server, you will have to override the interfaces, in your `cssXX.data.tbe` repo.
-* Interfaces are implemented in the `core.data.tbe` as a basic `SELECT * FROM my_table`.
+* By default, interfaces expects data to be exposed through *linked server*. If your CSS doesn't expose it's data through linked server, you will have to override the interfaces, in your `cssXX.data.store` repo.
+* Interfaces are implemented in the `core.data.store` as a basic `SELECT * FROM my_table`.
 * Interfaces have for sole purpose to be overrided to fit the way your CSS exposes it's data.
 
 
-If you are lucky enough to work for a CSS that uses link server, you will just have to toogle the `enabled` flag to `true` in the `interfaces` section of your `cssXX.data.tbe/project.yml` file.
+If you are lucky enough to work for a CSS that uses link server, you will just have to toogle the `enabled` flag to `true` in the `interfaces` section of your `cssXX.data.store/project.yml` file.
 
 **How to enable an interface if you are on the lucky side**
-Just toogle the `+enabled: True` flag in your `cssXX.data.tbe/project.yml` file.
+Just toogle the `+enabled: True` flag in your `cssXX.data.store/project.yml` file.
 
 ```yaml
-# cssXX.data.tbe/project.yml
+# cssXX.data.store/project.yml
 models:
-  tbe:
+  store:
     interfaces:  # Active the geobus source
         <name of your interface>:
           +enabled: True
 ```
 
 **How to enable an interface if you are a black cat !**
-If you are short on luck, and work for a CSS that doesn't use linked server, you will have to override the interfaces in your `cssXX.data.tbe` repo to implement the connection logic to your data sources. But every cloud has a silver lining (yes, even Azure's Cloud) : if you are working on Azure, rest and breathe, we already have the heavy lifting done for you. You will just have to configure the interfaces to use the `Azure SQL external materialization` macro.
+If you are short on luck, and work for a CSS that doesn't use linked server, you will have to override the interfaces in your `cssXX.data.store` repo to implement the connection logic to your data sources. But every cloud has a silver lining (yes, even Azure's Cloud) : if you are working on Azure, rest and breathe, we already have the heavy lifting done for you. You will just have to configure the interfaces to use the `Azure SQL external materialization` macro.
 
 Otherwise, you might relay on tools like `Airbyte` to move the data arounds. Keep me posted, I'm curious !
 
@@ -196,9 +196,9 @@ The following snippet schould be enough to enable a dashboard and it's interface
 The placeholder `<dashboard name>` schould be replaced by the name of the dashboard you want to enable and the placeholder `<dashboard source name>` schould be replaced by the name of the data source the dashboard depends on.
 
 ```yaml
-# cssXX.data.tbe/project.yml
+# cssXX.data.store/project.yml
 models:
-  tbe:
+  store:
     dashboards:
       <dashboard name>
         +enabled: True
@@ -208,7 +208,7 @@ models:
 ```
 
 ### "One does not simply enable a dashboard"
-Some dashboards might need extra configuration to be provided through `seeds`. It's a frightening concept, but keep in mind that a `seed` is JUST a `.csv` file you can populate with `Excel` and save into `cssXX.data.tbe/seeds/<dashboard name>`.
+Some dashboards might need extra configuration to be provided through `seeds`. It's a frightening concept, but keep in mind that a `seed` is JUST a `.csv` file you can populate with `Excel` and save into `cssXX.data.store/seeds/<dashboard name>`.
 
 *Please refer to the awsome and always up-to-date dbt documentation to learn about the `Seeds`.*
 
@@ -240,25 +240,25 @@ Some dashboards might need extra configuration to be provided through `seeds`. I
 |-----------	|-------------	|-------	|-------	| -------	|
 | geobus   |  No | No 	| No 	| No 	|
 
-> A `source` must be implemented in your cssXX.data.tbe repo for the dashboard to work.
+> A `source` must be implemented in your cssXX.data.store repo for the dashboard to work.
 
 #### Populating the `source`
-> This dashboard requiers the specification of the source file in your `cssXX.data.tbe` project.
+> This dashboard requiers the specification of the source file in your `cssXX.data.store` project.
 
-The source's code must be populated in `cssXX.data.tbe/models/dashboards/transport/staging/trnsprt_stg_sectors.sql` and as per the definition of the `core.data.tbe/models/dashboards/transport/adapters.yml` file. Your file must be aliased to `stg_sectors`. Please, add the following config cartouche at the top of your file.
+The source's code must be populated in `cssXX.data.store/models/dashboards/transport/staging/trnsprt_stg_sectors.sql` and as per the definition of the `core.data.store/models/dashboards/transport/adapters.yml` file. Your file must be aliased to `stg_sectors`. Please, add the following config cartouche at the top of your file.
 
 ```sql
 {{ config(alias='stg_sectors') }}
 ```
 
-Please refer to the `core.data.tbe/models/dashboards/transport/adapters.yml`file to get the concrete implementation of the file. Make sure your implementation matches the one described in the file, including for the columns data types. 
+Please refer to the `core.data.store/models/dashboards/transport/adapters.yml`file to get the concrete implementation of the file. Make sure your implementation matches the one described in the file, including for the columns data types. 
 
 #### Dbt project specification
-> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet.
+> Update your `cssxx_store/dbt_project.yml` file with the following snippet.
 
 ```yaml
 models:
-  tbe:
+  store:
     dashboards:
       transport: # Activate the dashboard
           +enabled: True
@@ -296,17 +296,17 @@ models:
   * gpi
   * jade
 * **Sources** :
-  * *populations* : The dashboard requiers some population tables to be defined in you css-specific repository. Please, refers to `core.tbe/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
-  * *employees_status* : The dashboard requiers some employees status tables to be defined in you css-specific repository. Please, refers to `core.tbe/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
+  * *populations* : The dashboard requiers some population tables to be defined in you css-specific repository. Please, refers to `core.store/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
+  * *employees_status* : The dashboard requiers some employees status tables to be defined in you css-specific repository. Please, refers to `core.store/models/prospectif_cdep/adapters/sources.yml` to get the implementation details.
 * **Dashboards**  
 
 #### Dbt project specification
-> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet.
+> Update your `cssxx_store/dbt_project.yml` file with the following snippet.
 
 ```yaml
 
 models:
-  tbe: # Enable the models from the core repo
+  store: # Enable the models from the core repo
 
     marts:
       human_resources:
@@ -351,11 +351,11 @@ sources:
 | gpi |  No | No 	| Yes 	| Yes 	|
 
 #### Dbt project specification
-> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet.
+> Update your `cssxx_store/dbt_project.yml` file with the following snippet.
 
 ```yaml
 models:
-  tbe: # Enable the models from the core repo
+  store: # Enable the models from the core repo
     res_epreuves:
       +enabled: True
     shared:
@@ -367,11 +367,11 @@ models:
 #### Additional configuration
 > These steps are optional.
 ##### Customizing the tracked courses
-> Update your `cssxx_tbe/dbt_project.yml` file.
+> Update your `cssxx_store/dbt_project.yml` file.
 > This table needs some seeds. Make sure to run `dbt seed --full-refresh` to populate the seeds.
 
 * To add a list of in-house courses to be tracked :
-  1. Add a `.csv` file in your `cssxx_tbe/seeds/res_epreuves` folder. The file must be named `custom_subject_evaluation.csv`. The file must be populated with the colums described in `core.data.tbe/seeds/res_epreuves/schema.yml` (refers to the `custom_subject_evaluation` seed). You might want to use the `GPI.Edo.ResultatsCompetenceEtape` table to find the appropriate mapping.
+  1. Add a `.csv` file in your `cssxx_store/seeds/res_epreuves` folder. The file must be named `custom_subject_evaluation.csv`. The file must be populated with the colums described in `core.data.store/seeds/res_epreuves/schema.yml` (refers to the `custom_subject_evaluation` seed). You might want to use the `GPI.Edo.ResultatsCompetenceEtape` table to find the appropriate mapping.
 
   2. Trigger a refresh of your seeds 
 
@@ -385,7 +385,7 @@ dbt seed --full-refresh
 You can override the default threshold by adding the following variable in your `dbt_project.yml` file.
 
 ```yaml
-# cssxx_tbe/dbt_project.yml
+# cssxx_store/dbt_project.yml
 vars:
     # res_epreuves's dashboard variables:
     res_epreuves:
@@ -404,19 +404,19 @@ vars:
 ##### Populating the marts seed
 > This dashboard requiers the specification of the seeds in the `human_resources` mart.  
 
-The seed must be populated in `cssXX.data.tbe/seeds/marts/human_resources/` and as per the definition of the `core.data.tbe/seeds/marts/human_resources/schema.yml` mart. 
+The seed must be populated in `cssXX.data.store/seeds/marts/human_resources/` and as per the definition of the `core.data.store/seeds/marts/human_resources/schema.yml` mart. 
 
-Please refer to the `core.data.tbe/seeds/marts/human_resources/schema.yml` mart documentation to get the concrete implementation.
+Please refer to the `core.data.store/seeds/marts/human_resources/schema.yml` mart documentation to get the concrete implementation.
 
 Do not forget to refresh your seeds with the `dbt seeds --select tag:human_resources --full-refresh` command.
 
 #### Dbt project specification
-> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet.
+> Update your `cssxx_store/dbt_project.yml` file with the following snippet.
 
 ```yaml
 # cssXX/dbt_project.yml
 models:
-  tbe: #
+  store: #
     dashboards:
       emp_actif:
         +enabled: True #  Enable the models from the core repo
@@ -430,7 +430,7 @@ models:
 ##### Configuring the `nbrs_sem_dern_paie`
 > The `nbrs_sem_dern_paie` variable is used as a recency parameters. It's used to filter out employeed for which the last paye occuperd for too long time. It is set to 1 by default.
 
-The variable can be overriden by setting the `nbrs_sem_dern_paie` variable in the `dbt_project.yml` file, in the `vars` section and under the `emp_actif` key. Please consults  `core.data.tbe/dbt_project.yml` to find the default value and see an example of the specification of this variable. 
+The variable can be overriden by setting the `nbrs_sem_dern_paie` variable in the `dbt_project.yml` file, in the `vars` section and under the `emp_actif` key. Please consults  `core.data.store/dbt_project.yml` to find the default value and see an example of the specification of this variable. 
 
 ```yaml
 # cssXX/dbt_project.yml
@@ -440,7 +440,7 @@ vars:
 ```
 
 ##### Using the Report builder: empl_actif.rdl
-> An SSRS report is available to export the list of active employees of the CSS. The `emp_actif.rdl` can be found in a `core.data.tbe/reporting/emp_actif/emp_actif.rdl`
+> An SSRS report is available to export the list of active employees of the CSS. The `emp_actif.rdl` can be found in a `core.data.store/reporting/emp_actif/emp_actif.rdl`
 
 
 ### suivi_resultats
@@ -451,13 +451,13 @@ vars:
 | gpi |  No | No 	| No 	| Yes 	|
 
 #### Dbt project specification
-> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet and add the `cod_css` variable.
+> Update your `cssxx_store/dbt_project.yml` file with the following snippet and add the `cod_css` variable.
 
 1. Enabling the models
 ```yaml
 #cssXX.data.dbe/dbt_project.yml
 models: 
-  tbe:
+  store:
     dashboards: 
       suivi_resultats:
         +enabled: True
@@ -481,16 +481,16 @@ vars:
 > These steps are optional. 
 
 ##### Overriding the default list of tracked courses
-> By default, the dashboard will only monitor the courses listed in `core.data.tbe/seeds/dashboard/suivi_resultats/tracked_courses.csv`
+> By default, the dashboard will only monitor the courses listed in `core.data.store/seeds/dashboard/suivi_resultats/tracked_courses.csv`
 
 You can provide your own implementation of `tracked_courses`. To do so :
-1. Write a CSV file named `tracked_courses` in the `cssXX.data.dbe/seeds/dashboards/suivi_resultats` folder populated as per the `core.data.tbe/seeds/dashboards/suivi_resultats/schema.yml`'s definition.
+1. Write a CSV file named `tracked_courses` in the `cssXX.data.dbe/seeds/dashboards/suivi_resultats` folder populated as per the `core.data.store/seeds/dashboards/suivi_resultats/schema.yml`'s definition.
 2. Disable the default seed by using the the following snippet in your `dbt_project.yml` file : 
 
 ```yaml
 #cssXX.data.dbe/dbt_project.yml
 seeds:
-  tbe:
+  store:
     dashboards:
       suivi_resultats:
         tracked_courses:
@@ -500,13 +500,13 @@ seeds:
 __When overriding the tracked courses, you might want to override the tracked level as well.__
 
 ##### Overriding the default list of tracked levels
-> This step is optional. By default, the dashboard will only monitor the students currently enrolled in the livels listed in `core.data.tbe/seeds/dashboards/suivi_resultats/tracked_level.csv`
+> This step is optional. By default, the dashboard will only monitor the students currently enrolled in the livels listed in `core.data.store/seeds/dashboards/suivi_resultats/tracked_level.csv`
 
 You can provide you own list of `tracked_levels`. If, for instance, you add a new tracked course in sec 4, you will want to add the level 4 to the list of tracked levels. To do so, just write a CSV file named `tracked_levels` in the `cssXX/seeds/dashboards/suivi_resultats` folder and disable the default one by adding the following line in your `dbt_project.yml` file.
 
 ```yaml
 seeds:
-  tbe:
+  store:
     dashboards:
       suivi_resultats:
         tracked_levels:
@@ -525,19 +525,19 @@ seeds:
 ##### Populating the marts seed
 > This dashboard requiers the specification of the seeds in the `human_resources` mart.  
 
-The seed must be populated in `cssXX.data.tbe/seeds/marts/human_resources/` and as per the definition of the `core.data.tbe/seeds/marts/human_resources/schema.yml` mart. 
+The seed must be populated in `cssXX.data.store/seeds/marts/human_resources/` and as per the definition of the `core.data.store/seeds/marts/human_resources/schema.yml` mart. 
 
-Please refer to the `core.data.tbe/seeds/marts/human_resources/schema.yml` mart documentation to get the concrete implementation.
+Please refer to the `core.data.store/seeds/marts/human_resources/schema.yml` mart documentation to get the concrete implementation.
 
 Do not forget to refresh your seeds with the `dbt seeds --select tag:human_resources --full-refresh` command.
 
 #### Dbt project specification
-> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet
+> Update your `cssxx_store/dbt_project.yml` file with the following snippet
 
 ```yaml
-# cssXX.data.tbe/dbt_project.yml
+# cssXX.data.store/dbt_project.yml
 models: 
-  tbe:
+  store:
     dashboards:
       emp_conge:
         +enabled: true
@@ -556,19 +556,19 @@ models:
 ##### Populating the marts
 > This dashboard requiers the definition of a specicied population in the `educ_serv` mart.
 
-The marts must be populated in `cssXX.data.tbe/models/marts/educ_serv/populations/` and as per the definition of the `core.data.tbe/marts/educ_serv/adapters.yml`.
+The marts must be populated in `cssXX.data.store/models/marts/educ_serv/populations/` and as per the definition of the `core.data.store/marts/educ_serv/adapters.yml`.
 
 In order to build your population, you must define for each population the business rules for the previous years, including the current year, and for the forecast year. 
 
 It must be taken into account that the 'Groupe-Repere' data cannot be used for the forecast year as it's not available until the end of the current year. You need to analyze which data you can use to ensure the veracity of the data. We recommend using the 'distribution' data, if possible, for the forecast year.
 
 #### Dbt project specification
-> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet
+> Update your `cssxx_store/dbt_project.yml` file with the following snippet
 
 ```yaml
-# cssXX.data.tbe/dbt_project.yml
+# cssXX.data.store/dbt_project.yml
 models: 
-  tbe:
+  store:
     dashboards:
         effectif_css:
             +enabled: true
@@ -585,13 +585,13 @@ models:
 | paie |  human_resources | human_resources 	| No 	| No 	|
 
 #### Dbt project specification
-> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet and add the `cod_css` variable.
+> Update your `cssxx_store/dbt_project.yml` file with the following snippet and add the `cod_css` variable.
 
 1. Enabling the models
 ```yaml
 #cssXX.data.dbe/dbt_project.yml
 models: 
-  tbe:
+  store:
     dashboards: 
       retirement:
         +enabled: True
@@ -656,19 +656,19 @@ Where :
 * `stg_ele_secondaire_adapt`
 
 The integrator can add new populations by overrding the `custom_fgj_populations.sql` model. To do so : 
-1. Create a new file in `cssXX.data.tbe/models/marts/educ_serv/spines/staging` named `custom_fgj_populations.sql` 
+1. Create a new file in `cssXX.data.store/models/marts/educ_serv/staging/populations` named `custom_fgj_populations.sql` 
 2. Your `custom_fgj_populations` model schould be implemeted as a union of your own custom populations. 
-3. Disable the core's placeholder in the `cssXX.data.tbe`:
+3. Disable the core's placeholder in the `cssXX.data.store`:
 
 ```yaml
-# cssXX.data.tbe/dbt_project.yml
+# cssXX.data.store/dbt_project.yml
 
 models: 
-  tbe:
+  store:
     marts:
       educ_serv:
-        spines:
-          staging:
+        staging:
+          populations:
             custom_fgj_populations:
               +enabled: false
 ```
@@ -680,9 +680,9 @@ models:
 ##### Populating the marts seed
 > This dashboard requiers the specification of the seeds in the `human_resources` mart.  
 
-The seed must be populated in `cssXX.data.tbe/seeds/marts/human_resources/` and as per the definition of the `core.data.tbe/seeds/marts/human_resources/schema.yml` mart. 
+The seed must be populated in `cssXX.data.store/seeds/marts/human_resources/` and as per the definition of the `core.data.store/seeds/marts/human_resources/schema.yml` mart. 
 
-Please refer to the `core.data.tbe/seeds/marts/human_resources/schema.yml` mart documentation to get the concrete implementation.
+Please refer to the `core.data.store/seeds/marts/human_resources/schema.yml` mart documentation to get the concrete implementation.
 
 Do not forget to refresh your seeds with the `dbt seeds --select tag:human_resources --full-refresh` command.
 
@@ -701,7 +701,7 @@ Do not forget to refresh your seeds with the `dbt seeds --select tag:human_resou
 
 ```yaml
 models: # Already here, for reference only
-  tbe: # Already here, for reference only
+  store: # Already here, for reference only
     +enabled: False # Already here, for reference only
     dummy: 
       +tags: ['dummy']
@@ -776,8 +776,8 @@ Compilation Error
   when looking for ref("foobar").
   
   To fix this, change the name of one of these resources:
-  - model.tbe.removeme (models/prospectif_cdp/features/foobar.sql)
-  - model.tbe.removeme (models/emp_conge/feature/foobar.sql)
+  - model.store.removeme (models/prospectif_cdp/features/foobar.sql)
+  - model.store.removeme (models/emp_conge/feature/foobar.sql)
 ```
 
 ##### Pattern

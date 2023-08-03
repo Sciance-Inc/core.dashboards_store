@@ -21,7 +21,7 @@ WITH eleve AS (
     FROM {{ ref('i_dossiers') }}
     WHERE 
         statut = 'A' AND 
-        annee BETWEEN {{ tbe.get_current_year() }} - 4 AND {{ tbe.get_current_year() }}
+        annee BETWEEN {{ store.get_current_year() }} - 4 AND {{ store.get_current_year() }}
     GROUP BY annee, fiche
 
 

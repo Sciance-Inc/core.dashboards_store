@@ -1,4 +1,4 @@
-{{ config(alias='reporting_resultats') }}
+{{ config(alias='report_resultats') }}
 
 with src AS (
 SELECT 
@@ -16,8 +16,8 @@ SELECT
     , res.resultat
     , res.is_echec
     , res.is_difficulty
-    , CASE WHEN res.annee = {{ tbe.get_current_year() }} THEN 1 ELSE 0 END AS is_current_year
-    , CASE WHEN res.annee = {{ tbe.get_current_year() }} - 1 THEN 1 ELSE 0 END AS is_previous_year
+    , CASE WHEN res.annee = {{ store.get_current_year() }} THEN 1 ELSE 0 END AS is_current_year
+    , CASE WHEN res.annee = {{ store.get_current_year() }} - 1 THEN 1 ELSE 0 END AS is_previous_year
     , CASE WHEN is_echec = 1 OR is_difficulty = 1 THEN 1 ELSE 0 END AS is_echec_or_difficulty
 FROM {{ ref('rslt_fact_resultats') }} AS res
 INNER JOIN {{ ref('rslt_dim_eleve') }} AS el

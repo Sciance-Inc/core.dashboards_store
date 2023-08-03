@@ -1,4 +1,4 @@
-{{ config(alias='ratio_anc') }}
+{{ config(alias='report_ratio_anc') }}
 
 SELECT
 	annee_budgetaire

@@ -1,6 +1,6 @@
 
 
-{{ config(alias='nb_ele_plus_de_66')}}
+{{ config(alias='report_nb_ele_plus_de_66')}}
 
 WITH filtr AS(
     SELECT

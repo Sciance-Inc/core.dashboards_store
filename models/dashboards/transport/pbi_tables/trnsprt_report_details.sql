@@ -1,4 +1,6 @@
-{{ config(alias='rpt_details') }}
+{{ config(
+    alias='report_details'
+) }}
 
 {# Extract the non-simulated parcours for the last 10 years #}
 WITH parcours AS (
@@ -87,6 +89,6 @@ SELECT
      END AS parcours_periode
      ,'Oui' AS actif 
 FROM agg AS src
-LEFT JOIN {{ adapt('transport', 'stg_sectors') }} AS sec 
+LEFT JOIN {{ source('transport', 'stg_sectors') }} AS sec 
 ON src.circuit_id = sec.circuit_id
 
