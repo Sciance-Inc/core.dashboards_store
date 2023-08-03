@@ -6,23 +6,15 @@ macros:
       The macro is usefull when you want to drop all the tables in "your" database start from a clean slate.
       The macro is designed to be called with the following command : `dbt run-operation drop_schema`
 
-  - name: init_metadata_tables
+  - name: init_metadata_table
     description: >
       The macro prepare the database and create the metadata tables allowing some monitoring of ETLs.
       The macro is not designed to be called directly, but through a hook.
       To enable the metadata collection in your project, you need to add the following hook in your dbt_project.yml file :
-      ```
-      on-run-start:
-        - "{{ store.init_metadata_tables() }}"
-      ```
 
   - name: purge_metadata_table
     description: >
       The macro remove the old entry from the metadata tables by only keeping the most recent one, with respect to the dashboard name and the dashboard table's name.
-      ```
-      on-run-end:
-        - "{{ store.purge_metadata_table() }}"
-      ```
 
   - name: stamp_model
     description: >
