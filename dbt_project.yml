@@ -16,9 +16,11 @@ clean-targets:
     - "target"
     - "dbt_packages"
 
-# Hooks
+# Hooks : copy thoose hooks into your `cssXX.data.store/dbt_project.yml` file to enable the stamper collection
 on-run-start:
     - "{{ store.init_metadata_table() }}"
+on-run-end:
+    - "{{ store.purge_metadata_table() }}"
 
 seeds:
     +tags: ["seeds"]
