@@ -16,6 +16,10 @@ clean-targets:
     - "target"
     - "dbt_packages"
 
+# Hooks
+on-run-start:
+    - "{{ store.init_metadata_table() }}"
+
 seeds:
     +tags: ["seeds"]
     store:
@@ -35,6 +39,11 @@ models:
     +materialized: table
     store:
         +enabled: False
+        meta:
+            +enabled: true
+            +schema: metadata
+            +tags: ["metadata"]
+            +materialized: view # Create it as a view so the execution order of the models does not matter
         marts:
             human_resources:
                 +tags: ["human_resources"]
@@ -53,34 +62,58 @@ models:
             effectif_css:
                 +tags: ["effectif_css"]
                 +schema: dashboard_effectif_css
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_effectif_css') }}"]
 
             emp_conge:
                 +tags: ["emp_conge"]
                 +schema: dashboard_emp_conge
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_emp_conge') }}"]
 
             emp_actif:
                 +tags: ["emp_actif"]
                 +schema: dashboard_emp_actif
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_emp_actif') }}"]
 
             prospectif_cdp:
                 +tags: ["prospectif_cdp"]
                 +schema: "dashbaord_prospectif_cdp"
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashbaord_prospectif_cdp') }}"]
 
             transport:
                 +tags: ["transport"]
                 +schema: "dashboard_transport"
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_transport') }}"]
 
             res_epreuves:
                 +tags: ["res_epreuves"]
                 +schema: "dashboard_res_epreuves"
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_res_epreuves') }}"]
 
             suivi_resultats:
                 +tags: ["suivi_resultats"]
                 +schema: "dashboard_suivi_resultats"
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_suivi_resultats') }}"]
 
             retirement:
                 +tags: ["retirement"]
                 +schema: "dashboard_retirement"
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_retirement') }}"]
 
         interfaces:
             +tags: ["interfaces"]

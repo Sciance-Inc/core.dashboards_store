@@ -686,6 +686,56 @@ Please refer to the `core.data.store/seeds/marts/human_resources/schema.yml` mar
 
 Do not forget to refresh your seeds with the `dbt seeds --select tag:human_resources --full-refresh` command.
 
+### Exposing the freshness of the data into the dashboard
+> The `core` provide a mechanism to expose the freshness of the data into the dashboard. This mechanism is call `the stamper` and can be enabled and used through macros.
+
+#### Enabling the `stamper`
+> Must be done ONCE in your `cssXX.data.store/dbt_project.yaml`.
+
+The stamper is a table collecting metadata about your ETL's run. To enable the data collection, you first enable it in your `dbt_project.yml` by adding the two following hooks : 
+
+```yaml
+# cssXX.data.store/dbt_project.yml
+# Hooks
+on-run-start:
+    - "{{ store.init_metadata_table() }}"
+on-run-end:
+    - "{{ store.purge_metadata_table() }}"
+```
+
+#### `stamping` my new dashboard
+> A good practice is to only stamp the reporting tables.
+
+__Only successfull run will be stamped. Meaning that taking the `MIN(run_ended_at)` will give you the last time  your ETL run has been sucessfull. This is the worstcase scenario freshness__
+
+To add a stamp to your dashboard you can either :
+
+* Add the following `post_hook` into your model :
+```sql
+# model.sql
+{{ config(
+    post_hook='{{ store.stamp("my_dashboard") }}',
+) }}
+```
+
+* Stamp multiples models at once by adding the hook directrly into the `core/dbt_project`
+```yaml
+models:
+  store:
+    dashboards:
+      my_dashboard:
+        +tags: ["my_dashboard"]
+        +schema: dashboard_my_dashboard
+        pbi_tables:
+          +post_hook: ["{{ store.stamp_model('my_dashboard') }}"]
+```
+
+__The second option is to be prefered if all of your report models are under a common folder__
+
+#### Using the `stamper` in your dashboard
+
+In PowerBi, you can easily fetch the last run of your ETL by filtering on the argument provided to the `stamp_model` macro. 
+
 
 #### Variable conventions
 * Don't use spaces in your variables names
