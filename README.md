@@ -462,7 +462,7 @@ models:
       suivi_resultats:
         +enabled: True
     interfaces:
-      gp:
+      gpi:
         +enabled: True
 ```
 
