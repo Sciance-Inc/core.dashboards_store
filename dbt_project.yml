@@ -37,6 +37,9 @@ seeds:
             suivi_resultats:
                 +tags: ["suivi_resultats"]
                 +schema: "dashboard_suivi_resultats"
+            chronic_absenteeism:
+                +tags: ["chronic_absenteeism"]
+                +schema: "dashboard_chronic_absenteeism"
 models:
     +materialized: table
     store:
@@ -116,6 +119,15 @@ models:
                 pbi_tables:
                     +post-hook:
                         ["{{ store.stamp_model('dashboard_retirement') }}"]
+
+            chronic_absenteeism:
+                +tags: ["chronic_absenteeism"]
+                +schema: "dashboard_chronic_absenteeism"
+                pbi_tables:
+                    +post-hook:
+                        [
+                            "{{ store.stamp_model('dashboard_chronic_absenteeism') }}",
+                        ]
 
         interfaces:
             +tags: ["interfaces"]
