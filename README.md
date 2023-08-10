@@ -229,6 +229,7 @@ Some dashboards might need extra configuration to be provided through `seeds`. I
 | [emp_actif](#empl_actif) | List all employees currently enroled in the CSS | (CSSSDGS) Nicolas Pham |
 | [effectif_css](#effectif_css) | Track the population count in each school in the CSS | (CSSVT) Frédéryk Busque , Mohamed Sadqi (CSSVDC)
 | [retirement](#retirement) | Tracks the number of retired employees by job categories and workplace. Forecast, for up to five years, the number of retiring employees | (Sciance) Hugo Juhel
+| [chronic_absenteeism](#chronic_absenteeism) | Display general metrics abunt the student's absenteeism assessed through the number of days with at least one absence for every students. | (Sciance) Hugo Juhel
 
 
 > The following section describe the specific for each dashboard. Bear with me, we are gonna drill down into the specifics of each dashboard ! Stay focused ! In each of the following section, you will learn how to tame a specific dashboard.
@@ -601,6 +602,57 @@ models:
 ```
 
 > This dashboard requiers the specification of the `human_resources` seeds.
+### Chronic_absenteeism
+> Display general metrics about the student's absenteeism assessed through the number of days with at least one absence for every students. | (Sciance) Hugo Juhel
+
+| Interfaces  | Marts 	| Marts seeds     | Dashboard seeds | Additional config |
+|-------------|---------|-----------------|-----------------| ------------------|
+| gpi         |educ_serv|NO             	| No              | Yes 	              |
+
+##### Populating the marts
+> This dashboard requiers the definition of the specicied population in the `educ_serv` mart. 
+
+The marts must be populated in `cssXX.data.tbe/models/marts/educ_serv/populations/` and as per the definition of the `core.data.tbe/marts/educ_serv/adapters.yml`.
+
+#### Dbt project specification
+> Update your `cssxx_tbe/dbt_project.yml` file with the following snippet
+
+```yaml
+# cssXX.data.tbe/dbt_project.yml
+models:
+    tbe:
+        marts:
+            educ_serv:
+                +enabled: True                  
+        dashboards:                                   
+            chronic_absenteeism:
+                +enabled: True
+        interfaces:
+            gpi:
+                +enabled: True
+```
+
+#### Additional configuration
+> These steps are optional. 
+
+##### Overriding the default list of tracked courses
+> By default, the dashboard will group up absences using the brackets from `core.data.tbe/seeds/dashboard/chronic_absenteeism/repartition_brackets.csv`
+
+To get a custom bracketing strategy, you can provide your own implementation of `repartition_brackets`. To do so :
+1. Write a CSV file named `repartition_brackets` in the `cssXX.data.dbe/seeds/dashboards/chronic_absenteeism` folder populated as per the `core.data.tbe/seeds/dashboards/chronic_absenteis,/schema.yml`'s definition.
+2. Disable the default seed by using the the following snippet in your `dbt_project.yml` file : 
+
+```yaml
+#cssXX.data.dbe/dbt_project.yml
+seeds:
+  tbe:
+    dashboards:
+      chronic_absenteeism:
+        repartition_brackets:
+          +enabled: False
+```
+
+__When overriding the repartition bracket, you will need to manualy update the `lorenz` measures from the Dahsboard's concentration page.__
 
 # Developer guidelines
 
@@ -673,6 +725,7 @@ models:
               +enabled: false
 ```
 
+__Developers : when creating a new dashboard using the population mechanism, you must register it's tag in the `marts/educ_serv/adapters.yml` file, for it trigger the population computation.__
   
 ### human resources
 > This mart gather all the data related to the human resources departement

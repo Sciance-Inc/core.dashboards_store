@@ -1,0 +1,5 @@
+lower_bound,upper_bound,name
+1,2,1 absence
+2,6,2 à 5 absences
+6,11,6 à 10 absences
+11,10000,> 10 absences

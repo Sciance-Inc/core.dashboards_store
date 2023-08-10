@@ -1,0 +1,18 @@
+version: 2
+
+seeds:
+  - name: repartition_brackets
+    description: >
+      The upper and lower bounds for the repartition brackets used in the computation of `concentration` of chronical absenteeism.
+    columns:
+      - name: lower_bound
+        description: The (included) lower bound to group the absences length by.
+      - name: upper_bound
+        description: The (excluded) upper bound to group the absences length by.
+      - name: name
+        description: The friendly name of the bracket.
+    config:
+      column_types:
+        lower_bound: integer
+        upper_bound: integer
+        name: nvarchar(32)
