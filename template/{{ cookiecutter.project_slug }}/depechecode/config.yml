@@ -1,0 +1,9 @@
+css_name: "{{ cookiecutter.css_short_name }}"
+schedule:
+  staging: "0 7 * * 1-5" # Every weekday at 7am
+  master: "0 10 * * 5" # Every Friday at 10am
+timeout: 120
+concurrency: 2
+docker_url: "unix://var/run/docker.sock"
+onepassword_url: "http://192.168.26.100:8079"
+teams_webhook: "https://stratemia.webhook.office.com/webhookb2/74e78b21-a116-406a-a21d-50c06dab32fb@72f3ee62-86b1-46d4-928d-0a988f5aad48/IncomingWebhook/a980727dff6643598763f50c3edec966/9dff948c-89f6-4006-ab74-d337fe7b3c21"

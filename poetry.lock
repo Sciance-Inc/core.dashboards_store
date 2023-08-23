@@ -19,6 +19,17 @@ docs = ["Sphinx (>=1.2.2)", "sphinx-rtd-theme (>=0.1.6)"]
 test = ["coverage (>=3.7.1)", "cssselect (>=0.9.1)", "lxml (>=3.6.0)", "pytest", "pytest-cov", "pytz (>=2015.4)", "PyICU (>=2.4.2)"]
 
 [[package]]
+name = "arrow"
+version = "1.2.3"
+description = "Better dates & times for Python"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+python-dateutil = ">=2.7.0"
+
+[[package]]
 name = "attrs"
 version = "23.1.0"
 description = "Classes Without Boilerplate"
@@ -91,6 +102,17 @@ stringcase = "*"
 compiler = ["black", "jinja2", "protobuf"]
 
 [[package]]
+name = "binaryornot"
+version = "0.4.4"
+description = "Ultra-lightweight pure Python package to check if a file is binary or text."
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+chardet = ">=3.0.2"
+
+[[package]]
 name = "bleach"
 version = "6.0.0"
 description = "An easy safelist-based HTML-sanitizing tool."
@@ -123,6 +145,14 @@ python-versions = "*"
 
 [package.dependencies]
 pycparser = "*"
+
+[[package]]
+name = "chardet"
+version = "5.2.0"
+description = "Universal encoding detector for Python 3"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
 
 [[package]]
 name = "charset-normalizer"
@@ -161,6 +191,24 @@ description = "Cross-platform colored terminal text."
 category = "main"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
+
+[[package]]
+name = "cookiecutter"
+version = "2.3.0"
+description = "A command-line utility that creates projects from project templates, e.g. creating a Python package project from a Python package project template."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+arrow = "*"
+binaryornot = ">=0.4.4"
+click = ">=7.0,<9.0.0"
+Jinja2 = ">=2.7,<4.0.0"
+python-slugify = ">=4.0.0"
+pyyaml = ">=5.3.1"
+requests = ">=2.23.0"
+rich = "*"
 
 [[package]]
 name = "cryptography"
@@ -506,6 +554,27 @@ test = ["pytest-cov (>=2.6)", "pytest (>4.0)"]
 zmq = ["pyzmq"]
 
 [[package]]
+name = "markdown-it-py"
+version = "3.0.0"
+description = "Python port of markdown-it. Markdown parsing, done right!"
+category = "dev"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+mdurl = ">=0.1,<1.0"
+
+[package.extras]
+benchmarking = ["psutil", "pytest", "pytest-benchmark"]
+code_style = ["pre-commit (>=3.0,<4.0)"]
+compare = ["commonmark (>=0.9,<1.0)", "markdown (>=3.4,<4.0)", "mistletoe (>=1.0,<2.0)", "mistune (>=2.0,<3.0)", "panflute (>=2.3,<3.0)"]
+linkify = ["linkify-it-py (>=1,<3)"]
+plugins = ["mdit-py-plugins"]
+profiling = ["gprof2dot"]
+rtd = ["mdit-py-plugins", "myst-parser", "pyyaml", "sphinx", "sphinx-copybutton", "sphinx-design", "sphinx-book-theme", "jupyter-sphinx"]
+testing = ["coverage", "pytest", "pytest-cov", "pytest-regressions"]
+
+[[package]]
 name = "markupsafe"
 version = "2.1.2"
 description = "Safely add untrusted strings to HTML/XML markup."
@@ -530,6 +599,14 @@ msgpack = ["msgpack (>=0.5.6)"]
 orjson = ["orjson"]
 toml = ["tomli-w (>=1.0)", "tomli (>=1.1.0)"]
 yaml = ["pyyaml (>=3.13)"]
+
+[[package]]
+name = "mdurl"
+version = "0.1.2"
+description = "Markdown URL utilities"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
 
 [[package]]
 name = "minimal-snowplow-tracker"
@@ -696,7 +773,7 @@ plugins = ["importlib-metadata"]
 
 [[package]]
 name = "pyjwt"
-version = "2.7.0"
+version = "2.8.0"
 description = "JSON Web Token implementation in Python"
 category = "main"
 optional = false
@@ -892,6 +969,22 @@ python-versions = ">=3.7"
 idna2008 = ["idna"]
 
 [[package]]
+name = "rich"
+version = "13.5.2"
+description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
+category = "dev"
+optional = false
+python-versions = ">=3.7.0"
+
+[package.dependencies]
+markdown-it-py = ">=2.2.0"
+pygments = ">=2.13.0,<3.0.0"
+typing-extensions = {version = ">=4.0.0,<5.0", markers = "python_version < \"3.9\""}
+
+[package.extras]
+jupyter = ["ipywidgets (>=7.5.1,<9)"]
+
+[[package]]
 name = "secretstorage"
 version = "3.3.3"
 description = "Python bindings to FreeDesktop.org Secret Service API"
@@ -1055,15 +1148,17 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "flake8 (<5)", "pytest-co
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "aaad94d89f845c812075c6f6caf3b9f89d08b7ef3f62c391daae964e70c50b3d"
+content-hash = "5fd171699f82a4ea3efd239a7d0f26c4abc7e272f84171e51d8d46ffe1357fb0"
 
 [metadata.files]
 agate = []
+arrow = []
 attrs = []
 azure-core = []
 azure-identity = []
 babel = []
 betterproto = []
+binaryornot = []
 bleach = []
 certifi = []
 cffi = [
@@ -1132,6 +1227,7 @@ cffi = [
     {file = "cffi-1.15.1-cp39-cp39-win_amd64.whl", hash = "sha256:70df4e3b545a17496c9b3f41f5115e69a4f2e77e94e1d2a8e1070bc0c38c8a3c"},
     {file = "cffi-1.15.1.tar.gz", hash = "sha256:d400bfb9a37b1351253cb402671cea7e89bdecc294e8016a707f6d1d8ac934f9"},
 ]
+chardet = []
 charset-normalizer = []
 click = [
     {file = "click-8.1.3-py3-none-any.whl", hash = "sha256:bb4d8133cb15a609f44e8213d9b391b0809795062913b383c62be0ee95b1db48"},
@@ -1142,6 +1238,7 @@ click-log = [
     {file = "click_log-0.4.0-py2.py3-none-any.whl", hash = "sha256:a43e394b528d52112af599f2fc9e4b7cf3c15f94e53581f74fa6867e68c91756"},
 ]
 colorama = []
+cookiecutter = []
 cryptography = []
 dbt-core = []
 dbt-extractor = [
@@ -1207,8 +1304,10 @@ logbook = [
     {file = "Logbook-1.5.3-cp37-cp37m-win_amd64.whl", hash = "sha256:0cf2cdbfb65a03b5987d19109dacad13417809dcf697f66e1a7084fb21744ea9"},
     {file = "Logbook-1.5.3.tar.gz", hash = "sha256:66f454ada0f56eae43066f604a222b09893f98c1adc18df169710761b8f32fe8"},
 ]
+markdown-it-py = []
 markupsafe = []
 mashumaro = []
+mdurl = []
 minimal-snowplow-tracker = [
     {file = "minimal-snowplow-tracker-0.0.2.tar.gz", hash = "sha256:acabf7572db0e7f5cbf6983d495eef54081f71be392330eb3aadb9ccb39daaa4"},
 ]
@@ -1294,6 +1393,7 @@ rfc3986 = [
     {file = "rfc3986-2.0.0-py2.py3-none-any.whl", hash = "sha256:50b1502b60e289cb37883f3dfd34532b8873c7de9f49bb546641ce9cbd256ebd"},
     {file = "rfc3986-2.0.0.tar.gz", hash = "sha256:97aacf9dbd4bfd829baad6e6309fa6573aaf1be3f6fa735c8ab05e46cecb261c"},
 ]
+rich = []
 secretstorage = []
 semver = [
     {file = "semver-2.13.0-py2.py3-none-any.whl", hash = "sha256:ced8b23dceb22134307c1b8abfa523da14198793d9787ac838e70e29e77458d4"},

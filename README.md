@@ -53,7 +53,7 @@ Be brave, try, fail and repeat ! The answer is waiting for you, somewhere out th
 
 ## How to navigate through the README
 The `readme` is organized as follow :
-* A first section is to be read by everyone, integrators and contributors, thoose of us crazy enough to want to RUN the ETLs or work-on !
+* A first section is to be read by everyone, integrators and contributors, thoose of us crazy enough to want to RUN the ETLs or work-on it !
 * A second section is intended for the **integrators** : thoose who deploy the store in their own CSS.
 * A third section is targeting the **contributors** : thoose who want to create new dashboards and fight thoose pesky bugs we all stumble on sometimes. That's the heavy stuff ! Sit tight if you go there.
 * Finally a FAQ is available at the end of the document.
@@ -76,7 +76,41 @@ Hence every CSS will end WITH TWO REPOS :
 * `cssXX.data.store` : the child repo containing the ETLs specifics to the CSS XX
   * `XX` schould be replaced with the friendly name of your CSS (ex: cssdgs.data.store for Des-Grandes-Seigneuries)
 
-Thoose two repos are to be cloned in the same directory, the `<working directory>` of your choice. It's actually not mandatory but the `README` expects to do so..
+Thoose two repos are to be cloned in the same directory, the `<working directory>` of your choice. It's actually not mandatory but the `README` expects you to do so, so it might be a good idea to do it if your working with the store for the first time.
+
+## I have cloned `core.data.repo`. It's cute but it's feeling alone : it doen't have any `cssXX.data.store` repo to play with. What schould I do ?
+
+`core.data.repo` is, indeed, a party-animal and strive for company. If you are a **"greenfield"** CSS, you might want to create a new `cssXX.data.store` repo. If you are a **"brownfield"** CSS, you might want to clone an existing `cssXX.data.store` repo. 
+
+__Obviously, if you are a brownfield CSS, I trust you to find the CSSXX.data.store repo and clone it !__
+
+### I'm a greenfield CSS, I want to create a new `cssXX.data.store` repo
+
+We have got you covered, there is `cookiecutter` template ready for you to use.
+
+
+1. Create a templated repo from the core's template
+
+```bash
+# Assuming you are in the <working_directory>, containing the `core.data.store` cloned repo
+cd core.data.store
+poetry shell & poetry install
+cd ../
+cookiecutter core.data.store/template/
+```
+
+2. Git-init the repo you have just created 
+
+```bash
+cd <working_directory>/cssXX.data.store
+git init
+git remote add origin <your remote's url>
+git add .
+git commit -m "feat: one commit to initiate them all, one commit to rule them all, one commit to bring them all and in the gitness bind them, in the land of Github where the bugs lie."
+git push -u origin master
+```
+
+3. Go read the cssXX.data.store/readme to learn more about the post-configurations steps required to have everything owrking
 
 ## What you must have already configured by now 
 >By convention : 
