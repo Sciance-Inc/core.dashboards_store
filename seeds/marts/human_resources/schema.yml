@@ -38,7 +38,7 @@ seeds:
       schema: human_resources_seeds
       column_types:
         etat_empl: nvarchar(3)
-        descr: nvarchar(25)
+        descr: nvarchar(50)
         empl_retr: bit
         empl_cong: bit
         cong_lt: bit
