@@ -21,6 +21,8 @@ sources:
         columns:
           - name: code_perm
             description: The specific unique identifier for a student
+          - name: id_eco
+            description: The specific unique identifier for a school by year
           - name: annee
             description: The years the student was active
 
@@ -30,6 +32,8 @@ sources:
         columns:
           - name: code_perm
             description: The specific unique identifier for a student
+          - name: id_eco
+            description: The specific unique identifier for a school by year
           - name: annee
             description: The years the student was active
 
@@ -39,6 +43,8 @@ sources:
         columns:
           - name: code_perm
             description: The specific unique identifier for a student
+          - name: id_eco
+            description: The specific unique identifier for a school by year
           - name: annee
             description: The years the student was active
 
@@ -48,6 +54,8 @@ sources:
         columns:
           - name: code_perm
             description: The specific unique identifier for a student
+          - name: id_eco
+            description: The specific unique identifier for a school by year
           - name: annee
             description: The years the student was active
 
@@ -57,6 +65,8 @@ sources:
         columns:
           - name: code_perm
             description: The specific unique identifier for a student
+          - name: id_eco
+            description: The specific unique identifier for a school by year
           - name: annee
             description: The years the student was active
 
@@ -71,10 +81,15 @@ models:
       - resolution:
           combination_of_columns:
             - code_perm
+            - id_eco
             - annee
     columns:
       - name: code_perm
         description: The specific unique identifier for a student
+        tests:
+          - not_null
+      - name: id_eco
+        description: The specific unique identifier for a school by year
         tests:
           - not_null
       - name: annee
@@ -91,10 +106,15 @@ models:
       - resolution:
           combination_of_columns:
             - code_perm
+            - id_eco
             - annee
     columns:
       - name: code_perm
         description: The specific unique identifier for a student
+        tests:
+          - not_null
+      - name: id_eco
+        description: The specific unique identifier for a school by year
         tests:
           - not_null
       - name: annee
@@ -111,10 +131,15 @@ models:
       - resolution:
           combination_of_columns:
             - code_perm
+            - id_eco
             - annee
     columns:
       - name: code_perm
         description: The specific unique identifier for a student
+        tests:
+          - not_null
+      - name: id_eco
+        description: The specific unique identifier for a school by year
         tests:
           - not_null
       - name: annee
@@ -131,10 +156,15 @@ models:
       - resolution:
           combination_of_columns:
             - code_perm
+            - id_eco
             - annee
     columns:
       - name: code_perm
         description: The specific unique identifier for a student
+        tests:
+          - not_null
+      - name: id_eco
+        description: The specific unique identifier for a school by year
         tests:
           - not_null
       - name: annee
@@ -151,10 +181,15 @@ models:
       - resolution:
           combination_of_columns:
             - code_perm
+            - id_eco
             - annee
     columns:
       - name: code_perm
         description: The specific unique identifier for a student
+        tests:
+          - not_null
+      - name: id_eco
+        description: The specific unique identifier for a school by year
         tests:
           - not_null
       - name: annee

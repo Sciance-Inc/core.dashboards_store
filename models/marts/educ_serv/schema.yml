@@ -13,6 +13,7 @@ models:
           combination_of_columns:
             - code_perm
             - annee
+            - id_eco
             - population
 
   - name: custom_fgj_populations
@@ -27,6 +28,7 @@ models:
       - resolution:
           combination_of_columns:
             - code_perm
+            - id_eco
             - annee
             - population
 
@@ -42,6 +44,7 @@ models:
       - resolution:
           combination_of_columns:
             - code_perm
+            - id_eco
             - annee
             - population
             - eco

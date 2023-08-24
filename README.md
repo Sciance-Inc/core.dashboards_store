@@ -734,7 +734,9 @@ Where :
 > This mart gather all the data related to the education service.
 
 ##### Populations
-`Populations` are sets of students used as a filter by various dashboards. The following populations are mandatory (cf `adatpers`) and schould be defined : 
+`Populations` are sets of students used as a filter by various dashboards. __you can refer to analyses/marts/educ_serv/staging/population folder and use the population template to build/define your populations__.
+
+The following populations are mandatory (cf `adatpers`) and schould be defined : 
 * `stg_ele_prescolaire`
 * `stg_ele_primaire_reg`
 * `stg_ele_primaire_adapt`
