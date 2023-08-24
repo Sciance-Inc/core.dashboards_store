@@ -2,6 +2,18 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.2 (2023-06-26)
+
+### Fix
+
+* Casting the timeout as integer to allow for string like definition in the inherited dags ([`76f17c9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/76f17c9688ec9634251dc40ab6fd07e2ef335f87))
+
+## v0.3.1 (2023-06-08)
+
+### Fix
+
+* Remove blank results and correct subject evaluation code ([`ccf6be0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ccf6be0691b988a37b1886895bae2f37d048407a))
+
 ## v0.3.0 (2023-05-30)
 ### Feature
 
