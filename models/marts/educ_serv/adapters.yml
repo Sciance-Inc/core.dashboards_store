@@ -1,14 +1,18 @@
 version: 2
 
+# Manually register all the dashboards / tags using the population mechanism so the DBT's select clause will actualy triggers the population's computation.
+x-common-tags: &x-common-tags
+  tags:
+    - population
+    - educ_serv
+    - prospectif_cdp
+    - effectif_css
+    - chronic_absenteeism
+
 sources:
   - name: populations
     description: >
       The populations identify groups of students with consistent profiles, such as regular students, students in special education or students in general adult education.
-    tags: 
-      - population
-      - educ_serv
-      - prospectif_cdp
-      - effectif_css  
     schema: "{{ target.schema }}_educ_serv_staging"
     tables:
       - name: stg_ele_prescolaire
@@ -59,121 +63,101 @@ sources:
 models:
   - name: stg_ele_prescolaire
     config:
-      schema: "educ_serv_staging"      
-      tags:
-        - population
-        - educ_serv
-        - prospectif_cdp
-        - effectif_css  
+      schema: "educ_serv_staging"
+      <<: *x-common-tags
     description: >
-          Identification of the population in 4-year-old kindergarten / passe partout / 5-year-old kindergarten.
-    tests: 
-      - resolution: 
-          combination_of_columns: 
+      Identification of the population in 4-year-old kindergarten / passe partout / 5-year-old kindergarten.
+    tests:
+      - resolution:
+          combination_of_columns:
             - code_perm
             - annee
     columns:
       - name: code_perm
         description: The specific unique identifier for a student
         tests:
-            - not_null
+          - not_null
       - name: annee
         description: The years the student was active
         tests:
-            - not_null
+          - not_null
   - name: stg_ele_primaire_reg
     description: >
-          Identification of the primary school population with a regular profile.
+      Identification of the primary school population with a regular profile.
     config:
-      schema: "educ_serv_staging"      
-      tags:
-        - population
-        - educ_serv
-        - prospectif_cdp
-        - effectif_css  
-    tests: 
-      - resolution: 
-          combination_of_columns: 
+      schema: "educ_serv_staging"
+      <<: *x-common-tags
+    tests:
+      - resolution:
+          combination_of_columns:
             - code_perm
             - annee
     columns:
       - name: code_perm
         description: The specific unique identifier for a student
         tests:
-            - not_null
+          - not_null
       - name: annee
         description: The years the student was active
         tests:
-            - not_null
+          - not_null
   - name: stg_ele_primaire_adapt
     description: >
-          Identification of the primary school population enrolled in special education.
+      Identification of the primary school population enrolled in special education.
     config:
-      schema: "educ_serv_staging"      
-      tags:
-        - population
-        - educ_serv
-        - prospectif_cdp
-        - effectif_css  
-    tests: 
-      - resolution: 
-          combination_of_columns: 
+      schema: "educ_serv_staging"
+      <<: *x-common-tags
+    tests:
+      - resolution:
+          combination_of_columns:
             - code_perm
             - annee
     columns:
       - name: code_perm
         description: The specific unique identifier for a student
         tests:
-            - not_null
+          - not_null
       - name: annee
         description: The years the student was active
         tests:
-            - not_null
+          - not_null
   - name: stg_ele_secondaire_reg
     description: >
-          Identification of the secondary school population with a regular profile.
+      Identification of the secondary school population with a regular profile.
     config:
-      schema: "educ_serv_staging"      
-      tags:
-        - population
-        - educ_serv
-        - prospectif_cdp
-        - effectif_css  
-    tests: 
-      - resolution: 
-          combination_of_columns: 
+      schema: "educ_serv_staging"
+      <<: *x-common-tags
+    tests:
+      - resolution:
+          combination_of_columns:
             - code_perm
             - annee
     columns:
       - name: code_perm
         description: The specific unique identifier for a student
         tests:
-            - not_null
+          - not_null
       - name: annee
         description: The years the student was active
         tests:
-            - not_null
+          - not_null
   - name: stg_ele_secondaire_adapt
     description: >
-          Identification of the secondary school population in special education.
+      Identification of the secondary school population in special education.
     config:
-      schema: "educ_serv_staging"      
-      tags:
-        - population
-        - educ_serv
-        - prospectif_cdp
-        - effectif_css
-    tests: 
-      - resolution: 
-          combination_of_columns: 
+      schema: "educ_serv_staging"
+      <<: *x-common-tags
+    tests:
+      - resolution:
+          combination_of_columns:
             - code_perm
             - annee
     columns:
       - name: code_perm
         description: The specific unique identifier for a student
         tests:
-            - not_null
+          - not_null
       - name: annee
         description: The years the student was active
         tests:
-            - not_null
+          - not_null

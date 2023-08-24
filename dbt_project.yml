@@ -1,5 +1,5 @@
 name: 'tbe'
-version: '0.3.1'
+version: '0.3.2'
 config-version: 2
 
 profile: "replaceMeInLocals"
@@ -15,119 +15,132 @@ target-path: "target"
 clean-targets:
     - "target"
     - "dbt_packages"
-    
+
+# Hooks : copy thoose hooks into your `cssXX.data.store/dbt_project.yml` file to enable the stamper collection
+on-run-start:
+    - "{{ store.init_metadata_table() }}"
+on-run-end:
+    - "{{ store.purge_metadata_table() }}"
+
 seeds:
     +tags: ["seeds"]
-    tbe: 
+    store:
+        common:
+            +schema: common_seeds
         dashboards:
             prospectif_cdp:
                 +tags: ["prospectif_cdp"]
-                +schema: 'prospectif_cdp_seeds'
+                +schema: "dashbaord_prospectif_cdp"
+            res_epreuves:
+                +tags: ["res_epreuves"]
+                +schema: "dashboard_res_epreuves"
+            suivi_resultats:
+                +tags: ["suivi_resultats"]
+                +schema: "dashboard_suivi_resultats"
+            chronic_absenteeism:
+                +tags: ["chronic_absenteeism"]
+                +schema: "dashboard_chronic_absenteeism"
 models:
-  +materialized: table
-  tbe:
-    +enabled: False
-    marts:
-        human_resources:
-            +tags: ["human_resources"]
-        educ_serv:
-            +tags: ["educ_serv"]
-            +schema: educ_serv            
-            features:
-            spines:
+    +materialized: table
+    store:
+        +enabled: False
+        meta:
+            +enabled: true
+            +schema: metadata
+            +tags: ["metadata"]
+            +materialized: view # Create it as a view so the execution order of the models does not matter
+        marts:
+            human_resources:
+                +tags: ["human_resources"]
+                +schema: human_resources
+                features:
+                staging:
+                    +schema: human_resources_staging
+            educ_serv:
+                +tags: ["educ_serv"]
+                +schema: educ_serv
+                features:
                 staging:
                     +schema: educ_serv_staging
-    dashboards:
-        effectif_css:
-            +tags: ["effectif_css"]
-            +schema: effectif_css
-            features:
-                +tags:
-                    - fact_tables
-            pbi_tables:
-                +schema: effectif_css_reporting
-                +tags:
-                    - reporting
 
-        emp_conge:
-            +tags: ["emp_conge"]
-            +schema: emp_conge
+        dashboards:
+            effectif_css:
+                +tags: ["effectif_css"]
+                +schema: dashboard_effectif_css
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_effectif_css') }}"]
 
-        emp_actif:
-            +tags: ["emp_actif"]
-            +schema: emp_actif   
-            pbi_tables:
-                +schema: emp_actif_reporting
-                +tags:
-                    - reporting     
-              
-        prospectif_cdp:
-            +tags: ["prospectif_cdp"]
-            +materialized: table
-            +schema: 'prospectif_cdp'
-            adapters:
-                +tags:
-                    - adapters
-            features:
-                +tags:
-                    - fact_tables
-            spines:
-                +schema: prospectif_cdp_staging
-            pbi_tables:
-                +schema: prospectif_cdp_reporting
-                +tags:
-                    - reporting
-        transport:
-            +tags: ["transport"]
-            +schema: 'transport'
-            pbi_tables:
-                +schema: transport_reporting 
-                +tags:
-                    - reporting
-            dimensions:
-                +schema: transport_dimensions
-                +tags:
-                    - dimensions
-            features:
-                +tags:
-                    - fact_tables
+            emp_conge:
+                +tags: ["emp_conge"]
+                +schema: dashboard_emp_conge
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_emp_conge') }}"]
 
-        res_epreuves:
-            +tags: ["res_epreuves"]
-            +schema: 'res_epreuves'
-            staging:
-                +schema: res_epreuves_staging
-                +tags:
-                    - staging            
-            pbi_tables:
-                +schema: res_epreuves_reporting
-                +tags:
-                    - reporting
-        suivi_resultats:
-            +tags: ["suivi_resultats"]
-            +schema: 'suivi_resultats'
-            staging:
-                +schema: suivi_resultats_staging
-                +tags:
-                    - staging            
-            pbi_tables:
-                +schema: suivi_resultats_reporting
-                +tags:
-                    - reporting
-    interfaces:
-        +tags: ["interfaces"]
-        +materialized: ephemeral
-    rls:
-        +schema: rls
+            emp_actif:
+                +tags: ["emp_actif"]
+                +schema: dashboard_emp_actif
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_emp_actif') }}"]
+
+            prospectif_cdp:
+                +tags: ["prospectif_cdp"]
+                +schema: "dashboard_prospectif_cdp"
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashbaord_prospectif_cdp') }}"]
+
+            transport:
+                +tags: ["transport"]
+                +schema: "dashboard_transport"
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_transport') }}"]
+
+            res_epreuves:
+                +tags: ["res_epreuves"]
+                +schema: "dashboard_res_epreuves"
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_res_epreuves') }}"]
+
+            suivi_resultats:
+                +tags: ["suivi_resultats"]
+                +schema: "dashboard_suivi_resultats"
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_suivi_resultats') }}"]
+
+            retirement:
+                +tags: ["retirement"]
+                +schema: "dashboard_retirement"
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_retirement') }}"]
+
+            chronic_absenteeism:
+                +tags: ["chronic_absenteeism"]
+                +schema: "dashboard_chronic_absenteeism"
+                pbi_tables:
+                    +post-hook:
+                        [
+                            "{{ store.stamp_model('dashboard_chronic_absenteeism') }}",
+                        ]
+
+        interfaces:
+            +tags: ["interfaces"]
+            +materialized: ephemeral
+        rls:
+            +schema: rls
 vars:
-    # Toggle the adapaters table to the sources tables. To run the package in standalone.
-    is_context_core: true
     # The source database to pull the data for a css.
     database_bi: "Replace me in the CSS repositery"
     database_paie: "Replace me in the CSS repositery"
     database_gpi: "Replace me in the CSS repositery"
     database_jade: "Replace me in the CSS repositery"
-    database_geobus: "Replace me in the CSS repositery" # contains routes, buses, contractors, student files, and related to db GPL. 
+    database_geobus: "Replace me in the CSS repositery" # contains routes, buses, contractors, student files, and related to db GPL.
     database_piastre: "Replace me in the CSS repositery" # financial data on school transport. no connections to db Geobus.
     # res_epreuves's dashboard variables:
     res_epreuves:

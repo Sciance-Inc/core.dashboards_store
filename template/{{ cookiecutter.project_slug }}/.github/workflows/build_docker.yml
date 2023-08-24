@@ -1,0 +1,126 @@
+name: Build the ETL
+
+on:
+  push:
+    branches:
+      - master
+      - staging
+  pull_request:
+    branches:
+      - master
+      - staging
+  # To manually trigger the pipeline
+  workflow_dispatch:
+    branches:
+      - master
+      - staging
+
+env:
+  CSS_NAME: {{ cookiecutter.css_short_name }}
+{% raw %}
+  # Shared
+  REGISTRY: ghcr.io
+  REPOSITORY_NAME: ${{ github.repository }}
+  WORKER_PRIVATE_IP: 192.168.26.100
+
+jobs:
+  extract_metadata:
+    runs-on: ubuntu-latest
+    outputs:
+      target_branch: ${{ steps.branch-name-parsed.outputs.target_branch }}
+    steps:
+      - name: Extract the branch name to bind the docker to the dag.
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+
+      - name: Replace the / with - in the branch's name
+        id: branch-name-parsed
+        run: |
+          ref="${github_ref////-}"
+          echo $ref
+          echo "target_branch=$ref" >> $GITHUB_OUTPUT
+        env:
+          github_ref: ${{ steps.branch-name.outputs.current_branch }}
+
+  build_ETL:
+    runs-on: [self-hosted, maas] # Use the MAAS AWS s3elf-hosted runner. The runner is connected to Nebula, hence to all others participating css
+    needs: extract_metadata
+    steps:
+      - name: Log into the Github container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.CICD_PAT_TOKEN }}
+
+      - name: Build the docker image's tag
+        id: docker-tag
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}
+          tags: ${{ needs.extract_metadata.outputs.target_branch }}
+
+      # Build the docker
+
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Adding the SSH key to the agent
+        uses: MrSquaare/ssh-setup-action@v2
+        with:
+          host: github.com
+          private-key: ${{ secrets.SSH_PRIVATE_KEY_GH_ACCESS }}
+
+      - name: Configure the Builder
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ${{ steps.docker-tag.outputs.tags }}
+          context: .
+          file: depechecode/Dockerfile
+          pull: true
+          ssh: |
+            default=${{ env.SSH_AUTH_SOCK }}
+
+      # Compile the DBT manifest
+      - name: Extract the credential to use for the DBT connection
+        uses: mcmarkj/1password-actions@v2
+        id: creds
+        with:
+          connect-server-url: http://op-connect-api:8080
+          connect-server-token: ${{ secrets.ONEPASSWORD_CONNECT_API_TOKEN }}
+          secret-path: |
+            store > ${{ env.CSS_NAME }} | creds
+
+      - name: Create Docker env file
+        run: |
+          touch env
+          echo DBT_USERNAME=${{steps.creds.outputs.creds_username}} >> env
+          echo DBT_PASSWORD=${{steps.creds.outputs.creds_password}} >> env
+          echo DBT_SERVER=${{steps.creds.outputs.creds_server}} >> env
+          echo DBT_PORT=${{steps.creds.outputs.creds_port}} >> env
+          echo DBT_TARGET=${{needs.extract_metadata.outputs.target_branch}} >> env
+          echo DBT_DATABASE=${{steps.creds.outputs.creds_database}} >> env
+          echo DBT_STAGING=${{steps.creds.outputs.creds_staging}} >> env
+          echo AWS_ACCESS_KEY_ID=${{secrets.MAAS_GH_CICD_ACCESS_KEY}} >> env
+          echo AWS_SECRET_ACCESS_KEY=${{secrets.MAAS_GH_CICD_SECRET_KEY}} >> env
+          echo AWS_DEFAULT_REGION=ca-central-1 >> env
+          echo DEPLOYMENT_NAME=${CSS_NAME}_dashboards_store >> env
+
+      # Continuous Integration  # Mouting volumes does not work anymore with GH actions (DinD is not supported) so i have to manually push the data to S3 and fetch it back later -_-
+      - name: Compile the manifest file and export it to mamazon
+        run: |
+          docker run --env-file env --pull always ${{ steps.docker-tag.outputs.tags }} cicd
+
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: failure()
+        with:
+          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          needs: ${{ toJson(needs) }}
+          job: ${{ toJson(job) }}
+          steps: ${{ toJson(steps) }}
+{% endraw %}

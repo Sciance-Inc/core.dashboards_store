@@ -15,13 +15,13 @@
 
 SELECT 
     code_matiere,
-    freindly_name,
+    friendly_name,
     niveau_scolaire
 FROM {{ ref('default_code_matiere') }}
 UNION ALL
 select
     code_matiere,
-    freindly_name,
+    friendly_name,
     niveau_scolaire
 from {{ source_relation }} 
 
@@ -32,7 +32,7 @@ from {{ source_relation }}
 
 SELECT 
     code_matiere,
-    freindly_name,
+    friendly_name,
     niveau_scolaire
 FROM {{ ref('default_code_matiere') }}
 {% endif %}

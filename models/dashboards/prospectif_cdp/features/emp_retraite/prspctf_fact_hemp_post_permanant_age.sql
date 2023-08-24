@@ -14,7 +14,7 @@ WITH emp AS (
       LEFT JOIN {{ ref('i_pai_dos') }}  AS id ON (ih.matr = id.matr)
       JOIN {{ ref('stat_eng') }} AS se ON (se.stat_eng = ih.stat_eng) --a seed from the clients css
 
-WHERE se.is_perm = 1 ---all posts permanant 
+WHERE se.is_reg = 1 ---all posts permanant 
 
 ), em2 as (
 SELECT 

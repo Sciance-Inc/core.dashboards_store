@@ -7,7 +7,7 @@ WITH src AS (
         , eco_cen
         , date_deb
         , date_fin
-    FROM {{ ref('fact_freq_fga') }}
+    FROM {{ ref('prspctf_fact_freq_fga') }}
     WHERE 
         date_fin = ''
 

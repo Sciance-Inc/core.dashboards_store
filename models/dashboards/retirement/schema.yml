@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: rtrmt_report_retirement_age
+    description: >
+      Aggregated data about retirement age.
+      Drill-down by engagement status, worplace, job category, and employment status.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - sexe
+            - school_year
+            - etat
+            - job_group_category
+            - lieu_trav
+            - stat_eng
+            - retirement_age
+
+  - name: rtmrt_report_active_employees_age
+    description: > 
+      The number of active employees by age group.
+      Drill-down by engagement status, worplace, job category, and employment status.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - sexe
+            - etat
+            - job_group_category
+            - lieu_trav
+            - stat_eng
+            - age
+
+  - name: rtmrt_report_survival_curve
+    description: > 
+      Shadow the stg_retirement_survival_curve table.
+      Please refer to the stg_retirement_survival_curve table for more information.
+
+  - name: rtmrt_report_filters
+    description: >
+      The set of filters to be applied on the report.
+      This table exists because of a double granularity difference between the report_retirement_age and the report_active_employees_age tables.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - sexe
+            - employment_status_name
+            - engagement_status_name
+            - workplace_name
+            - job_group_category
+            - filter_key

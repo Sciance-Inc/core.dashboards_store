@@ -5,8 +5,10 @@ SELECT
     , date_deb_serv
     , date_fin_serv 
     , date_eng
+    , date_entr
     , nom            
     , prnom
+    , sexe
     , etat_doss
     , date_dern_paie  
 FROM
