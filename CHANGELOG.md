@@ -2,6 +2,28 @@
 
 <!--next-version-placeholder-->
 
+## v0.4.0 (2023-08-24)
+
+### Feature
+
+* Adding a cookiecutter template to help greenfield CSS bootstraping the cssXX.data.store ([`89397b8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/89397b873f5f1d57508b8362c9983775c4cd6254))
+* Adding the chronic_absenteeism dashboard ([`4fa75fa`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4fa75fa9cdeaaebcf5b309eb8b635afc8ce6d90d))
+* Adding the stamping mechanism to expose the data freshness in the dashboards ([`2c7e0b7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2c7e0b7bb6b14ab6b4bf03cdeea4759bd0ae2f40))
+* Adding the stamper ([`eb5713a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/eb5713ae3bdf628bacb6c338c6369f2454d3d6f6))
+* Adding the retirement dashboard. This dashboard monitors the number of retired employees in the past 10 years and provides forecasts for up to 5 years. ([`7727df8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7727df84530a9b7c659f57d7e6e2e5fdbf5df15f))
+* Adding hooks for implementing custom populations ([`d862769`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d862769480ba4f455a9db08386462f1d1cd50319))
+* Adding fact_permanent_employe ([`ee01430`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ee014308cd9ec628bfb8d68af90f7b4842521704))
+
+### Fix
+
+* Typo in doc ([`4dbd33c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4dbd33c4b893d675d2b9db07f52fb96d10136ea0))
+* The macro no properly delete the schema and the views ([`313456e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/313456e73549d6764a5ffce7ee99b11db9218810))
+* **suivi_resultat:** Correcting seeds' friendly name and mandatory courses ([`ac66eed`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ac66eede2ea8af10d6c38f421ccbfb398f550aed))
+
+### Documentation
+
+* Fixing typo in the gpi's database name ([`2b5d591`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2b5d591200f5c646a7daf383848cc4f849a2936b))
+
 ## v0.3.2 (2023-06-26)
 
 ### Fix
