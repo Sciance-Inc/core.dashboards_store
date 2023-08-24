@@ -6,6 +6,7 @@ WITH dan AS (
         , eco.annee
         , eco.eco
         , dan.date_deb
+        , dan.id_eco
     FROM {{ ref('i_gpm_e_dan') }} AS dan
     LEFT JOIN {{ ref('i_gpm_t_eco') }} AS eco 
         ON dan.id_eco = eco.id_eco
@@ -15,6 +16,7 @@ WITH dan AS (
 fiche AS (
     SELECT 
         stg.code_perm
+        , stg.id_eco
         , stg.annee
         , ele.fiche
         , stg.population
@@ -26,6 +28,6 @@ fiche AS (
 SELECT 
     fiche.*
     , dan.eco
-    , ROW_NUMBER() OVER (PARTITION BY code_perm, fiche.annee, population ORDER BY date_deb DESC) AS seqid
+    , ROW_NUMBER() OVER (PARTITION BY code_perm, fiche.annee ORDER BY date_deb DESC) AS seqid
 FROM fiche
-LEFT JOIN dan ON dan.fiche = fiche.fiche AND dan.annee = fiche.annee
+LEFT JOIN dan ON dan.fiche = fiche.fiche AND dan.id_eco = fiche.id_eco
