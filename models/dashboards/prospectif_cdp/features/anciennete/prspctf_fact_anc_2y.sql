@@ -84,7 +84,7 @@ SELECT
 	END AS anc_2ans
 	FROM sequence_id
 	WHERE seqid = 1
-		AND annee_budgetaire BETWEEN {{  tbe.get_current_year() }} - 5 AND {{  tbe.get_current_year() }}
+		AND annee_budgetaire BETWEEN {{  store.get_current_year() }} - 5 AND {{  store.get_current_year() }}
 )
 SELECT *
 FROM anciennete

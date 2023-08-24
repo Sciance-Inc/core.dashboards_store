@@ -1,4 +1,4 @@
-{{ config(alias='taux_fidelite') }}
+{{ config(alias='fact_demission') }}
 
 WITH -- Étape 1
 step_one AS (
@@ -23,7 +23,7 @@ step_one AS (
         demission_volontaire,
         ROW_NUMBER() OVER (PARTITION BY matr, YEAR(date_eff) ORDER BY date_eff DESC) AS seqid
     FROM step_one
-    WHERE annee_budgetaire BETWEEN {{  tbe.get_current_year() }} - 5 AND {{  tbe.get_current_year() }}
+    WHERE annee_budgetaire BETWEEN {{  store.get_current_year() }} - 5 AND {{  store.get_current_year() }}
 )
 
 SELECT * 

@@ -5,3 +5,19 @@ macros:
       The macro will drop all the table under the both current schema, and the inherited schemas.
       The macro is usefull when you want to drop all the tables in "your" database start from a clean slate.
       The macro is designed to be called with the following command : `dbt run-operation drop_schema`
+
+  - name: init_metadata_table
+    description: >
+      The macro prepare the database and create the metadata tables allowing some monitoring of ETLs.
+      The macro is not designed to be called directly, but through a hook.
+      To enable the metadata collection in your project, you need to add the following hook in your dbt_project.yml file :
+
+  - name: purge_metadata_table
+    description: >
+      The macro remove the old entry from the metadata tables by only keeping the most recent one, with respect to the dashboard name and the dashboard table's name.
+
+  - name: stamp_model
+    description: >
+      The macro will stamp the model with the current timestamp, in the medata table.
+      This allow to track the last time the model was executed. 
+      The timestamp can then be displayed in the dashboard, to add some data porn about model freshness !

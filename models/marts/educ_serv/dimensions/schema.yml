@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  
+  - name: dim_mapper_schools
+    description: >
+      Map each school to a friendly name to provide a consistent naming accross dashboards.
+      
+      This dimension can be overriden to allow for naming customisation.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - annee
+            - eco

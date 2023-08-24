@@ -11,7 +11,7 @@ WITH dossierSeqId AS (
     FROM {{ ref('i_dossiers') }} 
     WHERE 
         statut = 'A' AND 
-        annee BETWEEN {{ tbe.get_current_year() }}  - 4 AND {{ tbe.get_current_year() }}
+        annee BETWEEN {{ store.get_current_year() }}  - 4 AND {{ store.get_current_year() }}
 
 -- Fetch all the students with at least a result during the considered timeframe
 ), students AS (
@@ -19,7 +19,7 @@ SELECT
     DISTINCT fiche
 FROM {{ ref('rslt_stg_resultats') }} 
 WHERE 
-    annee BETWEEN {{ tbe.get_current_year() }} - 4 AND {{ tbe.get_current_year() }} AND
+    annee BETWEEN {{ store.get_current_year() }} - 4 AND {{ store.get_current_year() }} AND
     resultat_numerique IS NOT NULL OR 
     resultat IS NOT NULL
 
@@ -30,7 +30,7 @@ SELECT
 FROM dossierSeqId AS dos
 WHERE 
     seqId = 1 AND
-    annee = {{ tbe.get_current_year() }} AND
+    annee = {{ store.get_current_year() }} AND
     niveau_scolaire IN (SELECT level FROM {{ ref('tracked_levels') }})
 )
 
