@@ -44,11 +44,6 @@ models:
     +materialized: table
     store:
         +enabled: False
-        meta:
-            +enabled: true
-            +schema: metadata
-            +tags: ["metadata"]
-            +materialized: view # Create it as a view so the execution order of the models does not matter
         marts:
             human_resources:
                 +tags: ["human_resources"]
