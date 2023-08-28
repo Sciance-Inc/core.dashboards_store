@@ -6,7 +6,7 @@ SELECT
     , CONCAT(eco, ' - ' ,nom_eco) AS code_ecole
     , ordre_ens
     , cod_niveau_scolaire
-    , plan_interv_ehdaa
+    , CASE WHEN plan_interv_ehdaa = 1 THEN 'Oui' ELSE 'Non' END AS plan_interv_ehdaa
     , difficulte
     , CASE
         WHEN population = 'prescolaire' THEN 'Prescolaire'
