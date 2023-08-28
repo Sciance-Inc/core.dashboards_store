@@ -2,6 +2,16 @@
 
 <!--next-version-placeholder-->
 
+## v0.5.0 (2023-08-28)
+
+### Feature
+
+* Add id_eco to population table and add population template ([`f7d81ac`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f7d81aced05732d360e56dd2bf0396903916863e))
+
+### Fix
+
+* Change_dbt_project_name_to_store ([`98107ec`](https://github.com/Sciance-Inc/core.dashboards_store/commit/98107ecf0058f7b34eade8cb77e5ec5dd7281dbb))
+
 ## v0.4.0 (2023-08-24)
 
 ### Feature
