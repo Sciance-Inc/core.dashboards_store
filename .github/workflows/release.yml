@@ -3,7 +3,7 @@ name: Release on Github
 on:
   push:
     branches:
-      - "*" # matches every branch that doesn't contain a '/'
+      - "**"
 
 jobs:
   release:
