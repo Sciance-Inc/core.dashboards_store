@@ -2,11 +2,46 @@
 
 
 
+## v0.6.0-dev.1+develop-20230829 (2023-08-29)
+
+### Build
+
+* build: triggering release process on dev ([`41ba6b1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/41ba6b1c7a336ff6358ea88b3566f4a06b52d133))
+
+* build: updating semantic_releas ([`811c2c6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/811c2c67d3e4ffff429e003be4216a43b124cae3))
+
+* build(test): testing release ([`63d55b4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/63d55b4e04e8867545cc3d1932af02e39edd89d1))
+
+### Fix
+
+* fix(build): typo in date parsing ([`f5c7258`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f5c725852cacdc88e7684556b73565c3e4ca2c86))
+
+* fix(build): typo in date extractionm ([`c5c1e22`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c5c1e221e0a49b3986975642fe6906b1e3542030))
+
+* fix(build): adding a step to extract the date ([`651991a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/651991a82f399d49180d289845436f2aeea336a9))
+
+* fix(build): typo in build metadata ([`558484c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/558484c4c41bde7e72c45b722b3851b0c9f74f87))
+
+* fix(build): typo in date parsing ([`8c9291a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8c9291a2cf94c6b26a82f9a38abc713b2f3d7357))
+
+### Unknown
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`044c107`](https://github.com/Sciance-Inc/core.dashboards_store/commit/044c107db457b32c742dd0e051420375d9388b5e))
+
+* Merge branch &#39;master&#39; into develop ([`56644c5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/56644c574fdfb6fc526d42335039d6e69f2645b9))
+
+* Merge branch &#39;master&#39; of github.com:Sciance-Inc/core.dashboards_store ([`4486dc2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4486dc28eb9348d2bc569e3ccb832033f2c8c373))
+
+
 ## v0.5.1+master- (2023-08-29)
 
 ### Build
 
 * build: updating semantic_releas ([`5049291`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5049291e9f177a3f306c4ffe95cdac5442f82129))
+
+### Chore
+
+* chore: removing dead code ([`054b23e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/054b23e67f0937935c91c3b6dd25f775c463a5a3))
 
 ### Fix
 
@@ -15,6 +50,10 @@
 * fix(build): adding a step to extract the date ([`b56ed5b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b56ed5b1c392fa6a8e79d6e18b9b3a9e862dc95e))
 
 * fix(build): typo in build metadata ([`a7452ae`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a7452ae10d6607babd826e81ebfc4835666c8fd0))
+
+### Unknown
+
+* Merge branch &#39;master&#39; into develop ([`fcade42`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fcade42eb5bdfb26504f88781280225c575ca240))
 
 
 ## v0.5.0 (2023-08-28)
@@ -77,6 +116,101 @@ dbt build
   * [x] My work item has been moved to `review` in the taskboard.
 
 Related work items: #2323 ([`f7d81ac`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f7d81aced05732d360e56dd2bf0396903916863e))
+
+* feat: update effectif_css dashboard
+
+# Objectives of the Pull Request ?
+&gt; Describe the high level purpose of your pull request. What are you trying to achieve ? How are you doing it ?
+cette à pour but de mettre à jou le tdb d&#39;effectif avec les norme du template qui a été adopter.
+# What is left out of the Pull Request ?
+&gt; Describe what is not included in the pull request. Why did you not include it in the PR. What are the next steps ?
+
+# How to run the pull request ?
+&gt; Provide the code required to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected. The following code / placeholder is only provided as documentation / helper to get you started and you will need to adjust it.**
+
+```bash
+# Assuming you are in a folder containing both the core.data.store and the &lt;cssXX&gt;.data.store folder.
+# Update the code
+cd core.data.store
+git checkout feature/maj_tplt_effectf
+git pull
+# Might be required if you update either the poetry file or the lock file
+# poetry shell &amp;&amp; poetry lock &amp;&amp; poetry install
+cd ../cssvdc.data.store
+git checkout develop
+git pull
+# Might be required if you add a new DBT dependency
+#dbt deps
+# Run dbt
+dbt build --select tag:effectif_css
+```
+
+# Pull request&#39;s checklist
+&gt; Please, read carefully each item before checking it. Your PR&#39;s review might be delayed otherwise.
+
+* **Code** :
+  * [x] The code I m asking a review for is working. **I understand that my PR will be rejected as-is otherwise.**
+  * [ ] My tables/variables naming follows the conventions described in the `readme.md`.
+  * [ ] I have added DBT tests to my models (at least a `non null` / `unique` per models).
+* **Template** :
+  *  [ ] I have updated the `core/template/{{ cookiecutter.project_slug }}/dbt_project.yml` file accordingly to my changes.
+* **Documentation** :
+  * [ ]  I have updated the documentation (README) accordingly to my changes.
+  * [ ]  The models I have added are documented in a `schema.yml` file.
+* **Pull-request** :
+  * [x]  I have set the `set-auto-complete` of the PR and **edited the merge commit message to remove the `Merged PR XXX :` so that my merge message is something like `&lt;feat|fix|chore|doc|refactor|perf|style&gt;: foo bar`**
+  * [x]  The code *provided to run the pull request* is working. **I understand that my PR will be rejected as-is otherwise.**
+  * [x]  I have added my CSS lead as a reviewer.
+  * [x]  My pull request is documented. I have explained the needs for the PR and what was left out of the it.
+  * [x]  I have carefully reviewd each changes made to a file and made sure the files included on the PR were actually added on purposes.
+* **Tasksboard** :
+  * [x] My work item is linked to the pull request.
+  * [x] My work item has been moved to `review` in the taskboard.
+
+Related work items: #2291 ([`87007e1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/87007e10a49083771d0932b127d4ff17cb5246ec))
+
+* feat: add id_eco to population table and add population template
+
+&gt; Describe the high level purpose of your pull request. What are you trying to achieve ? How are you doing it ?
+- ajout du id eco au population et la spine
+- ajout de modèles de population dans le dossier analyse
+
+&gt; Describe what is not included in the pull request. Why did you not include it in the PR. What are the next steps ?
+
+&gt; Provide the code required to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected. The following code / placeholder is only provided as documentation / helper to get you started and you will need to adjust it.**
+
+```bash
+cd core.data.store
+git checkout feature/modif_spine
+git pull
+cd ../cssvdc.data.store
+git checkout feature/modif_spine
+git pull
+dbt build
+```
+
+&gt; Please, read carefully each item before checking it. Your PR&#39;s review might be delayed otherwise.
+
+* **Code** :
+  * [x] The code I m asking a review for is working. **I understand that my PR will be rejected as-is otherwise.**
+  * [x] My tables/variables naming follows the conventions described in the `readme.md`.
+  * [x] I have added DBT tests to my models (at least a `non null` / `unique` per models).
+* **Template** :
+  *  [ ] I have updated the `core/template/{{ cookiecutter.project_slug }}/dbt_project.yml` file accordingly to my changes.
+* **Documentation** :
+  * [x]  I have updated the documentation (README) accordingly to my changes.
+  * [x]  The models I have added are documented in a `schema.yml` file.
+* **Pull-request** :
+  * [x]  I have set the `set-auto-complete` of the PR and **edited the merge commit message to remove the `Merged PR XXX :` so that my merge message is something like `&lt;feat|fix|chore|doc|refactor|perf|style&gt;: foo bar`**
+  * [x]  The code *provided to run the pull request* is working. **I understand that my PR will be rejected as-is otherwise.**
+  * [x]  I have added my CSS lead as a reviewer.
+  * [x]  My pull request is documented. I have explained the needs for the PR and what was left out of the it.
+  * [x]  I have carefully reviewd each changes made to a file and made sure the files included on the PR were actually added on purposes.
+* **Tasksboard** :
+  * [x] My work item is linked to the pull request.
+  * [x] My work item has been moved to `review` in the taskboard.
+
+Related work items: #2323 ([`1684b1c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1684b1c7be89ef62f8d59c87aededdc03a743bce))
 
 * feat: adding a cookiecutter template to help greenfield CSS bootstraping the cssXX.data.store
 
@@ -571,6 +705,59 @@ dbt build
 refactor: renaming ressources -&gt; resources ([`fcdf2ea`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fcdf2eac9200bf4ea16185665f2b87f8c29727c7))
 
 ### Unknown
+
+* fix :change_dbt_project_name_to_store
+
+# Objectives of the Pull Request ?
+&gt; Describe the high level purpose of your pull request. What are you trying to achieve ? How are you doing it ?
+- le seul but de cette PR est de corriger le nom du dbt_project du core de &#34;TBE&#34; à &#34;STORE&#34;
+
+# What is left out of the Pull Request ?
+&gt; Describe what is not included in the pull request. Why did you not include it in the PR. What are the next steps ?
+
+# How to run the pull request ?
+&gt; Provide the code required to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected. The following code / placeholder is only provided as documentation / helper to get you started and you will need to adjust it.**
+
+```bash
+# Assuming you are in a folder containing both the core.data.store and the &lt;cssXX&gt;.data.store folder.
+# Update the code
+cd core.data.store
+git checkout bugfix/rename_dbt_project
+git pull
+# Might be required if you update either the poetry file or the lock file
+# poetry shell &amp;&amp; poetry lock &amp;&amp; poetry install
+cd ../cssvdc.data.store
+git checkout develop
+git pull
+# Might be required if you add a new DBT dependency
+#dbt deps
+# Run dbt
+dbt build compile
+```
+
+# Pull request&#39;s checklist
+&gt; Please, read carefully each item before checking it. Your PR&#39;s review might be delayed otherwise.
+
+* **Code** :
+  * [X] The code I m asking a review for is working. **I understand that my PR will be rejected as-is otherwise.**
+  * [ ] My tables/variables naming follows the conventions described in the `readme.md`.
+  * [ ] I have added DBT tests to my models (at least a `non null` / `unique` per models).
+* **Template** :
+  *  [ ] I have updated the `core/template/{{ cookiecutter.project_slug }}/dbt_project.yml` file accordingly to my changes.
+* **Documentation** :
+  * [ ]  I have updated the documentation (README) accordingly to my changes.
+  * [ ]  The models I have added are documented in a `schema.yml` file.
+* **Pull-request** :
+  * [x]  I have set the `set-auto-complete` of the PR and **edited the merge commit message to remove the `Merged PR XXX :` so that my merge message is something like `&lt;feat|fix|chore|doc|refactor|perf|style&gt;: foo bar`**
+  * [x]  The code *provided to run the pull request* is working. **I understand that my PR will be rejected as-is otherwise.**
+  * [ ]  I have added my CSS lead as a reviewer.
+  * [ ]  My pull request is documented. I have explained the needs for the PR and what was left out of the it.
+  * [ ]  I have carefully reviewd each changes made to a file and made sure the files included on the PR were actually added on purposes.
+* **Tasksboard** :
+  * [ ] My work item is linked to the pull request.
+  * [ ] My work item has been moved to `review` in the taskboard.
+
+fix :change_dbt_project_name_to_store ([`39826f2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/39826f21f15c9bd377181cdbb4fd370f6c9e2946))
 
 * Merge branch &#39;master&#39; of github.com:Sciance-Inc/core.dashboards_store ([`4b2f7c4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4b2f7c4eb0eff147c54c27dd8ce114164f444031))
 
