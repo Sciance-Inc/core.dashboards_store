@@ -38,7 +38,7 @@ jobs:
       - name: Get the current date
         id: date
         run: |
-          today_date=$(date +'%Y%m%d
+          today_date=$(date +'%Y%m%d')
           echo "today_date=$today_date" >> $GITHUB_OUTPUT
 
       # Tag the version
