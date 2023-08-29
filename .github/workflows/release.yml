@@ -20,6 +20,20 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.CICD_PAT_TOKEN }}
 
+      # Metadata : branch name
+      - name: Extract the branch name to tag the release.
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+
+      - name: Replace the / with - in the branch's name
+        id: branch-name-parsed
+        run: |
+          ref="${github_ref////-}"
+          echo $ref
+          echo "target_branch=$ref" >> $GITHUB_OUTPUT
+        env:
+          github_ref: ${{ steps.branch-name.outputs.current_branch }}
+
       # Metadata : Release date
       - name: Get the current date
         id: date
