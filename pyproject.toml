@@ -34,3 +34,9 @@ match = "develop"
 prerelease = true
 prerelease_token = 'dev'
 
+[tool.semantic_release.branches.release]
+match = "release.*"
+prerelease = true
+prerelease_token = 'rc'
+
+
