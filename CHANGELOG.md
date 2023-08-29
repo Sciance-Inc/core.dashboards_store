@@ -2,6 +2,23 @@
 
 
 
+## v0.6.0-rc.1+release-foo-20230829 (2023-08-29)
+
+### Build
+
+* build(test): triggering pipeline ([`13e5895`](https://github.com/Sciance-Inc/core.dashboards_store/commit/13e5895833f33a8daeb1afd5b9e13bc3e5d6f74f))
+
+### Feature
+
+* feat: triggering pipeline ([`eebd1c3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/eebd1c3d1ce987d4e77f7c0247c5fdfb32cd8a9e))
+
+### Fix
+
+* fix(build): build now triggered on every branch ([`74c6d29`](https://github.com/Sciance-Inc/core.dashboards_store/commit/74c6d29067fc6d09032a0e38ed2a366d7abac3f4))
+
+* fix(fake): fixing issue ([`39aca0e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/39aca0e66db5de0b4fbe6636afc2043134d2c9ba))
+
+
 ## v0.6.0-dev.1+develop-20230829 (2023-08-29)
 
 ### Build
