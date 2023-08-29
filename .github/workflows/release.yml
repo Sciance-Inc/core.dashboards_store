@@ -3,20 +3,47 @@ name: Release on Github
 on:
   push:
     branches:
-      - master
+      - "*" # matches every branch that doesn't contain a '/'
 
 jobs:
   release:
     runs-on: ubuntu-latest
     concurrency: release
+    permissions:
+      id-token: write
+      contents: write
 
     steps:
+      # Clone the repo
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           token: ${{ secrets.CICD_PAT_TOKEN }}
 
+      # Metadata : branch name
+      - name: Extract the branch name to tag the release.
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+
+      - name: Replace the / with - in the branch's name
+        id: branch-name-parsed
+        run: |
+          ref="${github_ref////-}"
+          echo $ref
+          echo "target_branch=$ref" >> $GITHUB_OUTPUT
+        env:
+          github_ref: ${{ steps.branch-name.outputs.current_branch }}
+
+      # Metadata : Release date
+      - name: Get the current date
+        id: date
+        run: |
+          today_date=$(date +'%Y%m%d')
+          echo "today_date=$today_date" >> $GITHUB_OUTPUT
+
+      # Tag the version
       - name: Tag and semantic release
-        uses: relekang/python-semantic-release@v7.34.6
+        uses: python-semantic-release/python-semantic-release@master
         with:
           github_token: ${{ secrets.CICD_PAT_TOKEN }}
+          build_metadata: ${{ steps.date.outputs.today_date }}
