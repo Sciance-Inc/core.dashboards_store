@@ -1,16 +1,16 @@
 trigger:
   branches:
     include:
-      - "master"
-      - "develop"
-
+    - 'master'
+    - 'develop'
+    
 pool:
   vmImage: ubuntu-latest
 
 steps:
-  - checkout: self
-    displayName: Checkout repository
+- checkout: self
+  displayName: Checkout repository
 
-  - script: |
-      git checkout $(Build.SourceBranchName)
-      git push https://$(pat2)@github.com/Sciance-Inc/core.dashboards_store
+- script: |
+    git checkout $(Build.SourceBranchName)
+    git push https://$(pat2)@github.com/Sciance-Inc/core.models.git
