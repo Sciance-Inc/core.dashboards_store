@@ -3,10 +3,39 @@ name: Release on Github
 on:
   push:
     branches:
-      - master
+      - "**" # matches every branch
 
 jobs:
   release:
+    runs-on: ubuntu-latest
+    concurrency: release
+    permissions:
+      id-token: write
+      contents: write
+
+    steps:
+      # Clone the repo
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.CICD_PAT_TOKEN }}
+
+      # Metadata : Release date
+      - name: Get the current date
+        id: date
+        run: |
+          today_date=$(date +'%Y%m%d')
+          echo "today_date=$today_date" >> $GITHUB_OUTPUT
+
+      # Tag the version
+      - name: Tag and semantic release
+        uses: python-semantic-release/python-semantic-release@master
+        with:
+          github_token: ${{ secrets.CICD_PAT_TOKEN }}
+          build_metadata: ${{ steps.date.outputs.today_date }}
+
+  sync-css:
+    needs: release
     runs-on: ubuntu-latest
     concurrency: release
 
@@ -16,7 +45,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.CICD_PAT_TOKEN }}
 
-      - name: Tag and semantic release
-        uses: relekang/python-semantic-release@v7.34.6
-        with:
-          github_token: ${{ secrets.CICD_PAT_TOKEN }}
+      - name: Sync the tags to CSSVDC
+        env:
+          TOKEN: ${{ secrets.PAT_CSSVDC }}
+        run: git push https://$TOKEN@dev.azure.com:/Centre-Expertise-IA/COTRA-CE/_git/core.data.tbe/ --tags
