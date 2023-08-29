@@ -48,5 +48,4 @@ jobs:
       - name: Sync the tags to CSSVDC
         env:
           TOKEN: ${{ secrets.PAT_CSSVDC }}
-        run: |
-          git -c http.extraHeader="Authorization: Basic $TOKEN" push https://dev.azure.com/Centre-Expertise-IA/COTRA-CE/_git/core.data.tbe/ --tags
+        run: git push https://$TOKEN@dev.azure.com/Centre-Expertise-IA/COTRA-CE/_git/core.data.tbe --tags
