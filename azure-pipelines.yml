@@ -9,6 +9,7 @@ pool:
 
 steps:
 - checkout: self
+  fetchDepth: 0
   displayName: Checkout repository
 
 - script: |
