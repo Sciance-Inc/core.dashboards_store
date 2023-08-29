@@ -23,4 +23,4 @@ jobs:
         uses: python-semantic-release/python-semantic-release@master
         with:
           github_token: ${{ secrets.CICD_PAT_TOKEN }}
-          build_metadata: $(git branch --show-current).$(date +%Y%m%d)"
+          build_metadata: "$(git branch --show-current).$(date +%Y%m%d)"
