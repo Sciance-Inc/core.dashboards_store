@@ -9,6 +9,9 @@ jobs:
   release:
     runs-on: ubuntu-latest
     concurrency: release
+    permissions:
+      id-token: write
+      contents: write
 
     steps:
       - uses: actions/checkout@v3
@@ -17,6 +20,7 @@ jobs:
           token: ${{ secrets.CICD_PAT_TOKEN }}
 
       - name: Tag and semantic release
-        uses: relekang/python-semantic-release@v7.34.6
+        uses: python-semantic-release/python-semantic-release@master
         with:
           github_token: ${{ secrets.CICD_PAT_TOKEN }}
+          build_metadata: $(git branch --show-current).$(date +%Y%m%d)"
