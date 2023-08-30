@@ -2,6 +2,13 @@
 
 
 
+## v0.6.0-dev.2+20230830 (2023-08-30)
+
+### Fix
+
+* fix: dependencies will now be parsed as ref when source are used and is_context_core is set to false ([`8e1bb8a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8e1bb8af54c290ad58bf57cfbc5a1381e1ea3b57))
+
+
 ## v0.6.0-dev.1+20230830 (2023-08-30)
 
 ### Build
