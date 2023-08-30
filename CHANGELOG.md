@@ -1,19 +1,36 @@
 # CHANGELOG
 
 
+
+## v0.6.0-dev.3+20230830 (2023-08-30)
+
+### Fix
+
+* fix: adding the missing is_context_core variable to the cookiecutter
+
+commit 541e66cd7e66564c2c16c99e27da30538469c3b8
+Author: hugo juhel &lt;juhel.hugo@stratemia.com&gt;
+Date:   Wed Aug 30 12:58:33 2023 -0400
+
+    fix: adding the missing is_context_core variable to the cookiecutter ([`dd74c08`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dd74c08f285445561204f68053db6311cf284d29))
+
+### Unknown
+
+* Merge tag &#39;core_context&#39; into develop
+
+v0.5.2 ([`b145aa3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b145aa384b2c07c866d134bee8d46031c3f69ce7))
+
+
+## v0.6.0-dev.2+20230830 (2023-08-30)
+
+
 ## v0.5.1 (2023-08-30)
 
 ### Fix
 
-* Dependencies will now be parsed as ref when source are used and is_context_core is set to false ([`bbecd17`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bbecd17c288be585cfabdddd41f072a8bf3ddcf3))
-
-## v0.5.0 (2023-08-28)
-
-## v0.6.0-dev.2+20230830 (2023-08-30)
-
-### Fix
-
 * fix: dependencies will now be parsed as ref when source are used and is_context_core is set to false ([`8e1bb8a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8e1bb8af54c290ad58bf57cfbc5a1381e1ea3b57))
+
+* fix: dependencies will now be parsed as ref when source are used and is_context_core is set to false ([`bbecd17`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bbecd17c288be585cfabdddd41f072a8bf3ddcf3))
 
 
 ## v0.6.0-dev.1+20230830 (2023-08-30)
