@@ -1,5 +1,6 @@
 -- The macro will drop the target.schema AND the schemas derived from target.schema
 {% macro drop_schema() %}
+
 {% set sql %}
     DECLARE @SqlStatement NVARCHAR(MAX);
     SELECT @SqlStatement = 
@@ -27,9 +28,11 @@
     SELECT @SqlStatement = 
         COALESCE(@SqlStatement, N'') + N'DROP SCHEMA ' + QUOTENAME(name) + N';' + CHAR(13)
     FROM sys.schemas 
-    WHERE name LIKE '%{{ target.schema }}%';
+    WHERE name LIKE '%{{ target.schema }}%' AND name != 'dbo';
     EXEC (@SqlStatement);
 {% endset %}
 
 {% do run_query(sql) %}
+
+
 {% endmacro %}
