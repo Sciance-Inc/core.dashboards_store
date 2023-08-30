@@ -5,35 +5,35 @@ SELECT
     , id_eco
     , annee
     ,'prescolaire' AS population
-FROM {{ source('populations', 'stg_ele_prescolaire') }}
+FROM {{ source_or_ref('populations', 'stg_ele_prescolaire') }}
 UNION  
 SELECT 
     code_perm
     , id_eco
     , annee
     ,'primaire_reg' AS population
-FROM {{ source('populations', 'stg_ele_primaire_reg') }}
+FROM {{ source_or_ref('populations', 'stg_ele_primaire_reg') }}
 UNION  
 SELECT 
     code_perm
     , id_eco
     , annee
     ,'primaire_adapt' AS population
-FROM {{ source('populations', 'stg_ele_primaire_adapt') }}
+FROM {{ source_or_ref('populations', 'stg_ele_primaire_adapt') }}
 UNION  
 SELECT 
     code_perm
     , id_eco
     , annee
     ,'secondaire_reg' AS population
-FROM {{ source('populations', 'stg_ele_secondaire_reg') }}
+FROM {{ source_or_ref('populations', 'stg_ele_secondaire_reg') }}
 UNION  
 SELECT 
     code_perm
     , id_eco
     , annee
     ,'secondaire_adapt' AS population
-FROM {{ source('populations', 'stg_ele_secondaire_adapt') }}
+FROM {{ source_or_ref('populations', 'stg_ele_secondaire_adapt') }}
 UNION
 SELECT 
     code_perm
