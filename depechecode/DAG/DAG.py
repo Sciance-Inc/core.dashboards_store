@@ -32,7 +32,7 @@ with open(ROOT_PATH / "config.yml", "r") as f:
 DEFAULT_ARGS = {
     "owner": "Juhel Hugo",
     "email": ["juhel.hugo@sciance.ca"],
-    "email_on_failure": True,
+    "email_on_failure": False,
     "email_on_retry": False,
     "start_date": datetime(2022, 2, 3),
     "retries": 3,
