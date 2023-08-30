@@ -68,6 +68,9 @@ models:
       +materialized: ephemeral
 
 vars:
+  # As the code is excuted from the inherited repo, sources schould behave as if there were refs.
+  is_context_core: false
+
   # The source database to pull the data for a css.
   database_bi: "[{{ cookiecutter.server_ip }}].[BI_DISTRIBUTION]"
   database_paie: "[{{ cookiecutter.server_ip }}].[PAIE]"
