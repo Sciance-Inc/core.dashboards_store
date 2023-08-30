@@ -46,10 +46,14 @@ CREATE TABLE {{ table_name }} (
 {% endmacro %}
 
 {% macro sqlserver__purge_metadata_table() %}
+
         -- Delete the old stamps data
         {% set table_name = target.schema + '_metadata.stamper'%}
         
+        {% if execute %}
+
         {% set query %}
+        IF EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id) WHERE s.name = '{{ target.schema }}_metadata' AND t.name = 'stamper')
         DELETE FROM {{ table_name }}
         WHERE idx=ANY(
         SELECT src.idx
@@ -66,6 +70,8 @@ CREATE TABLE {{ table_name }} (
         {% endset %}
 
         {% do run_query(query) %}
+
+        {% endif %}
 
 {% endmacro %}
 
