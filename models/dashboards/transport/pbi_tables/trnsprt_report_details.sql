@@ -89,6 +89,6 @@ SELECT
      END AS parcours_periode
      ,'Oui' AS actif 
 FROM agg AS src
-LEFT JOIN {{ source('transport', 'stg_sectors') }} AS sec 
+LEFT JOIN {{ source_or_ref('transport', 'stg_sectors') }} AS sec 
 ON src.circuit_id = sec.circuit_id
 

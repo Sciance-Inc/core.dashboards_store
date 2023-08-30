@@ -135,6 +135,7 @@ models:
         rls:
             +schema: rls
 vars:
+    is_context_core: true
     # The source database to pull the data for a css.
     database_bi: "Replace me in the CSS repositery"
     database_paie: "Replace me in the CSS repositery"
