@@ -2,9 +2,23 @@
 
 
 
-## v0.6.0-dev.1+20230829 (2023-08-29)
+## v0.6.0-dev.1+20230830 (2023-08-30)
 
 ### Build
+
+* build(fix): addinthe token as an header ([`0b88d89`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0b88d89154b8c1f8b2932776129d909292388691))
+
+* build(fix): addinthe token as an header ([`f70dbc0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f70dbc04c3a7ca327201a5448a165a1496672984))
+
+* build(azure): removing azure build ([`3e86dfa`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3e86dfaac4842adb601e834a4e8d37232561ed09))
+
+* build(azure): swithcing to deep fetch ([`f530e3a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f530e3aab442ce02c93e0364294e94f37793f65b))
+
+* build: update azure-pipelines.yml for Azure Pipelines ([`ded7598`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ded7598a1b0152b0afba8b8f59b898711615044c))
+
+* build: committing on VDC will now push to the sciance repo where tagging happens ;) ([`7bec549`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7bec54986920c34941bc6df899b8a7c1ade204f5))
+
+* build(release): updating the release process ([`ee6cc32`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ee6cc32f90a626a74046d14fa34fed1c486df700))
 
 * build(release): updating the release process ([`32dfa48`](https://github.com/Sciance-Inc/core.dashboards_store/commit/32dfa4854a2667da5826229a9b8e6409aad35765))
 
@@ -12,7 +26,19 @@
 
 * chore: removing dead code ([`054b23e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/054b23e67f0937935c91c3b6dd25f775c463a5a3))
 
+### Fix
+
+* fix: the purge_metadata_macro will no be triggered in compile only mode ([`61d6bed`](https://github.com/Sciance-Inc/core.dashboards_store/commit/61d6bedc085a655d428cd690efad7ea6572edece))
+
+* fix: the drop_schema macro won&lt;t try to remove the public schema dbo anymore ([`fef7956`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fef79563b102abe509fc51af1cd3ce8ab7573afc))
+
+* fix: uniformizing the base version of dbt-sqlserver and dbt-core so raised errors are now hidden behin RuntimeExeception anymore ([`8166717`](https://github.com/Sciance-Inc/core.dashboards_store/commit/81667179108c577f9aed935ff43457bd86ed36e0))
+
+* fix(build): fixing the azure target ([`7c9b08b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7c9b08bafbd77ce9863bff2e97a1182b9ba740e3))
+
 ### Unknown
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`c6618b7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c6618b7d4763f05f70b6b6dcb18bec7bdca44509))
 
 * Merge branch &#39;master&#39; into develop ([`fcade42`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fcade42eb5bdfb26504f88781280225c575ca240))
 
