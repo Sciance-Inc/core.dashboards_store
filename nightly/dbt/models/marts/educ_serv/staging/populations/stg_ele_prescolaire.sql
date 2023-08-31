@@ -1,5 +1,5 @@
 
-SELECT TOP 1000 DISTINCT 
+SELECT DISTINCT 
     ele.code_perm
     , eco.id_eco
     , eco.annee
