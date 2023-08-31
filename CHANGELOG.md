@@ -2,6 +2,13 @@
 
 
 
+## v0.6.1+20230831 (2023-08-31)
+
+### Fix
+
+* fix(cicd): fixing the stable pattern ([`5ada3a1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5ada3a1ff6cba3792aca4cba24253128bfb3610a))
+
+
 ## v0.6.0+20230831 (2023-08-31)
 
 ### Chore
