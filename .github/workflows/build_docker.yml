@@ -14,6 +14,10 @@ on:
       - master
       - develop
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   REGISTRY: ghcr.io
   REPOSITORY_NAME: ${{ github.repository }}
@@ -22,13 +26,12 @@ jobs:
   deploy_ETL:
     runs-on: ubuntu-latest
     steps:
-    
       # Extract the metadata
       - name: Extract the branch name to tag the docker.
         id: branch-name
         uses: tj-actions/branch-names@v6
 
-      - name: Replace the / with - in the branch's name 
+      - name: Replace the / with - in the branch's name
         id: branch-name-parsed
         run: |
           ref="${github_ref////-}"
