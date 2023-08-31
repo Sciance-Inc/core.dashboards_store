@@ -2,6 +2,56 @@
 
 
 
+## v0.6.0+20230831 (2023-08-31)
+
+### Chore
+
+* chore(test): adding the stable version to the nightly build ([`9bf5415`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9bf54155c94ceb7efcc6360de929ba3fefdc31ad))
+
+* chore(cicd): fixing maximal matrix concurrency to 1 to avoid burning the database ([`1b70e2a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1b70e2a29f92be3acafeef3d8040731f4b405c4b))
+
+* chore(fix): logging to the github registry before pushing the docker ([`959c839`](https://github.com/Sciance-Inc/core.dashboards_store/commit/959c8390192a5f3d300f130df0ad312c4be56618))
+
+* chore(cicd): adding the command to run the integration tests suite ([`324f7d5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/324f7d580a4068ba95626db2fece71b5c2dd0ca1))
+
+* chore: trigger the nightly on master ([`c51a9fe`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c51a9fe98f8977f7d60a7e1be1ef0cba159e4b28))
+
+* chore: adding CICD pipeline for nightly release ([`7490540`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7490540f3237eb8e998c25f0daad16ed9df7796a))
+
+* chore(test): adding the dockerfile and the required files to run the integration tests ([`2dac52a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2dac52a81a65d380084f4c46e31fca09b480d1e6))
+
+### Documentation
+
+* docs: updating both the readme and the PR template to help developers populating seeds in the nightly project ([`4718245`](https://github.com/Sciance-Inc/core.dashboards_store/commit/471824523118512dfdda8f948c77e453a2cfda87))
+
+* docs(test): adding an how-to about the way to run the integration test on your local computer ([`b7bfef2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b7bfef28e42badd76d5858e0fcbe5a267837d1c6))
+
+### Test
+
+* test(fix): fixing the test populations ([`df46e63`](https://github.com/Sciance-Inc/core.dashboards_store/commit/df46e639fd4cca1a184d1eea6c1e60a271231f75))
+
+* test: adding a simple /default dbt project to be run as an integration test ([`7687cc6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7687cc602db01a5d71f4a41f92b46bb5fc6e6ddb))
+
+### Unknown
+
+* Merge branch &#39;master&#39; of github.com:Sciance-Inc/core.dashboards_store ([`d83ac80`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d83ac80f18d96686b78c26a8a5f1aacf9b223f30))
+
+
+## v0.5.3 (2023-08-31)
+
+### Fix
+
+* fix: adding dummy id_eco to custom_fgj_population so the table is now working when not overrided ([`919f8f1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/919f8f141a31a1cc34537208ece0541efdfe9519))
+
+* fix: the default empty custom population now properly support the id_eco ([`5458983`](https://github.com/Sciance-Inc/core.dashboards_store/commit/54589830d80781e7c9f48536e852e93f97f4bfd6))
+
+### Unknown
+
+* Merge tag &#39;populations&#39; into develop
+
+v0.5.2 ([`9b87f1e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9b87f1ea34ae1c14e5761b63bfd5d535d45e6f1b))
+
+
 ## v0.6.0-dev.3+20230831 (2023-08-31)
 
 ### Build
@@ -78,6 +128,9 @@ dbt build --full-refresh
 * **Pull-request... ([`02da6d3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/02da6d36b50244d1913d0033005931a72f3c3ea5))
 
 
+## v0.5.2 (2023-08-30)
+
+
 ## v0.6.0-dev.3+20230830 (2023-08-30)
 
 ### Fix
@@ -99,26 +152,6 @@ v0.5.2 ([`b145aa3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/
 
 ## v0.6.0-dev.2+20230830 (2023-08-30)
 
-
-## v0.5.3 (2023-08-31)
-
-### Fix
-
-* Adding dummy id_eco to custom_fgj_population so the table is now working when not overrided ([`919f8f1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/919f8f141a31a1cc34537208ece0541efdfe9519))
-* The default empty custom population now properly support the id_eco ([`5458983`](https://github.com/Sciance-Inc/core.dashboards_store/commit/54589830d80781e7c9f48536e852e93f97f4bfd6))
-
-## v0.5.3 (2023-08-31)
-
-### Fix
-
-* Adding dummy id_eco to custom_fgj_population so the table is now working when not overrided ([`919f8f1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/919f8f141a31a1cc34537208ece0541efdfe9519))
-* The default empty custom population now properly support the id_eco ([`5458983`](https://github.com/Sciance-Inc/core.dashboards_store/commit/54589830d80781e7c9f48536e852e93f97f4bfd6))
-
-## v0.5.2 (2023-08-30)
-
-### Fix
-
-* Adding the missing is_context_core variable to the cookiecutter ([`dd74c08`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dd74c08f285445561204f68053db6311cf284d29))
 
 ## v0.5.1 (2023-08-30)
 
