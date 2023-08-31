@@ -707,6 +707,8 @@ pre-commit install
 ## Conventions and developement guidelines
 
 ### Committing
+
+#### sqlfmt
 > We use `sqlfmt` as an SQL formatter. Wheither we love it or not, we have to use it, so everybody code will look the same, making collaboration easier. Some linting rules might be controversial, but at least they are consistent and explicit.
 
 Before committing, make sure to run the following command
@@ -716,6 +718,20 @@ sqlfmt .
 ```
 
 ... You might wan't to rerun a `dbt build` after formatting everything. `sqlfmt` schould'nt break anything, but we are better safe than sorry.
+
+#### Commit message
+> Commit messages use the Commitizen convention.
+
+Please, make sure all of your commit messages start with a type. The following types are available :
+* `feat` : A new feature
+* `fix` : A bug fix
+* `docs` : Documentation only changes
+* `style` : Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+* `refactor` : A code change that neither fixes a bug nor adds a feature
+* `perf` : A code change that improves performance
+* `test` : Adding missing or correcting existing tests
+* `chore` : Changes to the build process or auxiliary tools and libraries such as documentation generation
+* `revert` : Reverts a previous commit
 
 ### Folders structure and convention
 
@@ -748,6 +764,11 @@ Where :
 * `interfaces` contains mapping to the interfaces tables. Each interface table can be overrided to add custom connection logic to the undelrying database..
 * `marts` contains the ... marts. A `mart` is a collection of tables reused/shared accross between dashboards.
 
+### Integration test and the nightly build
+> The nightly build is an automated check on the repo happening at the end (the night ^^) of each day
+
+When introducting a new **NON-OPTIONAL** seed in the `core.data.store` repo, you must add it into `core.data.store/nightly/dbt/seeds` folder, so the next Nightly build won't fail because of a missing seed. The seed must be populated with data from CSSVDC, as the CSSVDC is used as a target database for the integration tests.
+You can also run the integration suit locally. Please, refer to the `core.data.store/nightly/README.md` file for more details.
 
 ### Marts
 

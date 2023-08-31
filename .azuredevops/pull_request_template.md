@@ -32,6 +32,7 @@ dbt build --select tag:<my resources tag>
   * [ ] My tables/variables naming follows the conventions described in the `readme.md`.
   * [ ] I have added DBT tests to my models (at least a `non null` / `unique` per models).
   * [ ] I have formatted the code with the help of `sqlfmt .`.
+  * [ ] Did you add a new **mandatory seed** ? If so, have you populated the `nightly` project with your new seed ?
 * **Template** :
   *  [ ] I have updated the `core/template/{{ cookiecutter.project_slug }}/dbt_project.yml` file accordingly to my changes.
 * **Documentation** : 
