@@ -15,7 +15,7 @@ on:
       - develop
 
 concurrency:
-  group: ${{ github.ref }}
+  group: ${{ github.ref }}-build-docker
   cancel-in-progress: true
 
 env:
