@@ -2,6 +2,82 @@
 
 
 
+## v0.6.0-dev.3+20230831 (2023-08-31)
+
+### Build
+
+* build(dag): disabling email on failure as I don t have any smtp server ([`740fc8b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/740fc8bfdb25174d37b7a8ac33f97087470b16fa))
+
+### Chore
+
+* chore: adding the sqlfmt linter
+
+# Objectives of the Pull Request ?
+&gt; Describe the high level purpose of your pull request. What are you trying to achieve ? How are you doing it ?
+
+* The PR introduces the `sqlfmt` formatter in the tools chain.
+* `sqlfmt` parses the SQL code and produces a formatted version of it.
+* The formatted version uses standard style guidelines, that are NOT developer-dependant, resulting in a more coherent developing experience.
+* Formatting the SQL code will help developers review other developer&#39;s code
+
+* The PR also adds a `git pre-commit-hook` that can be installed to automagically format the code prior to the commit.
+* The pre-commit-hook can be install with the commands documented in the `README.md`
+
+* A new item is added to the `pull-request-template` to remind developers of formatting their code.
+
+# What is left out of the Pull Request ?
+&gt; Describe what is not included in the pull request. Why did you not include it in the PR. What are the next steps ?
+
+* The PR does not decide on whether or not, the particular style-guide of `sqlfmt` should be accepted as-is or tuned. For now, everything is set as default
+
+# How to review the PR ?
+* The commit `style: applying fmt` contains ALL newly-styled files.
+* I advise you not to first select this commit, as doing so will impair your ability to review the other files.
+
+# How to run the pull request ?
+&gt; Provide the code required to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected. The following code / placeholder is only provided as documentation / helper to get you started and you will need to adjust it.**
+
+```bash
+# Assuming you are in a folder containing both the core.data.store and the cssvdc.data.store folder.
+
+## MIGHT BE core.data.tbe AND cssvdc.data.tbe depending on your setup
+
+# Update the code
+cd core.data.store
+git checkout feature/linter
+git pull
+
+# Install the linter
+poetry shell
+poetry lock
+poetry install
+
+# Might as well install the precommit
+pre-commit install
+
+cd ../cssvdc.data.store
+git checkout feature/develop
+git pull
+
+# Run everything as a sanity check
+dbt build --full-refresh
+```
+
+# Pull request&#39;s checklist
+&gt; Please, read carefully each item before checking it. Your PR&#39;s review might be delayed otherwise.
+
+* **Code** :
+  * [X] The code I m asking a review for is working. **I understand that my PR will be rejected as-is otherwise.**
+  * [ ] My tables/variables naming follows the conventions described in the `readme.md`.
+  * [ ] I have added DBT tests to my models (at least a `non null` / `unique` per models).
+* **Template** :
+  *  [X] I have updated the `core/template/{{ cookiecutter.project_slug }}/dbt_project.yml` file accordingly to my changes.
+* **Documentation** :
+  * [X]  I have updated the documentation (README) accordingly to my changes.
+  * [ ]  The models I have added are documented in a `schema.yml` file.
+* **Pull-request... ([`02da6d3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/02da6d36b50244d1913d0033005931a72f3c3ea5))
+
+
 ## v0.6.0-dev.3+20230830 (2023-08-30)
 
 ### Fix
