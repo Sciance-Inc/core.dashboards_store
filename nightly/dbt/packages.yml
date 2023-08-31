@@ -1,0 +1,3 @@
+packages:
+  - git: git@github.com:Sciance-Inc/core.dashboards_store.git
+    revision: "{{ env_var('DBT_CORE_VERSION') }}"
