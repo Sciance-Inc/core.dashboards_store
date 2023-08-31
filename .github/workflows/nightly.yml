@@ -44,7 +44,7 @@ jobs:
       - name: Checkout the release
         uses: actions/checkout@v3
         with:
-          ref: ${{ steps.get_release.outputs.tag_name }}
+          ref: master # ${{ steps.get_release.outputs.tag_name }}
           token: ${{ secrets.CICD_PAT_TOKEN }}
 
       # Prepare build(x) by adding the SSH key to download the core relase
@@ -57,16 +57,56 @@ jobs:
       - name: Configure the Builder
         uses: docker/setup-buildx-action@v2
 
+      - name: Build the docker image's tag
+        id: docker-tag
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}
+          tags: nightly-${{ matrix.configs.tag }}
+
+      # Build the nightly version
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ matrix.configs.tag }}
+          tags: ${{ steps.docker-tag.outputs.tags }}
           context: .
           file: nightly/docker/Dockerfile
           pull: true
           build-args: |
-            CORE_VERSION=${{ steps.get_release.outputs.tag_name }}
+            CORE_VERSION=master
             TARGET=${{ matrix.configs.target }}
           ssh: |
             default=${{ env.SSH_AUTH_SOCK }}
+
+      # Run the integration tests-suites
+      - name: Extract the credential to use for the DBT connection
+        uses: mcmarkj/1password-actions@v2
+        id: creds
+        with:
+          connect-server-url: http://op-connect-api:8080
+          connect-server-token: ${{ secrets.ONEPASSWORD_CONNECT_API_TOKEN }}
+          secret-path: |
+            store > nightly | creds
+
+      - name: Create Docker env file
+        run: |
+          touch env
+          echo DBT_USERNAME=${{steps.creds.outputs.creds_username}} >> env
+          echo DBT_PASSWORD=${{steps.creds.outputs.creds_password}} >> env
+          echo DBT_SERVER=${{steps.creds.outputs.creds_server}} >> env
+          echo DBT_PORT=${{steps.creds.outputs.creds_port}} >> env
+
+      # Continuous Integration
+      - name: Run the integration tests suite
+        run: |
+          docker run --env-file env --pull always ${{ steps.docker-tag.outputs.tags }} integration
+
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: failure()
+        with:
+          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          needs: ${{ toJson(needs) }}
+          job: ${{ toJson(job) }}
+          steps: ${{ toJson(steps) }}
