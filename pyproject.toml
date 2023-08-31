@@ -14,6 +14,8 @@ python-semantic-release = "^7.33.4"
 
 [tool.poetry.dev-dependencies]
 cookiecutter = "^2.3.0"
+shandy-sqlfmt = {extras = ["jinjafmt"], version = "^0.19.2"}
+pre-commit = "^3.3.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -39,4 +41,11 @@ match = "release.*"
 prerelease = true
 prerelease_token = 'rc'
 
-
+[tool.sqlfmt]
+line_length = 88
+quiet=true
+reset_cache=true
+exclude=[
+    "target/**/*",
+     "dbt_packages/**/*"
+]

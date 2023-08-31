@@ -1,9 +1,16 @@
-{{ config(alias='report_emp_ge55_ann_bdgtr') }}
-SELECT 
-    annee_budgetaire
-    , COUNT(matr) as number_of_permanent_employee
-    , SUM(CONVERT(numeric(10,0),(CASE WHEN age_ann_bdgtr >= 55  THEN 1 ELSE 0 END))) AS number_of_permanent_employee_ge55_years_old
-    , CONVERT(numeric(10,10),AVG(CASE WHEN age_ann_bdgtr >= 55 AND MONTH(date_nais) > 7 THEN 1.0 ELSE 0.0 END)) AS proportion_of_permanent_employee_ge55_years_old
-FROM {{ ref('prspctf_fact_hemp_post_permanant_age') }} 
-WHERE annee_budgetaire >= YEAR(GETDATE()) - 5
-GROUP BY annee_budgetaire
+{{ config(alias="report_emp_ge55_ann_bdgtr") }}
+select
+    annee_budgetaire,
+    count(matr) as number_of_permanent_employee,
+    sum(
+        convert(numeric(10, 0), (case when age_ann_bdgtr >= 55 then 1 else 0 end))
+    ) as number_of_permanent_employee_ge55_years_old,
+    convert(
+        numeric(10, 10),
+        avg(
+            case when age_ann_bdgtr >= 55 and month(date_nais) > 7 then 1.0 else 0.0 end
+        )
+    ) as proportion_of_permanent_employee_ge55_years_old
+from {{ ref("prspctf_fact_hemp_post_permanant_age") }}
+where annee_budgetaire >= year(getdate()) - 5
+group by annee_budgetaire

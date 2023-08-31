@@ -1,11 +1,11 @@
-SELECT 
+select
     fiche,
     ecole,
     annee,
-    codeMatiere AS code_matiere,
+    codematiere as code_matiere,
     etape,
-    noCompetence AS no_competence,
+    nocompetence as no_competence,
     resultat,
-    resultatNumerique AS resultat_numerique,
-    codeReussite AS code_reussite
-FROM {{ var("database_gpi") }}.edo.ResultatsCompetenceEtape
+    resultatnumerique as resultat_numerique,
+    codereussite as code_reussite
+from {{ var("database_gpi") }}.edo.resultatscompetenceetape

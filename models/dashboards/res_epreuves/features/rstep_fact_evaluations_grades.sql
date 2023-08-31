@@ -1,14 +1,13 @@
-
 {#
     Blend together the default and the customs table (not yet implemented)
 #}
-
-{{ config(
-    alias='fact_evaluations_grades', 
-    ) 
+{{
+    config(
+        alias="fact_evaluations_grades",
+    )
 }}
 
-SELECT 
+select
     annee,
     ecole,
     fiche,
@@ -16,14 +15,14 @@ SELECT
     resultat,
     resultat_numerique,
     -- make the code reussite a boolean to ease the computation of summary statistics
-    CASE 
-        WHEN code_reussite = 'R' THEN 1
-        ELSE 0
-    END AS cod_reussite,
+    case when code_reussite = 'R' then 1 else 0 end as cod_reussite,
     -- Create a customly thresolded code reussite.
-    CASE 
-        WHEN resultat_numerique >= {{ var('res_epreuves', {'threshold': 70})['threshold'] }} THEN 1
-        ELSE 0
-    END AS cod_reussite_threshold
-FROM {{ ref('rstep_fact_evaluations_grades_from_dim') }}
-WHERE resultat_numerique IS NOT NULL 
+    case
+        when
+            resultat_numerique
+            >= {{ var("res_epreuves", {"threshold": 70})["threshold"] }}
+        then 1
+        else 0
+    end as cod_reussite_threshold
+from {{ ref("rstep_fact_evaluations_grades_from_dim") }}
+where resultat_numerique is not null

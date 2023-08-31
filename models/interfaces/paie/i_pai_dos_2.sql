@@ -1,5 +1,1 @@
-SELECT
-    matr
-    ,adr_electrnq_portail
-FROM
-    {{ var("database_paie") }}.dbo.pai_dos_2
+select matr, adr_electrnq_portail from {{ var("database_paie") }}.dbo.pai_dos_2

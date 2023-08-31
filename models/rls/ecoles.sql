@@ -1,18 +1,18 @@
-
-{{ config(
-    alias='ecoles', 
-    ) 
+{{
+    config(
+        alias="ecoles",
+    )
 }}
 
-WITH ecoles AS (
-    SELECT DISTINCT
-        lieu_trav
-        ,descr             AS lieu_trav_desc
-    FROM  {{ ref('i_pai_tab_lieu_trav') }}
- 
-    WHERE
-        -- Écoles seulement (les autres ce sont des services)
-        eco_off IS NOT NULL             
+with
+    ecoles as (
+        select distinct lieu_trav, descr as lieu_trav_desc
+        from {{ ref("i_pai_tab_lieu_trav") }}
+
+        where
+            -- Écoles seulement (les autres ce sont des services)
+            eco_off is not null
     )
 
-SELECT * FROM ecoles
+select *
+from ecoles

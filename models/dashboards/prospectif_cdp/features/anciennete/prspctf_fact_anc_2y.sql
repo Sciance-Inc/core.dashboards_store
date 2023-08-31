@@ -1,92 +1,97 @@
-{{ config(alias='fact_anc_2y') }}
+{{ config(alias="fact_anc_2y") }}
 
-WITH 
-src AS (
-SELECT 
-		hempl.matr
-      , hempl.date_eff
-      , hempl.etat
-FROM {{ ref('i_paie_hemp') }} AS hempl
+with
+    src as (
+        select hempl.matr, hempl.date_eff, hempl.etat
+        from {{ ref("i_paie_hemp") }} as hempl
 
-WHERE  hempl.type = 'A'
-),	
+        where hempl.type = 'A'
+    ),
 
---Check if the user left the CSS
-bool AS (
-SELECT 
-	*,
-	CASE WHEN etat NOT LIKE 'C%' THEN 0 ELSE 1 END AS hasleft 
-FROM src
-),
+    -- Check if the user left the CSS
+    bool as (
+        select *, case when etat not like 'C%' then 0 else 1 end as hasleft from src
+    ),
 
---Check the column hasleft if the employe is back during the current year
-lagged AS (
-SELECT
-	*,
-	LAG(hasleft, 1, 0) OVER (PARTITION BY matr ORDER BY date_eff) AS hasleftlagged 
-FROM bool
-),
+    -- Check the column hasleft if the employe is back during the current year
+    lagged as (
+        select
+            *,
+            lag(hasleft, 1, 0) over (
+                partition by matr order by date_eff
+            ) as hasleftlagged
+        from bool
+    ),
 
---Start a new periode once the employee is back in the cssxx
-start_ AS (
-SELECT 
-	*,
-	CASE WHEN hasleftlagged != hasleft AND hasleftlagged = 1 THEN 1 ELSE 0 END AS periodestart
-FROM lagged
-),
+    -- Start a new periode once the employee is back in the cssxx
+    start_ as (
+        select
+            *,
+            case
+                when hasleftlagged != hasleft and hasleftlagged = 1 then 1 else 0
+            end as periodestart
+        from lagged
+    ),
 
- --Distinct the number of period the employee has
-partition AS (
-SELECT 
-	*,
-	SUM(periodeStart) OVER (PARTITION BY matr ORDER BY date_eff ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS partitionId
-	FROM start_
-),
+    -- Distinct the number of period the employee has
+    partition as (
+        select
+            *,
+            sum(periodestart) over (
+                partition by matr
+                order by date_eff
+                rows between unbounded preceding and current row
+            ) as partitionid
+        from start_
+    ),
 
---Min date of each employee
-calc_date AS (
-SELECT 
-	*
-	, MIN(date_eff) OVER (PARTITION BY matr) AS min_date 
-	FROM partition
-	GROUP BY matr, date_eff,etat, hasleft, hasleftlagged, periodestart, partitionid
+    -- Min date of each employee
+    calc_date as (
+        select *, min(date_eff) over (partition by matr) as min_date
+        from partition
+        group by matr, date_eff, etat, hasleft, hasleftlagged, periodestart, partitionid
 
-),
-date_diff AS (
+    ),
+    date_diff as (
 
-	SELECT
-		matr
-		, CASE WHEN MONTH(date_eff) < 7 THEN YEAR(date_eff) - 1
-				ELSE YEAR(date_eff)
-			END AS annee_budgetaire
-		, DATEDIFF(DAY,min_date,MAX(date_eff)) AS delta_day --Total of day the employee has been active
-		, MAX(partitionId) AS periode
-	FROM calc_date
-	GROUP BY date_eff, matr, min_date
-),
+        select
+            matr,
+            case
+                when month(date_eff) < 7 then year(date_eff) - 1 else year(date_eff)
+            end as annee_budgetaire,
+            datediff(day, min_date, max(date_eff)) as delta_day,  -- Total of day the employee has been active
+            max(partitionid) as periode
+        from calc_date
+        group by date_eff, matr, min_date
+    ),
 
-sequence_id AS (
+    sequence_id as (
 
-SELECT
-	matr
-	, annee_budgetaire
-	, delta_day
-	, periode
-	, ROW_NUMBER() OVER (PARTITION BY matr, annee_budgetaire, periode ORDER BY annee_budgetaire asc) AS seqid
-	FROM date_diff
-),
+        select
+            matr,
+            annee_budgetaire,
+            delta_day,
+            periode,
+            row_number() over (
+                partition by matr, annee_budgetaire, periode
+                order by annee_budgetaire asc
+            ) as seqid
+        from date_diff
+    ),
 
-anciennete AS (
+    anciennete as (
 
-SELECT
-	*
-	, CASE WHEN delta_day >= 730 THEN 1 ELSE 0 -- 2 yrs
-	END AS anc_2ans
-	FROM sequence_id
-	WHERE seqid = 1
-		AND annee_budgetaire BETWEEN {{  store.get_current_year() }} - 5 AND {{  store.get_current_year() }}
-)
-SELECT *
-FROM anciennete
-
-
+        select
+            *,
+            case
+                when delta_day >= 730 then 1 else 0  -- 2 yrs
+            end as anc_2ans
+        from sequence_id
+        where
+            seqid = 1
+            and annee_budgetaire
+            between {{ store.get_current_year() }}
+            - 5 and {{ store.get_current_year() }}
+    )
+select *
+from anciennete

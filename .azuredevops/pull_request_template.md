@@ -31,6 +31,7 @@ dbt build --select tag:<my resources tag>
   * [ ] The code I m asking a review for is working. **I understand that my PR will be rejected as-is otherwise.**
   * [ ] My tables/variables naming follows the conventions described in the `readme.md`.
   * [ ] I have added DBT tests to my models (at least a `non null` / `unique` per models).
+  * [ ] I have formatted the code with the help of `sqlfmt .`.
 * **Template** :
   *  [ ] I have updated the `core/template/{{ cookiecutter.project_slug }}/dbt_project.yml` file accordingly to my changes.
 * **Documentation** : 

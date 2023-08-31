@@ -6,54 +6,53 @@
     
     That's gross.
 #}
-
-{{ config(
-    alias='report_filters'
-) }}
+{{ config(alias="report_filters") }}
 
 
-with one_for_all AS (
-    SELECT 
-        src.sexe,
-        src.lieu_trav,
-        src.stat_eng,
-        src.etat,
-        src.job_group_category,
-        src.filter_key,
-        MAX(src.filter_source) AS filter_source
-    FROM (
-        SELECT 
-            sexe,
-            lieu_trav,
-            stat_eng,
-            etat,
-            job_group_category,
-            'active' AS filter_source,
-            filter_key
-        FROM {{ ref('rtmrt_report_active_employees_age') }}
-        UNION ALL
-        SELECT 
-            sexe,
-            lieu_trav,
-            stat_eng,
-            etat,
-            job_group_category,
-            'retirement' AS filter_source,
-            filter_key
-        FROM {{ ref('rtrmt_report_retirement_age') }}
-    ) AS src
-    GROUP BY 
-        src.sexe,
-        src.lieu_trav,
-        src.stat_eng,
-        src.etat,
-        src.job_group_category,
-        src.filter_key
+with
+    one_for_all as (
+        select
+            src.sexe,
+            src.lieu_trav,
+            src.stat_eng,
+            src.etat,
+            src.job_group_category,
+            src.filter_key,
+            max(src.filter_source) as filter_source
+        from
+            (
+                select
+                    sexe,
+                    lieu_trav,
+                    stat_eng,
+                    etat,
+                    job_group_category,
+                    'active' as filter_source,
+                    filter_key
+                from {{ ref("rtmrt_report_active_employees_age") }}
+                union all
+                select
+                    sexe,
+                    lieu_trav,
+                    stat_eng,
+                    etat,
+                    job_group_category,
+                    'retirement' as filter_source,
+                    filter_key
+                from {{ ref("rtrmt_report_retirement_age") }}
+            ) as src
+        group by
+            src.sexe,
+            src.lieu_trav,
+            src.stat_eng,
+            src.etat,
+            src.job_group_category,
+            src.filter_key
 
-) 
+    )
 
 -- Join the friendly name
-SELECT 
+select
     src.sexe,
     empl.employment_status_name,
     eng.engagement_status_name,
@@ -61,12 +60,11 @@ SELECT
     src.job_group_category,
     src.filter_key,
     src.filter_source
-FROM one_for_all AS src
-LEFT JOIN {{ ref('dim_mapper_employment_status') }} AS empl
-ON src.etat = empl.employment_status
-LEFT JOIN {{ ref('dim_mapper_engagement_status') }} AS eng
-ON src.stat_eng = eng.engagement_status
-LEFT JOIN {{ ref('dim_mapper_workplace') }} AS work
-ON src.lieu_trav = work.workplace
-
-
+from one_for_all as src
+left join
+    {{ ref("dim_mapper_employment_status") }} as empl
+    on src.etat = empl.employment_status
+left join
+    {{ ref("dim_mapper_engagement_status") }} as eng
+    on src.stat_eng = eng.engagement_status
+left join {{ ref("dim_mapper_workplace") }} as work on src.lieu_trav = work.workplace

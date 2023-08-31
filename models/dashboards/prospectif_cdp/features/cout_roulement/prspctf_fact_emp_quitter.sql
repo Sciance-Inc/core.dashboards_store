@@ -1,66 +1,66 @@
-{{ config(alias='fact_emp_quitter') }}
+{{ config(alias="fact_emp_quitter") }}
 
 
-WITH src AS (
-    SELECT
-        his.matr
-        , his.date_eff
-        , his.corp_empl
-		, his.etat
-        , CASE 
-            WHEN MONTH(his.date_eff) < 7 THEN YEAR(his.date_eff) - 1 
-            ELSE YEAR(his.date_eff)
-            END AS annee_budgetaire
-    FROM {{ ref('i_paie_hemp') }} AS his
-    LEFT JOIN {{ ref('stat_eng') }} AS se 
-        ON (se.stat_eng = his.stat_eng) 
-    WHERE se.is_reg = 1                                            --on garde que les employées permanent
-	    AND his.type = 'A'                                           --on garde que les employées avec paiement auto    
+with
+    src as (
+        select
+            his.matr,
+            his.date_eff,
+            his.corp_empl,
+            his.etat,
+            case
+                when month(his.date_eff) < 7
+                then year(his.date_eff) - 1
+                else year(his.date_eff)
+            end as annee_budgetaire
+        from {{ ref("i_paie_hemp") }} as his
+        left join {{ ref("stat_eng") }} as se on (se.stat_eng = his.stat_eng)
+        where
+            se.is_reg = 1  -- on garde que les employées permanent
+            and his.type = 'A'  -- on garde que les employées avec paiement auto    
 
--- on detecte les employés avec un code etat débute par un C% 
+    -- on detecte les employés avec un code etat débute par un C% 
+    ),
+    bool as (
+        select *, case when etat not like 'C%' then 0 else 1 end as quit from src
 
-),bool AS (
-    SELECT 
-        *,
-        CASE WHEN etat NOT LIKE 'C%' THEN 0 ELSE 1 END AS quit
-    FROM src
-
-
---- on verifie si son code etat à changé
-    
-),lagged AS (
-    SELECT
-        *,
-        LAG(quit, 1, 0) OVER (PARTITION BY matr ORDER BY date_eff) AS quitlagged
-    FROM bool
-),retour AS (
-    SELECT 
-        *,
-        CASE WHEN quitlagged != quit AND quitlagged = 1 THEN 1 ELSE 0 END AS retrn
-    FROM lagged
-),index_ AS (
-    SELECT 
-        *,
-        SUM(retrn) OVER (PARTITION BY matr ORDER BY date_eff ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS partitionId
-    FROM retour
-),step AS (
-    SELECT 	matr
-        ,date_eff
-        ,corp_empl
-        ,etat
-        ,annee_budgetaire
-        ,partitionId
-        ,ROW_NUMBER() OVER (PARTITION BY matr ORDER BY partitionId DESC, date_eff DESC) AS seqid
-	FROM index_ 
-)
-SELECT
-    annee_budgetaire
-    ,corp_empl
-    ,COUNT(matr) AS nb_empl_aremp
-FROM step 
-WHERE etat LIKE 'C%' AND seqid = 1
-GROUP BY corp_empl, annee_budgetaire
-
-
-    
-    
+    -- - on verifie si son code etat à changé
+    ),
+    lagged as (
+        select
+            *, lag(quit, 1, 0) over (partition by matr order by date_eff) as quitlagged
+        from bool
+    ),
+    retour as (
+        select
+            *,
+            case when quitlagged != quit and quitlagged = 1 then 1 else 0 end as retrn
+        from lagged
+    ),
+    index_ as (
+        select
+            *,
+            sum(retrn) over (
+                partition by matr
+                order by date_eff
+                rows between unbounded preceding and current row
+            ) as partitionid
+        from retour
+    ),
+    step as (
+        select
+            matr,
+            date_eff,
+            corp_empl,
+            etat,
+            annee_budgetaire,
+            partitionid,
+            row_number() over (
+                partition by matr order by partitionid desc, date_eff desc
+            ) as seqid
+        from index_
+    )
+select annee_budgetaire, corp_empl, count(matr) as nb_empl_aremp
+from step
+where etat like 'C%' and seqid = 1
+group by corp_empl, annee_budgetaire

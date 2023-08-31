@@ -4,17 +4,19 @@
 
     This table acts as an entry point for the custom population and has to be overrided from the cssXX.data.store.
 #}
-
 {% if execute %}
-{{ log('WARN : custom_fgj_populations is NOT overrided. No custom populations will be added.', true )}}
+    {{
+        log(
+            "WARN : custom_fgj_populations is NOT overrided. No custom populations will be added.",
+            true,
+        )
+    }}
 {% endif %}
 
-WITH dummy AS (
-    SELECT
-        'FOOBAR' AS code_perm,
-        id_eco,
-        2023 AS annee,
-        'custom_1' AS population
-)
+with
+    dummy as (
+        select 'FOOBAR' as code_perm, id_eco, 2023 as annee, 'custom_1' as population
+    )
 
-SELECT TOP 0 * FROM dummy
+select top 0 *
+from dummy

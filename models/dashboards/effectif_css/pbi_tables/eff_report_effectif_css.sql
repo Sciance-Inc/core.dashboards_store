@@ -1,35 +1,40 @@
-{{ config(alias='report_effectif_css') }}
+{{ config(alias="report_effectif_css") }}
 
 
-SELECT
-    annee
-    , CONCAT(eco, ' - ' ,nom_eco) AS code_ecole
-    , ordre_ens
-    , cod_niveau_scolaire
-    , CASE WHEN plan_interv_ehdaa = 1 THEN 'Oui' ELSE 'Non' END AS plan_interv_ehdaa
-    , difficulte
-    , CASE
-        WHEN population = 'prescolaire' THEN 'Prescolaire'
-        WHEN population = 'primaire_reg' THEN 'Primaire régulier'
-        WHEN population = 'primaire_adapt' THEN 'Primaire adapté'
-        WHEN population = 'secondaire_reg' THEN 'Secondaire régulier'
-        WHEN population = 'secondaire_adapt' THEN 'Secondaire adapté'
-        ELSE population
-    END as population
-    , sexe
-    , dist
-    , grp_rep
-    , COUNT(code_perm) AS total_ele
-FROM {{ ref('eff_fact_effectif_css') }}
-GROUP BY 
-    annee
-    , eco
-    , sexe
-    , nom_eco
-    , ordre_ens
-    , population
-    , cod_niveau_scolaire
-    , dist
-    , grp_rep
-    , plan_interv_ehdaa
-    , difficulte
+select
+    annee,
+    concat(eco, ' - ', nom_eco) as code_ecole,
+    ordre_ens,
+    cod_niveau_scolaire,
+    case when plan_interv_ehdaa = 1 then 'Oui' else 'Non' end as plan_interv_ehdaa,
+    difficulte,
+    case
+        when population = 'prescolaire'
+        then 'Prescolaire'
+        when population = 'primaire_reg'
+        then 'Primaire régulier'
+        when population = 'primaire_adapt'
+        then 'Primaire adapté'
+        when population = 'secondaire_reg'
+        then 'Secondaire régulier'
+        when population = 'secondaire_adapt'
+        then 'Secondaire adapté'
+        else population
+    end as population,
+    sexe,
+    dist,
+    grp_rep,
+    count(code_perm) as total_ele
+from {{ ref("eff_fact_effectif_css") }}
+group by
+    annee,
+    eco,
+    sexe,
+    nom_eco,
+    ordre_ens,
+    population,
+    cod_niveau_scolaire,
+    dist,
+    grp_rep,
+    plan_interv_ehdaa,
+    difficulte

@@ -1,60 +1,65 @@
-    {{ config(
-    alias='report_emp_actif', 
-    ) 
+{{
+    config(
+        alias="report_emp_actif",
+    )
 }}
-    WITH empl_actif as (
-	SELECT  
-         util.matr
-        ,nom                    
-        ,prnom                  AS prenom
-        ,adr_electrnq_portail   AS courriel_portail
-        ,lieu.lieu_trav         AS lieu
-        ,lieu.descr             AS desc_lieu
-        ,corp.corp_empl         AS corp
-        ,corp.descr             AS desc_corp
-        ,etat.etat_empl         AS etat_empl
-        ,etat.descr             AS desc_etat_empl
-        ,empl.stat_eng          AS stat_eng
-        ,eng.descr_stat_eng     AS desc_stat_eng
-        ,etat
-        ,perm.code_perm
-        ,ROW_NUMBER() OVER (PARTITION BY  util.matr,adr_electrnq_portail,lieu.lieu_trav
-						ORDER BY date_eff DESC ) AS seqId   
-                              
-    FROM {{ ref("i_pai_dos") }}              AS util
-        LEFT JOIN {{ ref('i_pai_dos_2') }}         AS info 
-            ON util.matr = info.matr
-        LEFT JOIN {{ ref('i_pai_dos_empl') }}      AS empl 
-            ON empl.matr = util.matr            
-        LEFT JOIN {{ ref('i_pai_tab_corp_empl') }} AS corp
-            ON corp.corp_empl = empl.corp_empl
-        LEFT JOIN {{ ref('i_pai_tab_lieu_trav') }} AS lieu
-            ON lieu.lieu_trav = empl.lieu_trav                
-        LEFT JOIN  {{ ref('i_pai_tab_stat_eng') }} AS eng
-            ON eng.stat_eng = empl.stat_eng
-        LEFT JOIN  {{ ref('i_pai_tab_etat_empl') }} AS etat
-           ON etat.etat_empl = empl.etat  
-       LEFT JOIN  {{ ref('i_pai_dos_perc') }} AS perm
-           ON perm.matr = empl.matr
-                
-    WHERE
-        empl.ind_empl_princ = '1'          AND -- emploi principal
-        adr_electrnq_portail IS NOT NULL   AND  
-        etat_doss  ='A'                    AND -- Actif
-        date_eff >='2020-07-01 00:00:00'   AND
-        date_dern_paie > DATEADD (WEEK , -{{ var("emp_actif", {'nbrs_sem_dern_paie': 1})['nbrs_sem_dern_paie'] }}, getDate()) -- moins nombre de semaine: par défaut 1
+with
+    empl_actif as (
+        select
+            util.matr,
+            nom,
+            prnom as prenom,
+            adr_electrnq_portail as courriel_portail,
+            lieu.lieu_trav as lieu,
+            lieu.descr as desc_lieu,
+            corp.corp_empl as corp,
+            corp.descr as desc_corp,
+            etat.etat_empl as etat_empl,
+            etat.descr as desc_etat_empl,
+            empl.stat_eng as stat_eng,
+            eng.descr_stat_eng as desc_stat_eng,
+            etat,
+            perm.code_perm,
+            row_number() over (
+                partition by util.matr, adr_electrnq_portail, lieu.lieu_trav
+                order by date_eff desc
+            ) as seqid
+
+        from {{ ref("i_pai_dos") }} as util
+        left join {{ ref("i_pai_dos_2") }} as info on util.matr = info.matr
+        left join {{ ref("i_pai_dos_empl") }} as empl on empl.matr = util.matr
+        left join
+            {{ ref("i_pai_tab_corp_empl") }} as corp on corp.corp_empl = empl.corp_empl
+        left join
+            {{ ref("i_pai_tab_lieu_trav") }} as lieu on lieu.lieu_trav = empl.lieu_trav
+        left join {{ ref("i_pai_tab_stat_eng") }} as eng on eng.stat_eng = empl.stat_eng
+        left join {{ ref("i_pai_tab_etat_empl") }} as etat on etat.etat_empl = empl.etat
+        left join {{ ref("i_pai_dos_perc") }} as perm on perm.matr = empl.matr
+
+        where
+            empl.ind_empl_princ = '1'  -- emploi principal
+            and adr_electrnq_portail is not null
+            and etat_doss = 'A'  -- Actif
+            and date_eff >= '2020-07-01 00:00:00'
+            and date_dern_paie > dateadd(
+                week,
+                -{{ var("emp_actif", {"nbrs_sem_dern_paie": 1})["nbrs_sem_dern_paie"] }},
+                getdate()
+            )  -- moins nombre de semaine: par défaut 1
     )
 
-    SELECT  matr
-            ,CONCAT(prenom,' ',nom)                     AS nom_empl
-            ,courriel_portail
-            ,CONCAT(lieu, ' - ',desc_lieu)              AS lieu_trav
-            ,CONCAT(corp, ' - ',desc_corp)              AS corps_empl
-            ,CONCAT(statut.etat_empl,' - ',desc_etat_empl)     AS etat_empl
-            ,CONCAT(stat_eng, ' - ',desc_stat_eng)      AS stat_eng
-            ,CASE WHEN code_perm = 1 THEN 1
-	            ELSE 0
-	        END AS isEmployePermanent
-    FROM empl_actif
-    INNER JOIN  {{ ref('etat_empl') }} AS statut   ON statut.etat_empl = etat AND  statut.etat_actif = 1
-    WHERE  seqId = 1
+select
+    matr,
+    concat(prenom, ' ', nom) as nom_empl,
+    courriel_portail,
+    concat(lieu, ' - ', desc_lieu) as lieu_trav,
+    concat(corp, ' - ', desc_corp) as corps_empl,
+    concat(statut.etat_empl, ' - ', desc_etat_empl) as etat_empl,
+    concat(stat_eng, ' - ', desc_stat_eng) as stat_eng,
+    case when code_perm = 1 then 1 else 0 end as isemployepermanent
+from empl_actif
+inner join
+    {{ ref("etat_empl") }} as statut
+    on statut.etat_empl = etat
+    and statut.etat_actif = 1
+where seqid = 1

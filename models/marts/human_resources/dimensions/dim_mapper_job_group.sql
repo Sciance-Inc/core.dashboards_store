@@ -3,16 +3,20 @@
 
   Feel free to override me to get your own custom litle mapping.
 #}
-
-SELECT 
-    corp_empl AS job_group,
-    descr AS job_group_description,
-	CASE 
-		WHEN CORP_EMPL like('1%') THEN 'Direction'
-		WHEN CORP_EMPL like('2%') THEN 'Professionnel(le)'
-		WHEN CORP_EMPL like('3%') THEN 'Enseignant(e)'
-		WHEN CORP_EMPL like('4%') THEN 'Soutien'
-		WHEN CORP_EMPL like('5%') THEN 'Ressource matérielle'
-		ELSE 'Autres'
-	END AS job_group_category
-FROM {{ ref('i_pai_tab_corp_empl') }} AS src
+select
+    corp_empl as job_group,
+    descr as job_group_description,
+    case
+        when corp_empl like ('1%')
+        then 'Direction'
+        when corp_empl like ('2%')
+        then 'Professionnel(le)'
+        when corp_empl like ('3%')
+        then 'Enseignant(e)'
+        when corp_empl like ('4%')
+        then 'Soutien'
+        when corp_empl like ('5%')
+        then 'Ressource matérielle'
+        else 'Autres'
+    end as job_group_category
+from {{ ref("i_pai_tab_corp_empl") }} as src

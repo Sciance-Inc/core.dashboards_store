@@ -1,14 +1,9 @@
-
-SELECT DISTINCT
-    ele.code_perm
-    , eco.id_eco
-    , eco.annee
-FROM {{ ref('i_gpm_e_dan') }} AS eledan
-LEFT JOIN {{ ref('i_gpm_t_eco') }} AS eco
-    ON eledan.id_eco = eco.id_eco
-LEFT JOIN {{ ref('i_gpm_e_ele') }} AS ele
-    ON eledan.fiche = ele.fiche
-/*
+select distinct ele.code_perm, eco.id_eco, eco.annee
+from {{ ref("i_gpm_e_dan") }} as eledan
+left join {{ ref("i_gpm_t_eco") }} as eco on eledan.id_eco = eco.id_eco
+left join
+    {{ ref("i_gpm_e_ele") }} as ele on eledan.fiche = ele.fiche
+    /*
 WHERE
     eledan.statut_don_an = 'A'
     AND eco.eco NOT IN ('069','099','901','902','903')                      -- Ignore les élèves en cours d'été
@@ -22,3 +17,4 @@ WHERE
         eco = '064'
     )
 	*/
+    

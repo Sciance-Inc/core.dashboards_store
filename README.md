@@ -694,7 +694,28 @@ __When overriding the repartition bracket, you will need to manualy update the `
 * Use your own schema for developmment, configured through the `profiles.yml` file, so that we won't conflict with each other while working on the same database.
 * To ease collaboration, please, use `git flow` to manage your branch and create your features. Try to rebase your branch onto `develop`.
 
+## Installing the `.pre-commit-hooks`
+> Pre-commit hooks will help you to keep your code clean and tidy. It will also help you to avoid some common mistakes.
+
+```
+cd core.data.store
+poetry shell
+poetry install 
+pre-commit install
+```
+
 ## Conventions and developement guidelines
+
+### Committing
+> We use `sqlfmt` as an SQL formatter. Wheither we love it or not, we have to use it, so everybody code will look the same, making collaboration easier. Some linting rules might be controversial, but at least they are consistent and explicit.
+
+Before committing, make sure to run the following command
+
+```bash
+sqlfmt .
+```
+
+... You might wan't to rerun a `dbt build` after formatting everything. `sqlfmt` schould'nt break anything, but we are better safe than sorry.
 
 ### Folders structure and convention
 

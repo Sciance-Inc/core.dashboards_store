@@ -1,6 +1,2 @@
-SELECT
-	prog
-	, progMeq AS prog_meq
-	, descrProg AS descr_prog
-FROM
-    {{ var("database_jade") }}.dbo.t_prog
+select prog, progmeq as prog_meq, descrprog as descr_prog
+from {{ var("database_jade") }}.dbo.t_prog

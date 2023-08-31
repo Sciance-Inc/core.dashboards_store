@@ -1,5 +1,1 @@
-SELECT 
-      annee,
-      ecole,
-      nomEcole AS nom_ecole
-FROM {{ var("database_gpi") }}.edo.Ecoles
+select annee, ecole, nomecole as nom_ecole from {{ var("database_gpi") }}.edo.ecoles

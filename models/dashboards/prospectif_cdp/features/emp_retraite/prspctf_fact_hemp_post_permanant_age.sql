@@ -1,43 +1,39 @@
- 
- {{ config(alias='fact_hemp_post_permanant_age') }}
+{{ config(alias="fact_hemp_post_permanant_age") }}
 
-WITH emp AS (
-  SELECT
-   ih.matr
-   ,id.date_nais
-   ,CASE 
-      WHEN MONTH(ih.date_eff) < 7 THEN YEAR(ih.date_eff) - 1 
-        ELSE YEAR(ih.date_eff)  
-      END AS annee_budgetaire 
+with
+    emp as (
+        select
+            ih.matr,
+            id.date_nais,
+            case
+                when month(ih.date_eff) < 7
+                then year(ih.date_eff) - 1
+                else year(ih.date_eff)
+            end as annee_budgetaire
 
-  FROM  {{ ref('i_paie_hemp') }}  AS ih
-      LEFT JOIN {{ ref('i_pai_dos') }}  AS id ON (ih.matr = id.matr)
-      JOIN {{ ref('stat_eng') }} AS se ON (se.stat_eng = ih.stat_eng) --a seed from the clients css
+        from {{ ref("i_paie_hemp") }} as ih
+        left join {{ ref("i_pai_dos") }} as id on (ih.matr = id.matr)
+        join {{ ref("stat_eng") }} as se on (se.stat_eng = ih.stat_eng)  -- a seed from the clients css
 
-WHERE se.is_reg = 1 ---all posts permanant 
+        where se.is_reg = 1  -- -all posts permanant 
 
-), em2 as (
-SELECT 
-    matr
-    ,annee_budgetaire
-    ,date_nais
-    ,CASE 
-      WHEN MONTH(date_nais) > 7 THEN annee_budgetaire - YEAR(date_nais) + 1 
-        ELSE annee_budgetaire - YEAR(date_nais) 
-    END AS age_ann_bdgtr -- July 1 - sturt of the academic/financial year
- /*   , CASE 
+    ),
+    em2 as (
+        select
+            matr,
+            annee_budgetaire,
+            date_nais,
+            case
+                when month(date_nais) > 7
+                then annee_budgetaire - year(date_nais) + 1
+                else annee_budgetaire - year(date_nais)
+            end as age_ann_bdgtr  -- July 1 - sturt of the academic/financial year
+        /*   , CASE 
       WHEN MONTH(date_nais) > 7 THEN 1  
         ELSE 0 END AS 65an_ann_bdgtr*/
-FROM emp
+        from emp
 
-)
-select 
-    matr
-    ,date_nais
-    ,annee_budgetaire
-    ,age_ann_bdgtr
-from em2 
-GROUP BY matr
-    ,date_nais
-    ,annee_budgetaire
-    ,age_ann_bdgtr
+    )
+select matr, date_nais, annee_budgetaire, age_ann_bdgtr
+from em2
+group by matr, date_nais, annee_budgetaire, age_ann_bdgtr

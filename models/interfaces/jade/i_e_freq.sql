@@ -1,15 +1,14 @@
-SELECT
-	fiche
-	, annee
-	, dateDeb AS date_deb
-	, dateFin AS date_fin
-	, statut
-	, org
-	, ecoCen AS eco_cen
-	, bat
-	, client
-	, freq
-	, prog
-	, serviceEnseign AS service_enseign
-FROM
-    {{ var("database_jade") }}.dbo.e_freq
+select
+    fiche,
+    annee,
+    datedeb as date_deb,
+    datefin as date_fin,
+    statut,
+    org,
+    ecocen as eco_cen,
+    bat,
+    client,
+    freq,
+    prog,
+    serviceenseign as service_enseign
+from {{ var("database_jade") }}.dbo.e_freq

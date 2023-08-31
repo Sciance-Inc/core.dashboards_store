@@ -1,18 +1,13 @@
 {#
 	This (sparse) table compute the number of absence periods per day and per students, for every student with at least one absence on a given day.
 #}
-
-SELECT 
-	CASE         
-        WHEN MONTH(date_abs) <= 7 THEN YEAR(date_abs) - 1 
-        ELSE YEAR(date_abs)
-    END AS school_year,
-	date_abs,
-	fiche,
-	id_eco,
-	COUNT(*) AS n_periods_of_absence
-FROM {{ ref('i_gpm_e_abs') }}
-GROUP BY 
-	date_abs,
-	fiche,
-	id_eco
+select
+    case
+        when month(date_abs) <= 7 then year(date_abs) - 1 else year(date_abs)
+    end as school_year,
+    date_abs,
+    fiche,
+    id_eco,
+    count(*) as n_periods_of_absence
+from {{ ref("i_gpm_e_abs") }}
+group by date_abs, fiche, id_eco

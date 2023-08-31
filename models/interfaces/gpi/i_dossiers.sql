@@ -1,11 +1,11 @@
-SELECT 
+select
     annee,
     fiche,
     statut,
-    niveauScolaire AS niveau_scolaire,
+    niveauscolaire as niveau_scolaire,
     ecole,
-    GroupeRepere As groupe_repere,
-    Age30Sept AS age_30_septembre,
+    grouperepere as groupe_repere,
+    age30sept as age_30_septembre,
     classification,
     rid
-FROM {{ var("database_gpi") }}.edo.dossiers
+from {{ var("database_gpi") }}.edo.dossiers

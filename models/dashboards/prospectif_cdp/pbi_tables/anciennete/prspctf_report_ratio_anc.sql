@@ -1,10 +1,6 @@
-{{ config(alias='report_ratio_anc') }}
+{{ config(alias="report_ratio_anc") }}
 
-SELECT
-	annee_budgetaire
-	, AVG(CAST(anc_2ans AS FLOAT)) AS ratio_anc
-FROM {{ ref('prspctf_fact_anc_2y') }} 
+select annee_budgetaire, avg(cast(anc_2ans as float)) as ratio_anc
+from {{ ref("prspctf_fact_anc_2y") }}
 
-GROUP BY annee_budgetaire
-
-
+group by annee_budgetaire

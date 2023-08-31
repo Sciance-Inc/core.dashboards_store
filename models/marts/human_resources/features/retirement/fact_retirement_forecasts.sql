@@ -9,113 +9,139 @@
     * Since I'm differentiating the cumulated survival to get the instantaneous survavival, the horizon 0 will act as a kind of a normalization constant and will capture some of the noise from the survival curve partial mis-fitting.
     * The horizon 0 has, from a dashboarding viewpoint, no real meaning and is removed from the final table
  #}
-
-
 -- Compute the age of the active employes at the start of the year
-with age_1_september AS (
-    SELECT 
-        src.matr
-        , src.job_group_category
-        , DATEDIFF(YEAR, src.date_nais, crt.current_year) AS age -- Age at september the first of the current year
-    FROM (
-        SELECT 
-            src.matr
-            , job.job_group_category
-            , dos.date_nais
-        FROM {{ ref('fact_active_employes') }} AS src
-        LEFT JOIN {{ ref('i_pai_dos') }} AS dos
-        ON src.matr = dos.matr
-        LEFT JOIN {{ ref('dim_mapper_job_group') }} AS job 
-        ON src.corp_empl = job.job_group
-        WHERE src.matr NOT IN (SELECT matr FROM {{ ref('fact_retirement') }} ) -- Remove the already retired employes
-    ) AS src
-    -- Add the current_year date to compute the age at semptember the first of the current scholar year
-    CROSS JOIN (
-        SELECT CONCAT({{ store.get_current_year() }},'-09-01') AS current_year 
-    ) AS crt
+with
+    age_1_september as (
+        select
+            src.matr,
+            src.job_group_category,
+            datediff(year, src.date_nais, crt.current_year) as age  -- Age at september the first of the current year
+        from
+            (
+                select src.matr, job.job_group_category, dos.date_nais
+                from {{ ref("fact_active_employes") }} as src
+                left join {{ ref("i_pai_dos") }} as dos on src.matr = dos.matr
+                left join
+                    {{ ref("dim_mapper_job_group") }} as job
+                    on src.corp_empl = job.job_group
+                where src.matr not in (select matr from {{ ref("fact_retirement") }})  -- Remove the already retired employes
+            ) as src
+        -- Add the current_year date to compute the age at semptember the first of the
+        -- current scholar year
+        cross join
+            (
+                select concat({{ store.get_current_year() }}, '-09-01') as current_year
+            ) as crt
 
--- Group together active employes by cohorts
-), cohorts AS (
-    SELECT 
-        {{ dbt_utils.generate_surrogate_key(['age', 'job_group_category']) }} AS cohort_id
-        , 0 AS forecast_horizon -- Initialize the forecast horizon to the current year (since the age is computed at the start of the year)
-        , age
-        , job_group_category
-        , COUNT(matr) AS n_employees
-    FROM age_1_september
-    WHERE age BETWEEN 45 and 70 -- Only keep employes between 45 and 70 years old as the survival curve is only estimated for the age range [50, 70] 
-    GROUP BY 
-        age
-        , job_group_category
+    -- Group together active employes by cohorts
+    ),
+    cohorts as (
+        select
+            {{ dbt_utils.generate_surrogate_key(["age", "job_group_category"]) }}
+            as cohort_id,
+            0 as forecast_horizon,  -- Initialize the forecast horizon to the current year (since the age is computed at the start of the year)
+            age,
+            job_group_category,
+            count(matr) as n_employees
+        from age_1_september
+        where age between 45 and 70  -- Only keep employes between 45 and 70 years old as the survival curve is only estimated for the age range [50, 70] 
+        group by age, job_group_category
 
--- Age the cohorts for up to 5 years
-), aged_cohorts AS (
-    SELECT 
-        crt.cohort_id
-        , crt.age + hrz.horizon AS age
-        , crt.forecast_horizon + hrz.horizon AS forecast_horizon
-        , crt.job_group_category
-        , crt.n_employees
-    FROM cohorts AS crt
-    CROSS JOIN (SELECT seq_value AS horizon FROM {{ ref('int_sequence_0_to_1000')}} WHERE seq_value BETWEEN 0 AND 5) AS hrz
+    -- Age the cohorts for up to 5 years
+    ),
+    aged_cohorts as (
+        select
+            crt.cohort_id,
+            crt.age + hrz.horizon as age,
+            crt.forecast_horizon + hrz.horizon as forecast_horizon,
+            crt.job_group_category,
+            crt.n_employees
+        from cohorts as crt
+        cross join
+            (
+                select seq_value as horizon
+                from {{ ref("int_sequence_0_to_1000") }}
+                where seq_value between 0 and 5
+            ) as hrz
 
--- Add the survival rate for each cohort x age
-), cumulated AS (
-    SELECT 
-        src.cohort_id
-        , src.forecast_horizon
-        , src.job_group_category
-        , src.n_employees
-        , surv.survival_rate 
-        , ROUND(src.n_employees - (src.n_employees * surv.survival_rate), 0) AS n_cumulated_retired
-    FROM aged_cohorts AS src
-    INNER JOIN {{ ref('stg_retirement_survival_curve') }} AS surv
-    ON src.age = surv.age
+    -- Add the survival rate for each cohort x age
+    ),
+    cumulated as (
+        select
+            src.cohort_id,
+            src.forecast_horizon,
+            src.job_group_category,
+            src.n_employees,
+            surv.survival_rate,
+            round(
+                src.n_employees - (src.n_employees * surv.survival_rate), 0
+            ) as n_cumulated_retired
+        from aged_cohorts as src
+        inner join
+            {{ ref("stg_retirement_survival_curve") }} as surv on src.age = surv.age
 
--- Differentiate the cumulated number of retiring employees with respect to the cohort_ID to the forecast horizon to get the instantenous retiring employees
-), differentiated AS ( 
-    SELECT 
-        cohort_id
-        , forecast_horizon
-        , job_group_category
-        , n_cumulated_retired - LAG(n_cumulated_retired) OVER (PARTITION BY cohort_id ORDER BY forecast_horizon) AS instantaneous_retiring_employees
-    FROM cumulated
+    -- Differentiate the cumulated number of retiring employees with respect to the
+    -- cohort_ID to the forecast horizon to get the instantenous retiring employees
+    ),
+    differentiated as (
+        select
+            cohort_id,
+            forecast_horizon,
+            job_group_category,
+            n_cumulated_retired - lag(n_cumulated_retired) over (
+                partition by cohort_id order by forecast_horizon
+            ) as instantaneous_retiring_employees
+        from cumulated
 
--- Aggregate the number of retiring employees by school year and job group category (get rid of the age and cohort dimensions as we don't care about the age of the retiring employee)
-), aggregated AS (
-    SELECT 
-        forecast_horizon
-        , job_group_category
-        , SUM(instantaneous_retiring_employees) AS instantaneous_retiring_employees
-    FROM differentiated
-    GROUP BY 
-        forecast_horizon
-        , job_group_category
+    -- Aggregate the number of retiring employees by school year and job group
+    -- category (get rid of the age and cohort dimensions as we don't care about the
+    -- age of the retiring employee)
+    ),
+    aggregated as (
+        select
+            forecast_horizon,
+            job_group_category,
+            sum(instantaneous_retiring_employees) as instantaneous_retiring_employees
+        from differentiated
+        group by forecast_horizon, job_group_category
 
--- Create a padding table with the year and the job_group_category, to be joined on and handle the 0-retirement case
-), padding AS (
-    SELECT 
-        job.job_group_category,
-        CONVERT(DATE, CONCAT({{ store.get_current_year() }} + hrz.horizon,'-09-01'), 102) AS school_year,
-        hrz.horizon AS forecast_horizon
-    FROM (SELECT DISTINCT job_group_category FROM {{ ref('dim_mapper_job_group') }}) AS job
-    CROSS JOIN (SELECT seq_value AS horizon FROM {{ ref('int_sequence_0_to_1000')}} WHERE seq_value BETWEEN 1 AND 5) AS hrz
+    -- Create a padding table with the year and the job_group_category, to be joined
+    -- on and handle the 0-retirement case
+    ),
+    padding as (
+        select
+            job.job_group_category,
+            convert(
+                date,
+                concat({{ store.get_current_year() }} + hrz.horizon, '-09-01'),
+                102
+            ) as school_year,
+            hrz.horizon as forecast_horizon
+        from
+            (
+                select distinct job_group_category
+                from {{ ref("dim_mapper_job_group") }}
+            ) as job
+        cross join
+            (
+                select seq_value as horizon
+                from {{ ref("int_sequence_0_to_1000") }}
+                where seq_value between 1 and 5
+            ) as hrz
 
--- Join the padding table to the aggregated table to impute missing values
-), imputed AS (
-    SELECT 
-        pad.school_year
-        , pad.job_group_category
-        , COALESCE(agg.instantaneous_retiring_employees, 0) AS n_retiring_employees
-    FROM padding AS pad
-    LEFT JOIN aggregated AS agg
-    ON 
-        pad.forecast_horizon = agg.forecast_horizon AND 
-        pad.job_group_category = agg.job_group_category
-)
+    -- Join the padding table to the aggregated table to impute missing values
+    ),
+    imputed as (
+        select
+            pad.school_year,
+            pad.job_group_category,
+            coalesce(agg.instantaneous_retiring_employees, 0) as n_retiring_employees
+        from padding as pad
+        left join
+            aggregated as agg
+            on pad.forecast_horizon = agg.forecast_horizon
+            and pad.job_group_category = agg.job_group_category
+    )
 
-SELECT 
-    school_year
-    , job_group_category
-    , n_retiring_employees
-FROM imputed
+select school_year, job_group_category, n_retiring_employees
+from imputed

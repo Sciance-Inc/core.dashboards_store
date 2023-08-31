@@ -1,4 +1,4 @@
-SELECT 
-    stat_eng AS engagement_status,
-    CONCAT(descr, ' - (', stat_eng, ')') AS engagement_status_name
-FROM {{ ref('stat_eng') }}
+select
+    stat_eng as engagement_status,
+    concat(descr, ' - (', stat_eng, ')') as engagement_status_name
+from {{ ref("stat_eng") }}

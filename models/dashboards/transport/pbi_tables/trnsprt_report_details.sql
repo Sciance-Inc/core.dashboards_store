@@ -1,94 +1,89 @@
-{{ config(
-    alias='report_details'
-) }}
+{{ config(alias="report_details") }}
 
 {# Extract the non-simulated parcours for the last 10 years #}
-WITH parcours AS (
-    SELECT 
-        annee
-        ,no_circ
-        ,no_parc
-        ,nom_parc
-        ,per
-    FROM {{ ref('i_geo_p_parc') }} 
-    WHERE 
-        simul = 0 AND
-        annee >= YEAR(GETDATE()) - 10
-         AND  ind_active = 1
+with
+    parcours as (
+        select annee, no_circ, no_parc, nom_parc, per
+        from {{ ref("i_geo_p_parc") }}
+        where simul = 0 and annee >= year(getdate()) - 10 and ind_active = 1
 
-{# Extract the non-simulated circuit for the last 10 years #}
-), circuits AS (
-    SELECT 
-        nom_circ
-        ,annee
-        ,no_circ
-    FROM {{ ref('i_geo_p_circ') }} 
-    WHERE 
-        simul = 0 AND
-        annee >= YEAR(GETDATE()) - 10
+    {# Extract the non-simulated circuit for the last 10 years #}
+    ),
+    circuits as (
+        select nom_circ, annee, no_circ
+        from {{ ref("i_geo_p_circ") }}
+        where simul = 0 and annee >= year(getdate()) - 10
 
+    {# Compute the most granular table, mapping parcours to their circuit #}
+    ),
+    circ_parc as (
+        select
+            crc.annee,
+            crc.no_circ as circuit_id,
+            crc.nom_circ as circuit_name,
+            prc.no_parc as parcours_id,
+            prc.nom_parc as parcours_name,
+            prc.per as parcours_periode
+        from circuits as crc
+        left join
+            parcours as prc  -- circ_parc outer join if not every parcours can be attached to a circuit ; LEFT JOIN + tests If ALL parcours schould be attached to a circuit
+            on crc.annee = prc.annee
+            and crc.no_circ = prc.no_circ
 
-{# Compute the most granular table, mapping parcours to their circuit #}
-), circ_parc AS (
-    SELECT 
-        crc.annee
-        ,crc.no_circ AS circuit_id
-        ,crc.nom_circ AS circuit_name
-        ,prc.no_parc AS parcours_id
-        ,prc.nom_parc AS parcours_name
-        ,prc.per AS parcours_periode
-    FROM circuits AS crc
-    LEFT JOIN parcours AS prc  -- circ_parc outer join if not every parcours can be attached to a circuit ; LEFT JOIN + tests If ALL parcours schould be attached to a circuit
-    ON 
-        crc.annee = prc.annee AND
-        crc.no_circ = prc.no_circ
+    {# Propagate the circuit / parcours name changes #}
+    ),
+    last_names as (
+        select
+            annee,
+            circuit_id,
+            last_value(circuit_name) over (
+                partition by circuit_id
+                order by annee
+                rows between unbounded preceding and unbounded following
+            ) as circuit_name,  -- Get the most-up-to-date circuit name. If we want to allow the name to change between the year, then just add the name in the PARTITION BY clause
+            parcours_id,
+            last_value(parcours_name) over (
+                partition by circuit_id, parcours_id
+                order by annee
+                rows between unbounded preceding and unbounded following
+            ) as parcours_name,  -- Get the most-up-to-date circuit name. If we want to allow the name to change between the year, then just add the name in the PARTITION BY clause
+            parcours_periode
+        from circ_parc
+    ),
+    agg as (
 
+        {# Aggregate the table to  #}
+        select
+            annee,
+            circuit_id,
+            max(circuit_name) as circuit_name,  -- Dummy aggregation
+            parcours_id,
+            max(parcours_name) as parcours_name,  -- Dummy aggregation
+            parcours_periode
+        from circ_parc
+        where parcours_id is not null
+        group by annee, circuit_id, parcours_id, parcours_periode
 
-{# Propagate the circuit / parcours name changes #}
-), last_names AS (
-    SELECT 
-        annee
-        ,circuit_id
-        ,LAST_VALUE(circuit_name) OVER (PARTITION BY circuit_id ORDER BY annee ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS circuit_name -- Get the most-up-to-date circuit name. If we want to allow the name to change between the year, then just add the name in the PARTITION BY clause
-        ,parcours_id
-        ,LAST_VALUE(parcours_name) OVER (PARTITION BY circuit_id, parcours_id ORDER BY annee ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS parcours_name -- Get the most-up-to-date circuit name. If we want to allow the name to change between the year, then just add the name in the PARTITION BY clause
-        ,parcours_periode
-    FROM circ_parc
-), agg  AS (
+    )
 
-{# Aggregate the table to  #}
-SELECT 
-    annee
-    ,circuit_id
-    ,MAX(circuit_name) AS circuit_name -- Dummy aggregation
-    ,parcours_id
-    ,MAX(parcours_name) AS parcours_name -- Dummy aggregation
-    ,parcours_periode
-FROM circ_parc
-where parcours_id IS NOT NULL
-GROUP BY 
-    annee
-    ,circuit_id
-    ,parcours_id
-    ,parcours_periode
-
-)  
-
-SELECT 
-    annee
-    ,sec.circuit_id
-    ,circuit_name
-    ,name_sector
-    ,abbr_sector
-    ,parcours_id
-    ,parcours_name
-    ,CASE 
-        WHEN parcours_periode = 1 THEN 'AM' 
-        WHEN parcours_periode = 8 THEN 'PM'
-        WHEN parcours_periode NOT LIKE '1' AND parcours_periode  NOT LIKE '8' THEN 'Midi' 
-     END AS parcours_periode
-     ,'Oui' AS actif 
-FROM agg AS src
-LEFT JOIN {{ source_or_ref('transport', 'stg_sectors') }} AS sec 
-ON src.circuit_id = sec.circuit_id
-
+select
+    annee,
+    sec.circuit_id,
+    circuit_name,
+    name_sector,
+    abbr_sector,
+    parcours_id,
+    parcours_name,
+    case
+        when parcours_periode = 1
+        then 'AM'
+        when parcours_periode = 8
+        then 'PM'
+        when parcours_periode not like '1' and parcours_periode not like '8'
+        then 'Midi'
+    end as parcours_periode,
+    'Oui' as actif
+from agg as src
+left join
+    {{ source_or_ref("transport", "stg_sectors") }} as sec
+    on src.circuit_id = sec.circuit_id

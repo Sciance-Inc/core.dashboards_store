@@ -1,4 +1,4 @@
-SELECT
+select
     fiche,
     annee,
     sk_eleve,
@@ -40,5 +40,4 @@ SELECT
     ind_repondant_pere,
     ind_repondant_mere,
     ind_repondant_tuteur
-FROM
-    {{ var("database_bi") }}.dbo.dim_eleve
+from {{ var("database_bi") }}.dbo.dim_eleve

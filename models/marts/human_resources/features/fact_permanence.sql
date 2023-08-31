@@ -1,73 +1,63 @@
-{{ config(alias='fact_permanence') }}
+{{ config(alias="fact_permanence") }}
 -- Get all information needed
-WITH stepOne AS (
-	SELECT 
-		EMP.MATR
-		, EMP.DATE_ENTR
-		, seedEtat.etat_actif
-		, CASE WHEN -- Active employment
-			IND_EMPL_PRINC = 1 -- principal job
-		THEN
-			CAST( GETDATE() AS Date) --Current date
-		ELSE
-			EMP.DATE_EFF -- End of employment day
-		END AS DATE_FIN
-		, EMP.ETAT
-		, EMP.STAT_ENG
-		, IND_EMPL_PRINC
-		, CORP_EMPL
-	from {{ ref('i_pai_dos_empl') }} EMP
-	LEFT JOIN {{ ref('etat_empl') }} seedEtat ON EMP.ETAT = seedEtat.ETAT_EMPL
-	LEFT JOIN {{ ref('stat_eng') }} seedStatusEng ON EMP.STAT_ENG = seedStatusEng.STAT_ENG
-	WHERE 
-		seedStatusEng.is_reg = 1 -- Only employees who are regular
-		AND seedEtat.etat_actif = 1  -- Only employees who are actives
-),
+with
+    stepone as (
+        select
+            emp.matr,
+            emp.date_entr,
+            seedetat.etat_actif,
+            case
+                when  -- Active employment
+                    ind_empl_princ = 1  -- principal job
+                then cast(getdate() as date)  -- Current date
+                else emp.date_eff  -- End of employment day
+            end as date_fin,
+            emp.etat,
+            emp.stat_eng,
+            ind_empl_princ,
+            corp_empl
+        from {{ ref("i_pai_dos_empl") }} emp
+        left join {{ ref("etat_empl") }} seedetat on emp.etat = seedetat.etat_empl
+        left join
+            {{ ref("stat_eng") }} seedstatuseng on emp.stat_eng = seedstatuseng.stat_eng
+        where
+            seedstatuseng.is_reg = 1  -- Only employees who are regular
+            and seedetat.etat_actif = 1  -- Only employees who are actives
+    ),
 
--- Get the current job
-mainJob  AS (
-	SELECT 
-		stepOne.MATR
-		, stepOne.CORP_EMPL
-	FROM stepOne
-	WHERE IND_EMPL_PRINC = 1
-),
+    -- Get the current job
+    mainjob as (
+        select stepone.matr, stepone.corp_empl from stepone where ind_empl_princ = 1
+    ),
 
--- Get all experiences wich has the same job group
-experience  AS (
-	SELECT 
-	exp.MATR
-	, exp.CORP_EMPL
-	, CASE WHEN -- Active employment
-		exp.etat_actif = 1  
-		AND exp.STAT_ENG LIKE '%1' 
-		AND IND_EMPL_PRINC = 1 
-	THEN
-		DATEDIFF(dd, exp.DATE_ENTR, CAST( GETDATE() AS Date))/365.0 -- Datediff with the current date
-	ELSE
-		DATEDIFF(dd, exp.DATE_ENTR, exp.DATE_FIN)/365.0 -- Datediff with the end of employment day
-	END AS rangeDate
-	FROM stepOne exp
-	LEFT JOIN mainJob ON exp.MATR = mainJob.MATR
-	WHERE LEFT(exp.CORP_EMPL, 1) = LEFT(mainJob.CORP_EMPL,1)	
-),
+    -- Get all experiences wich has the same job group
+    experience as (
+        select
+            exp.matr,
+            exp.corp_empl,
+            case
+                when  -- Active employment
+                    exp.etat_actif = 1 and exp.stat_eng like '%1' and ind_empl_princ = 1
+                then datediff(dd, exp.date_entr, cast(getdate() as date)) / 365.0  -- Datediff with the current date
+                else datediff(dd, exp.date_entr, exp.date_fin) / 365.0  -- Datediff with the end of employment day
+            end as rangedate
+        from stepone exp
+        left join mainjob on exp.matr = mainjob.matr
+        where left(exp.corp_empl, 1) = left(mainjob.corp_empl, 1)
+    ),
 
--- Sums of all experiences
-sumExp AS 
-(SELECT 
-	 experience.MATR 
-	, mainJob.CORP_EMPL
-	, SUM( rangeDate) AS nbrYears
-	FROM experience
-	LEFT JOIN mainJob 
-	ON experience.MATR = mainJob.MATR
-	GROUP BY experience.matr, mainJob.CORP_EMPL
-)
+    -- Sums of all experiences
+    sumexp as (
+        select experience.matr, mainjob.corp_empl, sum(rangedate) as nbryears
+        from experience
+        left join mainjob on experience.matr = mainjob.matr
+        group by experience.matr, mainjob.corp_empl
+    )
 
 -- Display only the value required
-select 
-	MATR AS matricule
-	, CORP_EMPL AS corps_emploi
-	, CASE WHEN nbrYears > 2 THEN 1 ELSE 0 END AS permanence -- if nbrYears is greater than 2 then the employee as is permanence
-FROM sumExp
-GROUP BY matr, CORP_EMPL, nbrYears
+select
+    matr as matricule,
+    corp_empl as corps_emploi,
+    case when nbryears > 2 then 1 else 0 end as permanence  -- if nbrYears is greater than 2 then the employee as is permanence
+from sumexp
+group by matr, corp_empl, nbryears

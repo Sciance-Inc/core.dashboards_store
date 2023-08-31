@@ -1,13 +1,8 @@
-
-SELECT DISTINCT
-    ele.code_perm
-    , eco.id_eco
-    , eco.annee
-FROM {{ ref('i_gpm_e_dan') }} AS eledan
-LEFT JOIN {{ ref('i_gpm_t_eco') }} AS eco
-    ON eledan.id_eco = eco.id_eco
-LEFT JOIN {{ ref('i_gpm_e_ele') }} AS ele
-    ON eledan.fiche = ele.fiche
+select distinct ele.code_perm, eco.id_eco, eco.annee
+from {{ ref("i_gpm_e_dan") }} as eledan
+left join {{ ref("i_gpm_t_eco") }} as eco on eledan.id_eco = eco.id_eco
+left join
+    {{ ref("i_gpm_e_ele") }} as ele on eledan.fiche = ele.fiche
 
     /*
 WHERE
@@ -19,3 +14,4 @@ WHERE
     AND lower(eledan.dist) IN ('g1','g2','g2c','g3','g3a','g4','g4a','g5','g6','xf1','xf2','xfp','sfp')
     AND (eledan.grp_rep NOT IN ('999') OR eledan.grp_rep IS NULL)    -- Ignore l'enseignement réalisé à la maison par les parents #}
         */
+    

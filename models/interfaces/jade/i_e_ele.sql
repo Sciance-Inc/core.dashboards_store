@@ -1,5 +1,1 @@
-SELECT
-	fiche
-	, codePerm AS code_perm
-FROM
-    {{ var("database_jade") }}.dbo.e_ele
+select fiche, codeperm as code_perm from {{ var("database_jade") }}.dbo.e_ele
