@@ -15,7 +15,7 @@
 
 with
     dummy as (
-        select 'FOOBAR' as code_perm, id_eco, 2023 as annee, 'custom_1' as population
+        select 'FOOBAR' as code_perm, 1234 AS id_eco, 2023 as annee, 'custom_1' as population
     )
 
 select top 0 *

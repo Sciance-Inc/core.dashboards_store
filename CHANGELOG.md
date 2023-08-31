@@ -100,6 +100,12 @@ v0.5.2 ([`b145aa3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/
 ## v0.6.0-dev.2+20230830 (2023-08-30)
 
 
+## v0.5.2 (2023-08-30)
+
+### Fix
+
+* Adding the missing is_context_core variable to the cookiecutter ([`dd74c08`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dd74c08f285445561204f68053db6311cf284d29))
+
 ## v0.5.1 (2023-08-30)
 
 ### Fix
