@@ -12,7 +12,7 @@
 WITH dummy AS (
     SELECT
         'FOOBAR' AS code_perm,
-        id_eco,
+        1234 AS id_eco,
         2023 AS annee,
         'custom_1' AS population
 )
