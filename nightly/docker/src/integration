@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+# Clean up the database
+cdbt run-operation drop_schema --target ${DBT_TARGET}
+
+# Build the whole project.
+cdbt build --full-refresh --target ${DBT_TARGET}
+
+
+
