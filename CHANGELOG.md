@@ -2,6 +2,21 @@
 
 
 
+## v0.6.0-dev.4+20230831 (2023-08-31)
+
+### Fix
+
+* fix: adding dummy id_eco to custom_fgj_population so the table is now working when not overrided ([`919f8f1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/919f8f141a31a1cc34537208ece0541efdfe9519))
+
+* fix: the default empty custom population now properly support the id_eco ([`5458983`](https://github.com/Sciance-Inc/core.dashboards_store/commit/54589830d80781e7c9f48536e852e93f97f4bfd6))
+
+### Unknown
+
+* Merge tag &#39;populations&#39; into develop
+
+v0.5.2 ([`9b87f1e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9b87f1ea34ae1c14e5761b63bfd5d535d45e6f1b))
+
+
 ## v0.6.0-dev.3+20230831 (2023-08-31)
 
 ### Build
@@ -78,6 +93,9 @@ dbt build --full-refresh
 * **Pull-request... ([`02da6d3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/02da6d36b50244d1913d0033005931a72f3c3ea5))
 
 
+## v0.5.2 (2023-08-30)
+
+
 ## v0.6.0-dev.3+20230830 (2023-08-30)
 
 ### Fix
@@ -99,12 +117,6 @@ v0.5.2 ([`b145aa3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/
 
 ## v0.6.0-dev.2+20230830 (2023-08-30)
 
-
-## v0.5.2 (2023-08-30)
-
-### Fix
-
-* Adding the missing is_context_core variable to the cookiecutter ([`dd74c08`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dd74c08f285445561204f68053db6311cf284d29))
 
 ## v0.5.1 (2023-08-30)
 
