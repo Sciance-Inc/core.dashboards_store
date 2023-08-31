@@ -18,6 +18,7 @@ jobs:
   build_nightly:
     runs-on: [self-hosted, maas]
     strategy:
+      max-parallel: 1
       matrix:
         configs:
           - pattern: .*rc+.*$
