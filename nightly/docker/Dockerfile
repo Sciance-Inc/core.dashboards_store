@@ -1,6 +1,6 @@
 ##### SAME AS depechecode/Dockerfile 
 
-# docker build --ssh default -f nightly/docker/Dockerfile . -t nightly
+# docker buildx build --ssh default -f nightly/docker/Dockerfile . -t nightly
 FROM ubuntu:22.04 
 
 # Fetch the core version to run the integration tests against
