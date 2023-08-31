@@ -107,6 +107,13 @@ v0.5.2 ([`b145aa3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/
 * Adding dummy id_eco to custom_fgj_population so the table is now working when not overrided ([`919f8f1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/919f8f141a31a1cc34537208ece0541efdfe9519))
 * The default empty custom population now properly support the id_eco ([`5458983`](https://github.com/Sciance-Inc/core.dashboards_store/commit/54589830d80781e7c9f48536e852e93f97f4bfd6))
 
+## v0.5.3 (2023-08-31)
+
+### Fix
+
+* Adding dummy id_eco to custom_fgj_population so the table is now working when not overrided ([`919f8f1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/919f8f141a31a1cc34537208ece0541efdfe9519))
+* The default empty custom population now properly support the id_eco ([`5458983`](https://github.com/Sciance-Inc/core.dashboards_store/commit/54589830d80781e7c9f48536e852e93f97f4bfd6))
+
 ## v0.5.2 (2023-08-30)
 
 ### Fix
