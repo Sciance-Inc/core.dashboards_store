@@ -845,7 +845,7 @@ To add a stamp to your dashboard you can either :
 ```sql
 # model.sql
 {{ config(
-    post_hook='{{ store.stamp("my_dashboard") }}',
+    post_hook='{{ store.stamp_model("my_dashboard") }}',
 ) }}
 ```
 
