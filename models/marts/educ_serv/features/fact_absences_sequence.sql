@@ -27,6 +27,7 @@ with
                 partition by id_eco, school_year order by date_evenement
             ) as day_id
         from expected_cal
+        where date_evenement <= getdate()
 
     -- Left join the observed absences on the calendar
     ),
