@@ -2,6 +2,13 @@
 
 
 
+## v0.6.2+20230913 (2023-09-13)
+
+### Documentation
+
+* docs(fix): updatating the stamp_model&#39;s macro name ([`25baea2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/25baea243b063291086379f4e273982ec1d8dc9a))
+
+
 ## v0.6.2+20230831 (2023-08-31)
 
 
