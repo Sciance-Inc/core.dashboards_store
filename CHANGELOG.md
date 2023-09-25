@@ -2,6 +2,71 @@
 
 
 
+## v0.7.0-dev.1+20230925 (2023-09-25)
+
+### Feature
+
+* feat: adding licence ([`23d0f75`](https://github.com/Sciance-Inc/core.dashboards_store/commit/23d0f75707ec43294b83d75512fd5f420bcbb199))
+
+* feat: adding dim_employees ([`3e6a04f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3e6a04f668748ffdccf448efe66a98dd45996da2))
+
+### Unknown
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`89077c5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/89077c553c4deaa1c145c0b4ea484017f7db358d))
+
+* fix : add filtre to compare with curent day date
+
+# Objectives of the Pull Request ?
+&gt; Describe the high level purpose of your pull request. What are you trying to achieve ? How are you doing it ?
+cette Pr a pour but d&#39;ajouter un filtre pour arreter le calcul des absence à la date du jour
+# What is left out of the Pull Request ?
+&gt; Describe what is not included in the pull request. Why did you not include it in the PR. What are the next steps ?
+
+# How to run the pull request ?
+&gt; Provide the code required to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected. The following code / placeholder is only provided as documentation / helper to get you started and you will need to adjust it.**
+
+```bash
+# Assuming you are in a folder containing both the core.data.store and the &lt;cssXX&gt;.data.store folder.
+# Update the code
+cd core.data.store
+git checkout bugfix/abs_date_actu
+git pull
+# Might be required if you update either the poetry file or the lock file
+# poetry shell &amp;&amp; poetry lock &amp;&amp; poetry install
+cd ../cssvdc.data.store
+git checkout develop
+git pull
+# Might be required if you add a new DBT dependency
+#dbt deps
+# Run dbt
+dbt build --select tag:chronic_absenteeism
+```
+
+# Pull request&#39;s checklist
+&gt; Please, read carefully each item before checking it. Your PR&#39;s review might be delayed otherwise.
+
+* **Code** :
+  * [x] The code I m asking a review for is working. **I understand that my PR will be rejected as-is otherwise.**
+  * [ ] My tables/variables naming follows the conventions described in the `readme.md`.
+  * [ ] I have added DBT tests to my models (at least a `non null` / `unique` per models).
+  * [ ] I have formatted the code with the help of `sqlfmt .`.
+  * [ ] Did you add a new **mandatory seed** ? If so, have you populated the `nightly` project with your new seed ?
+* **Template** :
+  *  [ ] I have updated the `core/template/{{ cookiecutter.project_slug }}/dbt_project.yml` file accordingly to my changes.
+* **Documentation** :
+  * [ ]  I have updated the documentation (README) accordingly to my changes.
+  * [ ]  The models I have added are documented in a `schema.yml` file.
+* **Pull-request** :
+  * [x]  I have set the `set-auto-complete` of the PR and **edited the merge commit message to remove the `Merged PR XXX :` so that my merge message is something like `&lt;feat|fix|chore|doc|refactor|perf|style&gt;: foo bar`**
+  * [x]  The code *provided to run the pull request* is working. **I understand that my PR will be rejected as-is otherwise.**
+  * [ ]  I have added my CSS lead as a reviewer.
+  * [x]  My pull request is documented. I have explained the needs for the PR and what was left out of the it.
+  * [x]  I have carefully reviewd each changes made to a file and made sure the files included on the PR were actually added on purposes.
+* **Tasksboard** :
+  * [ ] My work item is linked to the pull request.
+  * [ ] My work item has been moved to `review` in... ([`f3c313b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f3c313b4947a98d76968916d20965bf23839d3e7))
+
+
 ## v0.6.2+20230913 (2023-09-13)
 
 ### Documentation
