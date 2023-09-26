@@ -2,28 +2,39 @@
 
 
 
+## v0.7.0+20230926 (2023-09-26)
+
+### Chore
+
+* chore: gitignoring the pbix ([`cb92a3d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cb92a3d35c6f6417ab7ad36642e23d8bd7ed6d28))
+
+### Feature
+
+* feat: adding dashboards ([`7ab3ec2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7ab3ec2bb1249e10fe2aa94943176841cf9b2280))
+
+
 ## v0.7.0-dev.2+20230926 (2023-09-26)
 
 ### Fix
 
-* fix: removing dead code ([`ddd48d8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ddd48d865f88d65240130a2ae658f51b5c5de232))
+* fix: removing dead code ([`1f64fe2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1f64fe242dccb0152887c66a3da87710c4fddb12))
 
 ### Unknown
 
-* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`b0e849a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b0e849ac84fa1d2862de1b424de737129540daac))
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`7f7e7e6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7f7e7e6ad8640279566252788909d4f602811666))
 
 
 ## v0.7.0-dev.1+20230925 (2023-09-25)
 
 ### Feature
 
-* feat: adding licence ([`23d0f75`](https://github.com/Sciance-Inc/core.dashboards_store/commit/23d0f75707ec43294b83d75512fd5f420bcbb199))
+* feat: adding licence ([`25994ad`](https://github.com/Sciance-Inc/core.dashboards_store/commit/25994ad9cf1c11b9291d5cba5cece37ede4caa1f))
 
-* feat: adding dim_employees ([`3e6a04f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3e6a04f668748ffdccf448efe66a98dd45996da2))
+* feat: adding dim_employees ([`99ee1db`](https://github.com/Sciance-Inc/core.dashboards_store/commit/99ee1dbdd030547a78233cc872e567a32935fc5b))
 
 ### Unknown
 
-* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`89077c5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/89077c553c4deaa1c145c0b4ea484017f7db358d))
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`fd0ec2a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fd0ec2af247545e14e6ea200cd5928848be8e16e))
 
 * fix : add filtre to compare with curent day date
 
@@ -75,14 +86,14 @@ dbt build --select tag:chronic_absenteeism
   * [x]  I have carefully reviewd each changes made to a file and made sure the files included on the PR were actually added on purposes.
 * **Tasksboard** :
   * [ ] My work item is linked to the pull request.
-  * [ ] My work item has been moved to `review` in... ([`f3c313b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f3c313b4947a98d76968916d20965bf23839d3e7))
+  * [ ] My work item has been moved to `review` in... ([`37f403b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/37f403b93cdeacf9a7316e7020176b480a0adc0f))
 
 
 ## v0.6.2+20230913 (2023-09-13)
 
 ### Documentation
 
-* docs(fix): updatating the stamp_model&#39;s macro name ([`25baea2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/25baea243b063291086379f4e273982ec1d8dc9a))
+* docs(fix): updatating the stamp_model&#39;s macro name ([`404c505`](https://github.com/Sciance-Inc/core.dashboards_store/commit/404c50554330cb1b2767230c7c56a6f45fad19b9))
 
 
 ## v0.6.2+20230831 (2023-08-31)
@@ -92,21 +103,21 @@ dbt build --select tag:chronic_absenteeism
 
 ### Chore
 
-* chore(cicd): adding concurrency piority ([`4e92676`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4e92676b999d8c60153ec108186532a88e66622f))
+* chore(cicd): adding concurrency piority ([`dbff52c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dbff52c6c90b055510733b4b00811304c1bcc58f))
 
 ### Fix
 
-* fix(cicd): adding job scope to group name ([`7073b1e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7073b1eacd1fb4a960f4f813e1fc4a14b73d40fc))
+* fix(cicd): adding job scope to group name ([`508f8de`](https://github.com/Sciance-Inc/core.dashboards_store/commit/508f8de800f145202bf23de0419053f61e1baa3c))
 
 ### Style
 
-* style: applying sqlfmt ([`3f6c45c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3f6c45cd47623973eb5d29d67f75ad647d0cb988))
+* style: applying sqlfmt ([`b822989`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b82298934ab59740fe2ece0097eb2f44d63d579b))
 
 ### Unknown
 
-* Merge branch &#39;master&#39; into develop ([`abd134a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/abd134a53ecb3fd5510244458cb4b68a26803164))
+* Merge branch &#39;master&#39; into develop ([`0bf1d28`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0bf1d282a29f4a166a1fb6a58310cdee3d3d0484))
 
-* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`2217b56`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2217b56aa01a6bec8bc94c2cb24086dfcda6dda6))
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`b0cf8f9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b0cf8f999e179c76193b3c8dc0dc4b8164e2f982))
 
 
 ## v0.6.0-dev.5+20230831 (2023-08-31)
@@ -116,46 +127,46 @@ dbt build --select tag:chronic_absenteeism
 
 ### Fix
 
-* fix(cicd): fixing the stable pattern ([`4703193`](https://github.com/Sciance-Inc/core.dashboards_store/commit/47031930755bab9c88cdbe305c96491e4102b2d1))
+* fix(cicd): fixing the stable pattern ([`9a2959c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9a2959cd8d4e1a8d553db2310b788855207b5cdb))
 
-* fix(cicd): fixing the stable pattern ([`5ada3a1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5ada3a1ff6cba3792aca4cba24253128bfb3610a))
+* fix(cicd): fixing the stable pattern ([`f00b560`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f00b560efb13bac0264b3fd48868cc43901ec25c))
 
 
 ## v0.6.0+20230831 (2023-08-31)
 
 ### Chore
 
-* chore(test): adding the stable version to the nightly build ([`9bf5415`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9bf54155c94ceb7efcc6360de929ba3fefdc31ad))
+* chore(test): adding the stable version to the nightly build ([`ad7fc6c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ad7fc6c7c4e0aef4c338049830a0a19c306ed460))
 
-* chore(cicd): fixing maximal matrix concurrency to 1 to avoid burning the database ([`1b70e2a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1b70e2a29f92be3acafeef3d8040731f4b405c4b))
+* chore(cicd): fixing maximal matrix concurrency to 1 to avoid burning the database ([`e22153a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e22153a163345ae009ce9524a3507a8673deab28))
 
-* chore(fix): logging to the github registry before pushing the docker ([`959c839`](https://github.com/Sciance-Inc/core.dashboards_store/commit/959c8390192a5f3d300f130df0ad312c4be56618))
+* chore(fix): logging to the github registry before pushing the docker ([`493e726`](https://github.com/Sciance-Inc/core.dashboards_store/commit/493e726ffd8395aa2ab3f46c6e1e4eff7d470fc2))
 
-* chore(cicd): adding the command to run the integration tests suite ([`324f7d5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/324f7d580a4068ba95626db2fece71b5c2dd0ca1))
+* chore(cicd): adding the command to run the integration tests suite ([`da003f3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/da003f39d1925e5c50575d1c438ae98c3df187d2))
 
-* chore: trigger the nightly on master ([`c51a9fe`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c51a9fe98f8977f7d60a7e1be1ef0cba159e4b28))
+* chore: trigger the nightly on master ([`5e34159`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5e34159c32fcd697667b1abdda44bfcae95134f6))
 
-* chore: adding CICD pipeline for nightly release ([`7490540`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7490540f3237eb8e998c25f0daad16ed9df7796a))
+* chore: adding CICD pipeline for nightly release ([`1fc829f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1fc829ffe2b1e1f82f94fea1790bb8ff5d82492a))
 
-* chore(test): adding the dockerfile and the required files to run the integration tests ([`2dac52a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2dac52a81a65d380084f4c46e31fca09b480d1e6))
+* chore(test): adding the dockerfile and the required files to run the integration tests ([`c99333d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c99333dfbd03f8296d0fe61724fbc7a829884019))
 
 ### Documentation
 
-* docs: updating both the readme and the PR template to help developers populating seeds in the nightly project ([`4718245`](https://github.com/Sciance-Inc/core.dashboards_store/commit/471824523118512dfdda8f948c77e453a2cfda87))
+* docs: updating both the readme and the PR template to help developers populating seeds in the nightly project ([`2a1b15f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2a1b15fff10c8c765eeab5f4676753f83fc4ec5f))
 
-* docs(test): adding an how-to about the way to run the integration test on your local computer ([`b7bfef2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b7bfef28e42badd76d5858e0fcbe5a267837d1c6))
+* docs(test): adding an how-to about the way to run the integration test on your local computer ([`dc05178`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dc05178f21798eeaecbed9ca34b305e401af57a3))
 
 ### Test
 
-* test(fix): fixing the test populations ([`df46e63`](https://github.com/Sciance-Inc/core.dashboards_store/commit/df46e639fd4cca1a184d1eea6c1e60a271231f75))
+* test(fix): fixing the test populations ([`6be75a0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6be75a085ab0d9fd5e5e6065b4f75fd2e9e9bebd))
 
-* test: adding a simple /default dbt project to be run as an integration test ([`7687cc6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7687cc602db01a5d71f4a41f92b46bb5fc6e6ddb))
+* test: adding a simple /default dbt project to be run as an integration test ([`46bc620`](https://github.com/Sciance-Inc/core.dashboards_store/commit/46bc6200e358b343779523da179bdfe4ff856c12))
 
 ### Unknown
 
-* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`de103bb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/de103bb4ea9a7c07c9ca1db87f573737dd65193f))
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`a909dee`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a909dee40543f89fb10070a1498b799738fafea3))
 
-* Merge branch &#39;master&#39; of github.com:Sciance-Inc/core.dashboards_store ([`d83ac80`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d83ac80f18d96686b78c26a8a5f1aacf9b223f30))
+* Merge branch &#39;master&#39; of github.com:Sciance-Inc/core.dashboards_store ([`d186286`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d1862863a8c0db36016d5bded32631f82477cef8))
 
 
 ## v0.5.3 (2023-08-31)
@@ -165,22 +176,22 @@ dbt build --select tag:chronic_absenteeism
 
 ### Fix
 
-* fix: adding dummy id_eco to custom_fgj_population so the table is now working when not overrided ([`919f8f1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/919f8f141a31a1cc34537208ece0541efdfe9519))
+* fix: adding dummy id_eco to custom_fgj_population so the table is now working when not overrided ([`4cb464c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4cb464c115a88a3ba9bb8c639ddcbac0684eba0c))
 
-* fix: the default empty custom population now properly support the id_eco ([`5458983`](https://github.com/Sciance-Inc/core.dashboards_store/commit/54589830d80781e7c9f48536e852e93f97f4bfd6))
+* fix: the default empty custom population now properly support the id_eco ([`17e25e9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/17e25e9a0f4336fb868272ecd52f08f472998604))
 
 ### Unknown
 
 * Merge tag &#39;populations&#39; into develop
 
-v0.5.2 ([`9b87f1e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9b87f1ea34ae1c14e5761b63bfd5d535d45e6f1b))
+v0.5.2 ([`a301879`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a301879aee5b933745b9a7a0c9bb65ebcb317ee8))
 
 
 ## v0.6.0-dev.3+20230831 (2023-08-31)
 
 ### Build
 
-* build(dag): disabling email on failure as I don t have any smtp server ([`740fc8b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/740fc8bfdb25174d37b7a8ac33f97087470b16fa))
+* build(dag): disabling email on failure as I don t have any smtp server ([`e66f488`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e66f488f4e33b6bee7490eccbfeb38110cfebf75))
 
 ### Chore
 
@@ -249,7 +260,7 @@ dbt build --full-refresh
 * **Documentation** :
   * [X]  I have updated the documentation (README) accordingly to my changes.
   * [ ]  The models I have added are documented in a `schema.yml` file.
-* **Pull-request... ([`02da6d3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/02da6d36b50244d1913d0033005931a72f3c3ea5))
+* **Pull-request... ([`c80072e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c80072e048897680152d38f83b71020afb28153a))
 
 
 ## v0.5.2 (2023-08-30)
@@ -265,13 +276,13 @@ commit 541e66cd7e66564c2c16c99e27da30538469c3b8
 Author: hugo juhel &lt;juhel.hugo@stratemia.com&gt;
 Date:   Wed Aug 30 12:58:33 2023 -0400
 
-    fix: adding the missing is_context_core variable to the cookiecutter ([`dd74c08`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dd74c08f285445561204f68053db6311cf284d29))
+    fix: adding the missing is_context_core variable to the cookiecutter ([`3e57cf2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3e57cf26677ca94b5a52a4594049efbf7401975b))
 
 ### Unknown
 
 * Merge tag &#39;core_context&#39; into develop
 
-v0.5.2 ([`b145aa3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b145aa384b2c07c866d134bee8d46031c3f69ce7))
+v0.5.2 ([`3d3d924`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3d3d924251f4e4aa462cf5b9bb6ea6455cfb891c))
 
 
 ## v0.6.0-dev.2+20230830 (2023-08-30)
@@ -281,67 +292,67 @@ v0.5.2 ([`b145aa3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/
 
 ### Fix
 
-* fix: dependencies will now be parsed as ref when source are used and is_context_core is set to false ([`8e1bb8a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8e1bb8af54c290ad58bf57cfbc5a1381e1ea3b57))
+* fix: dependencies will now be parsed as ref when source are used and is_context_core is set to false ([`a8316f7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a8316f7346e4c62725eeea6f76eff77468cc2e6a))
 
-* fix: dependencies will now be parsed as ref when source are used and is_context_core is set to false ([`bbecd17`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bbecd17c288be585cfabdddd41f072a8bf3ddcf3))
+* fix: dependencies will now be parsed as ref when source are used and is_context_core is set to false ([`8a97d08`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8a97d08db0615440925c82a7f236f6d412cc2a31))
 
 
 ## v0.6.0-dev.1+20230830 (2023-08-30)
 
 ### Build
 
-* build(fix): addinthe token as an header ([`0b88d89`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0b88d89154b8c1f8b2932776129d909292388691))
+* build(fix): addinthe token as an header ([`434a6fd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/434a6fdd2f2cf6f5702886241e5e589525e22888))
 
-* build(fix): addinthe token as an header ([`f70dbc0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f70dbc04c3a7ca327201a5448a165a1496672984))
+* build(fix): addinthe token as an header ([`9b8678d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9b8678d13641048c88d7f8ef4f5874747238f298))
 
-* build(azure): removing azure build ([`3e86dfa`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3e86dfaac4842adb601e834a4e8d37232561ed09))
+* build(azure): removing azure build ([`4627ecc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4627ecce83461c192b0d24461d55fc98beafee15))
 
-* build(azure): swithcing to deep fetch ([`f530e3a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f530e3aab442ce02c93e0364294e94f37793f65b))
+* build(azure): swithcing to deep fetch ([`2646d79`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2646d79c5cad6f42544aacf53b5aee73218f48a6))
 
-* build: update azure-pipelines.yml for Azure Pipelines ([`ded7598`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ded7598a1b0152b0afba8b8f59b898711615044c))
+* build: update azure-pipelines.yml for Azure Pipelines ([`c2923c3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c2923c36387deab9d142cf9b549265ee86970139))
 
-* build: committing on VDC will now push to the sciance repo where tagging happens ;) ([`7bec549`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7bec54986920c34941bc6df899b8a7c1ade204f5))
+* build: committing on VDC will now push to the sciance repo where tagging happens ;) ([`222b64c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/222b64c139540cd3db59aa771cee5ea5c09d0562))
 
-* build(release): updating the release process ([`ee6cc32`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ee6cc32f90a626a74046d14fa34fed1c486df700))
+* build(release): updating the release process ([`8f4c64e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8f4c64ef12e7a38e392f2a713cd2965463e49eee))
 
-* build(release): updating the release process ([`32dfa48`](https://github.com/Sciance-Inc/core.dashboards_store/commit/32dfa4854a2667da5826229a9b8e6409aad35765))
+* build(release): updating the release process ([`c323552`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c3235522cbe90b3c7de921ced9f25f41f6502207))
 
 ### Chore
 
-* chore: removing dead code ([`054b23e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/054b23e67f0937935c91c3b6dd25f775c463a5a3))
+* chore: removing dead code ([`6f4b768`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6f4b76829df260c4a774dc8e235dc782518c5535))
 
 ### Fix
 
-* fix: the purge_metadata_macro will no be triggered in compile only mode ([`61d6bed`](https://github.com/Sciance-Inc/core.dashboards_store/commit/61d6bedc085a655d428cd690efad7ea6572edece))
+* fix: the purge_metadata_macro will no be triggered in compile only mode ([`d038274`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d0382743b8cdd3984dd1ae7584fb929f9866c48d))
 
-* fix: the drop_schema macro won&lt;t try to remove the public schema dbo anymore ([`fef7956`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fef79563b102abe509fc51af1cd3ce8ab7573afc))
+* fix: the drop_schema macro won&lt;t try to remove the public schema dbo anymore ([`88e0414`](https://github.com/Sciance-Inc/core.dashboards_store/commit/88e04149036bed97a4aa6aea27e6c3c8c473360f))
 
-* fix: uniformizing the base version of dbt-sqlserver and dbt-core so raised errors are now hidden behin RuntimeExeception anymore ([`8166717`](https://github.com/Sciance-Inc/core.dashboards_store/commit/81667179108c577f9aed935ff43457bd86ed36e0))
+* fix: uniformizing the base version of dbt-sqlserver and dbt-core so raised errors are now hidden behin RuntimeExeception anymore ([`e9deef0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e9deef0f0a56475f3c5f76c493186af60828d799))
 
-* fix(build): fixing the azure target ([`7c9b08b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7c9b08bafbd77ce9863bff2e97a1182b9ba740e3))
+* fix(build): fixing the azure target ([`ce6bad3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ce6bad3304167af68e94141296b691fb8d5e34f2))
 
 ### Unknown
 
-* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`c6618b7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c6618b7d4763f05f70b6b6dcb18bec7bdca44509))
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`96a8be4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/96a8be44f353bbd8aceea845b07fffd81c04f46a))
 
-* Merge branch &#39;master&#39; into develop ([`fcade42`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fcade42eb5bdfb26504f88781280225c575ca240))
+* Merge branch &#39;master&#39; into develop ([`1da93c3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1da93c37d203480c6b1c2461e0d365b33db06e16))
 
 
 ## v0.5.0 (2023-08-28)
 
 ### Build
 
-* build: pining sr version ([`bfbe029`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bfbe029b484a191bcf813dfc2dd164896c640faa))
+* build: pining sr version ([`7f2f78a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7f2f78a55d96de77265b5341cc86357d150b9d55))
 
-* build: casting the timeout as integer to allow for string like definition in the inherited dags ([`761e457`](https://github.com/Sciance-Inc/core.dashboards_store/commit/761e457f69c3a65a9eda7179adebb22046c6e3fe))
+* build: casting the timeout as integer to allow for string like definition in the inherited dags ([`2f99f7f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2f99f7f88374032484b746d86750dcd7fd8b49c7))
 
 ### Chore
 
-* chore: updating PR template ([`ffc1028`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ffc1028473f1a26a5e7530f9107350d0080dd2cd))
+* chore: updating PR template ([`1abf722`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1abf722c9adc2b84a3e1f9f8acb638fd4201c6b8))
 
 ### Documentation
 
-* docs: fixing typo in the gpi&#39;s database name ([`2b5d591`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2b5d591200f5c646a7daf383848cc4f849a2936b))
+* docs: fixing typo in the gpi&#39;s database name ([`02ae6f7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/02ae6f75b3c1898d316e8745c40012eeb06496dc))
 
 ### Feature
 
@@ -386,7 +397,7 @@ dbt build
   * [x] My work item is linked to the pull request.
   * [x] My work item has been moved to `review` in the taskboard.
 
-Related work items: #2323 ([`f7d81ac`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f7d81aced05732d360e56dd2bf0396903916863e))
+Related work items: #2323 ([`665583b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/665583b7f26b218ff0a4d559b408a2dd21b04635))
 
 * feat: update effectif_css dashboard
 
@@ -438,7 +449,7 @@ dbt build --select tag:effectif_css
   * [x] My work item is linked to the pull request.
   * [x] My work item has been moved to `review` in the taskboard.
 
-Related work items: #2291 ([`87007e1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/87007e10a49083771d0932b127d4ff17cb5246ec))
+Related work items: #2291 ([`088007f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/088007fb4dcf1ca2217b5b8ee9aa9f2c37766e65))
 
 * feat: add id_eco to population table and add population template
 
@@ -481,7 +492,7 @@ dbt build
   * [x] My work item is linked to the pull request.
   * [x] My work item has been moved to `review` in the taskboard.
 
-Related work items: #2323 ([`1684b1c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1684b1c7be89ef62f8d59c87aededdc03a743bce))
+Related work items: #2323 ([`1d982da`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1d982dabfa76d990ec33a0d9c905ed347e8f809d))
 
 * feat: adding a cookiecutter template to help greenfield CSS bootstraping the cssXX.data.store
 
@@ -532,7 +543,7 @@ ls -l
   * [X]  I have carefully reviewd each changes made to a file and made sure the files included on the PR were actually added on purposes.
 * **Tasksboard** :
   * [ ] My work item is linked to the pull request.
-  * [ ] My work item has been moved to `review` in the taskboard. ([`89397b8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/89397b873f5f1d57508b8362c9983775c4cd6254))
+  * [ ] My work item has been moved to `review` in the taskboard. ([`6d823bd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6d823bd13476eb46c9bf6874bcce0f09f283d695))
 
 * feat: adding the chronic_absenteeism dashboard
 
@@ -578,11 +589,11 @@ dbt build --select +tag:chronic_absenteeism
   * [X]  I have carefully reviewd each changes made to a file and made sure the files included on the PR were actually added on purposes.
 * **Tasksboard** :
   * [ ] My work item is linked to the pull request.
-  * [ ] My work item has been moved to `review` in the taskboard. ([`4fa75fa`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4fa75fa9cdeaaebcf5b309eb8b635afc8ce6d90d))
+  * [ ] My work item has been moved to `review` in the taskboard. ([`cf8c809`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cf8c8092aa97f469dbf629a7d8ce0730a732fe54))
 
-* feat: adding the stamping mechanism to expose the data freshness in the dashboards ([`2c7e0b7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2c7e0b7bb6b14ab6b4bf03cdeea4759bd0ae2f40))
+* feat: adding the stamping mechanism to expose the data freshness in the dashboards ([`27f1cb7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/27f1cb768ee8904cafe4ff56ba48f3b875cc6b80))
 
-* feat: adding the stamper ([`eb5713a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/eb5713ae3bdf628bacb6c338c6369f2454d3d6f6))
+* feat: adding the stamper ([`7b01a24`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7b01a241e9fd15449cc3394b158ec3af913c7055))
 
 * feat: adding the retirement dashboard. This dashboard monitors the number of retired employees in the past 10 years and provides forecasts for up to 5 years.
 
@@ -631,7 +642,7 @@ dbt build --select +tag:retirement
   * [X]  I have carefully reviewd each change made to a file and made sure the files included on the PR has been actually changed on purposes.
 * **Tasksboard** :
   * [ ] My work item is linked to the pull request.
-  * [ ] My workw item has been moved to `review` in the taskboard. ([`7727df8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7727df84530a9b7c659f57d7e6e2e5fdbf5df15f))
+  * [ ] My workw item has been moved to `review` in the taskboard. ([`34a32ca`](https://github.com/Sciance-Inc/core.dashboards_store/commit/34a32ca26c5095f2b383c4fa761d0ff30845023e))
 
 * feat: adding hooks for implementing custom populations
 
@@ -671,7 +682,7 @@ dbt build --select +custom_fgj_populations
   * [ ] My work item is linked to the pull request.
   * [ ] My workw item has been moved to `review` in the taskboard.
 
-feat: adding hooks for implementing custom populations ([`d862769`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d862769480ba4f455a9db08386462f1d1cd50319))
+feat: adding hooks for implementing custom populations ([`966e55d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/966e55d5c5ab4d08dd199a498c339e67fb8d4a02))
 
 * feat: adding fact_permanent_employe
 
@@ -712,7 +723,7 @@ dbt build --select tag:rh_permanence
 ![pr.jpg](https://dev.azure.com/Centre-Expertise-IA/c2f84ed8-4636-4689-a070-433ecb89a643/_apis/git/repositories/c515b32e-0393-45f8-a0f3-3c2ce78033d2/pullRequests/398/attachments/pr.jpg)
   * [X]  I have added my CSS lead as a reviewer.
   * [X]  My pull request is documented.
-  * [X]  I have careful... ([`ee01430`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ee014308cd9ec628bfb8d68af90f7b4842521704))
+  * [X]  I have careful... ([`e30fc89`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e30fc89f5e639934eb198c8782fff7fa8f29beea))
 
 ### Fix
 
@@ -756,11 +767,11 @@ dbt build compile
   * [ ] My work item is linked to the pull request.
   * [ ] My work item has been moved to `review` in the taskboard.
 
-fix :change_dbt_project_name_to_store ([`98107ec`](https://github.com/Sciance-Inc/core.dashboards_store/commit/98107ecf0058f7b34eade8cb77e5ec5dd7281dbb))
+fix :change_dbt_project_name_to_store ([`30a4bdb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/30a4bdb81169e0edff0de351c88bc5abcc894502))
 
-* fix: typo in doc ([`4dbd33c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4dbd33c4b893d675d2b9db07f52fb96d10136ea0))
+* fix: typo in doc ([`512903f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/512903f1d4b24b8771e26f051cf88efd6c885dbb))
 
-* fix: the macro no properly delete the schema and the views ([`313456e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/313456e73549d6764a5ffce7ee99b11db9218810))
+* fix: the macro no properly delete the schema and the views ([`71ec6a1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/71ec6a187a03e374c2e31d4a3bdc9d8b8b67f9b8))
 
 * fix(suivi_resultat): correcting seeds&#39; friendly name and mandatory courses
 
@@ -798,7 +809,7 @@ dbt build --select tag:res_epreuves
   * [x] My work item is linked to the pull request.
   * [x] My workw item has been moved to `review` in the taskboard.
 
-Related work items: #2219 ([`ac66eed`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ac66eede2ea8af10d6c38f421ccbfb398f550aed))
+Related work items: #2219 ([`aa80750`](https://github.com/Sciance-Inc/core.dashboards_store/commit/aa807507cdbf878b5bc16fb51a7e0107c2b2701d))
 
 ### Refactor
 
@@ -841,7 +852,7 @@ dbt build --select tag:effectif_css
   * [x] My work item is linked to the pull request.
   * [x] My work item has been moved to `review` in the taskboard.
 
-Related work items: #2291 ([`c6dfc97`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c6dfc975520aafdd528ac61399f3f28753ed155d))
+Related work items: #2291 ([`91de6a4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/91de6a4fa5131b5aa6dd390d724048a7c6e38cac))
 
 * refactor: renaming TBE to store, uniformizing code accross dashboards and enforcing conventions
 
@@ -894,7 +905,7 @@ dbt build --full-refresh
   * [X]  I have carefully reviewd each changes made to a file and made sure the files included on the PR were actually added on purposes.
 * **Tasksboard** :
   * [ ] My work item is linked to the pull request.
-  * [ ] My work item has been moved to `review` in the taskboard. ([`51cf817`](https://github.com/Sciance-Inc/core.dashboards_store/commit/51cf8177f8d871a3ec5282f04e826e21d299e18b))
+  * [ ] My work item has been moved to `review` in the taskboard. ([`e4110f2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e4110f2811c7ab4287dc9d7d7ec1ce0f7119b649))
 
 * refactor: moving the prospective dashboards s facts to the prospective dashboard folder
 
@@ -935,7 +946,7 @@ dbt build --select +tag:prospectif_cdp
   * [X]  I have carefully reviewd each changes made to a file and made sure the files included on the PR were actually added on purposes.
 
 # Commits
-refactor: moving the prospective dashboards s facts to the prospective dashboard folder ([`9dc873a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9dc873a3a14e924aa30f35dec80ec9cc5270b90d))
+refactor: moving the prospective dashboards s facts to the prospective dashboard folder ([`476c69b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/476c69b7b9abb63b4efdb5825b46f0456010f4c8))
 
 * refactor: renaming ressources -&gt; resources
 
@@ -973,7 +984,7 @@ dbt build
   * [ ] My work item is linked to the pull request.
   * [ ] My workw item has been moved to `review` in the taskboard.
 
-refactor: renaming ressources -&gt; resources ([`fcdf2ea`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fcdf2eac9200bf4ea16185665f2b87f8c29727c7))
+refactor: renaming ressources -&gt; resources ([`48381fe`](https://github.com/Sciance-Inc/core.dashboards_store/commit/48381feeee5b03dac15d6d3f444b0926c4b9fcf4))
 
 ### Unknown
 
@@ -1028,15 +1039,15 @@ dbt build compile
   * [ ] My work item is linked to the pull request.
   * [ ] My work item has been moved to `review` in the taskboard.
 
-fix :change_dbt_project_name_to_store ([`39826f2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/39826f21f15c9bd377181cdbb4fd370f6c9e2946))
+fix :change_dbt_project_name_to_store ([`ff28e96`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ff28e9661069dbb70e93b801b86f6c29fc854839))
 
-* Merge branch &#39;master&#39; of github.com:Sciance-Inc/core.dashboards_store ([`4b2f7c4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4b2f7c4eb0eff147c54c27dd8ce114164f444031))
+* Merge branch &#39;master&#39; of github.com:Sciance-Inc/core.dashboards_store ([`f9b5e9d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f9b5e9d2af119a2f638096f0903179ee90d6ac97))
 
 * Merge pull request #1 from Sciance-Inc/develop
 
-release v4.0 ([`d949a35`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d949a35459d9b1e764f647e7f023c123fa008549))
+release v4.0 ([`bce8ddd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bce8ddd5154b7472e77d075e7ef288582b728b7f))
 
-* Merge branch &#39;master&#39; into develop ([`5e63ed0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5e63ed05a982cac97effff517e4bef0a5d6ca093))
+* Merge branch &#39;master&#39; into develop ([`26606f2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/26606f2266029edf45e1594445ee684765f32e67))
 
 * Merged PR 423: Ajout des tags pour les tableaux de bord prospectif_cdp
 
@@ -1101,7 +1112,7 @@ First PR with tag. Tag me if something is not right!
   * [X]  The code *provided to run the pull request* is working. **I understand that my PR will be rejected as-is otherwise.**
   * [X]  I have added my CSS lead as a reviewer.
   * [X]  My pull request is documented. I have explained the needs for the PR and what was left out of the it.
-  * [X]  I have carefully reviewd each changes made to a file and made sure the files included on the PR wer... ([`95729bc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/95729bce26a081503f1f80330433fb17e26f8106))
+  * [X]  I have carefully reviewd each changes made to a file and made sure the files included on the PR wer... ([`07a4d25`](https://github.com/Sciance-Inc/core.dashboards_store/commit/07a4d25e2b07a76422123407f27c0b96f10989da))
 
 * Merged PR 412: Bugfix pour res_matieres prospectif_cdp
 
@@ -1144,83 +1155,34 @@ dbt build --select +prspctf_nb_ele_plus_de_66
   * [X]  The code *provided to run the pull request* is working. **I understand that my PR will be rejected as-is otherwise.**
   * [X]  I have added my CSS lead as a reviewer.
   * [X]  My pull request is documented.
-  * [X]  I have carefully reviewd each change made to a file and made sure the files included on the PR has been actually changed on purposes. ([`772b670`](https://github.com/Sciance-Inc/core.dashboards_store/commit/772b670179f73960e28b0a030c82cee2c52d1320))
+  * [X]  I have carefully reviewd each change made to a file and made sure the files included on the PR has been actually changed on purposes. ([`fb94ef9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fb94ef9c6b6e0a0f2a959aac3816bb4a12de410a))
 
 
 ## v0.3.2 (2023-06-26)
 
 ### Build
 
-* build: updating version REGEX ([`0688b97`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0688b974ac5d8179d1f62bad3b83a2f842b14a89))
+* build: updating version REGEX ([`e48cb4a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e48cb4ae32652cf67c03cf82b27e8b17cf95b00d))
 
 ### Fix
 
-* fix: casting the timeout as integer to allow for string like definition in the inherited dags ([`76f17c9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/76f17c9688ec9634251dc40ab6fd07e2ef335f87))
+* fix: casting the timeout as integer to allow for string like definition in the inherited dags ([`987b90a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/987b90afa242e9a3d346edfd848b385ad635596a))
 
 ### Unknown
 
-* Merge branch &#39;develop&#39; ([`01026cc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/01026ccf42f02fb33908c8e3d78720cd063b7356))
+* Merge branch &#39;develop&#39; ([`ae3a746`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ae3a7460b03b1259b2321ce6e35de8ec7176d15a))
 
-* Merge branch &#39;develop&#39; ([`09b0f2e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/09b0f2e6c6982c9552fd37fd96b5a2cc7d9d6e6d))
+* Merge branch &#39;develop&#39; ([`0003eb1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0003eb112b0c88f63b3c3aec2f59074f700f4358))
 
-* Merge branch &#39;master&#39; of github.com:Sciance-Inc/core.dashboards_store ([`adccdef`](https://github.com/Sciance-Inc/core.dashboards_store/commit/adccdef7edb24cf2d1ae5de86fa761cf0779c2c1))
+* Merge branch &#39;master&#39; of github.com:Sciance-Inc/core.dashboards_store ([`12eac82`](https://github.com/Sciance-Inc/core.dashboards_store/commit/12eac825e0d03ab0cd01d27a7add6afc6a734c6a))
 
-* Merge branch &#39;develop&#39; ([`0a1897d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0a1897d2a5fd1d476820004d539fec8fef6ead59))
+* Merge branch &#39;develop&#39; ([`a198eb3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a198eb30159f7a9697844a39554a272fa8ce0717))
 
 * Revert &#34;fix | PR comments v2&#34;
 
-This reverts commit 6e15c1181a5591259fccff238c88d59cfade32a8. ([`6edf36e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6edf36e8f908a650fc6d9a99eaefecb78352e6c0))
+This reverts commit 438dbca74ae6fad3628913db750dec82c442b807. ([`7c3ea68`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7c3ea6859135c810b1dd6cc4b3b7746576f7167e))
 
-* fix | PR comments v2 ([`6e15c11`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6e15c1181a5591259fccff238c88d59cfade32a8))
-
-* doc : introduction of the new db template in the store
-
-# Objectives of the pull request
-&gt; describe the high level purposes of your pull request. What are you trying to achieve ? How are you doing it ?*
-
-Cette PR a pour seul but d&#39;introduire le fichier PBIX qui va servir de gabarit pour les futures tdb du magasin de la CDP
-
-# How to run the pull request ? ne s&#39;applique pas
-&gt; Provide the code requiered to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected. The following code / placeholder is only provided as documentation / helper to get you started and you will need to adjust it.**
-
-```bash
-# Assuming you are in a folder containing both the core.data.tbe and the &lt;cssXX&gt;.data.tbe folder.
-# Update the code
-cd core.data.tbe
-git checkout feature/&lt;feature_name&gt;
-git pull
-# Might be required if you update either the poetry file or the lock file
-# poetry shell &amp;&amp; poetry lock &amp;&amp; poetry install
-cd ../&lt;cssXX&gt;.data.tbe
-git checkout feature/&lt;feature_name&gt;
-git pull
-# Might be required if you add a new DBT dependency
-#dbt deps
-# Run dbt
-dbt build --select tag:&lt;my ressources tag&gt;
-```
-
-# Pull request&#39;s checklist
-&gt; Please, read carefully each item before checking it. You PR&#39;s review might be delayed otherwise.
-
-* **Code** :
-  * [ ] The code I m asking a review for is working. **I understand that my PR will be rejected as-is otherwise.**
-  * [ ] My tables/variables naming follows the conventions described in the `readme.md`.
-  * [ ] I have added DBT tests to my models (at least a `non null` / `unique` per model).
-* **Documentation** :
-  * [ ]  I have updated the documentation (README) accordingly to my changes.
-  * [ ]  The models I have added are documented in a `schema.yml` file.
-* **Pull-request** :
-  * [x]  I have edited the merge commit message to remove the `Merged PR XXX :` so that my message is something like `&lt;feat|fix|chore|doc|refactor|perf|style&gt;: foo bar`
-  * [ ]  The code *provided to run the pull request* is working. **I understand that my PR will be rejected as-is otherwise.**
-  * [x]  I have added my CSS lead as a reviewer.
-  * [x]  My pull request is documented.
-  * [x]  I have carefully reviewd each change made to a file and made sure the files included on the PR has been actually changed on purposes.
-* **Tasksboard** :
-  * [x] My work item is linked to the pull request.
-  * [x] My workw item has been moved to `review` in the taskboard.
-
-Related work items: #2096 ([`009a47a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/009a47a12cb63568d4d12e44add63d3eeee9bd3e))
+* fix | PR comments v2 ([`5fe82c0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5fe82c08693e3d9c78a1d83f8a89f34bdc37c400))
 
 * doc: Bonification du readme pour Effectif_css
 
@@ -1231,36 +1193,36 @@ Cette PR modifie aucun code. C&#39;est une bonification fait au readme pour l&#3
 * **Code** :
 Ne s&#39;applique pas
 
-Feat : Bonification du readme pour Effectif_css ([`56f5dac`](https://github.com/Sciance-Inc/core.dashboards_store/commit/56f5dac2ab44daa154f95d0f1e0ba6e52494aeb9))
+Feat : Bonification du readme pour Effectif_css ([`0d3b381`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0d3b38140c954d41c25b87daba05058b9d46a5ad))
 
 
 ## v0.3.1 (2023-06-08)
 
 ### Build
 
-* build: dumping json to keep header properly setted ([`ac37a54`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ac37a54587e7b690fa6ae4f5e9c1e37d65496400))
+* build: dumping json to keep header properly setted ([`bad9a83`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bad9a83ed2dfc4551e493f2acb27347556cf5bf3))
 
-* build: payalod is now a dictionary to be serialized ([`af2bc21`](https://github.com/Sciance-Inc/core.dashboards_store/commit/af2bc2107eb3451b1d2d5c04932683b4f44aab3d))
+* build: payalod is now a dictionary to be serialized ([`86806d7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/86806d7be75d8747a531e9418f4f7c87ab6f664c))
 
-* build: adding etl_profile ([`89ecabf`](https://github.com/Sciance-Inc/core.dashboards_store/commit/89ecabf5b192aec1a8e80ac28d5b9998fced6d5a))
+* build: adding etl_profile ([`0318e2f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0318e2f8ddbc63386862631d9c2641ec3af73f75))
 
-* build: forcing the use of the etl_profile to make the etl profile invariant ([`45fe728`](https://github.com/Sciance-Inc/core.dashboards_store/commit/45fe72873f6454e8905d9404e713207da9d3a898))
+* build: forcing the use of the etl_profile to make the etl profile invariant ([`6970c3a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6970c3a3e543386aa866e374275ace350f4471b5))
 
-* build: adding notification to the DBT failure ([`d4d254a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d4d254a30e5e39e2b4df3f353b36392edb00249c))
+* build: adding notification to the DBT failure ([`a133b6c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a133b6c4dffa84c3042febc18fd952ac1c5bc7d4))
 
-* build: including the manifest in the dag folder ([`519c244`](https://github.com/Sciance-Inc/core.dashboards_store/commit/519c244c9595762ac66003ec64bb30a71b46126e))
+* build: including the manifest in the dag folder ([`f88ecae`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f88ecaef65b82374959120a557eb15a7cabdce19))
 
-* build: unesting deployment folder ([`c2a19ac`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c2a19ac9c288e61a61840ecab5cc036f71ac0891))
+* build: unesting deployment folder ([`5451735`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5451735fbb196e4b096f7fae2bd58ec55a8b0585))
 
-* build: adding support for variable docker host ([`49d8165`](https://github.com/Sciance-Inc/core.dashboards_store/commit/49d81658cb1ae1670032e3a2f34c66a25295f549))
+* build: adding support for variable docker host ([`6ebbaa3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6ebbaa33d3f6e15861d0730192b14daddcc382cd))
 
-* build: reducing the exported files ([`54f411c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/54f411c4e0a83fe374fd4da8a0e28efba9fb2722))
+* build: reducing the exported files ([`38cf61b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/38cf61bcdf31d5c35230ac0278f1cf938f3814a7))
 
-* build: add profiles and dag file to the image ([`cdcbf0c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cdcbf0c2728935398607261d8e238f6f55e6b347))
+* build: add profiles and dag file to the image ([`561ef91`](https://github.com/Sciance-Inc/core.dashboards_store/commit/561ef91313980b92d2bdcfd150082e0a259b5862))
 
 ### Chore
 
-* chore: adding item to the pull request template ([`690ce92`](https://github.com/Sciance-Inc/core.dashboards_store/commit/690ce926b6817f07285c241ce702352f03c18645))
+* chore: adding item to the pull request template ([`68b6eee`](https://github.com/Sciance-Inc/core.dashboards_store/commit/68b6eeed603b2b66b0edd10616417d17820d7388))
 
 ### Fix
 
@@ -1299,17 +1261,17 @@ dbt build --select tag:res_epreuves
   * [x] My work item is linked to the pull request.
   * [x] My workw item has been moved to `review` in the taskboard.
 
-Related work items: #2014 ([`ccf6be0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ccf6be0691b988a37b1886895bae2f37d048407a))
+Related work items: #2014 ([`de87bc1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/de87bc13bb3b79917d77760f0249b9362358b24d))
 
 ### Refactor
 
-* refactor: defaulting docker URL on local socket ([`388c801`](https://github.com/Sciance-Inc/core.dashboards_store/commit/388c801f9b7315490f9f001d721f902bfa4be0ff))
+* refactor: defaulting docker URL on local socket ([`1f0cb0d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1f0cb0d92677fb2189ac203cb361a4a5b08ae164))
 
 ### Unknown
 
-* Merge branch &#39;master&#39; into develop ([`10f5a8a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/10f5a8aba7cfb44e1a54d6e7626c665da6549df4))
+* Merge branch &#39;master&#39; into develop ([`9e3755c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9e3755cff98e933541a6ed31eab76a22a8f7d6d1))
 
-* Merge branch &#39;master&#39; into develop ([`3dde468`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3dde4687fe3dab6b6bc8c8cfa8452b00aaaaf205))
+* Merge branch &#39;master&#39; into develop ([`893f1bd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/893f1bdfecd25f89d91375edcc55e431d1c111a5))
 
 
 ## v0.3.0 (2023-05-30)
@@ -1328,9 +1290,9 @@ build: adding building of master images
 
 feat: adding semantic release
 
-feat: disabling all release ([`9a4f44b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9a4f44b031986fb0aca18f8fc501503ebda3beaa))
+feat: disabling all release ([`51aa803`](https://github.com/Sciance-Inc/core.dashboards_store/commit/51aa80389fe86f0f21c5287c8fb52ca5d355c24d))
 
-* build: adding semantic release ([`4f63477`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4f6347779246dab3cd92119ce1363903878a020f))
+* build: adding semantic release ([`5e6c24c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5e6c24c5bd18f1bd9533db9f81e8963ce36aea59))
 
 * build: adding CICD
 
@@ -1344,85 +1306,83 @@ build: adding building of master images
 
 feat: adding semantic release
 
-feat: disabling all release ([`880c233`](https://github.com/Sciance-Inc/core.dashboards_store/commit/880c2332ab79400a727114d147c4cf1675ca4b10))
+feat: disabling all release ([`d689069`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d689069fcb984a2f68551d9f7bd84d7004baa8c5))
 
-* build: adding semantic release ([`50412b7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/50412b770f851a48bfe97435c4490b5cd75a26e1))
+* build: adding semantic release ([`8a80d88`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8a80d8833cbee0e1306447b51b0c2212d7814608))
 
 ### Chore
 
-* chore: template typo correction ([`61e5895`](https://github.com/Sciance-Inc/core.dashboards_store/commit/61e589598ef2ce4796b46ae5f0d51c45f7831254))
+* chore: template typo correction ([`1466eef`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1466eef469bb630ad9d5a59f5482f297f7de7669))
 
-* chore: template typo correction ([`ff0106d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ff0106d95af7a61a4b859445f91965706783670b))
+* chore: template typo correction ([`fbc9541`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fbc9541f7e77026a69bcd87f8e2d0b4f6df08f0f))
 
-* chore: adding a pull request template to the repo ([`90876e0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/90876e00f5934785ec172dda66e07a95538bae54))
+* chore: adding a pull request template to the repo ([`c84fed3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c84fed331269e24307f099babc6ec89892e81067))
 
-* chore: empty ([`c4c5e75`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c4c5e757e596c8f5fd3492cd0140b3a03dcaf166))
+* chore: empty commit to trigger a revierw from Julie and Nathalie ([`1d1a660`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1d1a660dd6db4ab95cf8441b7fa3316ce38ba951))
 
-* chore: empty commit to trigger a revierw from Julie and Nathalie ([`41e940e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/41e940ea8370c0b31dcc04328c8c959d1079cc9d))
+* chore: updating dependencies ([`6c1ca12`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6c1ca12227cc817a37455af9fa84251fa47ac23e))
 
-* chore: updating dependencies ([`1742559`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1742559a91b4600ceae307dc6b458aef43d21c27))
+* chore: adjustment of the schema that describes the emp_conge dashboard scripts ([`b8c3981`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b8c39812bd059d765417f8fa7c41c5482723beb1))
 
-* chore: adjustment of the schema that describes the emp_conge dashboard scripts ([`0dd8c66`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0dd8c6612bc45fbf7124ab55fa116b48e2da4ee5))
+* chore: update README part 2 ([`243bca7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/243bca72396eb9c6ab4f4e0971b4224d3c6ad27c))
 
-* chore: update README part 2 ([`7ca2503`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7ca2503b469a85f88f74fd7c1fee1d063ae74e32))
+* chore: management of the centralized schema ([`718b7a4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/718b7a40881700c7144802bb8efd96ad3b813b3e))
 
-* chore: management of the centralized schema ([`184bcba`](https://github.com/Sciance-Inc/core.dashboards_store/commit/184bcbae6218e7b3ed61890819e52d45fb51b4a0))
+* chore: update the README ([`1eb7208`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1eb720861fd881a43f2f5610f3da6d98095d6e8d))
 
-* chore: update the README ([`339910f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/339910f9d7acb0ebfc3c0f171cc436f28696dee6))
+* chore: change the table empcong_fact_emp_conge to fact_emp_conge ([`9952e66`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9952e66a5ba7047615d34f907972f85be865fc0f))
 
-* chore: change the table empcong_fact_emp_conge to fact_emp_conge ([`7c35c1a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7c35c1a4bd8b273e5c0c7baf4154057aeb7b542c))
+* chore: adjustment of the schema that describes the dashboard scripts prospective_cdp ([`8a5a316`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8a5a3162fa15788d788aaeaa0ee3341ada2bad51))
 
-* chore: adjustment of the schema that describes the dashboard scripts prospective_cdp ([`ecad7fc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ecad7fcd5cb9f1138af8456165bf9d6c4fc16c50))
+* chore: adjustment of the schema that describes the emp_conge dashboard scripts ([`0aaf111`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0aaf1112f7a29f86b581b024aced1513efe8c459))
 
-* chore: adjustment of the schema that describes the emp_conge dashboard scripts ([`52030ce`](https://github.com/Sciance-Inc/core.dashboards_store/commit/52030ceeb75a04223d824f66e296a61c078ce243))
+* chore: modification of the dbt_project so that it respects the conventions of the tbe project ([`ccc203e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ccc203efb7d8ae6f1e59e759352ce095a0e910b9))
 
-* chore: modification of the dbt_project so that it respects the conventions of the tbe project ([`e3eb436`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e3eb436b2b81f5338224c6e6c2960ab3bf6fb6bc))
+* chore: rename the script stg_parc_activ_10y because it is not used to generate a staging table ([`a7cbebf`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a7cbebfda9c62a02aa865ce8af2e91ec57e79664))
 
-* chore: rename the script stg_parc_activ_10y because it is not used to generate a staging table ([`a62f693`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a62f6931183f4eccbda4fba07f5e00afd75400d0))
+* chore: rename the script stg_parc_activ_10y because it is not used to generate a staging table ([`ee0cf3f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ee0cf3fc806313d9f74d80e660e8f62a29692f3c))
 
-* chore: rename the script stg_parc_activ_10y because it is not used to generate a staging table ([`bc5ef02`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bc5ef02c259428e92e1bcc2f639ad235ea7fceab))
+* chore: modif of the stg_parc_activ_10y script so that it respects the conventions of the project ([`97b0fd3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/97b0fd334a3d567a558754952ff1e71e1f7d2ce2))
 
-* chore: modif of the stg_parc_activ_10y script so that it respects the conventions of the project ([`9243d92`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9243d92976f53750aff387275cf5114ec7b2e68d))
+* chore: adjustment of the schema that describes the interface tables of the geobus database ([`0f17bc9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0f17bc9f7082b5d2dac4bf5e9570e5f2059ccdc4))
 
-* chore: adjustment of the schema that describes the interface tables of the geobus database ([`a5039fb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a5039fb3b03cbc634cfc7cbda7ae88b2aefd89af))
+* chore: modification of the i_geobus_parc script so that it respects the conventions of the project (part2). ([`2bfc12d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2bfc12d644dbdbc94c78a8bbc0ed5a12241e338a))
 
-* chore: modification of the i_geobus_parc script so that it respects the conventions of the project (part2). ([`645563a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/645563a5639eadd43b6c92f2a8db7574580696d3))
+* chore: adjustment of the schema that describes the interface tables of the piastre database ([`863cccc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/863cccc3ce258c7bd2dc59e4348a232f7cabf74f))
 
-* chore: adjustment of the schema that describes the interface tables of the piastre database ([`7d415bb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7d415bb55c15cb4cb3c15706360cf96f71a3236e))
+* chore: modification of the i_geobus_parc script so that it respects the project conventions ([`eb0088c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/eb0088c485cacfa71b5e1789bb805c27334c4e6a))
 
-* chore: modification of the i_geobus_parc script so that it respects the project conventions ([`4d2b971`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4d2b97174d908b72ef30b5abe1c66d0442d04978))
+* chore: move the schema of the &#39;transport&#39; dashboard. 1 schema that centralizes all the information ([`81123d2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/81123d22b133b6139890862735f4ec0f85ee5b04))
 
-* chore: move the schema of the &#39;transport&#39; dashboard. 1 schema that centralizes all the information ([`4486f4a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4486f4a1966fcbf4b3fe4b916679feffb2bb1770))
+* chore: change the project structure (store structure) ([`961bf8c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/961bf8c1f2c340f57f4172cb67ce490485a76f6f))
 
-* chore: change the project structure (store structure) ([`5fcf9ea`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5fcf9ea9048ce10d04142e465fcadc1a38667d53))
+* chore: put the tests in the macro adapt in comments ([`66f790d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/66f790d004f90313daa492e88338a24d4767eafd))
 
-* chore: put the tests in the macro adapt in comments ([`9de22c2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9de22c2d7b83bf36667813acdad039b9a54d9293))
+* chore: update the packages ([`f9c77d5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f9c77d5e222896f632406b5e892bae2fd53d2322))
 
-* chore: update the packages ([`c8056f1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c8056f193c63b54a870a0f61f24aad888281d324))
+* chore: update the sources file ([`4ba22f8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4ba22f8a127c3f2e87ae6f86c3b9d74317deeabf))
 
-* chore: update the sources file ([`d56009b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d56009b361081f7c4862082375466ba9e5207386))
+* chore: change the project structure (store structure) ([`c1f2d90`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c1f2d9069f3c0a0764516176f8059f69c507639c))
 
-* chore: change the project structure (store structure) ([`e3f7715`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e3f7715247fc051f0d3115b287371c1b4b85da10))
+* chore: put the tests in the macro adapt in comments ([`4f576fd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4f576fd7767ee6fa7e284bcf744b08b1fc063a46))
 
-* chore: put the tests in the macro adapt in comments ([`2cc4eb8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2cc4eb8fe4fe81db3a0975c502d477cace33ab5d))
+* chore: update the packages ([`aa19145`](https://github.com/Sciance-Inc/core.dashboards_store/commit/aa19145099f5c21ebb98c9608466a2cddfc378ee))
 
-* chore: update the packages ([`753951f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/753951ff2b1b2c2d85fb6527e095570598f435ed))
+* chore: update the sources file ([`a8e09f9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a8e09f919e85087d87643861fd41755eda231086))
 
-* chore: update the sources file ([`a4b4848`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a4b4848215411490fffe106c26fa887744c26b2e))
+* chore: update of the source file which indicates the adapters ([`140c98d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/140c98d1bd1ce282898b3ed2b0af79656f248c73))
 
-* chore: update of the source file which indicates the adapters ([`ad5fbac`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ad5fbac4fea50f7ebe64ff34a4030c4bd4b92edf))
+* chore: change the name of the source database ([`8ef893a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8ef893a92ebe9a3411c83d1c5441a30c90c432b9))
 
-* chore: change the name of the source database ([`13249eb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/13249eb6b4c7ac8ee1ed1af634f9a9ab7c46e81f))
-
-* chore: add schema file for bridges folder ([`0c86ec7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0c86ec7b8376048e992bbb45568124694b2ada7c))
+* chore: add schema file for bridges folder ([`bf0f765`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bf0f7659a1eaad9da71d99d12e0ecfca728708ac))
 
 * chore: change keyword pevr by tbe ([`8ba436e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8ba436e1c2458b46671f39cd24d09a0ebe6c523d))
 
 ### Documentation
 
-* docs: fixing various typos in the docs and adding a placeholder for populations ([`ccf4f9e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ccf4f9ec694e56bf7db56fede508967be9bb0500))
+* docs: fixing various typos in the docs and adding a placeholder for populations ([`27e8ee0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/27e8ee047b5d138343a263f279461b655d46cf0d))
 
-* docs: fixing a typo in the prospectif_cdep interfaces ([`edc04eb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/edc04eb08177ad0202cc04d2554caf3f3734ab5a))
+* docs: fixing a typo in the prospectif_cdep interfaces ([`982ab5c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/982ab5cbf455fd496a82c23e19f92a2d5408224f))
 
 ### Feature
 
@@ -1462,7 +1422,7 @@ dbt build --select tag:effectif_css
   * [X]  I have carefully reviewd each change made to a file and made sure the files included on the PR has been actually changed on purposes.
 * **Tasksboard** :
   *  [X] My work item is linked to the pull request.
-  * [X] My workw item has been moved to `review` in the taskboard. ([`eda7eef`](https://github.com/Sciance-Inc/core.dashboards_store/commit/eda7eefc06b8817a74673c056db7d8288792f7c9))
+  * [X] My workw item has been moved to `review` in the taskboard. ([`11f44d5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/11f44d5204857f2a4a21e98fe9d4aa25ef61fd73))
 
 * feat: adding sectors and filter-by-sectors to the transport dashboard
 
@@ -1495,7 +1455,7 @@ dbt build --select tag:transport
   * [X ] My work item is linked to the pull request.
   * [X ] My workw item has been moved to `review` in the taskboard.
 
-Related work items: #1935, #1938, #2003 ([`4228f3f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4228f3f5203089e492e0425910da81acfa394082))
+Related work items: #1935, #1938, #2003 ([`e3f7ff2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e3f7ff243d83f2fec0366197b7132fb53bb77349))
 
 * feat: adding the effectif_css dashboard
 
@@ -1533,7 +1493,7 @@ dbt build --select tag:effectif_css
   * [X]  I have carefully reviewd each change made to a file and made sure the files included on the PR has been actually changed on purposes.
 * **Tasksboard** :
   *  [X] My work item is linked to the pull request.
-  * [X] My workw item has been moved to `review` in the taskboard. ([`187080a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/187080aacea2566ae3cbf89c262ed4763c4eaf38))
+  * [X] My workw item has been moved to `review` in the taskboard. ([`0f94a10`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0f94a102f887e50b17395787f0e767845b8d3022))
 
 * feat: adding sectors and filter-by-sectors to the transport dashboard
 
@@ -1566,95 +1526,79 @@ dbt build --select tag:transport
   * [X ] My work item is linked to the pull request.
   * [X ] My workw item has been moved to `review` in the taskboard.
 
-Related work items: #1935, #1938, #2003 ([`55888aa`](https://github.com/Sciance-Inc/core.dashboards_store/commit/55888aa73c17656428ae7173c56feaecf6fd0092))
+Related work items: #1935, #1938, #2003 ([`b69e865`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b69e865c2afab0d52ea7ee410f4815e480ca33ea))
 
-* feat: improvind documentation of the PR template ([`de1f4e4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/de1f4e4fed23413e134e142cb1edb20004a7b9c3))
+* feat: improvind documentation of the PR template ([`c0c0841`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c0c084146462e3e86f2602a360c631aa478fe983))
 
-* feat: ajouter premmiere version du tdb ([`e0695f5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e0695f5cb2b9a201dd29f273ad9f60272c27b6f3))
+* feat: adding drop schema macro ([`e7c30de`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e7c30de1e916150396ccae85554dfce8e9ca47a9))
 
-* feat: adding drop schema macro ([`755d484`](https://github.com/Sciance-Inc/core.dashboards_store/commit/755d48471e9b0f42e8d1fee0b281f221f536625c))
+* feat: adding missing seeds in core_dbt_project ([`3c5ecec`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3c5ecec4b1408884fed580ae6d9e5d2a555d87a2))
 
-* feat: adding missing seeds in core_dbt_project ([`acdfb01`](https://github.com/Sciance-Inc/core.dashboards_store/commit/acdfb01fded1c915f9f5ffdb5d4c753bbb3bd594))
+* feat: adding MatieresEleve  interfaces ([`b627acd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b627acd5f881c42ce8d7c98300505c3fb8c17a0a))
 
-* feat: adding MatieresEleve  interfaces ([`9045e8f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9045e8f5fe002a2aa5334735f4c417771909c27f))
+* feat: add_masse_sal_to_this_table ([`64649b6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/64649b61681be40ee14b0b52d843b3c04fd61b8e))
 
-* feat: add_masse_sal_to_this_table ([`7ad7df0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7ad7df0099d7f7b4bfa3d9d3ded5d68f3da992f0))
+* feat: move_table_to_sub_folder_cout_roulement ([`7856608`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7856608825b45c39c459e14a6f719171e31a6aed))
 
-* feat: move_table_to_sub_folder_cout_roulement ([`d34758a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d34758afc060f6a9bd1dd802c9b03e0d9c538d0d))
+* feat: move_table_to_sub_folder_cout_roulement_and_modify_filter_and_annee_type ([`a7ffeaa`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a7ffeaa7c806bbe05d302e1a7b48ebbaf6f525a4))
 
-* feat: move_table_to_sub_folder_cout_roulement_and_modify_filter_and_annee_type ([`13f1cab`](https://github.com/Sciance-Inc/core.dashboards_store/commit/13f1cab96c3b246ab98c29e9ee488cb495cc5fa4))
+* feat: add taux roulement personnel ([`ca56f85`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ca56f85f400867b71defa3bda7ae1d1e08ad2c10))
 
-* feat: update_db_delete_dim_table ([`cff22f1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cff22f1937952bda17b31de9955133b57b21613c))
+* feat: modify_filter ([`e13caf8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e13caf8d7e08629cec44f63593e90c597380fdc7))
 
-* feat: add taux roulement personnel ([`559dfba`](https://github.com/Sciance-Inc/core.dashboards_store/commit/559dfba0de64e33ad8a93cd6427ba59f55e953fb))
+* feat: addtable_empl_quitter ([`d97b1b1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d97b1b1b9df848a9f4483f4ada209dc7d2de1683))
 
-* feat: modify_filter ([`ab3a20e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ab3a20e021b552ce29db801901f33b082797e59e))
+* feat: delet_shema ([`bd9d293`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bd9d293b3f53fc1e2bb7c0cb152ca8fdf97c7847))
 
-* feat: addtable_empl_quitter ([`7c651ba`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7c651baaa56316b5dfc961673a13a68b97dbc5bb))
+* feat: add_schema_to_staging_res_etapes_table ([`6c9f7c5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6c9f7c5673282817dfa72b78c4e6df392579c9c9))
 
-* feat: delet_shema ([`d84c55a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d84c55a2aba9c08ab2f02fe0ae6864e95455197a))
+* feat:  detele_non_used_table ([`2911998`](https://github.com/Sciance-Inc/core.dashboards_store/commit/29119981c5df10a6824d65128fc009703f82c4e2))
 
-* feat: add_schema_to_staging_res_etapes_table ([`75d1974`](https://github.com/Sciance-Inc/core.dashboards_store/commit/75d1974ac959c943d16b904bc230048409e13fab))
+* feat: freezing dbt-core and dbt-sql-server to ensure across CSS dependencies consistency ([`dc4e7da`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dc4e7da0c932f0688fcdfe6e74406c6cb8d04ed2))
 
-* feat:  detele_non_used_table ([`dd015e1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dd015e13761e43daa6f2010a0b8dbd4a7c87a3ad))
+* feat: add_new_fields_i_e_ri_resultats ([`c577b84`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c577b84757925330fca70f9176b04b234add7de1))
 
-* feat: freezing dbt-core and dbt-sql-server to ensure across CSS dependencies consistency ([`034399f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/034399fe2366b351c37d59edd07d9702dd2a7251))
+* feat: add_new_vars_to_dbt_project ([`11bdb39`](https://github.com/Sciance-Inc/core.dashboards_store/commit/11bdb39fd2c850f9d550685e2d0faea08b7f8980))
 
-* feat: add_sec4_and_sec4_evaluation_to_db ([`fff74be`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fff74bea543e334fafcbd16dba00fc2c5f874c58))
+* feat: update_README_with_new_info_for_model_res_etapes ([`3cd96d1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3cd96d172a31ef7457e4bcb7fbdd5066536a4916))
 
-* feat: add_new_fields_i_e_ri_resultats ([`80c8013`](https://github.com/Sciance-Inc/core.dashboards_store/commit/80c8013616d60f356bf2f9ae223ff7fcb288b7cc))
+* feat: add_new_table_to _schema ([`c34fad2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c34fad28abaa803cdaac3534bc1c3b81723060d3))
 
-* feat: add_new_vars_to_dbt_project ([`0ea7623`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0ea7623027d4e557bcfe2638037c5311a54415ab))
+* feat: add_gouv_evaluation_name _to_seed_table ([`445813d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/445813d3fee3faa4c6c9c77e7a67cbd632b2e41b))
 
-* feat: update_README_with_new_info_for_model_res_etapes ([`2250c57`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2250c5751610925d4bb9c4ae78b529cdebf3ff1f))
+* feat: add_new_interface_table_to_schema ([`fbf0149`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fbf01498ac5decd3240f3235d5da0d99764fae12))
 
-* feat: add_dashboard ([`d5e2f1a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d5e2f1aae52bf0e57d78a5c75bdb8a3517d9d531))
+* feat: extract_gouv_rslt_from_interface_table ([`89ae487`](https://github.com/Sciance-Inc/core.dashboards_store/commit/89ae4873d7115429c78bf5909216cd36238e9a32))
 
-* feat: add_new_table_to _schema ([`9ed638d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9ed638d8d27d872dad6b892ea05d417ea282f53f))
+* feat: add_diff_to_school_table ([`31f943e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/31f943e0750cd0d4633f5c6b609ed8500645f487))
 
-* feat: add_gouv_evaluation_name _to_seed_table ([`0864ba2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0864ba277b686ed8b8fdc3c9ff5766592f5061ca))
+* feat: add_dbt_utils_package ([`2338780`](https://github.com/Sciance-Inc/core.dashboards_store/commit/23387805c5af3ae5cd23994ff82091b55d57fd70))
 
-* feat: add_new_interface_table_to_schema ([`fc4a6f6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fc4a6f617d2deb0ec9d0b484394924bcd5f4b92d))
+* feat: add_id_friendly_name ([`a7eea47`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a7eea476ea403228bdb3fba25b9fa884f6c8874f))
 
-* feat: extract_gouv_rslt_from_interface_table ([`03c2a43`](https://github.com/Sciance-Inc/core.dashboards_store/commit/03c2a439001f49a4b8181c962429d307902f5a74))
+* feat: add_new_model_emp_cong_to_dbtproject ([`ff11e76`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ff11e76db48b1163e6cba67ad8fac474a1b261fc))
 
-* feat: DB_modification ([`9a93378`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9a93378ef00bbeabffef8b4c3d59af963d7d04ac))
+* feat: move_interface_table_cssrepo_to_core_modify_schema.yml ([`84bf8c8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/84bf8c80b822723005b9e5dc59bfa368c796a4f0))
 
-* feat: add_res_exam_anonymous_db ([`adfb628`](https://github.com/Sciance-Inc/core.dashboards_store/commit/adfb628a3a5600cf3d83f475b43a23b34d3ae8e0))
+* feat: change in the dbt_project to manually activate the dashboards of interest on the css repo (enable option) ([`9ee5048`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9ee5048b96c2fc0ea17e3e1ac324d2a10396af6a))
 
-* feat: add_diff_to_school_table ([`7a06431`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7a06431827eab47460bbd1859d4fbd3dd3ade49c))
+* feat: adapt macro test ([`c97cb31`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c97cb31433cd1acd53f8a00224f3eed4019aacd0))
 
-* feat: add_dbt_utils_package ([`9750664`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9750664c3440d352090d4b34a544104f94af64b0))
+* feat: add a fact table that tracks the number of part-time employees in the last 10 years ([`c0df3ae`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c0df3ae02ec2a266606a789aa68dbaa2ce9c45e7))
 
-* feat: add_id_friendly_name ([`2c266bf`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2c266bfad19d3586da0e4d587e9c103936a53e41))
+* feat: connection of databases: geobus and piastreto obtain data for analyzing school transport  efficiency ([`cb197de`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cb197dec0ebf67c67ca7526ea08577c44c2e3daa))
 
-* feat: add_new_model_emp_cong_to_dbtproject ([`f8d79e8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f8d79e8cd7aac7ed282c83e6cf14cc6ea3cdf81a))
+* feat: add_new_model_emp_cong_to_dbtproject ([`baa58eb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/baa58eb89cc34ca0859480106572050294528944))
 
-* feat: move_interface_table_cssrepo_to_core_modify_schema.yml ([`3ae9e7b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3ae9e7b789c31c0661a33ce3913ce416da92368e))
+* feat: move_interface_table_cssrepo_to_core_modify_schema.yml ([`6edb881`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6edb881d56c8495643e87f2470a1e91953832a08))
 
-* feat: modify_db ([`0c308d9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0c308d9879c66a5c3ad14652ea1319f76cb8bb44))
+* feat: change in the dbt_project to manually activate the dashboards of interest on the css repo (enable option) ([`f8dd5ab`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f8dd5abcfef0573f20632d5fbd2c1086c15b4b99))
 
-* feat: change in the dbt_project to manually activate the dashboards of interest on the css repo (enable option) ([`f0ab571`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f0ab571045a14244b6d26404f5a56f064b0f93f2))
+* feat: connection of databases: geobus and piastreto obtain data for analyzing school transport  efficiency ([`4c21bd8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4c21bd8c6cc509400b1f5ac11eb3b218ac91e218))
 
-* feat: adapt macro test ([`396c665`](https://github.com/Sciance-Inc/core.dashboards_store/commit/396c6656fcd7b5106ee02918c45184dde51f4320))
+* feat: adapt macro test ([`c70431b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c70431bb84fcbbf2b775b63ddc23c1967f0f672b))
 
-* feat: add a fact table that tracks the number of part-time employees in the last 10 years ([`a269009`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a269009fbea05dfb568b242b49c870ce1bc76206))
-
-* feat: connection of databases: geobus and piastreto obtain data for analyzing school transport  efficiency ([`1a492b1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1a492b12f0c2a7b9ad48f5ccb048fdfdc3cbd7ee))
-
-* feat: add_new_model_emp_cong_to_dbtproject ([`c3e252e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c3e252ed1d5fd678aaa6111df167ebf91316551f))
-
-* feat: move_interface_table_cssrepo_to_core_modify_schema.yml ([`4494e00`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4494e001c8e8305802e3ecebfbaecdf9e3cf0cbc))
-
-* feat: modify_db ([`1e2281a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1e2281af9cddc4b7cb8338c3bc678a4f1530f31d))
-
-* feat: change in the dbt_project to manually activate the dashboards of interest on the css repo (enable option) ([`6eb0602`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6eb06029a54b3fe941ff2424ab820f6b9c09af1e))
-
-* feat: connection of databases: geobus and piastreto obtain data for analyzing school transport  efficiency ([`3019137`](https://github.com/Sciance-Inc/core.dashboards_store/commit/30191372a6d9814fd5cc32545b60437608b63bc5))
-
-* feat: adapt macro test ([`fd150fe`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fd150fee57c8a5815bdf1a60f111e19dd07df458))
-
-* feat: add a fact table that tracks the number of part-time employees in the last 10 years ([`c56047d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c56047dc2c7dd6f79537b0896b1e22282864811f))
+* feat: add a fact table that tracks the number of part-time employees in the last 10 years ([`87c16e2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/87c16e2c05ac4869efc1c08e93925ccf3594d995))
 
 * feat: add base_spine table ([`819cf5a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/819cf5ad3ce05b628d5522e363fc874b05a6d608))
 
@@ -1666,132 +1610,45 @@ Related work items: #1935, #1938, #2003 ([`55888aa`](https://github.com/Sciance-
 
 ### Fix
 
-* fix: transports tests are now only executed if the transport is available ([`f2cba73`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f2cba738fad124ede43b68383cea2ec5faef0e08))
+* fix: transports tests are now only executed if the transport is available ([`8231318`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8231318591708316e3df2d175ea9b6919a54820a))
 
-* fix: the school filter selection is now limited to one item to avoid misinterpretations with the CSS view
+* fix: transports tests are now only executed if the transport is available ([`e7c2157`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e7c21572225a214fe6702a7cf14217a15769d412))
 
-&gt; describe the high level purposes of your pull request. What are you trying to achieve ? How are you doing it ?*
-cette PR ne vise qu&#39;à modifier le filtre de sélection des écoles dans la vue école pour éviter la confusion. quelque utilisateurs utilisait cette vue pour avoir les résultats du css en sélectionnant toute les écoles. en désactivant cette option, les utilisateurs devront utiliser la vue CSS pour cela.
-Dans une prochaine PR, je vais apporter des modification pour régler un problème de doublons détecter par les test.
+* fix: propagating renaming ([`cc9de86`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cc9de86bdb61b77d02c955108f15b472da510a00))
 
-&gt; Provide the code requiered to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected. The following code / placeholder is only provided as documentation / helper to get you started and you will need to adjust it.**
+* fix: updating the code-placeholder since the commands in the placeholders were out of order ([`659a75b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/659a75b37419e2ad6dfaaf2377b35d0e30105601))
 
-```bash
-cd core.data.tbe
-git checkout feature/res_ep_filter_modif
-git pull
-cd ../cssvdc.data.tbe
-git checkout feature/res_ep_filter_modif
-git pull
-dbt run-operation drop_schema
-dbt seed --full-refresh
-dbt run --select tag:res_epreuves
-```
+* fix: correct_error_in_schema ([`831ecad`](https://github.com/Sciance-Inc/core.dashboards_store/commit/831ecad6d37b20098516b9c316afb154b5ad383e))
 
-&gt; Please, read carefully each item before checking it. You PR&#39;s review might be delayed otherwise.
+* fix: modification of the &#39;transport&#39; dashboard schema ([`6984b85`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6984b857dfe97e4ad119050c9326f5c537ec38a8))
 
-* **Code** : **ne s&#39;apllique pas**
-  * [ ] The code I m asking a review for is working. **I understand that my PR will be rejected as-is otherwise.**
-  * [ ] My tables/variables naming follows the conventions described in the `readme.md`.
-  * [ ] I have added DBT tests to my models (at least a `non null` / `unique` per model).
-* **Documentation** :  **ne s&#39;apllique pas**
-  * [ ]  I have updated the documentation (README) accordingly to my changes.
-  * [ ]  The models I have added are documented in a `schema.yml` file.
-* **Pull-request** :
-  * [x]  The code *provided to run the pull request* is working. **I understand that my PR will be rejected as-is otherwise.**
-  * [x]  I have added my CSS lead as a reviewer.
-  * [x]  My pull request is documented.
-  * [x]  I have carefully reviewd each change made to a file and made sure the files included on the PR has been actually changed on purposes.
-* **Tasksboard** :
-  * [x] My work item is linked to the pull request.
-  * [x] My workw item has been moved to `review` in the taskboard.
+* fix: adding missing weighting ([`9739c88`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9739c88884affee5006b9bc293163a6c8de5cdfa))
 
-Related work items: #2023 ([`6493f0a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6493f0a1e9efafbfd6d72d2fd70d8c96ce9ae361))
+* fix: adding missing weighting ([`11bf79f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/11bf79f3cf625f8a00d28ee988812a33bdf777d7))
 
-* fix: transports tests are now only executed if the transport is available ([`9819602`](https://github.com/Sciance-Inc/core.dashboards_store/commit/98196028ea8e6e24e411a9b0dfa4542ad73b665b))
+* fix: add_model_prefix ([`cdabb33`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cdabb33ff4bd9a95c2ae00a77e900e52e562f3df))
 
-* fix: the school filter selection is now limited to one item to avoid misinterpretations with the CSS view
+* fix: correcti models_name ([`83ca72b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/83ca72b3aff7976c3fb44347b9dc9f7c64a455e2))
 
-&gt; describe the high level purposes of your pull request. What are you trying to achieve ? How are you doing it ?*
-cette PR ne vise qu&#39;à modifier le filtre de sélection des écoles dans la vue école pour éviter la confusion. quelque utilisateurs utilisait cette vue pour avoir les résultats du css en sélectionnant toute les écoles. en désactivant cette option, les utilisateurs devront utiliser la vue CSS pour cela.
-Dans une prochaine PR, je vais apporter des modification pour régler un problème de doublons détecter par les test.
+* fix: modify_var_naming ([`bb2e1e5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bb2e1e5cc2247b37fec9581b78313165038a2e6c))
 
-&gt; Provide the code requiered to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected. The following code / placeholder is only provided as documentation / helper to get you started and you will need to adjust it.**
+* fix: fixing dbt project ([`5a6a4e6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5a6a4e63f4bfaa1d9e8f24041dd67bf94f7ed532))
 
-```bash
-cd core.data.tbe
-git checkout feature/res_ep_filter_modif
-git pull
-cd ../cssvdc.data.tbe
-git checkout feature/res_ep_filter_modif
-git pull
-dbt run-operation drop_schema
-dbt seed --full-refresh
-dbt run --select tag:res_epreuves
-```
+* fix: removing dead code ([`a16cc66`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a16cc660b3750ce603632f01517f1a6968515723))
 
-&gt; Please, read carefully each item before checking it. You PR&#39;s review might be delayed otherwise.
+* fix: add_prefix_to test_name_to_resolve_ambiguity ([`0338c88`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0338c88b01c9eb73cb7007080a469e191e72a75d))
 
-* **Code** : **ne s&#39;apllique pas**
-  * [ ] The code I m asking a review for is working. **I understand that my PR will be rejected as-is otherwise.**
-  * [ ] My tables/variables naming follows the conventions described in the `readme.md`.
-  * [ ] I have added DBT tests to my models (at least a `non null` / `unique` per model).
-* **Documentation** :  **ne s&#39;apllique pas**
-  * [ ]  I have updated the documentation (README) accordingly to my changes.
-  * [ ]  The models I have added are documented in a `schema.yml` file.
-* **Pull-request** :
-  * [x]  The code *provided to run the pull request* is working. **I understand that my PR will be rejected as-is otherwise.**
-  * [x]  I have added my CSS lead as a reviewer.
-  * [x]  My pull request is documented.
-  * [x]  I have carefully reviewd each change made to a file and made sure the files included on the PR has been actually changed on purposes.
-* **Tasksboard** :
-  * [x] My work item is linked to the pull request.
-  * [x] My workw item has been moved to `review` in the taskboard.
+* fix: modify version_from_0_to_2 ([`cc16df3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cc16df3305e3dca0c29e39827e45bb0e21677ff1))
 
-Related work items: #2023 ([`9bd5502`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9bd5502bb7db2db069febd4443f91b187d42fe69))
+* fix: updated comments ([`178f319`](https://github.com/Sciance-Inc/core.dashboards_store/commit/178f319bf9b2891e371e6ec9a6cf3485f9c4796e))
 
-* fix: propagating renaming ([`b91cc30`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b91cc30e6a9a2f86d13f0cc6b9e59d629ed2dcfa))
+* fix: add_prefix_to test_name_to_resolve_ambiguity ([`d8dacaa`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d8dacaa4f4d3d9012ada872f77bcb97d2e9873c4))
 
-* fix: updating the code-placeholder since the commands in the placeholders were out of order ([`64f57a9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/64f57a9c51b3380b083cee596891637be51bf8ec))
+* fix: modify version_from_0_to_2 ([`2a99c8e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2a99c8ed44d896f663a6e56876380f80099cb544))
 
-* fix: removing RLS from the dashboard as we don&#39;t have any RLS table yet ([`9654986`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9654986e524ff9b1d7c39865097931199812398c))
+* fix: delet_conflict_message ([`7c7dc62`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7c7dc62482c64e1ce70ff675b59b9c10f1ad950e))
 
-* fix: removing RLS from the dashboard as we don&#39;t have any RLS table yet ([`16b5171`](https://github.com/Sciance-Inc/core.dashboards_store/commit/16b51713e7c1e5fa86fcfc060b6c17df7d88246f))
-
-* fix: correct_error_in_schema ([`f06127a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f06127abbd9a7716da0e7cfdbff063bf8e2f6e13))
-
-* fix: modification of the &#39;transport&#39; dashboard schema ([`ad28b63`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ad28b63fdea5303d1314e9f793d08c5a8290d911))
-
-* fix: adding missing weighting ([`6089aff`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6089affa0723d36d77b6314cd975478643147cfb))
-
-* fix: adding missing weighting ([`6ab5fc2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6ab5fc222820e1d5858095f48231b881ac60304b))
-
-* fix: add_model_prefix ([`b34de7e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b34de7e5f831c05281ebb9be45dfe236cb02cd8e))
-
-* fix: correcti models_name ([`4658d46`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4658d46f81ec7e236309fc91a2e8efaaf75afd55))
-
-* fix: chande_db
-_to_PIBT ([`cc3a90d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cc3a90d67ba6189f4a5d90a44293635825c4e63c))
-
-* fix: modify_var_naming ([`6b94094`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6b94094b43f9f11bc23c7563d084d7a257341ba4))
-
-* fix: fixing dbt project ([`e5a0b44`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e5a0b4410d14a32ff9db65606c8dbf900eb0c090))
-
-* fix: removing dead code ([`ffb730f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ffb730fe3bbd89c862c9417c3a73c830e3cccbe6))
-
-* fix: add_prefix_to test_name_to_resolve_ambiguity ([`d0a73cc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d0a73cc6f0fa3dc81f5e5374b3a822b7c76148b2))
-
-* fix: modify version_from_0_to_2 ([`db7cffd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/db7cffdfdc57592db47ff5e14bda7b4b83154aeb))
-
-* fix: updated comments ([`75fddfd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/75fddfdf1a13ab1aa6470e615b4a129f5a81f857))
-
-* fix: add_prefix_to test_name_to_resolve_ambiguity ([`3630b9a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3630b9a876c1a352c3459dfa52f209f29f1cd2fe))
-
-* fix: modify version_from_0_to_2 ([`295485a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/295485a62e51fb8f395ae2fa241c37b9d5393073))
-
-* fix: delet_conflict_message ([`590dbcd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/590dbcdd8c2fb649c7f740917d8f0a5d26eedc8f))
-
-* fix: updated comments ([`9d0e27b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9d0e27bbd55be5c948ba89a11318d13a733f6003))
+* fix: updated comments ([`13ce039`](https://github.com/Sciance-Inc/core.dashboards_store/commit/13ce039e786a12ff6667aa65f5c89416fa8c6ccb))
 
 ### Refactor
 
@@ -1875,7 +1732,7 @@ dbt build --select tag:prospectif_cdp
   * [x] My work item is linked to the pull request.
   * [x] My workw item has been moved to `review` in the taskboard.
 
-Related work items: #1889 ([`2d116d2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2d116d252ef38b42a119d98eaebf96608c73059f))
+Related work items: #1889 ([`7cce3bb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7cce3bb1dc3102d0e887c85140181bf1568c3c2a))
 
 * refactor: prospectif_cdp is now using the rh seed from the RH mart
 
@@ -1913,7 +1770,7 @@ dbt build --select tag:prospectif_cdp
   * [x]  I have carefully reviewd each change made to a file and made sure the files included on the PR has been actually changed on purposes.
 * **Tasksboard** :
   * [x] My work item is linked to the pull request.
-  * [x] My work item has been moved to `review` in the taskboard. ([`395fac9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/395fac9c8d3387e19574b942f837bf43536e6739))
+  * [x] My work item has been moved to `review` in the taskboard. ([`4b3c755`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4b3c755e2d57c4d57a163ae61990277636718a08))
 
 * refactor: prospectif_cdp is now using the rh seed from the RH mart
 
@@ -1951,11 +1808,11 @@ dbt build --select tag:prospectif_cdp
   * [x]  I have carefully reviewd each change made to a file and made sure the files included on the PR has been actually changed on purposes.
 * **Tasksboard** :
   * [x] My work item is linked to the pull request.
-  * [x] My work item has been moved to `review` in the taskboard. ([`02b2e3c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/02b2e3c1ff885341bcb9ec8015439a44feb1812d))
+  * [x] My work item has been moved to `review` in the taskboard. ([`1416a75`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1416a75459e13f257b61dada9db51d0a390e1bb6))
 
-* refactor: fix the bug introduced earlier ([`059d3fa`](https://github.com/Sciance-Inc/core.dashboards_store/commit/059d3fa4663895f74584d0de6a2cb5a36723edae))
+* refactor: fix the bug introduced earlier ([`5a1b94e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5a1b94e9cf8cc5544ca7ffc2fb570330b03d2881))
 
-* refactor: test if an error message is sent when dbt test fails ([`d80923b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d80923b11487168885134bcb24fb175b9298b7eb))
+* refactor: test if an error message is sent when dbt test fails ([`b9bd671`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b9bd671a7be4ec9b0444d4b7972ac73558c44783))
 
 ### Unknown
 
@@ -2039,9 +1896,9 @@ dbt build --select tag:prospectif_cdp
   * [x] My work item is linked to the pull request.
   * [x] My workw item has been moved to `review` in the taskboard.
 
-Related work items: #1889 ([`bf209f1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bf209f12037358ce601a9a0261dbb0084b643449))
+Related work items: #1889 ([`1f847bd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1f847bd84def95c6efca39daf082b8c837beb531))
 
-* doc: removing unused code ([`aecabbf`](https://github.com/Sciance-Inc/core.dashboards_store/commit/aecabbffe719b8ed42d007478aa03b8056879866))
+* doc: removing unused code ([`e542959`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e5429598faad5493543da7b59c7e566971e5ee44))
 
 * Merged PR 379: refactoring the tree by gathering the dashboards into a dashboard folder and getting rid of the shared folder
 
@@ -2082,7 +1939,7 @@ dbt build --full-refresh
 * Pull request :
   * [X]  The provided code is working.
   * [X]  My pull request is documented.
-* Taskboard : ([`673fbe7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/673fbe7f411547178ca8ff7a376ab2ac3b7334f4))
+* Taskboard : ([`802fec5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/802fec55245073086d2dce0e0b0c0388e7664c41))
 
 * Merged PR 378: fix: readding poetry-lock removed by PR 366
 
@@ -2105,7 +1962,7 @@ poetry shell
 * Documentation :
 * Pull request :
   * [X]  The provided code is working.
-  * [X]  My pull request is documented. ([`63b1244`](https://github.com/Sciance-Inc/core.dashboards_store/commit/63b1244c146c773318e3a0a0306a6c49485d4df0))
+  * [X]  My pull request is documented. ([`f577b59`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f577b595a3bef6d3c8cac4ee4179d2040cd713d7))
 
 * Merged PR 377: Simplifying the dashboards integrations by removing the need for seeds.yml files
 
@@ -2154,7 +2011,7 @@ dbt build --full-refresh
 * Pull request :
   * [X]  The provided code is working.
   * [X]  My pull request is documented.
-* Taskboard : ([`6b3465b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6b3465b6e836c84e6de15290486adb3eb6df3f1f))
+* Taskboard : ([`bb9a968`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bb9a968173ae07643b093051e8351e6e0147a1e7))
 
 * Merged PR 366: Ajout de la colonne permanence
 
@@ -2204,7 +2061,7 @@ dbt test
 
 Ajout de la colonne permanence
 
-Related work items: #1783 ([`bb0ab15`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bb0ab15f0e01e878af606498bd4325ada1da0c21))
+Related work items: #1783 ([`5dfa869`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5dfa869fc99ccca7af65d8ee8515b31c5ded507d))
 
 * Merged PR 354: create and display the indicators Parcours and Circuits in the transport dashboard
 
@@ -2269,7 +2126,7 @@ dbt build --select tag:transport
   * [ x] My work item is linked to the pull request.
   * [ ] My workw item has been moved to `review` in the taskboard.
 
-Related work items: #1843, #1844, #1845, #1847 ([`c91bcef`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c91bcef29c81100b4757db264f307e0387a3569b))
+Related work items: #1843, #1844, #1845, #1847 ([`75eba53`](https://github.com/Sciance-Inc/core.dashboards_store/commit/75eba53ffe150d4ac8bb9b803eb8be9649a1f0cc))
 
 * Merged PR 374: Revert &#34;feat : ajouter des colonnes a la table interface&#34;
 
@@ -2311,7 +2168,7 @@ dbt build --select tag:&lt;my ressources tag&gt;
 
 Revert &#34;feat : ajouter des colonnes a la table interface&#34;
 
-Reverted commit `9aaefe42`. ([`1382ed2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1382ed211afc65963bd4a5016146960dc271c1b3))
+Reverted commit `8bc2684d`. ([`430cf60`](https://github.com/Sciance-Inc/core.dashboards_store/commit/430cf6076b62f4a0f46f5911d50a8555ce3db965))
 
 * Merged PR 375: Revert &#34;factor : modifier le nom des table&#34;
 
@@ -2353,55 +2210,13 @@ dbt build --select tag:&lt;my ressources tag&gt;
 
 Revert &#34;factor : modifier le nom des table&#34;
 
-Reverted commit `26ed1b96`. ([`52c85cc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/52c85ccd4000b08cfed9c99b5f38a3d0422f96f0))
+Reverted commit `55a86f7c`. ([`65c119e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/65c119ec4fe79773ffc476025ca36dd2e08e6da7))
 
-* Merged PR 373: Revert &#34;feat: ajouter premmiere version du tdb&#34;
+* feat : ajouter des colonnes a la table interface ([`fea0037`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fea003790c8497c20c5a12d2bf4b79700d833266))
 
-# Objectives of the pull request
-&gt; describe the high level purposes of your pull request. What are you trying to achieve ? How are you doing it ?*
+* factor : modifier le nom des table ([`b463a1a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b463a1a169707b31fca14decf47ac2429f634c94))
 
-# How to run the pull request ?
-&gt; Provide the code requiered to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected.**
-
-```bash
-# Update the code
-git checkout core.data.tbe/feature/&lt;feature_name&gt;
-git pull
-# Might be required if you update either the poetry file or the lock file
-# poetry shell &amp;&amp; poetry lock &amp;&amp; poetry install
-cd ../&lt;project_name&gt;
-git checkout feature/&lt;feature_name&gt;
-git pull
-# Might be required if you add a new DBT dependency
-#dbt deps
-# Run dbt
-dbt build --select tag:&lt;my ressources tag&gt;
-```
-
-# Pull request&#39;s checklist
-* Code :
-  * [ ] My tables/variables naming follows the conventions described in the `readme.md`.
-  * [ ] I have added DBT tests to my models (at least a `non null` / `unique` per model).
-* Documentation :
-  * [ ]  I have updated the documentation accordingly to my changes.
-  * [ ]  The models I have added are documented in a `schema.yml` file.
-* Pull request :
-  * [ ]  The provided code is working.
-  * [ ]  I have added my CSS lead as a reviewer.
-  * [ ]  My pull request is documented.
-* Taskboard :
-  * [ ] My work item is linked to the pull request.
-  * [ ] My workw item has been moved to `review` in the taskboard.
-
-Revert &#34;feat: ajouter premmiere version du tdb&#34;
-
-Reverted commit `e0695f5c`. ([`228d33d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/228d33ddd63305ca9bf745579df857f218d1f19c))
-
-* feat : ajouter des colonnes a la table interface ([`9aaefe4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9aaefe42d1048199808ea15eb81c98651b608b09))
-
-* factor : modifier le nom des table ([`26ed1b9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/26ed1b9604dbe2cbb2a22129d1203ea16069a921))
-
-* doc: updating typo in Fred&#39;S name ([`ba5a2e8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ba5a2e86bfc439d42165b17f826390c0b1d13b85))
+* doc: updating typo in Fred&#39;S name ([`cc05d69`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cc05d6962b68c561a2a28695c79fe604d843a4d9))
 
 * Merged PR 370: adding table of contents to the readme
 
@@ -2434,9 +2249,9 @@ git pull
   * [X]  I have updated the documentation accordingly to my changes.
 * Pull request :
   * [X]  The provided code is working.
-  * [X]  My pull request is documented. ([`19284fa`](https://github.com/Sciance-Inc/core.dashboards_store/commit/19284fa0c593cfd6af8fcff3e7f86074819a24b8))
+  * [X]  My pull request is documented. ([`bf8c9d5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bf8c9d5ad10e88dd8e8048c57590bf48b90b3560))
 
-* doc: typo in Frederyk&#39;s name ([`72fa85e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/72fa85edfdc0a71eb5dc73e891c4e8833f8ebde2))
+* doc: typo in Frederyk&#39;s name ([`9efb110`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9efb110e63af3f036c013dc788d0fe3c93b55d0c))
 
 * Merged PR 355: Modifier l&#39;âge de départ à la retraite et prendre supérieur ou égale
 
@@ -2482,7 +2297,7 @@ dbt run --select +prspctf_rprt_emp_ge55_ann_bdgtr
 
 chore: change the name of the profile and the project
 
-Related work items: #1770 ([`e3a8c74`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e3a8c74e926127e23db6f58b628ab8001bb1ece8))
+Related work items: #1770 ([`5ef7d3a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5ef7d3a7f509cfd365d753d645f6a3d97500fe79))
 
 * Merged PR 365: Refractor : Moved file related to SE into the mart educ_serv
 
@@ -2519,7 +2334,7 @@ models:
   * [x ]  The provided code is working.
 * Taskboard :
 
-Refactor : move table into mart serv_educ ([`9b5ac39`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9b5ac39477f5032d221448de115ce0f85143961b))
+Refactor : move table into mart serv_educ ([`8d045b4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8d045b4fe6a54f20c54322976a06e180fe08accc))
 
 * Merged PR 364: Ajouté emp_actif.rdl
 
@@ -2570,7 +2385,7 @@ dbt build --select emp_actif
   * [x] My work item is linked to the pull request.
   * [x] My workw item has been moved to `review` in the taskboard.
 
-Related work items: #1848, #1853 ([`3e7151a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3e7151aad5680a43602fe44fd602a80a240ab59b))
+Related work items: #1848, #1853 ([`2b1bad7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2b1bad779a52246667566bdece20f21fbe60409c))
 
 * Merged PR 341: Rehaussement du tdb emp_congé
 
@@ -2586,7 +2401,7 @@ git checkout feature/modify_dbt_project
 
 Commandes :
 dbt seed --full-refresh
-dbt run --select +reporting_emp_cong ([`cc12778`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cc12778404ec462ea3523d194a161cbde00d7fd7))
+dbt run --select +reporting_emp_cong ([`d7b7fb4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d7b7fb496f98581183b33e45e3146659fbc1c0b1))
 
 * Merged PR 357: Refactoring the `integrator` guide
 
@@ -2620,7 +2435,7 @@ git pull
   * [X] My work item is linked to the pull request.
   * [X] My work item has been moved to `review` in the taskboard.
 
-Related work items: #1875 ([`2a22c90`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2a22c902e4df98d40312f89b5615e553ec161bd1))
+Related work items: #1875 ([`cf8905a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cf8905adbefebc92108202f30f0a8bc62ff04ba6))
 
 * Merged PR 356: refactor: factoring seed into a mart
 
@@ -2677,48 +2492,7 @@ dbt build --select tag:emp_actif
   * [X] My work item is linked to the pull request.
   * [X] My workw item has been moved to `review` in the taskboard.
 
-![image.png](https://dev.azure.com/Centre-Expertise-IA/c2f84ed8-4636-4689-a070-433ecb89a643/_apis/git/repositories/c5... ([`941e8b7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/941e8b745c6fe988225138a448b4657cdaede714))
-
-* Merged PR 353: Revert &#34;fix: removing RLS from the dashboard as we don&#39;t have any RLS table yet&#34;
-
-# Objectives of the pull request
-&gt; describe the high level purposes of your pull request. What are you trying to achieve ? How are you doing it ?*
-
-# How to run the pull request ?
-&gt; Provide the code requiered to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected.**
-
-```bash
-# Update the code
-git checkout core.data.tbe/feature/&lt;feature_name&gt;
-git pull
-poetry shell &amp;&amp; poetry lock &amp;&amp; poetry install
-dbt deps
-cd ../&lt;project_name&gt;
-git checkout &lt;project_name&gt;/feature/&lt;feature_name&gt;
-git pull
-
-# Run dbt
-dbt build --select tag:&lt;my ressources tag&gt;
-```
-
-# Pull request&#39;s checklist
-* Code :
-  * [ ] My tables/variables naming follows the conventions described in the `readme.md`.
-  * [ ] I have added DBT tests to my models (at least a `non null` / `unique` per model).
-* Documentation :
-  * [ ]  I have updated the documentation accordingly to my changes.
-  * [ ]  The models I have added are documented in a `schema.yml` file.
-* Pull request :
-  * [ ]  The provided code is working.
-  * [ ]  I have added my CSS lead as a reviewer.
-  * [ ]  My pull request is documented.
-* Taskboard :
-  * [ ] My work item is linked to the pull request.
-  * [ ] My workw item has been moved to `review` in the taskboard.
-
-Revert &#34;fix: removing RLS from the dashboard as we don&#39;t have any RLS table yet&#34;
-
-Reverted commit `16b51713`. ([`2419722`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2419722ca5c4cd3325deab3d7d04f72976c495ca))
+![image.png](https://dev.azure.com/Centre-Expertise-IA/c2f84ed8-4636-4689-a070-433ecb89a643/_apis/git/repositories/c5... ([`4b33994`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4b33994729e35b92c297ad3b7c238d5df307ee9c))
 
 * Merged PR 339: Tableau de bord emp_actif
 
@@ -2726,7 +2500,7 @@ Ajout le script pour générer la table emp_actif
 Ajout le rapport em_actif.pibt dans le répertoire &#39;reporting&#39;
 Voir readme (section emp_actif)  avant de rouler le dbt
 
-Related work items: #1614 ([`6f3ba3d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6f3ba3da36d4abf30747115fec9a2aecf89da1e8))
+Related work items: #1614 ([`bd5dd72`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bd5dd72839324d3e6fb22745504c9659c15824c0))
 
 * Merged PR 338: fix: modif unit tests de fact_evaluations_grades_from_dim et du RLS et verif code matière sec 4 et 5
 
@@ -2734,19 +2508,14 @@ J&#39;ai ajouter une vérification qui s&#39;assure d&#39;aller chercher uniquem
 
 J&#39;ai également modifié les unit tests du RLS et j&#39;ai ajouté des unit test pour fact_evaluations_grades_from_dim pour s&#39;assurer qu&#39;on n&#39;obtiens plus de doublon dans cette table.
 
-Related work items: #1619 ([`24849d9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/24849d9d56a6fe4b2f217be9e8311bd3effd4fc1))
+Related work items: #1619 ([`e89a6ec`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e89a6ec28847bbfef852b5bd70d57e0c42f3090c))
 
 * Merged PR 337: fix: modif scripts tables RLS
 
 Modifications des scripts pour la génération des tables du RLS.
 J&#39;ai supprimé 2 tables qui n&#39;étaient pas utiles et j&#39;ai modifié le scripts utilisateurs_ecoles.sql pour utiliser le même code que celui utilisé dans prodrome pour produire la table &#34;utilisateurs&#34;.
 
-Related work items: #1676 ([`ee53102`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ee53102033f0e5d55e6760c70dd1481425bbe58d))
-
-* Merged PR 336: fix : Correction d&#39;un erreur d&#39;orthographe
-
-fix : Correction d&#39;un erreur d&#39;orthographe
-status -&gt; statut ([`d457ef0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d457ef026649cfffb4deb85fa603a73f17fc1221))
+Related work items: #1676 ([`4a327be`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4a327beedee99f112bfa83f490e0013053822514))
 
 * Merged PR 330: refactoring cout de roulement code
 
@@ -2758,7 +2527,7 @@ cd core.data.tbe
 git checkout bugfix/cout_roulement
 cd ../css***.data.tbe
 git checkout develop
-dbt run ([`7adeb5d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7adeb5d8700505c2d462a1905909e8489785a36c))
+dbt run ([`4bd515a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4bd515a35096c016986603c750cba59245c27553))
 
 * Merged PR 317: RLS
 
@@ -2805,7 +2574,7 @@ cd cssdgs.data.tbe/
 git checkout develop
 dbt run
 
-Related work items: #1474, #1477, #1480 ([`c9d0c47`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c9d0c47e18a387de2061d1b0b150d30084ec2c5a))
+Related work items: #1474, #1477, #1480 ([`26a6eee`](https://github.com/Sciance-Inc/core.dashboards_store/commit/26a6eeef1c4bfef6c8d163b6810aaa75963c4dba))
 
 * Merged PR 320: Ajout de l&#39;indicateur AI6 et C6
 
@@ -2829,11 +2598,11 @@ git checkout feature/modify_dbt_project
 
 ### Commandes :
 dbt run --select prspctf_ratio_anc
-dbt run --select prspctf_taux_fidelite ([`9fc3b38`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9fc3b3820d795799b847a4d827f4e04bf0a7bc9a))
+dbt run --select prspctf_taux_fidelite ([`812d487`](https://github.com/Sciance-Inc/core.dashboards_store/commit/812d4873ab3ef054a596ba6652eaf3a0a5d5f04f))
 
 * Merged PR 314: Update Readme file
 
-Objectifs et indicateurs pour la priorité #1442 TBE# ([`6e9aad3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6e9aad36ea9c0f0c83ee8b50a897224291086083))
+Objectifs et indicateurs pour la priorité #1442 TBE# ([`ff42d0e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ff42d0eaca30373c79df7c7ec954cf94746c22b8))
 
 * Merged PR 319: fix: removing empty results has we don&#39;t want them to be tracked
 
@@ -2851,7 +2620,7 @@ cd ../cssvdc.data.tbe
 git checkout develop
 git pull
 dbt build --select suivi_resultat
-``` ([`1241f1a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1241f1ab4a5bc531d51368edb4215ca54e64be83))
+``` ([`e4adb95`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e4adb95dfa758e5e5c8232afa0152ff93243297b))
 
 * Merged PR 316: Adding 10 new materials codes
 
@@ -2862,7 +2631,7 @@ After the validation of the exams/materials codes with CSSHC, were found several
 
 ![image.png](https://dev.azure.com/Centre-Expertise-IA/c2f84ed8-4636-4689-a070-433ecb89a643/_apis/git/repositories/c515b32e-0393-45f8-a0f3-3c2ce78033d2/pullRequests/316/attachments/image.png)
 
-Related work items: #1546 ([`1e98e6d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1e98e6d60d1fece9db8ba2e33ea0dddd7b193cff))
+Related work items: #1546 ([`a6842d5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a6842d5ba6d16086fcb13c585c327d0f11a6614b))
 
 * Merged PR 318: fix: fixing babel misspelling
 
@@ -2877,7 +2646,7 @@ fix: fixing babel misspelling
 ```bash
 git checkout develop
 poetry install
-```` ([`1e52c66`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1e52c66a2753533d52afd51060704eb4d3275119))
+```` ([`ef72101`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ef7210180c1fe0aacf5ff4df4ccff426cc0635af))
 
 * Merged PR 309: feat: adding suivi_resultats_s1_s3 dashboard
 
@@ -2917,7 +2686,7 @@ dbt run-operation drop_schema
 
 ```bash
 dbt build --select suivi_resultat
-``` ([`bce8648`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bce8648a3a7e59be5658047ec43296ce1cda66dd))
+``` ([`5c65188`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5c651880b9f1481d685e36ffd65fcb10265f1087))
 
 * Squashed commit of the following:
 
@@ -3074,11 +2843,11 @@ commit 29b5a3f21179de3dc2d77488992f572e2ceb81e0
 Author: mazhur &lt;mzhuravlova@cshc.qc.ca&gt;
 Date:   Thu Mar 2 09:30:42 2023 -0500
 
-    feat: created history_post_permanant.sql ([`fd54f46`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fd54f46d42754c0359d452d535696b46b14cc455))
+    feat: created history_post_permanant.sql ([`04e9833`](https://github.com/Sciance-Inc/core.dashboards_store/commit/04e983372e4d66526d8cab6c692a81b0f0f8d3f1))
 
 * Merged PR 307: typo: fixing typo prevailing the code to compile
 
-typo: fixing typo prevailing the code to compile ([`abd7ad7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/abd7ad7c9952822d1bc4e11094c8aa85f18ba4de))
+typo: fixing typo prevailing the code to compile ([`ed61c6d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ed61c6d255ee420978c295f7613fca3c9651417d))
 
 * Merged PR 306: reorganization of  files insid shared/interface
 
@@ -3094,7 +2863,7 @@ typo: fixing typo prevailing the code to compile ([`abd7ad7`](https://github.com
 -     updated schema.yml
 **4. **new file pai_tab_stat_eng.sql****
 
--     updated schema.yml ([`6ec5c81`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6ec5c81cad60b6790596ea10fc1cdaf9f92ed4aa))
+-     updated schema.yml ([`e9e1a5c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e9e1a5c1babe07328e6182d62cc61021a06d2e44))
 
 * Merged PR 304: creat table for students result indicator
 
@@ -3104,65 +2873,43 @@ typo: fixing typo prevailing the code to compile ([`abd7ad7`](https://github.com
 -  add reporting table with proportion by year
 -  add new table to schema
 
-use develop branch in cssvdc to test the PR ([`2337f53`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2337f5360a3906990ee976322adffdfc7914c569))
+use develop branch in cssvdc to test the PR ([`7baa89d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7baa89d3b55282d20cc42a6c1d8d159aec5aa06c))
 
-* Merged PR 302: Calculer le taux de ratio du roulement du personnel
+* feat : update_readme_file ([`2dbdf21`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2dbdf216c35511e41fa8c8ae81321bf162d067e3))
 
-- Créer une nouvelle branche **feature/massesalariale** pour calculer le taux du roulement du personnel
--  Dans le dossier _models_ &gt; dossier _prospectif_cdp_ &gt; dossier _features_ : 3 fichiers sql à exécuter
-   - prspctf_fact_emp_quitter.sql : sert à calculer le nombre de postes remplacés
-   -  prspctf_fact_masse_sal.sql : sert à calculer la masse salariale du CSS
-   -  prspctf_fact_masse_sal_corp_empl.sql : sert à calculer la masse salariale moyenne par corps d&#39;emploi
+* feat : add_schema_file ([`4ca4c41`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4ca4c415fe1dc55f579f7065177e06eae833db4e))
 
--  Dans le dossier _models_ &gt; dossier _pbi_tables_ : 1 fichier sql à exécuter
-   - prspctf_couts_de_roulement.sql : sert à calculer le taux du roulement du personnel du CSS
+* feat : add new table to schema ([`4626f24`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4626f2406c66b6f92119e6fc25a0a27f32b448b1))
 
-- Dans le dossier _models_ &gt; dossier _shared_ &gt; dossier _interfaces_ &gt; dossier _paie_ : 3 tables à exécuter
-  - i_pai_cum_budg.sql : lister le matricule, l&#39;année budgétaire, le salaire cumulatif, le corps d&#39;emploi et le code de déduction depuis la table PAI_CUM_BUDG
-  - i_pai_dos.sql : lister les éléments depuis la table PAI_DOS
-  - i_pai_tab_corp_empl.sql :  lister les éléments depuis la table PAI_TAB_CORP_EMPLOI
+* feat :  add reporting table with proportion by year ([`ce398ec`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ce398ec84f444fef6c863baa129a1e47eca0cf38))
 
-Related work items: #1392 ([`f0bd7dc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f0bd7dcb3f926f9c370028daeca78f3b850897e8))
+* feat : add result table by matiere ([`b2d02a3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b2d02a3c1694a9e13216fbf2820afdb4db2b1db9))
 
-* feat : update_readme_file ([`9f51092`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9f510928af99c80ac3bd9ef0f9edb3b7c508f259))
+* feat : creat  mat_select dimensions table unioning a default and a custom CSV (if exist) ([`d95a5b4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d95a5b4db0c0fa5cc86f72af6c9ad69f143b837c))
 
-* feat : add_schema_file ([`93d0238`](https://github.com/Sciance-Inc/core.dashboards_store/commit/93d0238b75d8343cb0885a4bc944ad6269b1602d))
+* chore : delete_table ([`7daf101`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7daf1019543ff1d58cf7fd07df31ed7ebe61e32d))
 
-* feat : add new table to schema ([`183e593`](https://github.com/Sciance-Inc/core.dashboards_store/commit/183e593251405b39f19ea5680471076232cf155a))
+* feat : move_table_to_sub_folder_cout_roulement_and_delete_join_on_fact_masse_sal ([`e17a502`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e17a5029aa34aee8f5f5152ec0d3e1e5800aa42e))
 
-* feat :  add reporting table with proportion by year ([`71714d5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/71714d5318be0a5d0729bfeb4922003e51675274))
+* Merge branch &#39;develop&#39; into feature/massesalariale ([`f13e07c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f13e07cead40efa1189f6a87f94b675f962d639d))
 
-* feat : add result table by matiere ([`e8c22fb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e8c22fb4c3b8f458d904b5670a278e9d509d9229))
+* Merge branch &#39;feature/massesalariale&#39; of https://dev.azure.com/Centre-Expertise-IA/COTRA-CE/_git/core.data.tbe into feature/massesalariale ([`c85b2f8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c85b2f8cbe494ea771e821599107b3ee274a6136))
 
-* feat : creat  mat_select dimensions table unioning a default and a custom CSV (if exist) ([`73de2f5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/73de2f5106ebb327ffb586ff5a788aa96c85cee4))
+* Renommer une référence sur masse sal corp empl ([`816a721`](https://github.com/Sciance-Inc/core.dashboards_store/commit/816a72191cebefa9911abbe50f302f29ef01a8fd))
 
-* chore : delete_table ([`eeae365`](https://github.com/Sciance-Inc/core.dashboards_store/commit/eeae365ff9c84bc37d1da6007a31e011012e96f0))
+* Updated prspctf_couts_de_roulement.sql ([`771c3cc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/771c3cce96a375d413ad07fb3de8f89281c28af2))
 
-* feat : move_table_to_sub_folder_cout_roulement_and_delete_join_on_fact_masse_sal ([`1b28c84`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1b28c84012302a06ede9495b4eec8e80eef410b9))
+* feat taux roulement personnel ([`6fa3c1c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6fa3c1c63b7016cb41f80284a3346db0908ae3b8))
 
-* Merge branch &#39;develop&#39; into feature/massesalariale ([`f4244a9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f4244a919f4f1dada9263e1db6ef48f686bcecb1))
+* Merge branch &#39;feature/massesalariale&#39; of ssh.dev.azure.com:v3/Centre-Expertise-IA/COTRA-CE/core.data.tbe into feature/massesalariale ([`06ba03a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/06ba03a14f077fef32bbf1b72fcc1201f6a67fbb))
 
-* Merged PR 290: mettre à jour le tdb des résultats aux épreuves
+* feat : creat_fact_emp_quitter ([`59684af`](https://github.com/Sciance-Inc/core.dashboards_store/commit/59684afc8e148bffd5284c3a2b5cc3c8afaeceed))
 
-supprimer la table de dimension qui faisait le lien unique entre les deux tables de reporting. ([`c4efc48`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c4efc48792a196fbcfb0b7d225876de85dd07a42))
+* feat :add_new_field ([`566b990`](https://github.com/Sciance-Inc/core.dashboards_store/commit/566b990873dedca7937401956d73a208a350f3aa))
 
-* Merge branch &#39;feature/massesalariale&#39; of https://dev.azure.com/Centre-Expertise-IA/COTRA-CE/_git/core.data.tbe into feature/massesalariale ([`76ddab5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/76ddab502322b3057e5864b817dee20d6ac4335c))
+* feat : add_masse_salariale_tables ([`a98ea84`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a98ea848aca8a08698eb772dddf691089e4e24ba))
 
-* Renommer une référence sur masse sal corp empl ([`afc97f3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/afc97f33307a4b7fe3e43e4abacb533d5d6dfc4d))
-
-* Updated prspctf_couts_de_roulement.sql ([`caf735a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/caf735accfae5723abe5b46798ec7ab764ff1173))
-
-* feat taux roulement personnel ([`be7d74f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/be7d74fe93836011e3892b7a27c9c465a52d9a4b))
-
-* Merge branch &#39;feature/massesalariale&#39; of ssh.dev.azure.com:v3/Centre-Expertise-IA/COTRA-CE/core.data.tbe into feature/massesalariale ([`c60dcb5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c60dcb5f040ff073157e26936f1ae23e160655fb))
-
-* feat : creat_fact_emp_quitter ([`56b374e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/56b374ee5e0a3e73ef5cf0043b59672e73a09ea3))
-
-* feat :add_new_field ([`e4f5139`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e4f51394ab1953f9370c92464bf1b70ace47351f))
-
-* feat : add_masse_salariale_tables ([`9fc4f62`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9fc4f622f56e8050be473ed197914ae8e28bb488))
-
-* masse salariale ([`453cf6d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/453cf6d6a3d62e23103af4a072d0de137ad24d45))
+* masse salariale ([`7c273be`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7c273be25c7cf0680428d1c0c542e97dd5681329))
 
 * Merged PR 285: création du tableau de bord des résultats aux épreuves
 
@@ -3209,19 +2956,19 @@ supprimer la table de dimension qui faisait le lien unique entre les deux tables
 - feat: add_new_vars_to_dbt_project
 - feat:add_new_filter_to_fact_evaluation_minist_sec4_sec5
 - feat: add_new_fields_i_e_ri_resultats
-- feat: add_sec4_and_sec4_evaluation_to_db ([`d318031`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d318031d02f13b954c96dc62145856bec116162f))
+- feat: add_sec4_and_sec4_evaluation_to_db ([`8017786`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8017786e776509171b1630c1e29a49cc216db3c7))
 
-* Merge branch &#39;develop&#39; into feature/epreuve_unique ([`4112485`](https://github.com/Sciance-Inc/core.dashboards_store/commit/41124856a4f9e17b641831bc7ffd282004c58425))
+* Merge branch &#39;develop&#39; into feature/epreuve_unique ([`9abefff`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9abefffa3c3e05e1e6fb9612293587d942ba74e8))
 
-* chore : Change_res_etapes_model_name_to res_epreuves ([`4e95962`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4e95962dfa9a0c434924c2a017db6925aca637a2))
+* chore : Change_res_etapes_model_name_to res_epreuves ([`dc0780f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dc0780ffd4fd37ee09655b45aa501103ec7b8fe2))
 
-* feat : change_column_name ([`b853738`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b8537389662fff5b3179bd3814dd4184cfb30cca))
+* feat : change_column_name ([`6030535`](https://github.com/Sciance-Inc/core.dashboards_store/commit/60305356472e457ef6ee9b4e0a4cbdf6ed652310))
 
-* feat : modify_columns_name ([`5941b21`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5941b21f0fee3049ee4b020bd99e037386bd298e))
+* feat : modify_columns_name ([`ddcd1c1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ddcd1c1f74784eae3053a1459736d4c43f55dd52))
 
-* doc: adding missing docstring ([`bc11c90`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bc11c90eb45b64ea050042e0b61388e7dda0f67b))
+* doc: adding missing docstring ([`9406fc5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9406fc52db38fef1cf008f7626479ebca6658cbc))
 
-* Updated empcong_fact_emp_conge.sql ([`108caf8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/108caf82843bda3a3e4c1ff08cf86af364da3a55))
+* Updated empcong_fact_emp_conge.sql ([`f8d0537`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f8d0537faa5ad17775cdd11cc025c769f25600f5))
 
 * Merged PR 272: Correctifs afin d&#39;harmoniser le process
 
@@ -3265,32 +3012,32 @@ Ci-dessous un récapitulatif des modifications apportées au répertoire `core`
 
 - `README` : ajustement de la section `transport`.
 
-@&lt;Maryna Zhuravlova&gt;  je ne comprends pas l&#39;intérêt de la base de données `piastre`. Est-elle vra... ([`aad680e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/aad680e32ce55ac1f3670642c2b2655c4cd8faa6))
+@&lt;Maryna Zhuravlova&gt;  je ne comprends pas l&#39;intérêt de la base de données `piastre`. Est-elle vra... ([`4a53b30`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4a53b30fdbd6f4442bddbfbd6e7b857d00dcee11))
 
-* feat:add_new_filter_to_fact_evaluation_minist_sec4_sec5 ([`98a35fe`](https://github.com/Sciance-Inc/core.dashboards_store/commit/98a35fed13d970fd35b6a15fef8e4f5d13eb7add))
+* feat:add_new_filter_to_fact_evaluation_minist_sec4_sec5 ([`12817e7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/12817e749b87e7e0300eba63b381066027b41fe8))
 
-* Changement pour Mohamed ([`c0e8382`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c0e8382e18483d6672045d2a8896aee34ac57e57))
+* Changement pour Mohamed ([`c1b08bf`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c1b08bfa7fe5ad58d4fb02fcc390141989c3ba6c))
 
-* Changement suite aux modifs sec4 et 5, update version dbt utils 1.0.0 et ajout interface pour num organisation ([`28315de`](https://github.com/Sciance-Inc/core.dashboards_store/commit/28315de7f365d0cae8654ef1651fff98610c9d67))
+* Changement suite aux modifs sec4 et 5, update version dbt utils 1.0.0 et ajout interface pour num organisation ([`7346485`](https://github.com/Sciance-Inc/core.dashboards_store/commit/73464859f5d0a6ec1de640e32ea1efb5efa838b2))
 
 * Merged PR 281: Change the table emp_conge alias
 
 - chore : change_the_table_empcong_fact_emp_conge_to_fact_emp_conge
-- chore: adjustment of the schema that describes the emp_conge dashboard scripts ([`c7ada51`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c7ada51e8c1ad94fe44d2cfff5d2871a72908b90))
+- chore: adjustment of the schema that describes the emp_conge dashboard scripts ([`a1fc494`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a1fc494031164a524174a526213f398da9d172e5))
 
-* chore : change_the_table_empcong_fact_emp_conge_to_fact_emp_conge ([`3829c26`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3829c26ac8bedad8352c0da0be4b3bc96a0ac26b))
+* chore : change_the_table_empcong_fact_emp_conge_to_fact_emp_conge ([`802aaaf`](https://github.com/Sciance-Inc/core.dashboards_store/commit/802aaaf704670e32684c440dbbfdb40c4b813fd4))
 
-* Merge branch &#39;feature/res_etape_db&#39; into feature/epreuve_unique ([`a150e44`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a150e44fa27f63e09b2e2a496768c5d7d3856763))
+* Merge branch &#39;feature/res_etape_db&#39; into feature/epreuve_unique ([`6b77647`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6b77647a9067836d1c51b2d0e504a69e9e5caf2a))
 
-* Merge branch &#39;feature/correctif&#39; into feature/res_etape_db ([`20e55b5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/20e55b55441a36942d25c1fb3e9ccf62d8424af8))
+* Merge branch &#39;feature/correctif&#39; into feature/res_etape_db ([`032940b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/032940bc1e7df4bba388f06f01839a52ec9f6cb5))
 
-* feat : add_adapted_gouv_evaluation_reslt_to_fact_table ([`7ec0962`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7ec096242b3637668bbab22afd67bfacfb9392a3))
+* feat : add_adapted_gouv_evaluation_reslt_to_fact_table ([`f2b7e5d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f2b7e5d92d5346a0ee04a80195df0f5066c21e71))
 
-* Commit a3cb1dff: feat : add_gouv_evaluation_result_to_interface_table ([`0a28ed5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0a28ed57501b89ac5dcf5e9bfba37b945c17dc24))
+* Commit a3cb1dff: feat : add_gouv_evaluation_result_to_interface_table ([`b893ce4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b893ce435450cbc8ce509f8f632fb97cadd555b8))
 
-* Merge branch &#39;feature/correctif&#39; of ssh.dev.azure.com:v3/Centre-Expertise-IA/COTRA-CE/core.data.tbe into feature/correctif ([`7519347`](https://github.com/Sciance-Inc/core.dashboards_store/commit/751934725d09bfb851fb05a8320b72f53d23f935))
+* Merge branch &#39;feature/correctif&#39; of ssh.dev.azure.com:v3/Centre-Expertise-IA/COTRA-CE/core.data.tbe into feature/correctif ([`b18d157`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b18d15718723442a2837ac07ad25d81e661b4edc))
 
-* modification of the i_piastre script so that it respects the project conventions ([`472252f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/472252fd42b37279406975b0a70d1a975a53aa6c))
+* modification of the i_piastre script so that it respects the project conventions ([`face65f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/face65f1b3a00618cbf32726df32373347f5880e))
 
 * Merged PR 253: transport_scoler_geobus
 
@@ -3319,22 +3066,16 @@ Progect  transport scolarite
 -repo: reporting
               transport_gabarit.pbit
 
-Related work items: #1013, #1125 ([`9e98f85`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9e98f854909ec321a51d54daeeecc694705ad802))
+Related work items: #1013, #1125 ([`277ad07`](https://github.com/Sciance-Inc/core.dashboards_store/commit/277ad07a2ea2c4ffabba54dc1b5eede52a1c4791))
 
-* Merge branch &#39;feature/res_etape_db&#39; of ssh.dev.azure.com:v3/Centre-Expertise-IA/COTRA-CE/core.data.tbe into feature/res_etape_db ([`caa07c9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/caa07c9e32fdc237f04d6677ba92e0f96cf105f2))
+* Merge branch &#39;feature/res_etape_db&#39; of ssh.dev.azure.com:v3/Centre-Expertise-IA/COTRA-CE/core.data.tbe into feature/res_etape_db ([`aa36f1c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/aa36f1c5dfd1d1fe29f995553f3c472ce4c0b23b))
 
-* Merge branch &#39;develop&#39; into feature/res_etape_db ([`1c8e9f5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1c8e9f52f77ddb8af96502924c8ce177dae53249))
-
-* feat_add_diff_to_db ([`a3a86d4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a3a86d4e3a2f52605e31a99ce89338bf64ca1ece))
-
-* Merge branch &#39;develop&#39; into feature/res_etape_db ([`db3743e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/db3743ed55f99ce3a37426211879f793b2a7cbc3))
+* Merge branch &#39;develop&#39; into feature/res_etape_db ([`0da5861`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0da5861d7435c957e94baa40c5b69a9b4573accc))
 
 * Merged PR 267: Add dim epreuve
 
 - add rstps_dim_unique_subj_evaluation : with unique annee friendly_name key
-- add id_friendly_name to reporting table to have a unique annee friendly_name key ([`44056af`](https://github.com/Sciance-Inc/core.dashboards_store/commit/44056afe04c483cf84326010d86a61dd6a4d8b32))
-
-* feat : create_new_db_rslt_etape_epreuves ([`5a1552c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5a1552c2bd1d9a27c67b6c514b2a257cfcbf7772))
+- add id_friendly_name to reporting table to have a unique annee friendly_name key ([`bbdb35a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bbdb35a2fca23a8b5c545ffa5e37280a8d111454))
 
 * Merged PR 260: Adding data for res_etapes dashboard
 
@@ -3379,7 +3120,7 @@ dbt run --select &#39;res_etapes&#39;
 ```
 
 ## VDC reviewers
-* A PR with the same name introduces a custom seed table for VDC. ([`6f257ce`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6f257ce68530142c72befdfc05ad0d108752185f))
+* A PR with the same name introduces a custom seed table for VDC. ([`f67f346`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f67f3468bdea4d7a1864a9831587c62447d2f9b2))
 
 * Merged PR 263: Ajustement de la macro qui valide la résolution des différentes requêtes
 
@@ -3393,7 +3134,7 @@ ex:
 
 Résultante :
 
-![image (4).png](https://dev.azure.com/Centre-Expertise-IA/c2f84ed8-4636-4689-a070-433ecb89a643/_apis/git/repositories/c515b32e-0393-45f8-a0f3-3c2ce78033d2/pullRequests/263/attachments/image%20%284%29.png) ([`aa3f79f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/aa3f79f3f35c40439a4944f0daeb619e53e23d17))
+![image (4).png](https://dev.azure.com/Centre-Expertise-IA/c2f84ed8-4636-4689-a070-433ecb89a643/_apis/git/repositories/c515b32e-0393-45f8-a0f3-3c2ce78033d2/pullRequests/263/attachments/image%20%284%29.png) ([`3446808`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3446808a788ae7e40b5192c61437d006ea4a6dde))
 
 * Merged PR 259: Déterminer le nombre d&#39;élèves total en FP / FGA des 10 dernières années
 
@@ -3406,7 +3147,7 @@ Résultante :
 - feat: added tables that count the number of fp fga students by year / school
 - chore: update the READMME file
 
-Related work items: #1175 ([`80c98c5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/80c98c53cb3e9bdc442ebd26359610708d1dbd7b))
+Related work items: #1175 ([`53563fc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/53563fc5155e813f9724fb9ce572f08adee1e99d))
 
 * Merged PR 254: correction de la branche employé en congé
 
@@ -3414,13 +3155,13 @@ Related work items: #1175 ([`80c98c5`](https://github.com/Sciance-Inc/core.dashb
 - feat : modify_schema.yml_emplacement
 - fix: correcti models_name
 - fix: add_model_prefix
-- Merge branch &#39;develop&#39; into feature/emp_cong_correction ([`ed7feda`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ed7fedad3d7813555b377eb249bfd3b43ed7caae))
+- Merge branch &#39;develop&#39; into feature/emp_cong_correction ([`c3f0c73`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c3f0c739d454f64d36b11df865e7bad92508a41e))
 
-* Merge branch &#39;develop&#39; into feature/emp_cong_correction ([`041fca5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/041fca5e939f13b9c117077c15071489c949469a))
+* Merge branch &#39;develop&#39; into feature/emp_cong_correction ([`bbddb40`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bbddb4025edb4ee6054bbfab58fd5ab96bc2d320))
 
-* feat : modify_schema.yml_emplacement ([`3615c66`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3615c666c26373fdbbcf0c857a235dca70b4a33b))
+* feat : modify_schema.yml_emplacement ([`d5cd0cf`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d5cd0cf04eac2c392060486d070db6d156f5a880))
 
-* refacto: modify_emp_conge_position_in_models_list ([`ca625a2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ca625a2c5b1f85fc9f8b331aab58dbcc1bb57a9d))
+* refacto: modify_emp_conge_position_in_models_list ([`1783129`](https://github.com/Sciance-Inc/core.dashboards_store/commit/178312997f65ce4279944238f2854a9ae2fc3b85))
 
 * Merged PR 251: Comptabiliser le nombre d&#39;eleves inscrits en FGJ
 
@@ -3430,7 +3171,7 @@ Related work items: #1175 ([`80c98c5`](https://github.com/Sciance-Inc/core.dashb
 - feat: add a spine table
 - feat: added a query to count the number of students per year, school population
 - feat: add a test to make sure that the tables on GPI are resolved by fiche / id_eco
-- feat: add tests to ensure the resolution of the population table and base spine table ([`9c5be61`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9c5be6139b8a3add72027ad8b1e9781768739f21))
+- feat: add tests to ensure the resolution of the population table and base spine table ([`e2ee146`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e2ee146f614c84d0aab454e43b07b1b8d2669cec))
 
 * Merged PR 246: Création du TDB employés en congé
 
@@ -3468,11 +3209,11 @@ Related work items: #1175 ([`80c98c5`](https://github.com/Sciance-Inc/core.dashb
 - Chore: move_filter_from_interface_table_to_fact_table
 - feat: add_new_model_emp_cong_to_dbtproject
 - fix: modify version_from_0_to_2
-- fix: add_prefix_to test_name_to_resolve_ambiguity ([`82dfd05`](https://github.com/Sciance-Inc/core.dashboards_store/commit/82dfd057fca543487c035e6b1fbdbfd25c3ed10b))
+- fix: add_prefix_to test_name_to_resolve_ambiguity ([`3e0a241`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3e0a24185f77678c42494e07b0247939eba4b529))
 
-* fix : modify_cod_syntax ([`d22ae12`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d22ae122cff30bd44b6a7b90b58611a88b579f59))
+* fix : modify_cod_syntax ([`ee5459b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ee5459bcf2a15c6ad039f516bbf1c1083ddeb748))
 
-* fix : delet_models_duplicat ([`ae81518`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ae815189f16c1fa283455f7c8d60f1accf883687))
+* fix : delet_models_duplicat ([`1addb27`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1addb270e0d16732c68b163b483e6380afafd1dc))
 
 * Merged PR 252: solving the between-schemas-tables-names-conflicting
 
@@ -3511,52 +3252,11 @@ Related work items: #1175 ([`80c98c5`](https://github.com/Sciance-Inc/core.dashb
 * The PR *does not* introduce new code.
 
 # Side effects
-* The PR has no side effect that need to be reflected in the css-specific packages ([`8c07c89`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8c07c8959d97d3311cddb5b8e5f25433d06454ee))
+* The PR has no side effect that need to be reflected in the css-specific packages ([`5303444`](https://github.com/Sciance-Inc/core.dashboards_store/commit/530344450d609ddfe944701dcad8896d21c3a6d3))
 
-* Merge branch &#39;feature/emp_conge&#39; of ssh.dev.azure.com:v3/Centre-Expertise-IA/COTRA-CE/core.data.tbe into feature/emp_conge ([`0c2f970`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0c2f970c622e8200cad650895623e945a7307019))
+* Merge branch &#39;feature/emp_conge&#39; of ssh.dev.azure.com:v3/Centre-Expertise-IA/COTRA-CE/core.data.tbe into feature/emp_conge ([`5e873a0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5e873a0679dceba7aecfb4472b9ef4c2a6f85e58))
 
-* Chore: move_filter_from_interface_table_to_fact_table ([`8b66556`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8b6655642e5945cbacf1743e4541a9190a78bfa8))
-
-* Merged PR 242: changement structure projet + ajout du projet prospectif_cdp
-
-- feat: add adapt macro
-- feat: add stg_populations
-- feat: add base_spine table
-- chore: change keyword pevr by tbe
-- Merged PR 225: Mise à jour du répertoire pour enlever la FP/FGA + répondre au besoin de la User Story 910
-- refactor: test if an error message is sent when dbt test fails
-- refactor: fix the bug introduced earlier
-- chore: add schema file for bridges folder
-- chore: change the name of the source database
-- chore: update of the source file which indicates the adapters
-- chore: update the sources file
-- feat: add a fact table that tracks the number of part-time employees in the last 10 years
-- Merged PR 238: Cleanage du repertoire core.data.tbe
-- Merge branch &#39;develop&#39; into feature/partial_work
-- feat: adapt macro test
-- chore: update the packages
-- chore: put the tests in the macro adapt in comments
-- chore: change the project structure (store structure)
-- feat: change in the dbt_project to manually activate the dashboards of interest on the css repo (enable option) ([`8a9d5f3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8a9d5f3067bd345d3ffa7d90cac2c4ff643b412f))
-
-* Emp_conge - Schema.yml modified ([`ec515fc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ec515fc5cd9837d9eea2d670e0a9fb0c1f282e65))
-
-* Power BI emp_conge added ([`4551885`](https://github.com/Sciance-Inc/core.dashboards_store/commit/45518851010cf590cab94a8b4a0f3f9d166cdce8))
-
-* add request for the employes in holiday and macro for calculate the current year ([`06d8531`](https://github.com/Sciance-Inc/core.dashboards_store/commit/06d8531f7c81282ef3e12eb98ea3d94d838ba80f))
-
-* Merged PR 238: Cleanage du repertoire core.data.tbe
-
-- chore: move PBIX files outside the models folder
-- chore: modify the sources database in the dbt_project
-- chore: update the schema file for the adapters
-- chore: add a schema file for the interfaces
-- chore: add a schema file for the bridges folder
-- chore: add a schema file for the spines folder ([`ecbe73e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ecbe73ef5b5f1d78755ef21dfed7a9ea11bc58dd))
-
-* Chore: move_filter_from_interface_table_to_fact_table ([`45aeff3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/45aeff36c66272cf705f0f4dd5554c73d59ef589))
-
-* Merge branch &#39;develop&#39; into feature/emp_conge ([`7ffa1ad`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7ffa1ad80623c907c6defb908e4ba8447316a0d6))
+* Chore: move_filter_from_interface_table_to_fact_table ([`cd0bb40`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cd0bb4033987daec2ede8009337fe4c6e3d046b3))
 
 * Merged PR 242: changement structure projet + ajout du projet prospectif_cdp
 
@@ -3578,19 +3278,13 @@ Related work items: #1175 ([`80c98c5`](https://github.com/Sciance-Inc/core.dashb
 - chore: update the packages
 - chore: put the tests in the macro adapt in comments
 - chore: change the project structure (store structure)
-- feat: change in the dbt_project to manually activate the dashboards of interest on the css repo (enable option) ([`54a42d4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/54a42d44c13d93f67da63835201d90ae09c16e36))
+- feat: change in the dbt_project to manually activate the dashboards of interest on the css repo (enable option) ([`8b250d6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8b250d6550b3b8bd2bb945d67ba2247a3d7cedf7))
 
-* Merge branch &#39;feature/emp_conge&#39; of ssh.dev.azure.com:v3/Centre-Expertise-IA/COTRA-CE/core.data.tbe into feature/emp_conge ([`baaa46e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/baaa46e1446b0d45fa385c9a965be8653b906c80))
+* Emp_conge - Schema.yml modified ([`b4a3c1e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b4a3c1e25127807c49264c449104d3b622e888b8))
 
-* Emp_conge - Schema.yml modified ([`3fe7a44`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3fe7a4483a56fca1a1296674c5d581bee91a48ff))
+* Power BI emp_conge added ([`589c1a1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/589c1a1aa4155441d776426228e4d87cf3c495d2))
 
-* Power BI emp_conge added ([`90a7678`](https://github.com/Sciance-Inc/core.dashboards_store/commit/90a76781894c6f09cb5cd5264dfae2f2f3bc9406))
-
-* add request for the employes in holiday and macro for calculate the current year ([`d14c453`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d14c453e6c35024e59fe6b51f7e6f3ba5866b1f2))
-
-* Merge branch &#39;feature/partial_work&#39; into feature/emp_conge ([`eee70c3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/eee70c3e7371fda948e6b3efc124ba4cb245ecfb))
-
-* Merge branch &#39;develop&#39; into feature/partial_work ([`b250aea`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b250aea3cfc709fc52f2da1314e2d7a183b2deba))
+* add request for the employes in holiday and macro for calculate the current year ([`90b1564`](https://github.com/Sciance-Inc/core.dashboards_store/commit/90b1564cbc217de071cff9fbc607a428b5db72b2))
 
 * Merged PR 238: Cleanage du repertoire core.data.tbe
 
@@ -3599,7 +3293,52 @@ Related work items: #1175 ([`80c98c5`](https://github.com/Sciance-Inc/core.dashb
 - chore: update the schema file for the adapters
 - chore: add a schema file for the interfaces
 - chore: add a schema file for the bridges folder
-- chore: add a schema file for the spines folder ([`df796e8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/df796e873b2d87ea9a343d08d7eb4be1581122e8))
+- chore: add a schema file for the spines folder ([`c6711a1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c6711a103dd90f6edc916781c314ebb3e92c55ec))
+
+* Chore: move_filter_from_interface_table_to_fact_table ([`bd32a52`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bd32a521b0fca6ecd368b71a7e07f0eeecb96341))
+
+* Merge branch &#39;develop&#39; into feature/emp_conge ([`73c0bc7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/73c0bc75790f4ab02803378c70fbbdd5e910fce8))
+
+* Merged PR 242: changement structure projet + ajout du projet prospectif_cdp
+
+- feat: add adapt macro
+- feat: add stg_populations
+- feat: add base_spine table
+- chore: change keyword pevr by tbe
+- Merged PR 225: Mise à jour du répertoire pour enlever la FP/FGA + répondre au besoin de la User Story 910
+- refactor: test if an error message is sent when dbt test fails
+- refactor: fix the bug introduced earlier
+- chore: add schema file for bridges folder
+- chore: change the name of the source database
+- chore: update of the source file which indicates the adapters
+- chore: update the sources file
+- feat: add a fact table that tracks the number of part-time employees in the last 10 years
+- Merged PR 238: Cleanage du repertoire core.data.tbe
+- Merge branch &#39;develop&#39; into feature/partial_work
+- feat: adapt macro test
+- chore: update the packages
+- chore: put the tests in the macro adapt in comments
+- chore: change the project structure (store structure)
+- feat: change in the dbt_project to manually activate the dashboards of interest on the css repo (enable option) ([`ab5fb58`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ab5fb58f8b216c286e83c86b37dd1e20f7539060))
+
+* Emp_conge - Schema.yml modified ([`458f71d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/458f71da1ea7bc27d829cee6de14de1e8a28149e))
+
+* Power BI emp_conge added ([`c312321`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c312321affae2b99f9a90debc6568b5b939cbca2))
+
+* add request for the employes in holiday and macro for calculate the current year ([`dfe314c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dfe314c82052e117cbc5ac38660cc0582529166c))
+
+* Merge branch &#39;feature/partial_work&#39; into feature/emp_conge ([`0e86a62`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0e86a62bcb0da1c4620b28c94137a1f20e7e16d4))
+
+* Merge branch &#39;develop&#39; into feature/partial_work ([`1efb8c4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1efb8c4a94d0986f95e77375d449fd2feb62506c))
+
+* Merged PR 238: Cleanage du repertoire core.data.tbe
+
+- chore: move PBIX files outside the models folder
+- chore: modify the sources database in the dbt_project
+- chore: update the schema file for the adapters
+- chore: add a schema file for the interfaces
+- chore: add a schema file for the bridges folder
+- chore: add a schema file for the spines folder ([`7357543`](https://github.com/Sciance-Inc/core.dashboards_store/commit/73575437f971ba1518e9b273cce16d63a2a8d670))
 
 * Merged PR 225: Mise à jour du répertoire pour enlever la FP/FGA + répondre au besoin de la User Story 910
 
@@ -3613,7 +3352,7 @@ Related work items: #1175 ([`80c98c5`](https://github.com/Sciance-Inc/core.dashb
 - refactor: modify the base_spine to use to build the fact_eleve table
 - refactor: change pevr suffix byt tbe suffix
 - Merge branch &#39;feature/user_story_910&#39; of ssh.dev.azure.com:v3/Centre-Expertise-IA/COTRA-CE/core.data.tbe into feature/user_story_910
-- refactor: change profile name ([`d67f287`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d67f28768729aeeaa3002fdc8436a2b295488595))
+- refactor: change profile name ([`c2f8634`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c2f863417c2bb3de5b13238257dfe1059e70844e))
 
 * Initial commit ([`8c06729`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8c067291f34e3e343a5f69ab0adad73400be7ff2))
 
