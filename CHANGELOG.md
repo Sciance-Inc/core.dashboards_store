@@ -2,6 +2,17 @@
 
 
 
+## v0.7.0-dev.2+20230926 (2023-09-26)
+
+### Fix
+
+* fix: removing dead code ([`ddd48d8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ddd48d865f88d65240130a2ae658f51b5c5de232))
+
+### Unknown
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`b0e849a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b0e849ac84fa1d2862de1b424de737129540daac))
+
+
 ## v0.7.0-dev.1+20230925 (2023-09-25)
 
 ### Feature
