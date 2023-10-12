@@ -13,7 +13,7 @@ This file contains some configuration you fill need to tune to you usecase. We a
 You will minimally have to enable some dashbaords and their corresponding interfaces. 
 You also might need to replace the IP from the `databases` variables, to match your linked servers (if any.)
 
-## 2. Add the content from `{{ cookiecutter.project_slug }}/profiles.yml` into your `~/.dbt/profiles.yml` file
+## 2. Add the content from `{{ cookiecutter.project_slug }}/profiles-sample.yml` into your `~/.dbt/profiles.yml` file
 
 We have already generated the profile to use to run the store for your (your are welcome :) ). But maybe you could add it to your other profiles ?
 
