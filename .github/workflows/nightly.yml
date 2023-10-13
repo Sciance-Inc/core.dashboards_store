@@ -12,6 +12,7 @@ jobs:
   build_nightly:
     runs-on: [self-hosted, maas]
     strategy:
+      fail-fast: false # if one matrix fails, continue with the others
       max-parallel: 1
       matrix:
         configs:
