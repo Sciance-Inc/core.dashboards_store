@@ -2,6 +2,23 @@
 
 
 
+## v0.7.0-dev.3+20231013 (2023-10-13)
+
+### Chore
+
+* chore: disabling fail-fast so all the matrix runs will be tried each day ([`8a00df3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8a00df3c8a123663674eae98b06a314741a92160))
+
+* chore: renaming gabarait to gabarit ([`34d409c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/34d409c6c608bf1962cf3552f47bca10ef7edcaa))
+
+### Documentation
+
+* docs: improving profiles documentation ([`148f0fd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/148f0fd7bcb57d3089af84de23410a239c395da5))
+
+### Refactor
+
+* refactor: renaming profiles with profiles-sample and remove password to avoid giting it by accident ([`017f960`](https://github.com/Sciance-Inc/core.dashboards_store/commit/017f9600bf07bc7797d46960d68ce907d2effb9c))
+
+
 ## v0.7.0-dev.3+20231012 (2023-10-12)
 
 ### Chore
