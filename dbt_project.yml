@@ -37,6 +37,9 @@ seeds:
             suivi_resultats:
                 +tags: ["suivi_resultats"]
                 +schema: "dashboard_suivi_resultats"
+            res_scolaires:
+                +tags: ["res_scolaires"]
+                +schema: "dashboard_res_scolaires"
             chronic_absenteeism:
                 +tags: ["chronic_absenteeism"]
                 +schema: "dashboard_chronic_absenteeism"
@@ -108,6 +111,13 @@ models:
                     +post-hook:
                         ["{{ store.stamp_model('dashboard_suivi_resultats') }}"]
 
+            res_scolaires:
+                +tags: ["res_scolaires"]
+                +schema: "dashboard_res_scolaires"
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_res_scolaires') }}"]
+
             retirement:
                 +tags: ["retirement"]
                 +schema: "dashboard_retirement"
@@ -142,5 +152,7 @@ vars:
     res_epreuves:
         threshold: 70
         cod_css: "Replace me in the CSS repositery"
+    res_scolaires:
+        threshold: 70
     emp_actif:
         nbrs_sem_dern_paie: 1
