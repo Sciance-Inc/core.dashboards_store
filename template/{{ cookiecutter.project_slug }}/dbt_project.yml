@@ -42,14 +42,16 @@ models:
         +enabled: False
       res_epreuves:
         +enabled: False
+      res_scolaires:
+        +enabled: False
       suivi_resultats:
         +enabled: False
       transport:
-        +enabled: false
+        +enabled: False
       retirement:
         +enabled: False
       chronic_absenteeism:
-        +enabled: true
+        +enabled: False
     interfaces:
       bi_distribution:
         +enabled: False
