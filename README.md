@@ -264,7 +264,7 @@ Some dashboards might need extra configuration to be provided through `seeds`. I
 | [effectif_css](#effectif_css) | Track the population count in each school in the CSS | (CSSVT) Frédéryk Busque , Mohamed Sadqi (CSSVDC)
 | [retirement](#retirement) | Tracks the number of retired employees by job categories and workplace. Forecast, for up to five years, the number of retiring employees | (Sciance) Hugo Juhel
 | [chronic_absenteeism](#chronic_absenteeism) | Display general metrics abunt the student's absenteeism assessed through the number of days with at least one absence for every students. | (Sciance) Hugo Juhel
-
+| [res_scolaires](#res_scolaires) | Track the percentage of success and the average result for each one of selected academic subjects and skills of the schoold board | (CSSVT) Frédéryk Busque, Mohamed Sadqi (CSSVDC)	|
 
 > The following section describe the specific for each dashboard. Bear with me, we are gonna drill down into the specifics of each dashboard ! Stay focused ! In each of the following section, you will learn how to tame a specific dashboard.
 
@@ -687,6 +687,58 @@ seeds:
 ```
 
 __When overriding the repartition bracket, you will need to manualy update the `lorenz` measures from the Dahsboard's concentration page.__
+
+### res_scolaires
+> Provides a quick overview of the results of the selected academic subjects and skills of the schoold board.
+
+| Interfaces  | Marts 	| Marts seeds | Dashboard seeds | Additional config |
+|-----------	|-------------	|-------	|-------	| -------	|
+| gpi |  Yes | No 	| Yes 	| Yes 	|
+
+#### Dbt project specification
+> Update your `cssxx_store/dbt_project.yml` file with the following snippet.
+
+```yaml
+models:
+  store: # Enable the models from the core repo
+    marts:
+        educ_serv:
+            +enabled: True                  
+    dashboards:                                   
+        res_scolaires:
+            +enabled: True
+    interfaces: # The dashboard only needs the GPI database
+        gpi:
+            +enabled: True
+```  
+
+#### Additional configuration
+> These steps are optional.
+##### Customizing the tracked subjects
+> Update your `cssxx_store/dbt_project.yml` file.
+> This table needs some seeds. Make sure to run `dbt seed --full-refresh` to populate the seeds.
+
+* To add a list of in-house subjects to be tracked :
+  1. Add a `.csv` file in your `cssxx_store/seeds/dashboards/res_scolaires` folder. The file must be named `custom_matiere.csv`. The file must be populated with the colums described in `core.data.store/seeds/dashboards/res_scolaires/schema.yml` (refers to the `custom_matiere` seed). 
+
+  2. Trigger a refresh of your seeds 
+
+```bash
+dbt seed --full-refresh
+```
+
+##### Setting a custom `threshold`
+> The threshold is used to compute the identify the overachieving students. It is set to 70% by default.
+
+You can override the default threshold by adding the following variable in your `dbt_project.yml` file.
+
+```yaml
+# cssxx_store/dbt_project.yml
+vars:
+    # res_scolaires's dashboard variables:
+    res_scolaires:
+        threshold: 70
+```
 
 # Developer guidelines
 
