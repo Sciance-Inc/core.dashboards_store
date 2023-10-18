@@ -2,6 +2,62 @@
 
 
 
+## v0.7.0-dev.3+20231018 (2023-10-18)
+
+### Unknown
+
+* Merge branch &#39;develop&#39; of ssh.dev.azure.com:v3/Centre-Expertise-IA/COTRA-CE/core.data.tbe into develop ([`35fe131`](https://github.com/Sciance-Inc/core.dashboards_store/commit/35fe13145a03ded9282b7ae0e64243da06349dac))
+
+* Merged PR 453: feat :  add new res_scolaie dashboard
+
+# Objectives of the Pull Request ?
+&gt; Describe the high level purpose of your pull request. What are you trying to achieve ? How are you doing it ?
+cette PR introduit un nouveau TDB qui agrège les résultats au bilan des compétences et matières choisies
+# What is left out of the Pull Request ?
+&gt; Describe what is not included in the pull request. Why did you not include it in the PR. What are the next steps ?
+dans une prochaine PR nous allons ajouter les résultats au Étapes pour les compétence et les matières choisies
+# How to run the pull request ?
+&gt; Provide the code required to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected. The following code / placeholder is only provided as documentation / helper to get you started and you will need to adjust it.**
+
+```bash
+# Assuming you are in a folder containing both the core.data.store and the &lt;cssXX&gt;.data.store folder.
+# Update the code
+cd core.data.store
+git checkout feature/res_scolaire
+git pull
+# Might be required if you update either the poetry file or the lock file
+# poetry shell &amp;&amp; poetry lock &amp;&amp; poetry install
+cd ../cssvdc.data.store
+git checkout feature/res_scolaire
+git pull
+# Might be required if you add a new DBT dependency
+#dbt deps
+# Run dbt
+dbt build --select +tag:res_scolaires
+```
+
+# Pull request&#39;s checklist
+&gt; Please, read carefully each item before checking it. Your PR&#39;s review might be delayed otherwise.
+
+* **Code** :
+  * [X] The code I m asking a review for is working. **I understand that my PR will be rejected as-is otherwise.**
+  * [X] My tables/variables naming follows the conventions described in the `readme.md`.
+  * [X] I have added DBT tests to my models (at least a `non null` / `unique` per models).
+  * [X] I have formatted the code with the help of `sqlfmt .`.
+  * [X] Did you add a new **mandatory seed** ? If so, have you populated the `nightly` project with your new seed ?
+* **Template** :
+  *  [X] I have updated the `core/template/{{ cookiecutter.project_slug }}/dbt_project.yml` file accordingly to my changes.
+* **Documentation** :
+  * [X]  I have updated the documentation (README) accordingly to my changes.
+  * [X]  The models I have added are documented in a `schema.yml` file.
+* **Pull-request** :
+  * [X]  I have set the `set-auto-complete` of the PR and **edited the merge commit message to remove the `Merged PR XXX :` so that my merge message is something like `&lt;feat|fix|chore|doc|refactor|perf|style&gt;: foo bar`**
+  * [X]  The code *provided to run the pull request* is working. **I understand that my PR will be rejected as-is otherwise.**
+  * [X]  I have added my CSS lead as a reviewer.
+  * [X]  My pull request is documented. I have explained the needs for the PR and what was left out of the it.
+  * [X]  I have carefully reviewd each changes made to a file and made sure the files included on the PR were actually added o... ([`f330ca9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f330ca98313d04165a0a24f6733597e7c1f67d3a))
+
+
 ## v0.7.0-dev.3+20231013 (2023-10-13)
 
 ### Chore
