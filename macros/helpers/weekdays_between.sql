@@ -15,7 +15,13 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select
-    stat_eng as engagement_status,
-    concat(descr, ' - (', stat_eng, ')') as engagement_status_name
-from {{ ref("stat_eng") }}
+{#
+    Calculates the number of weekdays between two dates
+#}
+{% macro weekdays_between(start_date, end_date) %}
+
+    datediff(day, {{ start_date }}, {{ end_date }})
+    - datediff(week, {{ start_date }}, dateadd(day, 1, {{ end_date }}))
+    - datediff(week, {{ start_date }}, {{ end_date }})
+
+{% endmacro %}
