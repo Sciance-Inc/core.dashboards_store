@@ -2,6 +2,96 @@
 
 
 
+## v0.7.0-dev.4+20231019 (2023-10-19)
+
+### Feature
+
+* feat: add new res_scolaire dashboard
+
+&gt; Describe the high level purpose of your pull request. What are you trying to achieve ? How are you doing it ?
+cette PR introduit un nouveau TDB qui agrège les résultats au bilan des compétences et matières choisies
+&gt; Describe what is not included in the pull request. Why did you not include it in the PR. What are the next steps ?
+dans une prochaine PR nous allons ajouter les résultats au Étapes pour les compétence et les matières choisies
+&gt; Provide the code required to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected. The following code / placeholder is only provided as documentation / helper to get you started and you will need to adjust it.**
+
+```bash
+cd core.data.store
+git checkout feature/res_scolaire
+git pull
+cd ../cssvdc.data.store
+git checkout feature/res_scolaire
+git pull
+dbt build --select +tag:res_scolaires
+```
+
+&gt; Please, read carefully each item before checking it. Your PR&#39;s review might be delayed otherwise.
+
+* **Code** :
+  * [X] The code I m asking a review for is working. **I understand that my PR will be rejected as-is otherwise.**
+  * [X] My tables/variables naming follows the conventions described in the `readme.md`.
+  * [X] I have added DBT tests to my models (at least a `non null` / `unique` per models).
+  * [X] I have formatted the code with the help of `sqlfmt .`.
+  * [X] Did you add a new **mandatory seed** ? If so, have you populated the `nightly` project with your new seed ?
+* **Template** :
+  *  [X] I have updated the `core/template/{{ cookiecutter.project_slug }}/dbt_project.yml` file accordingly to my changes.
+* **Documentation** :
+  * [X]  I have updated the documentation (README) accordingly to my changes.
+  * [X]  The models I have added are documented in a `schema.yml` file.
+* **Pull-request** :
+  * [X]  I have set the `set-auto-complete` of the PR and **edited the merge commit message to remove the `Merged PR XXX :` so that my merge message is something like `&lt;feat|fix|chore|doc|refactor|perf|style&gt;: foo bar`**
+  * [X]  The code *provided to run the pull request* is working. **I understand that my PR will be rejected as-is otherwise.**
+  * [X]  I have added my CSS lead as a reviewer.
+  * [X]  My pull request is documented. I have explained the needs for the PR and what was left out of the it.
+  * [X]  I have carefully reviewd each changes made to a file and made sure the files included on the PR were actually added o... ([`e2ea271`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e2ea27179170e04d9cff68fab0a75b6c1914589e))
+
+### Refactor
+
+* refactor(hr mart): switching to historical activity table
+
+This PR refactors the RH mart and introduces new tables than can be used to ease future downstream computations.
+
+* This PR firsts adds a new **historical** `stg_activity_history` tables. This table is a consolidated version of `pai_hemp`
+* The main job history of employees, which was previously unavailable, is built by parsing the XML payload of `hcha_pai_dos_empl`.
+* A **historical**, table with point-in-time metadata is derived from precedings table. This `fact_activity_yearly` provide the point-in-time following attributes :
+    * workplace
+    * stat_eng
+    * stat_empl
+    * main_job (main ref empl)
+    * This table can then be used a a spine to add point-in-time filters to every metrics computed at an employee / year level.
+* A `fact_current_active_employees` table is derived from the `fact_activity_table`, listing all the currently enroled employees is introduced.
+
+The retirement dashboard is rebuilt upon the new tables.
+
+To reduce the need for double joining on both `pai_dos` and `pai_dos2`, a new `dim_employees` is created, providing usefull static information at the employees level. Future static metrics of interest could be added to this table.
+
+As noted by Maryna, the meaning of the seeds is not constant over time. To allow for time-varying seed, the two existing seeds are refactored with the addition of two new columns : `valid_from` and `valid_until`.
+
+Yearly versions of the seed tables are derived in `dim_employment_status_yearly` and `dim_engagement_status_yearly`. The two derived tables expand the seeds by year. Time varying mapping can then by handled by joining on both the code (ex stat_eng) and the year we want the valid code for.
+
+Permanence will be rebuilt upon the new activity table. For now, the table is flagged as deprecated and a new `stg_seniority` is added as work-in-progress.
+
+* `stg_seniority` will be completed in another PR, this one being big enough.
+* Refactoring other RH dashboards schould be done in another PR
+
+**A companion branch cssvt.data.tbe/feature/rh_dim_empl has been created to help the reviewers. The companion branch targets CSSVT**
+
+```bash
+cd core.data.store
+git checkout feature/rh_dim_empl
+poetry shell &amp;&amp; poetry install
+git pull
+cd ../cssvt.data.store
+git checkout feature/rh_dim_empl
+git pull
+dbt run-operation drop_schema
+dbt build --select +tag:human_resources --full-refresh
+``` ([`d88a4e5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d88a4e50d5a7e872ee4a6180efb40c507e3784ae))
+
+### Unknown
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`35a1627`](https://github.com/Sciance-Inc/core.dashboards_store/commit/35a16279c8e29978f16424e03e73b6a663134ce8))
+
+
 ## v0.7.0-dev.3+20231018 (2023-10-18)
 
 ### Unknown
