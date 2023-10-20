@@ -2,6 +2,13 @@
 
 
 
+## v0.7.0+20231020 (2023-10-20)
+
+### Documentation
+
+* docs: adding doc website ([`5274842`](https://github.com/Sciance-Inc/core.dashboards_store/commit/527484220ce31305fab121a9d8155bc05be2d66e))
+
+
 ## v0.7.0+20230926 (2023-09-26)
 
 ### Chore
