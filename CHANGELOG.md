@@ -2,6 +2,17 @@
 
 
 
+## v0.7.0-dev.4+20231020 (2023-10-20)
+
+### Documentation
+
+* docs: adding doc website ([`37f63ee`](https://github.com/Sciance-Inc/core.dashboards_store/commit/37f63eee7bbcc646ccace0bb7c1ef0b4d845d748))
+
+### Unknown
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`2d2bd9b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2d2bd9ba20c0461e06de81f222c43bde6c53b813))
+
+
 ## v0.7.0-dev.4+20231019 (2023-10-19)
 
 ### Feature
