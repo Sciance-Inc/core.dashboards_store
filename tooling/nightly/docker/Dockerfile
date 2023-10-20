@@ -54,12 +54,12 @@ RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/usr/local python3
 ########### END OF SAME AS depechecode/Dockerfile
 
 # Configure DBT to always use the profile file with interpolated values
-COPY nightly/docker/src/cdbt /usr/local/bin/cdbt
+COPY tooling/nightly/docker/src/cdbt /usr/local/bin/cdbt
 RUN chmod +x /usr/local/bin/cdbt
-COPY nightly/docker/src/profiles.yml /root/.dbt/profiles.yml
+COPY tooling/nightly/docker/src/profiles.yml /root/.dbt/profiles.yml
 
 # Add the Integration script 
-COPY nightly/docker/src/integration /usr/local/bin/integration
+COPY tooling/nightly/docker/src/integration /usr/local/bin/integration
 RUN chmod +x /usr/local/bin/integration
 
 # Allow github key
@@ -70,10 +70,10 @@ RUN mkdir -p -m 0600 ~/.ssh && \
 WORKDIR /src
 
 # Copy the nightly code
-COPY nightly/dbt/seeds seeds
-COPY nightly/dbt/models models
-COPY nightly/dbt/dbt_project.yml dbt_project.yml
-COPY nightly/dbt/packages.yml packages.yml
+COPY tooling/nightly/dbt/seeds seeds
+COPY tooling/nightly/dbt/models models
+COPY tooling/nightly/dbt/dbt_project.yml dbt_project.yml
+COPY tooling/nightly/dbt/packages.yml packages.yml
 
 # Install the specified version of the core.
 RUN --mount=type=ssh cdbt deps

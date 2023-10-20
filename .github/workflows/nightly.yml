@@ -78,7 +78,7 @@ jobs:
           push: true
           tags: ${{ steps.docker-tag.outputs.tags }}
           context: .
-          file: nightly/docker/Dockerfile
+          file: tooling/nightly/docker/Dockerfile
           pull: true
           build-args: |
             CORE_VERSION=${{ steps.get_release.outputs.tag_name }}
