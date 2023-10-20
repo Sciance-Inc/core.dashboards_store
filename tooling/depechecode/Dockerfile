@@ -44,12 +44,12 @@ RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/usr/local python3
     poetry install --no-interaction --no-ansi --only main
 
 # Configure DBT to always use the profile file with interpolated values
-COPY depechecode/cdbt /usr/local/bin/cdbt
+COPY cdbt /usr/local/bin/cdbt
 RUN chmod +x /usr/local/bin/cdbt
-COPY depechecode/profiles.yml /root/.dbt/profiles.yml
+COPY profiles.yml /root/.dbt/profiles.yml
 
 # Add the CICD script 
-COPY depechecode/cicd /usr/local/bin/cicd
+COPY cicd /usr/local/bin/cicd
 RUN chmod +x /usr/local/bin/cicd
 
 # Allow github key
@@ -57,4 +57,4 @@ RUN mkdir -p -m 0600 ~/.ssh && \
     ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
 # Add the content of depechecode for downstream build
-COPY depechecode/DAG depechecode/DAG
+COPY DAG depechecode/DAG

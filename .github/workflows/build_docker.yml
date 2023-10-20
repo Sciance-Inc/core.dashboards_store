@@ -67,8 +67,8 @@ jobs:
         with:
           push: true
           tags: ${{ steps.docker-tag.outputs.tags }}
-          context: .
-          file: depechecode/Dockerfile
+          context: tooling/depechecode
+          #file: depechecode/Dockerfile
 
       - name: Microsoft Teams Notification
         uses: skitionek/notify-microsoft-teams@master
