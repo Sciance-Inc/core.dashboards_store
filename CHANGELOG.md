@@ -2,6 +2,25 @@
 
 
 
+## v0.7.0-dev.4+20231021 (2023-10-21)
+
+### Chore
+
+* chore: adding PR, bug, and feature templates ([`a14021f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a14021fdca6d65ec53889f52587b56d9e0de6c50))
+
+* chore: moving the nightly build to the tooling subfolder ([`1d82aec`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1d82aecd7e159e4d2c472a04a67ad16381a68c54))
+
+* chore(fix): setting the build context to the root of the folder as pyproject is required ([`36b7a8f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/36b7a8fdf190188d3ee6818ac9e34ce1accad10a))
+
+* chore: moving depeche code to the tooling folder ([`a928669`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a9286696bbb76b3454f66eaa8de7a8fc3265a8f4))
+
+### Documentation
+
+* docs: reflecting changes of template new location ([`0b089f4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0b089f44b08d3db1c8146cdd3fc5bdff01f55750))
+
+* docs: migrating docs notification ([`f4a2739`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f4a2739176e28dc88e7b8b6d0f2e22b30b7a88d4))
+
+
 ## v0.7.0-dev.4+20231020 (2023-10-20)
 
 ### Documentation
