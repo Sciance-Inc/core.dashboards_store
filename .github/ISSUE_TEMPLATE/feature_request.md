@@ -7,7 +7,7 @@ assignees: ''
 ---
 
 <!--
-Thank you for suggesting an idea to make Node.js better.
+Thank you for suggesting an idea to make the Store a better place.
 
 Please fill in as much of the template below as you're able.
 -->
