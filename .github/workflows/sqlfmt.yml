@@ -2,6 +2,9 @@ name: sqlfmt
 
 on:
   pull_request:
+    branches:
+      - develop
+      - master
 
 jobs:
   sqlfmt:
