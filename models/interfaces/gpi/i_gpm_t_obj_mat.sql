@@ -15,13 +15,5 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-SELECT 
-  id_obj_mat
-    , id_eco
-    , mat
-    , obj_01
-    , descr
-    , descr_abreg
-    , descr_det
-    , pond_obj
-FROM {{ var("database_gpi") }}.dbo.gpm_t_obj_mat
+select id_obj_mat, id_eco, mat, obj_01, descr, descr_abreg, descr_det, pond_obj
+from {{ var("database_gpi") }}.dbo.gpm_t_obj_mat
