@@ -3,7 +3,9 @@ name: Release on Github
 on:
   push:
     branches:
-      - "**" # matches every branch
+      - develop
+      - master
+      - release/*
 
 concurrency:
   group: ${{ github.ref }}-release
