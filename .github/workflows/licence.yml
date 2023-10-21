@@ -5,6 +5,9 @@ on:
     branches:
       - develop
       - master
+  workflow_dispatch:
+    branches:
+      - develop
 
 jobs:
   licence:
@@ -16,6 +19,5 @@ jobs:
       - name: Check license headers
         uses: viperproject/check-license-header@v2
         with:
-          path: .
-          config: tooling/licence/license-checker-config.json
+          config: ./tooling/licence/license-checker-config.json
           strict: true

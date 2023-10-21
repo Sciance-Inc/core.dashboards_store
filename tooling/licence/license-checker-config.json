@@ -3,6 +3,6 @@
         "include": [
             "**/*.sql"
         ],
-        "license": "tooling/licence-check/sql-header.txt"
+        "license": "./tooling/licence-check/sql-header.txt"
     }
 ]
