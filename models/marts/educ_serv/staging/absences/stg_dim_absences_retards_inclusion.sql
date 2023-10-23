@@ -15,4 +15,17 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select date_abs, fiche, id_eco, motif_abs from {{ var("database_gpi") }}.dbo.gpm_e_abs
+{#
+	This table select the absences reason to include in the computation.
+    This file acts a hook for the integrator to exclude the retard from the computation.
+    It's designed to be overrided. By default, we include all reasons. 
+#}
+select id_eco, motif_abs, max(descr) as descr
+from {{ ref("i_gpm_t_motif_abs") }}
+group by
+    id_eco,
+    motif_abs
+    -- For instance if you wan't to exclude the retard from the downstream
+    -- computation, you can, for instance, add the following where clause:
+    -- where lower(descr) not like '%retard%'
+    

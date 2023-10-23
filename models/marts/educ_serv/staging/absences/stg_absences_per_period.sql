@@ -20,11 +20,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select
     case
-        when month(date_abs) <= 7 then year(date_abs) - 1 else year(date_abs)
+        when month(fct.date_abs) <= 7
+        then year(fct.date_abs) - 1
+        else year(fct.date_abs)
     end as school_year,
-    date_abs,
-    fiche,
-    id_eco,
+    fct.date_abs,
+    fct.fiche,
+    fct.id_eco,
     count(*) as n_periods_of_absence
-from {{ ref("i_gpm_e_abs") }}
-group by date_abs, fiche, id_eco
+from {{ ref("i_gpm_e_abs") }} as fct
+inner join
+    {{ ref("stg_dim_absences_retards_inclusion") }} as dim
+    on fct.id_eco = fct.id_eco
+    and fct.motif_abs = fct.motif_abs
+group by fct.date_abs, fct.fiche, fct.id_eco
