@@ -52,6 +52,7 @@ models:
         +enabled: False
       chronic_absenteeism:
         +enabled: False
+  
     interfaces:
       bi_distribution:
         +enabled: False
@@ -61,9 +62,9 @@ models:
         +enabled: False
       jade:
         +enabled: False
+
     rls:
-      +enabled: true
-  {{ cookiecutter.css_short_name + '_store' }}:
+      +enabled: false
     +materialized: table
     interfaces:
       +tags: ["interfaces"]
@@ -80,6 +81,7 @@ vars:
   database_cbm: "[{{ cookiecutter.server_ip }}].[JADEFGFPCVILLE]"
   database_crif: "[{{ cookiecutter.server_ip }}].[JADECRIF]"
   database_jade: "[{{ cookiecutter.server_ip }}].[JADE]"
+  database_geobus: "[{{ cookiecutter.server_ip }}].[GEOBUS]"
 
   res_epreuves:
     cod_css: <cssRegex>
