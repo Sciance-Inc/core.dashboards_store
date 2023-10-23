@@ -2,6 +2,39 @@
 
 
 
+## v0.7.0-dev.4+20231023 (2023-10-23)
+
+### Chore
+
+* chore: excluding template from formatting ([`8cf9428`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8cf94285fc8304e463cdbd936e5540a8d305fefb))
+
+* chore: mobing the template folder into the tooling folder ([`0a0bd2f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0a0bd2f78defbe96dc7488bdf905a068f446f117))
+
+* chore: adding missing licence ([`fa498a6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fa498a60d189c8c369a790cb185a616bd9962346))
+
+* chore: fixing path in licence checker ([`c1f5523`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c1f552383289cf5bd914f253f431ead156f2a653))
+
+* chore: adding assignee item ([`e9d123d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e9d123dbb22d440811e9f6f53e80dcf7496ff4df))
+
+* chore: adding licence checker ([`468e4a0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/468e4a08ff9672b849217a3c37e035b72054070e))
+
+* chore: updating actions to not triggers on PR if not needed ([`5b68894`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5b68894fa4a7425dabf85d67b6320b679cc7703e))
+
+* chore: adding sqlfmt guidelines and check ([`9623bae`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9623baed2cacb68dac60b83cc53232c98e2d5b63))
+
+* chore: adding question template ([`81b9cf7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/81b9cf72e7517e48d495995de0fde152cd405579))
+
+* chore: updating feature request template ([`6ac3de5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6ac3de52da533f6db26e9f14048958a6213e96fd))
+
+### Style
+
+* style: applying sqlfmt ([`a6c4b99`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a6c4b9971d3b2b0764bfc32fb4d4fc484bb8cfd3))
+
+### Unknown
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`a8d8e7f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a8d8e7f3b0ac737f8492322a4a993d879c829a0d))
+
+
 ## v0.7.0-dev.4+20231021 (2023-10-21)
 
 ### Chore
