@@ -22,6 +22,14 @@ with
         left join {{ ref("i_gpm_t_eco") }} as eco on dan.id_eco = eco.id_eco
         where dan.statut_don_an = 'A'
     ),
+    
+    -- Remove the students with duplicated code perm, as it'schould be unique.
+    blacklist as (
+        select ele.code_perm
+        from {{ ref("i_gpm_e_ele") }} as ele 
+        group by ele.code_perm 
+        having count(*) > 1
+    ),
 
     fiche as (
         select stg.code_perm, stg.id_eco, stg.annee, ele.fiche, stg.population
@@ -37,3 +45,4 @@ select
     ) as seqid
 from fiche
 left join dan on dan.fiche = fiche.fiche and dan.id_eco = fiche.id_eco
+where fiche.code_perm not in (select * from blacklist)
