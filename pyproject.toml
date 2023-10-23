@@ -47,5 +47,6 @@ quiet=true
 reset_cache=true
 exclude=[
     "target/**/*",
-     "dbt_packages/**/*"
+    "dbt_packages/**/*",
+    "tolling/templates/**/*"
 ]
