@@ -52,7 +52,9 @@ with
             on res_mat.fiche = comp.fiche
             and res_mat.id_mat_ele = comp.id_mat_ele
         left join
-            {{ ref("i_gpm_t_obj_mat") }} as dim on comp.id_obj_mat = dim.id_obj_mat
+            {{ ref("i_gpm_t_obj_mat") }} as dim 
+            on comp.id_obj_mat = dim.id_obj_mat 
+            and dim.OBJ_02 is null and dim.OBJ_03 is null and dim.OBJ_04 is null
         where
             (
                 (comp.res_final_obj like '%[0-9]%' or comp.res_final_obj in ('R', 'NR'))

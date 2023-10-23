@@ -3,6 +3,9 @@ SELECT
     , id_eco
     , mat
     , obj_01
+    , obj_02
+    , obj_03
+    , obj_04
     , descr
     , descr_abreg
     , descr_det
