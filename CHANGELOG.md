@@ -2,6 +2,43 @@
 
 
 
+## v0.7.0-dev.5+20231024 (2023-10-24)
+
+### Chore
+
+* chore(licence-check): warning won t be treated as error anymore ([`c161e9e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c161e9e62a791eceae175b60ffa64c34b13f2515))
+
+* chore(fix): fixing badly resolved conflict in the template s dbt_project ([`89dc589`](https://github.com/Sciance-Inc/core.dashboards_store/commit/89dc58970ed194b3f55b85c6d80ac845dd3067d0))
+
+### Documentation
+
+* docs: adding docs about overriding populations ([`13b1118`](https://github.com/Sciance-Inc/core.dashboards_store/commit/13b11180491d64036230832bac61f59db1625128))
+
+* docs: fixing a typo in the overriding section ([`95c6bef`](https://github.com/Sciance-Inc/core.dashboards_store/commit/95c6befa8378838aed9041994555aa0fc04b6b11))
+
+### Feature
+
+* feat(chronic_absenteeism): adding support for customizable list of absences and lateness (#8)
+
+Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`4d2b29e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4d2b29eee58242dd62835d91d68b4146ddba38d1))
+
+### Fix
+
+* fix: filter_non_null_obj_number (#9)
+
+Co-authored-by: sadqim &lt;sadqim@csvdc.qc.ca&gt;
+Co-authored-by: Hugo Juhel &lt;22279443+hugoJuhel@users.noreply.github.com&gt;
+Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`3c120b2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3c120b2c73b75329906ed3225eaa3aa657614927))
+
+* fix(spine): removing students with duplicated code perm ([`b0464e1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b0464e1595b41efd3ae2ff5a06cf727f9067fe51))
+
+* fix: properly injecting the name of the db when not using a linked server ([`ff6fbf5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ff6fbf5b98ecfb8ec0aad69c679ec8b3624869c3))
+
+### Unknown
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`111ab95`](https://github.com/Sciance-Inc/core.dashboards_store/commit/111ab95eab8cab03c271a8bf4fb68f7374adc3fd))
+
+
 ## v0.7.0-dev.4+20231023 (2023-10-23)
 
 ### Chore
