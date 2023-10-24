@@ -18,6 +18,24 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {#
     Compute the sequence of days with at least one periode of absence.
 #}
+
+
+{# Extract the 'grille' selection variables : default to the one used by VDC #}
+{% set grille_section = var('marts', {'educ_serv': {"absences": {"grille": ('1', 'A')}}}) %}
+{% set grille_value = grille_section['educ_serv']['absences']['grille']%}
+{% set is_grille_value_default = grille_value == ('1', 'A') %}
+
+{% if execute %}
+    {% if is_grille_value_default %}
+    {{
+            log(
+                "Warning : absences : the default 'grille' variable will be used to extract the absences. You might want to override it.",
+                true,
+            )
+    }}
+    {% endif %}
+{% endif %}
+
 -- Extract all the days a student is expected to be there 
 with
     expected_cal as (
@@ -30,7 +48,7 @@ with
             id_eco,
             date_evenement
         from {{ ref("i_gpm_t_cal") }} as cal
-        where jour_cycle is not null and grille in ('1', 'A')
+        where jour_cycle is not null and grille in {{ grille_value }}
 
     -- Add a sequence id : day_id to later identify the break between two sequences of
     -- absences
