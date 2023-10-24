@@ -27,7 +27,7 @@ with
             fiche,
             eco,
             school_year,
-            category_abs, 
+            category_abs,
             count(*) as n_absences,
             avg(1.0 * absences_sequence_length) as avg_absences_sequence_length,
             max(absences_sequence_length) as max_absences_sequence_length
@@ -49,7 +49,10 @@ with
             abs.avg_absences_sequence_length,  -- Keep the null as the the average schould not took into account the 0 absences
             abs.max_absences_sequence_length  -- Keep the null as the the average schould not took into account the 0 absences
         from {{ ref("spine") }} as spi
-        cross join (select distinct category_abs from {{ ref("fact_absences_sequence") }}) as dim_abs
+        cross join
+            (
+                select distinct category_abs from {{ ref("fact_absences_sequence") }}
+            ) as dim_abs
         left join
             absences_aggregated as abs
             on spi.fiche = abs.fiche
@@ -84,8 +87,11 @@ with
     )
 
 select
-    {{ dbt_utils.generate_surrogate_key(["eco", "school_year", "population", "category_abs"]) }}
-    as filter_key,
+    {{
+        dbt_utils.generate_surrogate_key(
+            ["eco", "school_year", "population", "category_abs"]
+        )
+    }} as filter_key,
     school_year,
     proportion_of_absentees,
     avg_n_absences_for_absentees,

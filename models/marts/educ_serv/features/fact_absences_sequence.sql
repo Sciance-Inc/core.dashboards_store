@@ -18,21 +18,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {#
     Compute the sequence of days with at least one periode of absence.
 #}
-
-
 {# Extract the 'grille' selection variables : default to the one used by VDC #}
-{% set grille_section = var('marts', {'educ_serv': {"absences": {"grille": ('1', 'A')}}}) %}
-{% set grille_value = grille_section['educ_serv']['absences']['grille']%}
-{% set is_grille_value_default = grille_value == ('1', 'A') %}
+{% set grille_section = var(
+    "marts", {"educ_serv": {"absences": {"grille": ("1", "A")}}}
+) %}
+{% set grille_value = grille_section["educ_serv"]["absences"]["grille"] %}
+{% set is_grille_value_default = grille_value == ("1", "A") %}
 
 {% if execute %}
     {% if is_grille_value_default %}
-    {{
+        {{
             log(
                 "Warning : absences : the default 'grille' variable will be used to extract the absences. You might want to override it.",
                 true,
             )
-    }}
+        }}
     {% endif %}
 {% endif %}
 
@@ -67,7 +67,14 @@ with
     -- Left join the observed absences on the calendar
     ),
     observed as (
-        select exp.school_year, exp.id_eco, exp.date_evenement, exp.day_id, abs.fiche, abs.category_abs, abs.description_abs
+        select
+            exp.school_year,
+            exp.id_eco,
+            exp.date_evenement,
+            exp.day_id,
+            abs.fiche,
+            abs.category_abs,
+            abs.description_abs
         from expected_cal_with_id as exp
         inner join
             {{ ref("stg_absences_per_period") }} as abs
@@ -84,11 +91,12 @@ with
             date_evenement,
             day_id,
             category_abs,
-            description_abs, 
+            description_abs,
             case
                 when
                     day_id - lag(day_id) over (
-                        partition by school_year, id_eco, fiche, category_abs order by day_id
+                        partition by school_year, id_eco, fiche, category_abs
+                        order by day_id
                     )
                     > 1
                 then 1
@@ -106,7 +114,7 @@ with
             date_evenement,
             day_id,
             fiche,
-            category_abs, 
+            category_abs,
             description_abs,
             sum(sequence_break) over (
                 partition by school_year, id_eco, fiche, category_abs
@@ -117,9 +125,11 @@ with
 
     ),
 
-    -- Select the last description_abs of each sequence to give some context. Taking the last makes more sens than the first as the nature of the sequence might evolve accross time.
+    -- Select the last description_abs of each sequence to give some context. Taking
+    -- the last makes more sens than the first as the nature of the sequence might
+    -- evolve accross time.
     contextualized as (
-        select 
+        select
             school_year,
             id_eco,
             date_evenement,
@@ -127,8 +137,10 @@ with
             fiche,
             category_abs,
             last_value(description_abs) over (
-                partition by school_year, fiche, id_eco, absence_sequence_id, category_abs
-                order by day_id rows between unbounded preceding and unbounded following
+                partition by
+                    school_year, fiche, id_eco, absence_sequence_id, category_abs
+                order by day_id
+                rows between unbounded preceding and unbounded following
             ) as last_description_abs,
             absence_sequence_id
         from sequences
@@ -144,7 +156,7 @@ with
             id_eco,
             absence_sequence_id,
             category_abs,
-            min(last_description_abs) as last_description_abs, -- Dummy aggregation
+            min(last_description_abs) as last_description_abs,  -- Dummy aggregation
             min(date_evenement) as absence_start_date,
             max(date_evenement) as absence_end_date,
             max(day_id) - min(day_id) + 1 as absences_sequence_length

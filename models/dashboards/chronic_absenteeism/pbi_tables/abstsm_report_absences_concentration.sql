@@ -50,7 +50,13 @@ with
             on src.absences_sequence_length >= bra.lower_bound
             and src.absences_sequence_length < bra.upper_bound
         where school_year > {{ store.get_current_year() - 10 }}
-        group by src.fiche, spi.population, src.eco, src.school_year, src.category_abs, bra.name
+        group by
+            src.fiche,
+            spi.population,
+            src.eco,
+            src.school_year,
+            src.category_abs,
+            bra.name
 
     ),
     running as (
@@ -78,7 +84,7 @@ with
         select
             eco,
             population,
-            category_abs, 
+            category_abs,
             school_year,
             bracket_name,
             running_count_students / max(running_count_students) over (
@@ -145,11 +151,10 @@ with
     )
 
 select
-    {{ dbt_utils.generate_surrogate_key(["eco", "school_year", "population", "category_abs"]) }}
-    as filter_key,
-    bracket_name,
-    percentage_of_absences,
-    perc_target,
-    weight
+    {{
+        dbt_utils.generate_surrogate_key(
+            ["eco", "school_year", "population", "category_abs"]
+        )
+    }} as filter_key, bracket_name, percentage_of_absences, perc_target, weight
 from distance
 where rank = 1  -- Keep only the closest distance for each target percentile

@@ -20,7 +20,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {{ config(alias="report_absences_distributions") }}
 
--- Agregated absences at a student X school X year X sequence length level X category_abs 
+-- Agregated absences at a student X school X year X sequence length level X
+-- category_abs
 with
     absences_aggregated as (
         select
@@ -74,8 +75,11 @@ with
     )
 
 select
-    {{ dbt_utils.generate_surrogate_key(["eco", "school_year", "population", "category_abs"]) }}
-    as filter_key,
+    {{
+        dbt_utils.generate_surrogate_key(
+            ["eco", "school_year", "population", "category_abs"]
+        )
+    }} as filter_key,
     absences_sequence_length,
     n_absences,
     n_students,

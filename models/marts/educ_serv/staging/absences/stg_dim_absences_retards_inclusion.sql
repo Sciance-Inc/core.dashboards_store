@@ -28,25 +28,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     # retard -> cpt_abs = 3
 
 #}
-select 
-    id_eco, 
+select
+    id_eco,
     motif_abs,
     descr as description_abs,
-    case 
-        when cpt_abs in (1, 2) then 'absence'
-        when cpt_abs = 3 then 'retard'
-        else null -- Test hook.
-    end as category_abs 
+    case
+        when cpt_abs in (1, 2) then 'absence' when cpt_abs = 3 then 'retard' else null  -- Test hook.
+    end as category_abs
 from {{ ref("i_gpm_t_motif_abs") }}
-where cpt_abs is not null -- Filter out the motiveless absences / lateness
+where cpt_abs is not null  -- Filter out the motiveless absences / lateness
 group by
     id_eco,
     motif_abs,
     descr,  -- Test hook. Schould be a dummy aggregation. A test will raise an error if a motif_abs has more than one description. If so, we would need to implement a way to disembiguate. As there is now dates in the table, the disembiguation is unsure as of right now. I then don't implement it right-now to not introduce a silent bug.
-    cpt_abs -- Test hook. Schould be a dummy aggregation. A test will raise an error if a motif_abs belongs to more than one category_abs
+    cpt_abs  -- Test hook. Schould be a dummy aggregation. A test will raise an error if a motif_abs belongs to more than one category_abs
 
-
--- For instance if you want to exclude the retard from the downstream
--- computation, you can, for instance, add the following where clause:
--- where cpt_abs != 3.
+    -- For instance if you want to exclude the retard from the downstream
+    -- computation, you can, for instance, add the following where clause:
+    -- where cpt_abs != 3.
     
