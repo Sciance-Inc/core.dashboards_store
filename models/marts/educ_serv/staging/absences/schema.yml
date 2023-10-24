@@ -10,6 +10,7 @@ models:
             - fiche
             - date_abs
             - id_eco
+            - category_abs
 
   - name: stg_dim_absences_retards_inclusion
     description: >
@@ -19,3 +20,7 @@ models:
           combination_of_columns:
             - id_eco
             - motif_abs
+    columns:
+      - name: category_abs
+        tests:
+          - not_null
