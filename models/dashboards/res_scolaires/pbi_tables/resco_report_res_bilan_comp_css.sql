@@ -82,9 +82,21 @@ with
             count(res_num_comp) over (
                 partition by annee, mat, no_competence, population
             ) as n_obs_g,
+            count(res_num_comp) over (
+                partition by annee, mat, no_competence, population, plan_interv_ehdaa
+            ) as n_obs_pi,
+            count(res_num_comp) over (
+                partition by annee, mat, no_competence, population, genre
+            ) as n_obs_gre,
             sum(try_cast(tx_reussite as float)) over (
                 partition by annee, mat, no_competence, population
             ) as n_reussite_g,
+            sum(try_cast(tx_reussite as float)) over (
+                partition by annee, mat, no_competence, population, plan_interv_ehdaa
+            ) as n_reussite_pi,
+            sum(try_cast(tx_reussite as float)) over (
+                partition by annee, mat, no_competence, population, genre
+            ) as n_reussite_gre,
             sum(try_cast(tx_reussite as float)) over (
                 partition by
                     population,
@@ -146,6 +158,12 @@ with
                 partition by annee, mat, no_competence, population
             ) as resultat_avg_g,
             avg(try_cast(res_num_comp as decimal(5, 2))) over (
+                partition by annee, mat, no_competence, population, genre
+            ) as resultat_avg_gre,
+            avg(try_cast(res_num_comp as decimal(5, 2))) over (
+                partition by annee, mat, no_competence, population, plan_interv_ehdaa
+            ) as resultat_avg_pi,
+            avg(try_cast(res_num_comp as decimal(5, 2))) over (
                 partition by
                     population,
                     annee,
@@ -174,8 +192,12 @@ with
             descr,
             max(n_obs_f) as n_obs_f,
             max(n_obs_g) as n_obs_g,
+            max(n_obs_gre) as n_obs_gre,
+            max(n_obs_pi) as n_obs_pi,
             max(n_reussite_f) as n_reussite_f,
             max(n_reussite_g) as n_reussite_g,
+            max(n_reussite_gre) as n_reussite_gre,
+            max(n_reussite_pi) as n_reussite_pi,
             max(n_risque_f) as n_risque_f,
             max(n_risque_g) as n_risque_g,
             max(n_echec_f) as n_echec_f,
@@ -183,7 +205,9 @@ with
             max(n_maitrise_f) as n_maitrise_f,
             max(n_maitrise_g) as n_maitrise_g,
             max(resultat_avg_f) as resultat_avg_f,
-            max(resultat_avg_g) as resultat_avg_g
+            max(resultat_avg_g) as resultat_avg_g,
+            max(resultat_avg_gre) as resultat_avg_gre,
+            max(resultat_avg_pi) as resultat_avg_pi
         from agg
         group by
             population,
@@ -223,12 +247,20 @@ with
             plan_interv_ehdaa,
             n_obs_f,
             n_obs_g,
+            n_obs_gre,
+            n_obs_pi,
             resultat_avg_f,
             resultat_avg_g,
+            resultat_avg_gre,
+            resultat_avg_pi,
             n_reussite_f,
             n_reussite_f / n_obs_f as percent_of_success_f,
             n_reussite_g,
             n_reussite_g / n_obs_g as percent_of_success_g,
+            n_reussite_gre,
+            n_reussite_gre / n_obs_gre as percent_of_success_gre,
+            n_reussite_pi,
+            n_reussite_pi / n_obs_pi as percent_of_success_pi,
             n_echec_f,
             n_echec_f / n_obs_f as percent_of_echec_f,
             n_echec_g,
@@ -258,12 +290,20 @@ select
     -- Metrics
     n_obs_f,
     n_obs_g,
+    n_obs_gre,
+    n_obs_pi,
     resultat_avg_f,
     resultat_avg_g,
+    resultat_avg_gre,
+    resultat_avg_pi,
     n_reussite_f,
     percent_of_success_f,
     n_reussite_g,
     percent_of_success_g,
+    n_reussite_gre,
+    percent_of_success_gre,
+    n_reussite_pi,
+    percent_of_success_pi,
     n_echec_f,
     percent_of_echec_f,
     n_echec_g,

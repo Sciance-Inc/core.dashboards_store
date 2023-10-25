@@ -18,82 +18,86 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 with
     res_mat as (
         select
-            -- FROM yearly_student
-            res_mat.code_perm,
-            res_mat.id_eco,
-            res_mat.annee,
-            res_mat.fiche,
-            res_mat.population,
-            res_mat.eco,
-            res_mat.code_ecole,
-            res_mat.ordre_ens,
-            res_mat.genre,
-            res_mat.plan_interv_ehdaa,
-            res_mat.niveau_scolaire,
-            -- FROM mat_ele
-            res_mat.id_mat_ele,
-            res_mat.mat,
-            res_mat.grp,
-            res_mat.etat,
-            res_mat.reprise
-        from {{ ref("fact_res_bilan_mat") }} as res_mat
+            mat_ele.id_mat_ele,
+            mat_ele.annee,
+            mat_ele.fiche,
+            mat_ele.id_eco,
+            mat_ele.mat,
+            mat_ele.grp,
+            mat_ele.id_obj_mat,
+            mat_ele.no_comp,
+            mat_ele.etat,
+            mat_ele.res_comp,
+            leg.seuil_reus,
+            mat_ele.legende,
+            cote.note_equiv,
+            cote.cote,
+            cote.indic_reus_echec,
+            mat_ele.reprise
+        from {{ ref("stg_res_etape_comp") }} as mat_ele
+        left join
+            {{ ref("i_gpm_t_leg") }} as leg
+            on leg.id_eco = mat_ele.id_eco
+            and leg.leg = mat_ele.legende
+        left join
+            {{ ref("i_gpm_t_cotes") }} as cote
+            on cote.id_eco = leg.id_eco
+            and cote.leg = leg.leg
+            and cote.cote = mat_ele.res_comp
     ),
 
-    obj_matiere as (
+    res_num as (
         select
-            res_mat.*,
-            dim.obj_01 as no_competence,
-            dim.descr,
-            dim.descr_abreg,
-            comp.res_final_obj  -- Res compétence de la matière
-        from res_mat
-        left join
-            {{ ref("i_gpm_e_obj") }} as comp
-            on res_mat.fiche = comp.fiche
-            and res_mat.id_mat_ele = comp.id_mat_ele
-        left join
-            {{ ref("i_gpm_t_obj_mat") }} as dim
-            on comp.id_obj_mat = dim.id_obj_mat
-            and dim.obj_02 is null
-            and dim.obj_03 is null
-            and dim.obj_04 is null
-        where
-            (
-                (comp.res_final_obj like '%[0-9]%' or comp.res_final_obj in ('R', 'NR'))
-                and (comp.res_final_obj is not null)
-            )
-    ),
-
-    filtering as (
-        select
-            code_perm,
-            id_eco,
+            id_mat_ele,
             annee,
             fiche,
-            population,
-            eco,
-            code_ecole,
-            ordre_ens,
-            genre,
-            plan_interv_ehdaa,
-            niveau_scolaire,
-            id_mat_ele,
+            id_eco,
             mat,
             grp,
+            id_obj_mat,
+            no_comp,
             etat,
-            reprise,
-            no_competence,
-            descr,
-            descr_abreg,
+            res_comp,
             case
-                when obj_matiere.res_final_obj in ('NR')
-                then '0'
-                when obj_matiere.res_final_obj in ('R')
-                then '100'
-                else obj_matiere.res_final_obj
-            end as res_num_comp
-        from obj_matiere
+                when cote is not null
+                then note_equiv
+                when isnumeric(res_comp) = 1
+                then convert(int, res_comp)
+                else null
+            end as res_num_comp,
+            case
+                when cote is not null and indic_reus_echec = '1'
+                then 'R'
+                when cote is not null and indic_reus_echec = '2'
+                then 'E'
+                when (seuil_reus is null) or (isnumeric(res_comp) <> 1)
+                then 'N/A'
+                when res_comp >= seuil_reus
+                then 'R'
+                when res_comp < seuil_reus
+                then 'E'
+                else 'N/A'
+            end as ind_reussite,
+            reprise
+        from res_mat
     )
-
-select *
-from filtering
+select
+    annee,
+    fiche,
+    id_eco,
+    mat,
+    grp,
+    id_obj_mat,
+    no_comp,
+    etat,
+    res_comp,
+    ind_reussite,
+    reprise,
+    case
+        when annee = 2019 and res_comp in ('NR')
+        then 0
+        when annee = 2019 and res_comp in ('R')
+        then 100
+        else res_num_comp
+    end as res_num_comp
+from res_num
