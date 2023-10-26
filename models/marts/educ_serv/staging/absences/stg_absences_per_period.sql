@@ -18,19 +18,33 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {#
 	This (sparse) table compute the number of absence periods per day and per students, for every student with at least one absence on a given day.
 #}
+with
+    src as (
+        select
+            fct.date_abs,
+            fct.fiche,
+            fct.id_eco,
+            dim.category_abs,
+            min(dim.description_abs) as description_abs,  -- Take the first one, in lexicographic order. It's completely arbitrary : todo : select the description of the most common occurence of reason of absence.
+            count(*) as n_periods_of_absence
+        from {{ ref("i_gpm_e_abs") }} as fct
+        inner join
+            {{ ref("stg_dim_absences_retards_inclusion") }} as dim
+            on fct.id_eco = dim.id_eco
+            and fct.motif_abs = dim.motif_abs
+        group by fct.date_abs, fct.fiche, fct.id_eco, dim.category_abs
+    )
+
 select
     case
-        when month(fct.date_abs) <= 7
-        then year(fct.date_abs) - 1
-        else year(fct.date_abs)
+        when month(date_abs) <= 7 then year(date_abs) - 1 else year(date_abs)
     end as school_year,
-    fct.date_abs,
-    fct.fiche,
-    fct.id_eco,
-    count(*) as n_periods_of_absence
-from {{ ref("i_gpm_e_abs") }} as fct
-inner join
-    {{ ref("stg_dim_absences_retards_inclusion") }} as dim
-    on fct.id_eco = fct.id_eco
-    and fct.motif_abs = fct.motif_abs
-group by fct.date_abs, fct.fiche, fct.id_eco
+    date_abs,
+    fiche,
+    id_eco,
+    coalesce(category_abs, 'tous types') as category_abs,
+    sum(n_periods_of_absence) as n_periods_of_absence,
+    min(description_abs) as description_abs  -- todo : Same comment as above 
+from src
+where n_periods_of_absence > 0
+group by date_abs, fiche, id_eco, rollup (category_abs)

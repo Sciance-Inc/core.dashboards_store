@@ -22,12 +22,12 @@ with
         left join {{ ref("i_gpm_t_eco") }} as eco on dan.id_eco = eco.id_eco
         where dan.statut_don_an = 'A'
     ),
-    
+
     -- Remove the students with duplicated code perm, as it'schould be unique.
     blacklist as (
         select ele.code_perm
-        from {{ ref("i_gpm_e_ele") }} as ele 
-        group by ele.code_perm 
+        from {{ ref("i_gpm_e_ele") }} as ele
+        group by ele.code_perm
         having count(*) > 1
     ),
 

@@ -1,7 +1,6 @@
 version: 2
 
 models:
-  
   - name: fact_absences_sequence
     description: >
       List the sequence of absences for each student.
@@ -14,13 +13,14 @@ models:
             - fiche
             - eco
             - absence_sequence_id
+            - category_abs  
 
   - name: fact_res_bilan_comp
     config:
       tags:
         - res_scolaires
     description: >
-      List the competency results of all students 
+      List the competency results of all students
     columns:
       - name: code_perm
         description: Unique ID of the student
@@ -77,7 +77,7 @@ models:
       tags:
         - res_scolaires
     description: >
-      List the result to the subject of all students 
+      List the result to the subject of all students
     columns:
       - name: code_perm
         description: Unique ID of the student
