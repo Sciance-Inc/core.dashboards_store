@@ -2,6 +2,15 @@
 
 
 
+## v0.7.0-dev.6+20231026 (2023-10-26)
+
+### Feature
+
+* feat(chronic_absenteeism): splitting between lateness and absences (#10)
+
+Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`eb5ba61`](https://github.com/Sciance-Inc/core.dashboards_store/commit/eb5ba61db01148f5eca7e5b1a3dfdc356d529c6d))
+
+
 ## v0.7.0-dev.5+20231024 (2023-10-24)
 
 ### Chore
