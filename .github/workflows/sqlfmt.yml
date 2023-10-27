@@ -28,7 +28,7 @@ jobs:
 
       # Run the formatter
       - name: Run sqlfmt
-        run: sqlfmt --diff ${{ steps.changed-files.outputs.all_changed_files }}
+        run: sqlfmt --exclude ./tooling/**/* --exclude ./target/**/* --exclude ./dbt_packages/**/*
 
       # Disable, many things can goes wrong
       # Auto commit the changes (iiiiiiiiihhhhhh)
