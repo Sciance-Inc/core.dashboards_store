@@ -62,6 +62,8 @@ models:
         +enabled: False
       jade:
         +enabled: False
+      geobus:
+        +enabled: False
 
     rls:
       +enabled: false
