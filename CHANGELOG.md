@@ -2,6 +2,13 @@
 
 
 
+## v0.7.0-dev.6+20231027 (2023-10-27)
+
+### Chore
+
+* chore(cicd): disabling the sqlfmt checks on template ([`2207449`](https://github.com/Sciance-Inc/core.dashboards_store/commit/22074499d21a050c8bc49e8e05b0017d0766b9f8))
+
+
 ## v0.7.0-dev.6+20231026 (2023-10-26)
 
 ### Feature
