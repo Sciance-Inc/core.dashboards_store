@@ -2,6 +2,29 @@
 
 
 
+## v0.7.0-dev.6+20231030 (2023-10-30)
+
+### Chore
+
+* chore: sqlfmt is now run in check mode and will raise an error if something is left to be formatted ([`8de5860`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8de5860234cd5eced3d9c5f49ff0840d10cb5865))
+
+* chore(cicd): running the fmt on all files ([`4d20729`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4d20729a7b899afe98790035c4f911253db8ade1))
+
+### Refactor
+
+* refactor: added new version of the rapport/transport (#2)
+
+Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`608d260`](https://github.com/Sciance-Inc/core.dashboards_store/commit/608d2604d34beaade44a54b85542912be2f4327c))
+
+### Unknown
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`3335a16`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3335a16374bf2a61f00d62bf38a970974d8cba00))
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`85378e1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/85378e1ea2694ac1e8be6a4c135e7bfe2175f217))
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`6393379`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6393379051b785e91cf855c0a781e4186c5d2027))
+
+
 ## v0.7.0-dev.6+20231027 (2023-10-27)
 
 ### Chore
