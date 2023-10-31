@@ -15,20 +15,19 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-
 {# 
     Map each circuit to an arbitrary sector. 
     All circuit must be mapped.
     Use this table to gather circuit by sector.
 #}
-
 {{ config(alias="stg_sectors") }}
 
-select distinct no_circ as circuit_id, 'foobar' as name_sector, 'fb' as  abbr_sector
+select distinct no_circ as circuit_id, 'foobar' as name_sector, 'fb' as abbr_sector
 from {{ ref("i_geo_p_circ") }}
-where simul = 0
+where
+    simul = 0
 
-{# select distinct
+    {# select distinct
     no_circ as circuit_id,
     case
         when no_circ >= 501 and no_circ < 600
@@ -48,3 +47,4 @@ where simul = 0
     end as abbr_sector
 from {{ ref("i_geo_p_circ") }}
 where simul = 0 #}
+    
