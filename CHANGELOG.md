@@ -2,6 +2,15 @@
 
 
 
+## v0.7.0-dev.7+20231031 (2023-10-31)
+
+### Fix
+
+* fix: renaming transport staging adapter table to match it&#39;s alias (#13)
+
+Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`3bc7a78`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3bc7a78e54c89f5cfbdaf858664c71db69c7cb13))
+
+
 ## v0.7.0-dev.6+20231031 (2023-10-31)
 
 ### Chore
