@@ -32,6 +32,7 @@ vars:
   database_gpi: "[192.168.207.153].[GPIPRIM]"
   database_jade: "[192.168.207.153].[JADE]"
   database_geobus: "[192.168.207.153].[GEOBUS_ADRQC]"
+  database_prodrome: PBIRS
 
   is_context_core: false
 
