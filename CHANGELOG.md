@@ -2,6 +2,15 @@
 
 
 
+## v0.7.0-dev.9+20231031 (2023-10-31)
+
+### Fix
+
+* fix: removing duplicates from the transport details (#15)
+
+Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`105eeba`](https://github.com/Sciance-Inc/core.dashboards_store/commit/105eeba21eac22f8a6e3528f00adc76502608ab0))
+
+
 ## v0.7.0-dev.8+20231031 (2023-10-31)
 
 ### Fix
