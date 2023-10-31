@@ -18,9 +18,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {# 
     Dummy mapping to trigger test
  #}
-
 {{ config(alias="stg_sectors") }}
 
-select distinct no_circ as circuit_id, 'foobar' as name_sector, 'fb' as  abbr_sector
+select distinct no_circ as circuit_id, 'foobar' as name_sector, 'fb' as abbr_sector
 from {{ ref("i_geo_p_circ") }}
 where simul = 0
