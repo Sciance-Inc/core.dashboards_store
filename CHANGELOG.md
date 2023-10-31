@@ -2,6 +2,13 @@
 
 
 
+## v0.7.0-dev.6+20231031 (2023-10-31)
+
+### Chore
+
+* chore: increasing verbosity of the release pipeline ([`537283d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/537283d1f0578eb5a4c49f7bba7f742f57fde0a2))
+
+
 ## v0.7.0-dev.6+20231030 (2023-10-30)
 
 ### Chore
