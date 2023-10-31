@@ -2,6 +2,23 @@
 
 
 
+## v0.7.0-dev.10+20231031 (2023-10-31)
+
+### Chore
+
+* chore: adding the stamper to the gabarit (#12)
+
+Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`92ed003`](https://github.com/Sciance-Inc/core.dashboards_store/commit/92ed0034bfa9849ad051e1fcad2e8fcd1e335873))
+
+* chore: the nightly build can now be manually triggered ([`5b7f227`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5b7f2274514e58f91cb62a60b9401abda7929f10))
+
+### Feature
+
+* feat: adding the predictive_view_aggregated dashboard (#11)
+
+Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`d1c252b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d1c252b071dacae2060c8e2a223e175995879ec4))
+
+
 ## v0.7.0-dev.9+20231031 (2023-10-31)
 
 ### Fix
