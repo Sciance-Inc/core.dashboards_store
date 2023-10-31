@@ -2,6 +2,15 @@
 
 
 
+## v0.7.0-dev.8+20231031 (2023-10-31)
+
+### Fix
+
+* fix: minor maintenance on the cicd pipeline o prepare for code freeze (#14)
+
+Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`aabb1a4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/aabb1a43be918ad7d00f59de5b37dec4dc5af617))
+
+
 ## v0.7.0-dev.7+20231031 (2023-10-31)
 
 ### Fix
