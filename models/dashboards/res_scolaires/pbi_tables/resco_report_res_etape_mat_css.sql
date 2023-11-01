@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {{
     config(
-        alias="report_res_comp_etape_css",
+        alias="report_res_etape_mat_css",
     )
 }}
 
@@ -27,28 +27,25 @@ with
             y_student.code_perm,
             y_student.population,
             y_student.annee,
+            y_student.code_ecole,
+            y_student.eco,
             y_student.ordre_ens,
             y_student.genre,
             y_student.plan_interv_ehdaa,
             y_student.niveau_scolaire,
             etape.mat,
+            dim.des_matiere,
             -- etape.grp,
-            etape.id_obj_mat,
-            etape.no_comp,
-            descr_etape.descr,
+            -- descr_etape.descr,
             -- etape.etat,
             etape.etape,
             -- etape.reprise,
             etape.res_etape_num
         from {{ ref("fact_yearly_student") }} as y_student
         left join
-            {{ ref("fact_res_etape_comp") }} as etape
+            {{ ref("fact_res_etape_mat") }} as etape
             on y_student.fiche = etape.fiche
             and y_student.id_eco = etape.id_eco
-        left join
-            {{ ref("stg_descr_comp_etape") }} as descr_etape
-            on etape.id_obj_mat = descr_etape.id_obj_mat
-            and etape.mat = descr_etape.mat
         inner join {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = etape.mat  -- Only keep the tracked courses
         where
             y_student.annee
@@ -87,116 +84,67 @@ with
             mat,
             genre,
             plan_interv_ehdaa,
-            no_comp,
-            descr,
             etape,
+            des_matiere,
             count(res_etape_num) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    no_comp,
-                    descr,
-                    etape,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, ordre_ens, mat, etape, genre, plan_interv_ehdaa
             ) as n_obs_f,
             count(res_etape_num) over (
-                partition by annee, mat, no_comp, etape, population
+                partition by annee, mat, etape, population
             ) as n_obs_g,
             count(res_etape_num) over (
-                partition by annee, mat, no_comp, etape, population, plan_interv_ehdaa
+                partition by annee, mat, etape, population, plan_interv_ehdaa
             ) as n_obs_pi,
             count(res_etape_num) over (
-                partition by annee, mat, no_comp, etape, population, genre
+                partition by annee, mat, etape, population, genre
             ) as n_obs_gre,
             sum(try_cast(tx_reussite as float)) over (
-                partition by annee, mat, no_comp, etape, population
+                partition by annee, mat, etape, population
             ) as n_reussite_g,
             sum(try_cast(tx_reussite as float)) over (
-                partition by annee, mat, no_comp, etape, population, plan_interv_ehdaa
+                partition by annee, mat, etape, population, plan_interv_ehdaa
             ) as n_reussite_pi,
             sum(try_cast(tx_reussite as float)) over (
-                partition by annee, mat, no_comp, etape, population, genre
+                partition by annee, mat, etape, population, genre
             ) as n_reussite_gre,
             sum(try_cast(tx_reussite as float)) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    no_comp,
-                    descr,
-                    etape,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, ordre_ens, mat, etape, genre, plan_interv_ehdaa
             ) as n_reussite_f,
             sum(try_cast(tx_risque as float)) over (
-                partition by annee, mat, no_comp, etape, population
+                partition by annee, mat, etape, population
             ) as n_risque_g,
             sum(try_cast(tx_risque as float)) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    no_comp,
-                    descr,
-                    etape,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, ordre_ens, mat, etape, genre, plan_interv_ehdaa
             ) as n_risque_f,
             sum(try_cast(tx_echec as float)) over (
-                partition by annee, mat, no_comp, etape, population
+                partition by annee, mat, etape, population
             ) as n_echec_g,
             sum(try_cast(tx_echec as float)) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    no_comp,
-                    descr,
-                    etape,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, ordre_ens, mat, etape, genre, plan_interv_ehdaa
             ) as n_echec_f,
             sum(try_cast(tx_maitrise as float)) over (
-                partition by annee, mat, no_comp, etape, population
+                partition by annee, mat, etape, population
             ) as n_maitrise_g,
             sum(try_cast(tx_maitrise as float)) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    no_comp,
-                    descr,
-                    etape,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, ordre_ens, mat, etape, genre, plan_interv_ehdaa
             ) as n_maitrise_f,
             avg(try_cast(res_etape_num as decimal(5, 2))) over (
-                partition by annee, mat, no_comp, etape, population
+                partition by annee, mat, etape, population
             ) as resultat_avg_g,
             avg(try_cast(res_etape_num as decimal(5, 2))) over (
-                partition by annee, mat, no_comp, etape, population, genre
+                partition by annee, mat, etape, population, genre
             ) as resultat_avg_gre,
             avg(try_cast(res_etape_num as decimal(5, 2))) over (
-                partition by annee, mat, no_comp, etape, population, plan_interv_ehdaa
+                partition by annee, mat, etape, population, plan_interv_ehdaa
             ) as resultat_avg_pi,
             avg(try_cast(res_etape_num as decimal(5, 2))) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    no_comp,
-                    descr,
-                    etape,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, ordre_ens, mat, etape, genre, plan_interv_ehdaa
             ) as resultat_avg_f
         from cal
     -- Add the statistis
@@ -209,9 +157,8 @@ with
             mat,
             genre,
             plan_interv_ehdaa,
-            no_comp,
-            descr,
             etape,
+            des_matiere,
             max(n_obs_f) as n_obs_f,
             max(n_obs_g) as n_obs_g,
             max(n_obs_gre) as n_obs_gre,
@@ -236,10 +183,9 @@ with
             annee,
             ordre_ens,
             mat,
-            no_comp,
-            descr,
             etape,
             genre,
+            des_matiere,
             plan_interv_ehdaa
     ),
 
@@ -251,11 +197,9 @@ with
                         "population",
                         "annee",
                         "mat",
-                        "no_comp",
                         "etape",
                         "genre",
                         "plan_interv_ehdaa",
-                        "descr",
                     ]
                 )
             }} as id_mat_year,
@@ -263,10 +207,9 @@ with
             annee,
             ordre_ens,
             mat,
-            no_comp,
-            descr,
             etape,
             genre,
+            des_matiere,
             plan_interv_ehdaa,
             n_obs_f,
             n_obs_g,
@@ -307,9 +250,8 @@ select
     plan_interv_ehdaa,
     mat,
     genre,
-    no_comp,
-    descr,
     etape,
+    des_matiere,
     -- Metrics
     n_obs_f,
     n_obs_g,
