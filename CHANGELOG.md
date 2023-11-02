@@ -2,6 +2,13 @@
 
 
 
+## v0.7.0-dev.10+20231102 (2023-11-02)
+
+### Chore
+
+* chore: forcing push to the CSSVDC repo ([`47ae4cc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/47ae4cc055b1742487c9dc0203d79d1f2f92010e))
+
+
 ## v0.7.0-dev.10+20231031 (2023-10-31)
 
 ### Chore
