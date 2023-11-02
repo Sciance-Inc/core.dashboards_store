@@ -3,6 +3,9 @@ name: Run the Nightly Build
 on:
   schedule:
     - cron: "0 0 * * *"
+  workflow_dispatch:
+    branches:
+      - develop
 
 env:
   REGISTRY: ghcr.io
@@ -12,6 +15,7 @@ jobs:
   build_nightly:
     runs-on: [self-hosted, maas]
     strategy:
+      fail-fast: false # if one matrix fails, continue with the others
       max-parallel: 1
       matrix:
         configs:
@@ -77,7 +81,7 @@ jobs:
           push: true
           tags: ${{ steps.docker-tag.outputs.tags }}
           context: .
-          file: nightly/docker/Dockerfile
+          file: tooling/nightly/docker/Dockerfile
           pull: true
           build-args: |
             CORE_VERSION=${{ steps.get_release.outputs.tag_name }}
