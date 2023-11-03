@@ -22,76 +22,77 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 }}
 
 with
+    data as (
+        select
+            y_stud.population,
+            res_bilan.annee,
+            y_stud.genre,
+            y_stud.plan_interv_ehdaa,
+            res_bilan.mat,
+            dim.des_matiere,
+            res_bilan.res_num_som,
+            res_bilan.ind_reussite
+        from {{ ref("fact_res_bilan_mat") }} as res_bilan
+        left join
+            {{ ref("fact_yearly_student") }} as y_stud
+            on res_bilan.fiche = y_stud.fiche
+            and res_bilan.id_eco = y_stud.id_eco
+        inner join
+            {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = res_bilan.mat  -- Only keep the tracked courses
+        where
+            res_bilan.annee
+            between {{ get_current_year() }} - 4 and {{ get_current_year() }}
+            and res_bilan.res_num_som is not null
+            and y_stud.genre != 'X'  -- Non binaire
+    ),
+
     cal as (
         select
-            code_perm,
-            population,
-            annee,
-            ordre_ens,
-            mat,
-            des_matiere,
-            genre,
-            plan_interv_ehdaa,
-            case when res_num_mat < 60 then 1 else 0 end as tx_echec,
-            case when res_num_mat > 59 then 1 else 0 end as tx_reussite,
+            *,
+            case when ind_reussite = 'E' then 0 end as tx_echec,
+            case when ind_reussite = 'R' then 1 end as tx_reussite,
             case
                 when
-                    res_num_mat > 59
-                    and res_num_mat
+                    res_num_som > 59
+                    and res_num_som
                     < {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
                 then 1
                 else 0
             end as tx_risque,
             case
                 when
-                    res_num_mat
+                    res_num_som
                     >= {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
                 then 1
                 else 0
-            end as tx_maitrise,
-            res_num_mat
-        from {{ ref("fact_res_bilan_mat") }}
-        inner join {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = mat  -- Only keep the tracked courses
-        where annee between {{ get_current_year() }} - 4 and {{ get_current_year() }}
+            end as tx_maitrise
+        from data
     ),
     agg as (
         select
             population,
             annee,
-            ordre_ens,
             mat,
             genre,
             des_matiere,
             plan_interv_ehdaa,
-            count(res_num_mat) over (
+            count(res_num_som) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, mat, des_matiere, genre, plan_interv_ehdaa
             ) as n_obs_f,
-            count(res_num_mat) over (
+            count(res_num_som) over (
                 partition by annee, mat, population, plan_interv_ehdaa
             ) as n_obs_pi,
-            count(res_num_mat) over (
+            count(res_num_som) over (
                 partition by annee, mat, population, genre
             ) as n_obs_gre,
-            count(res_num_mat) over (partition by annee, mat, population) as n_obs_g,
+            count(res_num_som) over (partition by annee, mat, population) as n_obs_g,
             sum(try_cast(tx_reussite as float)) over (
                 partition by annee, mat, population
             ) as n_reussite_g,
             sum(try_cast(tx_reussite as float)) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, mat, des_matiere, genre, plan_interv_ehdaa
             ) as n_reussite_f,
             sum(try_cast(tx_risque as float)) over (
                 partition by annee, mat, population
@@ -104,58 +105,34 @@ with
             ) as n_reussite_gre,
             sum(try_cast(tx_risque as float)) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, mat, des_matiere, genre, plan_interv_ehdaa
             ) as n_risque_f,
             sum(try_cast(tx_echec as float)) over (
                 partition by annee, mat, population
             ) as n_echec_g,
             sum(try_cast(tx_echec as float)) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, mat, des_matiere, genre, plan_interv_ehdaa
             ) as n_echec_f,
             sum(try_cast(tx_maitrise as float)) over (
                 partition by annee, mat, population
             ) as n_maitrise_g,
             sum(try_cast(tx_maitrise as float)) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, mat, des_matiere, genre, plan_interv_ehdaa
             ) as n_maitrise_f,
-            avg(try_cast(res_num_mat as decimal(5, 2))) over (
+            avg(try_cast(res_num_som as decimal(5, 2))) over (
                 partition by annee, mat, population
             ) as resultat_avg_g,
-            avg(try_cast(res_num_mat as decimal(5, 2))) over (
+            avg(try_cast(res_num_som as decimal(5, 2))) over (
                 partition by annee, mat, population, genre
             ) as resultat_avg_gre,
-            avg(try_cast(res_num_mat as decimal(5, 2))) over (
+            avg(try_cast(res_num_som as decimal(5, 2))) over (
                 partition by annee, mat, population, plan_interv_ehdaa
             ) as resultat_avg_pi,
-            avg(try_cast(res_num_mat as decimal(5, 2))) over (
+            avg(try_cast(res_num_som as decimal(5, 2))) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, mat, des_matiere, genre, plan_interv_ehdaa
             ) as resultat_avg_f
         from cal
     -- Add the statistis
@@ -165,7 +142,6 @@ with
         select
             population,
             annee,
-            ordre_ens,
             mat,
             genre,
             plan_interv_ehdaa,
@@ -189,8 +165,7 @@ with
             max(resultat_avg_gre) as resultat_avg_gre,
             max(resultat_avg_pi) as resultat_avg_pi
         from agg
-        group by
-            population, annee, ordre_ens, mat, des_matiere, genre, plan_interv_ehdaa
+        group by population, annee, mat, des_matiere, genre, plan_interv_ehdaa
     ),
 
     stats as (
@@ -209,7 +184,6 @@ with
             }} as id_mat_year,
             population,
             annee,
-            ordre_ens,
             mat,
             des_matiere,
             genre,
@@ -249,7 +223,6 @@ select
     id_mat_year,
     population,
     annee,
-    ordre_ens,
     mat,
     genre,
     plan_interv_ehdaa,

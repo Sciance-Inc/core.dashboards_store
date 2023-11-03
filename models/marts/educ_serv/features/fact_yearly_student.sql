@@ -138,7 +138,4 @@ left join
 left join
     {{ ref("dim_mapper_schools") }} as mapper_school
     on spi.id_eco = mapper_school.id_eco
-where
-    seqid = 1
-    and spi.annee >= {{ store.get_current_year() }} - 10  -- On garde un max de 10 ans dans nos données d'étudiants / Limite par défaut
-    and ele.sexe != 'X'  -- Non binaire
+where seqid = 1 and spi.annee >= {{ store.get_current_year() }} - 10  -- On garde un max de 10 ans dans nos données d'étudiants / Limite par défaut
