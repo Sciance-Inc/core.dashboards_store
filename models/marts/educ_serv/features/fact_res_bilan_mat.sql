@@ -109,6 +109,7 @@ select
     grp,
     etat,
     res_som,
+    ind_reussite,
     case
         when annee = 2019 and res_som in ('NR')
         then 0
