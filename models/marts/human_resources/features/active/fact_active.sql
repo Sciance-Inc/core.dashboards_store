@@ -1,4 +1,3 @@
-<< << << < head
 {#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
@@ -19,8 +18,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {# 
     Compute a yearly version of the employment history restricted to only active status
 #}
-== ==
-== = >> >> >> > 94340e3 b2ead02a69e0cb15ae9589c97ca6aa3fc
 with
     currentactive as (
         select matr, corp_empl, etat_empl, stat_eng, 1 as 'currently_active'
