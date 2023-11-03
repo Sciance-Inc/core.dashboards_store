@@ -57,7 +57,7 @@ with
         select
             matr,
             case
-                when month(date_eff) between 9 and 12
+                when month(date_eff) between 7 and 12
                 then year(date_eff)
                 else year(date_eff) - 1
             end as school_year,

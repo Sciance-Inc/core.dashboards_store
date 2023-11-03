@@ -32,7 +32,7 @@ with
             hst.date_eff,
             hst.date_fin
         from {{ ref("stg_activity_history") }} as hst
-        inner join
+        left join
             {{ ref("dim_employment_status_yearly") }} as dm
             on hst.school_year = dm.school_year
             and hst.etat_empl = dm.etat_empl
@@ -60,7 +60,7 @@ with
             ) as seq
         where
             case
-                when month(date_fin) between 9 and 12
+                when month(date_fin) between 7 and 12
                 then year(date_fin)
                 else year(date_fin) - 1
             end
