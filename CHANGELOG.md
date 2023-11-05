@@ -2,6 +2,13 @@
 
 
 
+## v0.7.0-dev.10+20231105 (2023-11-05)
+
+### Unknown
+
+* Merge branch &#39;master&#39; into develop ([`30a23f6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/30a23f64cd6f2c05c42afd5fbcf829c68adcf943))
+
+
 ## v0.8.0+20231102 (2023-11-02)
 
 ### Feature
@@ -14,24 +21,6 @@ Co-authored-by: Mohamed Sadqi &lt;sadqim@csvdc.qc.ca&gt;
 Co-authored-by: sadqim &lt;146247957+sadqim@users.noreply.github.com&gt;
 Co-authored-by: ZhuravlovaMaryna &lt;147752681+ZhuravlovaMaryna@users.noreply.github.com&gt;
 Co-authored-by: semantic-release &lt;semantic-release&gt; ([`ad2b5d3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ad2b5d3d620b2d274ffbabe7729c0e0a2b22f43d))
-
-
-## v0.7.0+20231020 (2023-10-20)
-
-### Documentation
-
-* docs: adding doc website ([`5274842`](https://github.com/Sciance-Inc/core.dashboards_store/commit/527484220ce31305fab121a9d8155bc05be2d66e))
-
-
-## v0.7.0+20230926 (2023-09-26)
-
-### Chore
-
-* chore: gitignoring the pbix ([`cb92a3d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cb92a3d35c6f6417ab7ad36642e23d8bd7ed6d28))
-
-### Feature
-
-* feat: adding dashboards ([`7ab3ec2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7ab3ec2bb1249e10fe2aa94943176841cf9b2280))
 
 
 ## v0.7.0-dev.10+20231102 (2023-11-02)
@@ -220,6 +209,13 @@ Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`3c120b2`](https:/
 * docs: migrating docs notification ([`f4a2739`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f4a2739176e28dc88e7b8b6d0f2e22b30b7a88d4))
 
 
+## v0.7.0+20231020 (2023-10-20)
+
+### Documentation
+
+* docs: adding doc website ([`5274842`](https://github.com/Sciance-Inc/core.dashboards_store/commit/527484220ce31305fab121a9d8155bc05be2d66e))
+
+
 ## v0.7.0-dev.4+20231020 (2023-10-20)
 
 ### Documentation
@@ -396,14 +392,6 @@ dbt build --select +tag:res_scolaires
 
 ## v0.7.0-dev.3+20231012 (2023-10-12)
 
-### Chore
-
-* chore: gitignoring the pbix ([`cb92a3d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cb92a3d35c6f6417ab7ad36642e23d8bd7ed6d28))
-
-### Feature
-
-* feat: adding dashboards ([`7ab3ec2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7ab3ec2bb1249e10fe2aa94943176841cf9b2280))
-
 ### Fix
 
 * fix: disembiguate duplicates resulting from multiple fetchs from the Jade database
@@ -412,6 +400,17 @@ Done with Fred and Mohamed :
 
 * Remove duplicates introduced by fetching the Jade database multples times.
 * Only the most recent upserted grade is now used., Previous results are removed. ([`b66b53e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b66b53ec6f377ee072240be60bc1dd46f4f6a098))
+
+
+## v0.7.0+20230926 (2023-09-26)
+
+### Chore
+
+* chore: gitignoring the pbix ([`cb92a3d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cb92a3d35c6f6417ab7ad36642e23d8bd7ed6d28))
+
+### Feature
+
+* feat: adding dashboards ([`7ab3ec2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7ab3ec2bb1249e10fe2aa94943176841cf9b2280))
 
 
 ## v0.7.0-dev.2+20230926 (2023-09-26)
