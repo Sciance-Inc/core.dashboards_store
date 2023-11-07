@@ -1,19 +1,19 @@
 {#
-dashboards store - helping students, one dashboard at a time.
-copyright (c) 2023  sciance inc.
+Dashboards Store - Helping students, one dashboard at a time.
+Copyright (C) 2023  Sciance Inc.
 
-this program is free software: you can redistribute it and/or modify
-it under the terms of the gnu affero general public license as
-published by the free software foundation, either version 3 of the
-license, or any later version.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or any later version.
 
-this program is distributed in the hope that it will be useful,
-but without any warranty; without even the implied warranty of
-merchantability or fitness for a particular purpose.  see the
-gnu affero general public license for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
 
-you should have received a copy of the gnu affero general public license
-along with this program.  if not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 with
     row_num as (

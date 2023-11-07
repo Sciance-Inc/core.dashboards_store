@@ -1,26 +1,25 @@
 {#
-dashboards store - helping students, one dashboard at a time.
-copyright (c) 2023  sciance inc.
+Dashboards Store - Helping students, one dashboard at a time.
+Copyright (C) 2023  Sciance Inc.
 
-this program is free software: you can redistribute it and/or modify
-it under the terms of the gnu affero general public license as
-published by the free software foundation, either version 3 of the
-license, or any later version.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or any later version.
 
-this program is distributed in the hope that it will be useful,
-but without any warranty; without even the implied warranty of
-merchantability or fitness for a particular purpose.  see the
-gnu affero general public license for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
 
-you should have received a copy of the gnu affero general public license
-along with this program.  if not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 with
     step1 as (
         select
-            mat_ele.id_mat_ele,
-            mat_ele.annee,
             mat_ele.fiche,
+            mat_ele.annee,
             mat_ele.id_eco,
             mat_ele.mat,
             mat_ele.grp,
@@ -31,7 +30,6 @@ with
             mat_ele.res_comp,
             leg.seuil_reus,
             mat_ele.etape_eval,
-            mat_ele.legende,
             cote.note_equiv,
             cote.cote,
             cote.indic_reus_echec,
@@ -56,9 +54,8 @@ select
     id_obj_mat,
     no_comp,
     etat,
-    reprise,
     etape,
-    res_comp,
+    reprise,
     case
         when cote is not null
         then note_equiv
@@ -78,6 +75,5 @@ select
         when res_comp < seuil_reus
         then 'E'
         else 'N/A'
-    end as ind_reussite,
-    case when etape_eval is not null and etape_eval <> '0' then 1 else 0 end as evalue
+    end as ind_reussite
 from step1

@@ -24,46 +24,42 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 with
     data as (
         select
-            y_student.code_perm,
-            y_student.population,
-            y_student.annee,
-            y_student.code_ecole,
-            y_student.eco,
-            y_student.ordre_ens,
-            y_student.genre,
-            y_student.plan_interv_ehdaa,
-            y_student.niveau_scolaire,
-            etape.mat,
-            -- etape.grp,
-            -- etape.id_obj_mat,
-            etape.no_comp,
+            y_stud.population,
+            eta_comp.annee,
+            y_stud.code_ecole,
+            y_stud.eco,
+            y_stud.genre,
+            y_stud.plan_interv_ehdaa,
+            eta_comp.mat,
+            eta_comp.etape,
+            eta_comp.no_comp,
             descr_comp.descr,
-            -- etape.etat,
-            etape.etape,
-            -- etape.reprise,
-            etape.res_etape_num
-        from {{ ref("fact_yearly_student") }} as y_student
+            eta_comp.res_etape_num,
+            eta_comp.ind_reussite
+        from {{ ref("fact_res_etape_comp") }} as eta_comp
         left join
-            {{ ref("fact_res_etape_comp") }} as etape
-            on y_student.fiche = etape.fiche
-            and y_student.id_eco = etape.id_eco
+            {{ ref("fact_yearly_student") }} as y_stud
+            on eta_comp.fiche = y_stud.fiche
+            and eta_comp.id_eco = y_stud.id_eco
         left join
             {{ ref("stg_descr_comp") }} as descr_comp
-            on etape.mat = descr_comp.mat
-            and etape.no_comp = descr_comp.obj_01
-        inner join {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = etape.mat  -- Only keep the tracked courses
+            on eta_comp.mat = descr_comp.mat
+            and eta_comp.no_comp = descr_comp.obj_01
+        inner join
+            {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = eta_comp.mat  -- Only keep the tracked courses
         where
-            y_student.annee
+            y_stud.annee
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
-            and etape.res_etape_num is not null
-            and etape.etape != 'EX'
+            and eta_comp.res_etape_num is not null
+            and eta_comp.etape != 'EX'
+            and y_stud.genre != 'X'  -- Non binaire
     ),
 
     cal as (
         select
             *,
-            case when res_etape_num < 60 then 1 else 0 end as tx_echec,
-            case when res_etape_num > 59 then 1 else 0 end as tx_reussite,
+            case when ind_reussite = 'E' then 1 end as tx_echec,
+            case when ind_reussite = 'R' then 1 end as tx_reussite,
             case
                 when
                     res_etape_num > 59
@@ -86,7 +82,6 @@ with
         select
             population,
             annee,
-            ordre_ens,
             code_ecole,
             eco,
             mat,
@@ -99,7 +94,6 @@ with
                 partition by
                     population,
                     annee,
-                    ordre_ens,
                     code_ecole,
                     mat,
                     no_comp,
@@ -143,7 +137,6 @@ with
                 partition by
                     population,
                     annee,
-                    ordre_ens,
                     code_ecole,
                     mat,
                     no_comp,
@@ -158,7 +151,6 @@ with
                 partition by
                     population,
                     annee,
-                    ordre_ens,
                     code_ecole,
                     mat,
                     no_comp,
@@ -173,7 +165,6 @@ with
                 partition by
                     population,
                     annee,
-                    ordre_ens,
                     code_ecole,
                     mat,
                     no_comp,
@@ -188,7 +179,6 @@ with
                 partition by
                     population,
                     annee,
-                    ordre_ens,
                     code_ecole,
                     mat,
                     no_comp,
@@ -216,7 +206,6 @@ with
                 partition by
                     population,
                     annee,
-                    ordre_ens,
                     code_ecole,
                     mat,
                     no_comp,
@@ -232,7 +221,6 @@ with
         select
             population,
             annee,
-            ordre_ens,
             code_ecole,
             mat,
             eco,
@@ -263,7 +251,6 @@ with
         group by
             population,
             annee,
-            ordre_ens,
             eco,
             code_ecole,
             mat,
@@ -290,7 +277,6 @@ with
             }} as id_mat_year,
             population,
             annee,
-            ordre_ens,
             code_ecole,
             eco,
             mat,
@@ -356,7 +342,6 @@ select
     id_mat_year,
     population,
     annee,
-    ordre_ens,
     plan_interv_ehdaa,
     eco,
     code_ecole,
