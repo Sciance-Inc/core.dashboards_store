@@ -55,7 +55,7 @@ with
     cal as (
         select
             *,
-            case when ind_reussite = 'E' then 0 end as tx_echec,
+            case when ind_reussite = 'E' then 1 end as tx_echec,
             case when ind_reussite = 'R' then 1 end as tx_reussite,
             case
                 when

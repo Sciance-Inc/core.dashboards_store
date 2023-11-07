@@ -29,12 +29,11 @@ with
             mat_ele.etat,
             mat_ele.res_comp,
             leg.seuil_reus,
-            mat_ele.legende,
             cote.note_equiv,
             cote.cote,
             cote.indic_reus_echec,
             mat_ele.reprise
-        from {{ ref("stg_res_etape_comp") }} as mat_ele
+        from {{ ref("stg_res_bilan_comp") }} as mat_ele
         left join
             {{ ref("i_gpm_t_leg") }} as leg
             on leg.id_eco = mat_ele.id_eco

@@ -17,7 +17,7 @@ models:
         des_matiere: nvarchar(32)
 
   - name: resco_report_res_bilan_comp_css
-    description: > 
+    description: >
       Cette table regroupe les résultats aggrégés au bilan du css par compétence par année.
 
   - name: resco_report_res_bilan_comp_eco
@@ -25,9 +25,25 @@ models:
       Cette table regroupe les résultats aggrégés au bilan des écoles par compétence par année.
 
   - name: resco_report_res_bilan_mat_css
-    description: > 
+    description: >
       Cette table regroupe les résultats aggrégés au bilan du css par matière par année.
 
   - name: resco_report_res_bilan_mat_eco
     description: >
-      Cette table regroupe les résultats aggrégés au bilan du css par matière par année.
+      Cette table regroupe les résultats aggrégés au bilan des écoles par matière et par année.
+
+  - name: resco_report_res_etape_comp_css
+    description: >
+      Cette table regroupe les résultats aggrégés à l'étape du css selon la compétence, l'étape, la matière et l'année
+
+  - name: resco_report_res_etape_comp_eco
+    description: >
+      Cette table regroupe les résultats aggrégés à l'étape des écoles selon la compétence, l'étape, la matière et l'année
+
+  - name: resco_report_res_etape_mat_css
+    description: >
+      Cette table regroupe les résultats aggrégés à l'étape de la matière du css selon l'année, la compétence, l'étape et la population
+
+  - name: resco_report_res_etape_mat_eco
+    description: >
+      Cette table regroupe les résultats aggrégés à l'étape de la matière du css selon l'année, la compétence, l'étape et la population

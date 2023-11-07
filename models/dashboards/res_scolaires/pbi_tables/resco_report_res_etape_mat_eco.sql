@@ -28,31 +28,33 @@ with
             eta_mat.annee,
             y_stud.code_ecole,
             y_stud.eco,
-            y_stud.ordre_ens,
             y_stud.genre,
             y_stud.plan_interv_ehdaa,
             eta_mat.mat,
             eta_mat.etape,
             dim.des_matiere,
             res_etape_num,
+            eta_mat.ind_reussite
         from {{ ref("fact_res_etape_mat") }} as eta_mat
         left join
-            {{ ref("fact_yearly_stud") }} as y_stud
+            {{ ref("fact_yearly_student") }} as y_stud
             on eta_mat.fiche = y_stud.fiche
             and eta_mat.id_eco = y_stud.id_eco
-        inner join {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = etape.mat  -- Only keep the tracked courses
+        inner join
+            {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = eta_mat.mat  -- Only keep the tracked courses
         where
             y_stud.annee
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
             and eta_mat.res_etape_num is not null
             and eta_mat.etape != 'EX'
+            and y_stud.genre != 'X'  -- Non binaire
     ),
 
     cal as (
         select
             *,
-            case when res_etape_num < 60 then 1 else 0 end as tx_echec,
-            case when res_etape_num > 59 then 1 else 0 end as tx_reussite,
+            case when ind_reussite = 'E' then 1 end as tx_echec,
+            case when ind_reussite = 'R' then 1 end as tx_reussite,
             case
                 when
                     res_etape_num > 59
@@ -77,7 +79,6 @@ with
             annee,
             code_ecole,
             eco,
-            ordre_ens,
             genre,
             plan_interv_ehdaa,
             mat,
@@ -85,14 +86,7 @@ with
             des_matiere,
             count(res_etape_num) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    code_ecole,
-                    mat,
-                    etape,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, code_ecole, mat, etape, genre, plan_interv_ehdaa
             ) as n_obs_f,
             count(res_etape_num) over (
                 partition by code_ecole, annee, mat, etape, population
@@ -116,56 +110,28 @@ with
             ) as n_reussite_gre,
             sum(try_cast(tx_reussite as float)) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    code_ecole,
-                    mat,
-                    etape,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, code_ecole, mat, etape, genre, plan_interv_ehdaa
             ) as n_reussite_f,
             sum(try_cast(tx_risque as float)) over (
                 partition by annee, code_ecole, mat, etape, population
             ) as n_risque_g,
             sum(try_cast(tx_risque as float)) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    code_ecole,
-                    mat,
-                    etape,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, code_ecole, mat, etape, genre, plan_interv_ehdaa
             ) as n_risque_f,
             sum(try_cast(tx_echec as float)) over (
                 partition by annee, code_ecole, mat, etape, population
             ) as n_echec_g,
             sum(try_cast(tx_echec as float)) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    code_ecole,
-                    mat,
-                    etape,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, code_ecole, mat, etape, genre, plan_interv_ehdaa
             ) as n_echec_f,
             sum(try_cast(tx_maitrise as float)) over (
                 partition by annee, code_ecole, mat, etape, population
             ) as n_maitrise_g,
             sum(try_cast(tx_maitrise as float)) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    code_ecole,
-                    mat,
-                    etape,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, code_ecole, mat, etape, genre, plan_interv_ehdaa
             ) as n_maitrise_f,
             avg(try_cast(res_etape_num as decimal(5, 2))) over (
                 partition by annee, code_ecole, mat, etape, population
@@ -179,14 +145,7 @@ with
             ) as resultat_avg_pi,
             avg(try_cast(res_etape_num as decimal(5, 2))) over (
                 partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    code_ecole,
-                    mat,
-                    etape,
-                    genre,
-                    plan_interv_ehdaa
+                    population, annee, code_ecole, mat, etape, genre, plan_interv_ehdaa
             ) as resultat_avg_f
         from cal
     -- Add the statistis
@@ -198,7 +157,6 @@ with
             annee,
             code_ecole,
             eco,
-            ordre_ens,
             genre,
             plan_interv_ehdaa,
             mat,
@@ -228,12 +186,11 @@ with
             annee,
             code_ecole,
             eco,
-            ordre_ens,
             genre,
             plan_interv_ehdaa,
             mat,
             etape,
-            des_matiere,
+            des_matiere
     ),
     stats as (
         select
@@ -253,7 +210,6 @@ with
             annee,
             code_ecole,
             eco,
-            ordre_ens,
             genre,
             plan_interv_ehdaa,
             mat,
@@ -308,7 +264,7 @@ with
             (stats.resultat_avg_g) - (stcss.resultat_avg_g) as ecart_resultat_avg_g
         from stats
         left join
-            {{ ref("resco_report_res_etape_comp_css") }} as stcss
+            {{ ref("resco_report_res_etape_mat_css") }} as stcss
             on stats.id_mat_year = stcss.id_mat_year
     )
 select
@@ -318,7 +274,6 @@ select
     annee,
     code_ecole,
     eco,
-    ordre_ens,
     genre,
     plan_interv_ehdaa,
     mat,
