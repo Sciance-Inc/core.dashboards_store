@@ -1,0 +1,18 @@
+version: 2
+
+models:
+
+  - name: fact_active
+    config:
+      tags: 
+        - emp_actif
+    description: >
+      Active table.
+      Map all employes which are active
+    tests:
+      - resolution:
+          combination_of_columns:
+            - matr
+            - email_address
+            - currently_active
+            
