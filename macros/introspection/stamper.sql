@@ -20,7 +20,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     {{ return(adapter.dispatch("init_metadata_table", "store")()) }}
 {% endmacro %}
 
-
 {% macro purge_metadata_table() %}
     {{ return(adapter.dispatch("purge_metadata_table", "store")()) }}
 {% endmacro %}
@@ -116,4 +115,18 @@ CREATE TABLE {{ table_name }} (
 
     {% endif %}
 
+{% endmacro %}
+
+
+{# fabric dispatch #}
+{% macro fabric__init_metadata_table %}
+    {{ sqlserver__init_metadata_table() }}
+{% endmacro %}
+
+{% macro fabric__purge_metadata_table %}
+    {{ sqlserver__purge_metadata_table() }}
+{% endmacro %}
+
+{% macro fabric__stamp_model(dashboard_name) %}
+    {{ sqlserver__stamp_model(dashboard_name) }}
 {% endmacro %}
