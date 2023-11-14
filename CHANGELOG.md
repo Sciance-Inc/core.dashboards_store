@@ -2,6 +2,16 @@
 
 
 
+## v0.8.1+20231114 (2023-11-14)
+
+### Fix
+
+* fix(typo): various dashboards typo adjustements (#23)
+
+Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt;
+Co-authored-by: Gabriel Thiffault &lt;147753578+gabrielThiffault@users.noreply.github.com&gt; ([`48ee40c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/48ee40cf32ebdd4ebd1b3cb6189e7e00a52d6492))
+
+
 ## v0.7.0-dev.10+20231105 (2023-11-05)
 
 ### Unknown
