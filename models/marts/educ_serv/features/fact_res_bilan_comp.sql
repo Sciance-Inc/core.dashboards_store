@@ -32,7 +32,7 @@ with
             cote.note_equiv,
             cote.cote,
             cote.indic_reus_echec,
-            mat_ele.reprise
+            mat_ele.ind_reprise
         from {{ ref("stg_res_bilan_comp") }} as mat_ele
         left join
             {{ ref("i_gpm_t_leg") }} as leg
@@ -77,7 +77,7 @@ with
                 then 'E'
                 else 'N/A'
             end as ind_reussite,
-            reprise
+            ind_reprise
         from res_mat
     )
 select
@@ -91,7 +91,7 @@ select
     etat,
     res_comp,
     ind_reussite,
-    reprise,
+    ind_reprise,
     case
         when annee = 2019 and res_comp in ('NR')
         then 0

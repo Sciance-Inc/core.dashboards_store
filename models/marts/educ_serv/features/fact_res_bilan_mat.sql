@@ -32,7 +32,7 @@ with
                 when left(mat_ele.grp, 1) not like '[%0-9]%'  -- grp starting with a letter = retake
                 then 1
                 else 0
-            end as reprise,
+            end as ind_reprise,
             mg.leg_som
 
         from spi
@@ -52,7 +52,7 @@ with
         select
             *,
             row_number() over (
-                partition by fiche, id_eco, mat, reprise order by etat
+                partition by fiche, id_eco, mat, ind_reprise order by etat
             ) as seqid_res
         from mat_ele
     ),
@@ -87,7 +87,7 @@ with
                 then 'E'
                 else 'N/A'
             end as ind_reussite,
-            reprise
+            ind_reprise
         from row_num
         left join
             {{ ref("i_gpm_t_leg") }} as leg
@@ -108,7 +108,6 @@ select
     mat,
     grp,
     etat,
-    res_som,
     ind_reussite,
     case
         when annee = 2019 and res_som in ('NR')
@@ -117,5 +116,5 @@ select
         then 100
         else res_num_som
     end as res_num_som,
-    reprise
+    ind_reprise
 from res_num

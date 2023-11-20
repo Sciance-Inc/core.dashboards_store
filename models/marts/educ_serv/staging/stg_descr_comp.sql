@@ -18,18 +18,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 with
     row_num as (
         select
-            obj_mat.id_obj_mat,
             obj_mat.mat,
             obj_mat.obj_01,
             obj_mat.descr,
             row_number() over (
-                partition by obj_mat.mat, obj_mat.obj_01
-                order by obj_mat.id_obj_mat desc
+                partition by obj_mat.mat, obj_mat.obj_01 order by obj_mat.mat desc
             ) as seqid
         from {{ ref("i_gpm_t_obj_mat") }} as obj_mat
         where descr is not null
     )
 
-select id_obj_mat, mat, obj_01, descr
+select mat, obj_01, descr
 from row_num
 where seqid = 1
