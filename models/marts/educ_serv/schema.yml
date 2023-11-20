@@ -48,3 +48,16 @@ models:
             - annee
             - population
             - eco
+
+  - name: stg_descr_mat
+    config:
+      tags:
+        - res_scolaires
+    description: >
+      Table de staging pour la description des matières selon l'école.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - id_eco
+            - mat
+            - descr

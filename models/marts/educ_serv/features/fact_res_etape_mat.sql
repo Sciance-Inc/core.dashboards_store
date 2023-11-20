@@ -33,7 +33,7 @@ with
             cote.note_equiv,
             cote.cote,
             cote.indic_reus_echec,
-            mat_ele.reprise
+            mat_ele.ind_reprise
         from {{ ref("stg_res_etape_mat") }} as mat_ele
         left join
             {{ ref("i_gpm_t_leg") }} as leg
@@ -53,7 +53,7 @@ select
     descr,
     grp,
     etat,
-    reprise,
+    ind_reprise,
     etape,
     case
         when cote is not null

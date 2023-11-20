@@ -16,19 +16,11 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 with
-    row_num as (
-        select
-            mat.id_eco,
-            mat.mat,
-            mat.descr,
-            mat.descr_abreg,
-            row_number() over (
-                partition by mat.id_eco, mat.mat order by mat.id_eco desc
-            ) as seqid
+    raw_data as (
+        select mat.id_eco, mat.mat, mat.descr, mat.descr_abreg
         from {{ ref("i_gpm_t_mat") }} as mat
         where descr is not null
     )
 
 select id_eco, mat, descr, descr_abreg
-from row_num
-where seqid = 1
+from raw_data

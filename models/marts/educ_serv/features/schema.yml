@@ -13,7 +13,7 @@ models:
             - fiche
             - eco
             - absence_sequence_id
-            - category_abs  
+            - category_abs
 
   - name: fact_res_bilan_comp
     config:
@@ -48,7 +48,7 @@ models:
         description: The group of the student
       - name: etat
         description: The state of the subject
-      - name: reprise
+      - name: ind_reprise
         description: Indicate if its a retake
       - name: no_comp
         description: The competency number of the subject
@@ -62,11 +62,48 @@ models:
       - resolution:
           combination_of_columns:
             - fiche
-            - annee
-            - eco
-            - reprise
+            - id_eco
+            - ind_reprise
             - mat
             - no_comp
+            - grp
+
+  - name: fact_res_bilan_mat
+    config:
+      tags:
+        - res_scolaires
+    description: >
+      List the competency results of all students
+    columns:
+      - name: id_eco
+        description: Unique ID of the school per year
+      - name: annee
+        description: The school year
+      - name: fiche
+        description: Unique ID of the student
+      - name: id_mat_ele
+        description: Unique ID of the subject per student per year
+      - name: mat
+        description: The subject
+      - name: grp
+        description: The group of the student
+      - name: etat
+        description: The state of the subject
+      - name: ind_reprise
+        description: Indicate if its a retake
+      - name: ind_reussite
+        description: Indicate if its a success
+      - name: res_num_som
+        description: The results of the student per mat
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - id_eco
+            - ind_reprise
+            - mat
+            - grp
+
 
   - name: fact_res_etape_comp
     config:
@@ -97,7 +134,7 @@ models:
         description: The result in numeric
       - name: ind_reussite
         description: Indicate if its a success
-      - name: reprise
+      - name: ind_reprise
         description: Indicate a retake
     tests:
       - resolution:
@@ -135,7 +172,7 @@ models:
         description: The result in numeric
       - name: ind_reussite
         description: Indicate if its a success
-      - name: reprise
+      - name: ind_reprise
         description: Indicate a retake
     tests:
       - resolution:
