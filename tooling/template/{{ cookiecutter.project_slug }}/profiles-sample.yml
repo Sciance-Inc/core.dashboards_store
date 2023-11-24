@@ -3,7 +3,7 @@
   outputs:
     # The target to be used by default, to work on the database without tampering with neither the production data, nor the others schemas
     dev:
-      type: sqlserver
+      type: fabric
       driver: "ODBC Driver 17 for SQL Server"
       server: {{ cookiecutter.server_ip }}
       port: {{ cookiecutter.server_port }}
@@ -15,7 +15,7 @@
       threads: 1
     # The staging environement : to test the data before pushing them to production. Schould probably only be used by an automated tool such as a CI/CD pipeline or cronjob.
     staging:
-      type: sqlserver
+      type: fabric
       driver: "ODBC Driver 17 for SQL Server"
       server: {{ cookiecutter.server_ip }}
       port: {{ cookiecutter.server_port }}
@@ -27,7 +27,7 @@
       threads: 1
     # The production environement : the serious one, where the data are used by the end users. Be carefull when targetting this environement.
     prod:
-      type: sqlserver
+      type: fabric
       driver: "ODBC Driver 17 for SQL Server"
       server: {{ cookiecutter.server_ip }}
       port: {{ cookiecutter.server_port }}
