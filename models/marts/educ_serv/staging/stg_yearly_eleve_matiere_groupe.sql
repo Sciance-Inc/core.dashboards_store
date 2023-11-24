@@ -24,12 +24,18 @@ select
     mat_ele.etat,
     mat_ele.id_mat_ele,
     mat_ele.res_som,
+    {% for i in range(1, 31) %} mat_ele.res_etape_{{ "%02d" % i }}, {% endfor %}
+    {% for i in range(1, 31) %} mg.eval_res_etape_{{ "%02d" % i }}, {% endfor %}
+    {% for i in range(1, 31) %} mg.leg_etape_{{ "%02d" % i }}, {% endfor %}
     mat_ele.modele_etape,
     mat_ele.id_mat_grp,
     oa.date_deb,
     oa.date_fin,
+    mg.leg_som,
     mg.leg_obj_term,
-    mg.leg_obj_non_term
+    mg.leg_obj_non_term,
+    mg.eval_res_obj_final as eval_res_comp,
+    mg.leg_obj_final
 from {{ ref("spine") }} as spi
 inner join
     {{ ref("i_gpm_e_mat_ele") }} as mat_ele
@@ -40,3 +46,7 @@ inner join
     {{ ref("i_gpm_t_org_annee") }} as oa
     on oa.annee = spi.annee
     and spi.annee >= {{ store.get_current_year() }} - 10
+where
+    mat_ele.res_som is not null  -- prendre en note le risque de perdre des données pour la compétence. a voir à le 2e itérations.
+    and mat_ele.etat != 0  -- -- 0 = inactive, 1 = active, 5 = en continuation, 6 = equivalence, 8 = terminee
+    and mat_ele.modele_etape is not null

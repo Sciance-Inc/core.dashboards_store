@@ -37,7 +37,7 @@ with
         left join
             {{ ref("i_gpm_t_leg") }} as leg
             on leg.id_eco = mat_ele.id_eco
-            and leg.leg = mat_ele.legende
+            and leg.leg = mat_ele.leg_obj_final
         left join
             {{ ref("i_gpm_t_cotes") }} as cote
             on cote.id_eco = leg.id_eco

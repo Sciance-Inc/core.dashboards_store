@@ -27,7 +27,7 @@ with
             mat_ele.no_comp,
             mat_ele.etat,
             mat_ele.etape,
-            mat_ele.res_comp,
+            mat_ele.res_comp_etape,
             leg.seuil_reus,
             mat_ele.etape_eval,
             cote.note_equiv,
@@ -43,7 +43,7 @@ with
             {{ ref("i_gpm_t_cotes") }} as cote
             on cote.id_eco = leg.id_eco
             and cote.leg = leg.leg
-            and cote.cote = mat_ele.res_comp
+            and cote.cote = mat_ele.res_comp_etape
     )
 select
     annee,
@@ -59,8 +59,8 @@ select
     case
         when cote is not null
         then note_equiv
-        when isnumeric(res_comp) = 1
-        then convert(int, res_comp)
+        when isnumeric(res_comp_etape) = 1
+        then convert(int, res_comp_etape)
         else null
     end as res_etape_num,
     case
@@ -68,11 +68,11 @@ select
         then 'R'
         when cote is not null and indic_reus_echec = '2'
         then 'E'
-        when (seuil_reus is null) or (isnumeric(res_comp) <> 1)
+        when (seuil_reus is null) or (isnumeric(res_comp_etape) <> 1)
         then 'N/A'
-        when res_comp >= seuil_reus
+        when res_comp_etape >= seuil_reus
         then 'R'
-        when res_comp < seuil_reus
+        when res_comp_etape < seuil_reus
         then 'E'
         else 'N/A'
     end as ind_reussite
