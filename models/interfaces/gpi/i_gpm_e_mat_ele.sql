@@ -29,7 +29,6 @@ select
     res_som,
     res_pond_som,
     pond_som,
-    etape_eval
     {% for i in range(1, 31) %} res_etape_{{ "%02d" % i }}, {% endfor %}
     {% for i in range(1, 31) %} res_pond_etape_{{ "%02d" % i }}, {% endfor %}
     type_form_mat,

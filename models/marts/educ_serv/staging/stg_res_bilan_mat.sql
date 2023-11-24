@@ -16,7 +16,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 with
-    stg_yearly as (
+    mat_ele as (
         select
             emgrp_yearly.fiche,
             emgrp_yearly.id_eco,
@@ -26,30 +26,27 @@ with
             emgrp_yearly.etat,
             emgrp_yearly.id_mat_ele,
             emgrp_yearly.res_som,
-            emgrp_yearly.modele_etape,
-            emgrp_yearly.id_mat_grp,
+            {% for i in range(1, 31) %}
+                emgrp_yearly.res_etape_{{ "%02d" % i }},
+            {% endfor %}
+            {% for i in range(1, 31) %}
+                emgrp_yearly.eval_res_etape_{{ "%02d" % i }},
+            {% endfor %}
+            {% for i in range(1, 31) %} leg_etape_{{ "%02d" % i }}, {% endfor %}
+            case
+                when left(emgrp_yearly.grp, 1) not like '[%0-9]%'  -- grp starting with a letter = retake
+                then 1
+                else 0
+            end as ind_reprise,
             emgrp_yearly.date_deb,
             emgrp_yearly.date_fin,
-            emgrp_yearly.leg_obj_term,
-            emgrp_yearly.leg_obj_non_term,
-            emgrp_yearly.leg_obj_final,
-            om.id_obj_mat,
-            eval_res_comp,
-            {% for i in range(1, 31) %} omg.etape_eval_{{ "%02d" % i }}, {% endfor %}
-            om.obj_01 as no_comp
+            emgrp_yearly.modele_etape,
+            emgrp_yearly.leg_som
         from {{ ref("stg_yearly_eleve_matiere_groupe") }} as emgrp_yearly
         inner join
-            {{ ref("i_gpm_t_obj_mat") }} as om
-            on om.id_eco = emgrp_yearly.id_eco
-            and om.mat = emgrp_yearly.mat
-            and om.obj_02 is null
-            and om.obj_03 is null
-            and om.obj_04 is null
-        inner join
-            {{ ref("i_gpm_t_obj_mat_grp") }} as omg
-            on omg.id_obj_mat = om.id_obj_mat
-            and omg.id_mat_grp = emgrp_yearly.id_mat_grp
+            {{ ref("i_gpm_t_mat") }} as mat
+            on mat.id_eco = emgrp_yearly.id_eco
+            and emgrp_yearly.mat = mat.mat
     )
-
 select *
-from stg_yearly
+from mat_ele
