@@ -2,6 +2,19 @@
 
 
 
+## v0.7.0-dev.11+20231124 (2023-11-24)
+
+### Feature
+
+* feat: propagating switch to the fabric adapter ([`14bf027`](https://github.com/Sciance-Inc/core.dashboards_store/commit/14bf027861bf6b59af08ae2f282359ef4d53e9db))
+
+### Refactor
+
+* refactor: swtich the adapter from dbt-sqlserver to fabric (#24)
+
+Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`e249828`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e24982828a7c275f468100c3ab0ecc561f7ec240))
+
+
 ## v0.7.0-dev.10+20231114 (2023-11-14)
 
 ### Unknown
