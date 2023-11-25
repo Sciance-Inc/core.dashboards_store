@@ -15,6 +15,9 @@ ENV POETRY_VERSION=1.4.2
 # Set the working directory
 WORKDIR /src
 
+# Set the profiles dir
+ENV DBT_PROFILES_DIR /root/.dbt
+
 # Update and install dependencies
 RUN apt -y update && \
     apt -y upgrade && \
@@ -65,9 +68,6 @@ RUN chmod +x /usr/local/bin/integration
 # Allow github key
 RUN mkdir -p -m 0600 ~/.ssh && \
     ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-
-# Set the working directory
-WORKDIR /src
 
 # Copy the nightly code
 COPY tooling/nightly/dbt/seeds seeds
