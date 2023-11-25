@@ -76,4 +76,4 @@ COPY tooling/nightly/dbt/dbt_project.yml dbt_project.yml
 COPY tooling/nightly/dbt/packages.yml packages.yml
 
 # Install the specified version of the core.
-RUN --mount=type=ssh cdbt deps
+RUN --mount=type=ssh poetry run dbt deps
