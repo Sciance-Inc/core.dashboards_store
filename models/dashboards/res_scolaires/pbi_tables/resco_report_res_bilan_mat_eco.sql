@@ -26,7 +26,7 @@ with
         select
             y_stud.population,
             res_bilan.annee,
-            y_stud.code_ecole,
+            y_stud.nom_ecole,
             y_stud.eco,
             y_stud.genre,
             y_stud.plan_interv_ehdaa,
@@ -46,6 +46,7 @@ with
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
             and res_bilan.res_num_som is not null
             and y_stud.genre != 'X'  -- Non binaire
+            and res_bilan.ind_reprise = 0
     ),
 
     cal as (
@@ -74,151 +75,47 @@ with
         select
             population,
             annee,
-            code_ecole,
+            nom_ecole,
             eco,
             mat,
             genre,
             plan_interv_ehdaa,
             des_matiere,
-            count(res_num_som) over (
-                partition by
-                    population,
-                    annee,
-                    mat,
-                    code_ecole,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
-            ) as n_obs_f,
-            count(res_num_som) over (
-                partition by annee, mat, code_ecole, population
-            ) as n_obs_g,
-            count(res_num_som) over (
-                partition by annee, code_ecole, mat, population, plan_interv_ehdaa
-            ) as n_obs_pi,
-            count(res_num_som) over (
-                partition by annee, code_ecole, mat, population, genre
-            ) as n_obs_gre,
-            sum(try_cast(tx_reussite as float)) over (
-                partition by annee, mat, code_ecole, population
-            ) as n_reussite_g,
-            sum(try_cast(tx_reussite as float)) over (
-                partition by annee, code_ecole, mat, population, plan_interv_ehdaa
-            ) as n_reussite_pi,
-            sum(try_cast(tx_reussite as float)) over (
-                partition by annee, code_ecole, mat, population, genre
-            ) as n_reussite_gre,
-            sum(try_cast(tx_reussite as float)) over (
-                partition by
-                    population,
-                    annee,
-                    code_ecole,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
-            ) as n_reussite_f,
-            sum(try_cast(tx_risque as float)) over (
-                partition by annee, code_ecole, mat, population
-            ) as n_risque_g,
-            sum(try_cast(tx_risque as float)) over (
-                partition by
-                    population,
-                    annee,
-                    code_ecole,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
-            ) as n_risque_f,
-            sum(try_cast(tx_echec as float)) over (
-                partition by annee, code_ecole, mat, population
-            ) as n_echec_g,
-            sum(try_cast(tx_echec as float)) over (
-                partition by
-                    population,
-                    annee,
-                    code_ecole,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
-            ) as n_echec_f,
-            sum(try_cast(tx_maitrise as float)) over (
-                partition by annee, code_ecole, mat, population
-            ) as n_maitrise_g,
-            sum(try_cast(tx_maitrise as float)) over (
-                partition by
-                    population,
-                    annee,
-                    code_ecole,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
-            ) as n_maitrise_f,
-            avg(try_cast(res_num_som as decimal(5, 2))) over (
-                partition by annee, code_ecole, mat, population
-            ) as resultat_avg_g,
-            avg(try_cast(res_num_som as decimal(5, 2))) over (
-                partition by annee, code_ecole, mat, population, genre
-            ) as resultat_avg_gre,
-            avg(try_cast(res_num_som as decimal(5, 2))) over (
-                partition by annee, code_ecole, mat, population, plan_interv_ehdaa
-            ) as resultat_avg_pi,
-            avg(try_cast(res_num_som as decimal(5, 2))) over (
-                partition by
-                    population,
-                    annee,
-                    code_ecole,
-                    code_ecole,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
-            ) as resultat_avg_f
+            count(res_num_som) as n_obs,
+            sum(try_cast(tx_reussite as float)) as n_reussite,
+            sum(try_cast(tx_risque as float)) as n_risque,
+            sum(try_cast(tx_echec as float)) as n_echec,
+            sum(try_cast(tx_maitrise as float)) as n_maitrise,
+            avg(try_cast(res_num_som as decimal(5, 2))) as resultat_avg
         from cal
+        group by
+            annee,
+            mat,
+            des_matiere,
+            eco,
+            nom_ecole, cube (genre, population, plan_interv_ehdaa)
     -- Add the statistis
     ),
 
     totaux as (
         select
-            population,
+            case when population is null then 'Tout' else population end as population,
             annee,
             mat,
-            code_ecole,
+            nom_ecole,
             eco,
-            genre,
-            plan_interv_ehdaa,
             des_matiere,
-            max(n_obs_f) as n_obs_f,
-            max(n_obs_g) as n_obs_g,
-            max(n_obs_gre) as n_obs_gre,
-            max(n_obs_pi) as n_obs_pi,
-            max(n_reussite_f) as n_reussite_f,
-            max(n_reussite_g) as n_reussite_g,
-            max(n_reussite_gre) as n_reussite_gre,
-            max(n_reussite_pi) as n_reussite_pi,
-            max(n_risque_f) as n_risque_f,
-            max(n_risque_g) as n_risque_g,
-            max(n_echec_f) as n_echec_f,
-            max(n_echec_g) as n_echec_g,
-            max(n_maitrise_f) as n_maitrise_f,
-            max(n_maitrise_g) as n_maitrise_g,
-            max(resultat_avg_f) as resultat_avg_f,
-            max(resultat_avg_g) as resultat_avg_g,
-            max(resultat_avg_gre) as resultat_avg_gre,
-            max(resultat_avg_pi) as resultat_avg_pi
+            case when genre is null then 'Tout' else genre end as genre,
+            case
+                when plan_interv_ehdaa is null then 'Tout' else plan_interv_ehdaa
+            end as plan_interv_ehdaa,
+            n_obs,
+            n_reussite,
+            n_echec,
+            n_risque,
+            n_maitrise,
+            resultat_avg
         from agg
-        group by
-            population,
-            annee,
-            mat,
-            des_matiere,
-            genre,
-            plan_interv_ehdaa,
-            code_ecole,
-            eco
     ),
 
     stats as (
@@ -241,55 +138,32 @@ with
             plan_interv_ehdaa,
             mat,
             des_matiere,
-            code_ecole,
+            nom_ecole,
             eco,
-            n_obs_f,
-            n_obs_g,
-            n_obs_gre,
-            n_obs_pi,
-            resultat_avg_f,
-            resultat_avg_g,
-            resultat_avg_gre,
-            resultat_avg_pi,
-            n_reussite_f,
-            n_reussite_f / n_obs_f as percent_of_success_f,
-            n_reussite_g,
-            n_reussite_g / n_obs_g as percent_of_success_g,
-            n_reussite_gre,
-            n_reussite_gre / n_obs_gre as percent_of_success_gre,
-            n_reussite_pi,
-            n_reussite_pi / n_obs_pi as percent_of_success_pi,
-            n_echec_f,
-            n_echec_f / n_obs_f as percent_of_echec_f,
-            n_echec_g,
-            n_echec_g / n_obs_g as percent_of_echec_g,
-            n_risque_f,
-            n_risque_f / n_obs_f as percent_of_risque_f,
-            n_risque_g,
-            n_risque_g / n_obs_g as percent_of_risque_g,
-            n_maitrise_f,
-            n_maitrise_f / n_obs_f as percent_of_maitrise_f,
-            n_maitrise_g,
-            n_maitrise_g / n_obs_g as percent_of_maitrise_g
+            n_obs,
+            resultat_avg,
+            n_reussite,
+            n_reussite / n_obs as percent_of_success,
+            n_echec,
+            n_echec / n_obs as percent_of_echec,
+            n_risque,
+            n_risque / n_obs as percent_of_risque,
+            n_maitrise,
+            n_maitrise / n_obs as percent_of_maitrise
         from totaux
     ),
     ecart as (
         select
             stats.*,
-            (stats.percent_of_success_f)
-            - (stcss.percent_of_success_f) as ecart_percent_of_success_f,
-            (stats.percent_of_success_g)
-            - (stcss.percent_of_success_g) as ecart_percent_of_success_g,
-            (stats.percent_of_risque_f)
-            - (stcss.percent_of_risque_f) as ecart_percent_of_risque_f,
-            (stats.percent_of_risque_g)
-            - (stcss.percent_of_risque_g) as ecart_percent_of_risque_g,
-            (stats.percent_of_maitrise_f)
-            - (stcss.percent_of_maitrise_f) as ecart_percent_of_maitrise_f,
-            (stats.percent_of_maitrise_g)
-            - (stcss.percent_of_maitrise_g) as ecart_percent_of_maitrise_g,
-            (stats.resultat_avg_f) - (stcss.resultat_avg_f) as ecart_resultat_avg_f,
-            (stats.resultat_avg_g) - (stcss.resultat_avg_g) as ecart_resultat_avg_g
+            (stats.percent_of_success)
+            - (stcss.percent_of_success) as ecart_percent_of_success,
+            (stats.percent_of_risque)
+            - (stcss.percent_of_risque) as ecart_percent_of_risque,
+            (stats.percent_of_echec)
+            - (stcss.percent_of_echec) as ecart_percent_of_echec,
+            (stats.percent_of_maitrise)
+            - (stcss.percent_of_maitrise) as ecart_percent_of_maitrise,
+            (stats.resultat_avg) - (stcss.resultat_avg) as ecart_resultat_avg
         from stats
         left join
             {{ ref("resco_report_res_bilan_mat_css") }} as stcss
@@ -302,45 +176,24 @@ select
     annee,
     plan_interv_ehdaa,
     eco,
-    code_ecole,
+    nom_ecole,
     mat,
     genre,
     des_matiere,
     -- Metrics
-    n_obs_f,
-    n_obs_g,
-    n_obs_gre,
-    n_obs_pi,
-    resultat_avg_f,
-    resultat_avg_g,
-    resultat_avg_gre,
-    resultat_avg_pi,
-    n_reussite_f,
-    percent_of_success_f,
-    n_reussite_g,
-    percent_of_success_g,
-    n_reussite_gre,
-    percent_of_success_gre,
-    n_reussite_pi,
-    percent_of_success_pi,
-    n_echec_f,
-    percent_of_echec_f,
-    n_echec_g,
-    percent_of_echec_g,
-    n_risque_f,
-    percent_of_risque_f,
-    n_risque_g,
-    percent_of_risque_g,
-    n_maitrise_f,
-    percent_of_maitrise_f,
-    n_maitrise_g,
-    percent_of_maitrise_g
-    ecart_percent_of_success_f,
-    ecart_percent_of_success_g,
-    ecart_percent_of_risque_f,
-    ecart_percent_of_risque_g,
-    ecart_percent_of_maitrise_f,
-    ecart_percent_of_maitrise_g,
-    ecart_resultat_avg_f,
-    ecart_resultat_avg_g
+    n_obs,
+    resultat_avg,
+    n_reussite,
+    percent_of_success,
+    n_echec,
+    percent_of_echec,
+    n_risque,
+    percent_of_risque,
+    n_maitrise,
+    percent_of_maitrise,
+    ecart_percent_of_success,
+    ecart_percent_of_risque,
+    ecart_percent_of_echec,
+    ecart_percent_of_maitrise,
+    ecart_resultat_avg
 from ecart
