@@ -29,9 +29,8 @@ with
             y_stud.genre,
             y_stud.plan_interv_ehdaa,
             eta_comp.mat,
-            eta_comp.etape,
             eta_comp.no_comp,
-            descr_comp.descr,
+            eta_comp.etape,
             eta_comp.res_etape_num,
             eta_comp.ind_reussite
         from {{ ref("fact_res_etape_comp") }} as eta_comp
@@ -39,10 +38,6 @@ with
             {{ ref("fact_yearly_student") }} as y_stud
             on eta_comp.fiche = y_stud.fiche
             and eta_comp.id_eco = y_stud.id_eco
-        left join
-            {{ ref("stg_descr_comp") }} as descr_comp
-            on eta_comp.mat = descr_comp.mat
-            and eta_comp.no_comp = descr_comp.obj_01
         inner join
             {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = eta_comp.mat  -- Only keep the tracked courses
         where
@@ -51,6 +46,7 @@ with
             and eta_comp.res_etape_num is not null
             and eta_comp.etape != 'EX'
             and y_stud.genre != 'X'  -- Non binaire
+            and eta_comp.ind_reprise = 0
     ),
 
     cal as (
@@ -85,100 +81,35 @@ with
             plan_interv_ehdaa,
             no_comp,
             etape,
-            descr,
-            count(res_etape_num) over (
-                partition by
-                    population, annee, mat, no_comp, etape, genre, plan_interv_ehdaa
-            ) as n_obs_f,
-            count(res_etape_num) over (
-                partition by annee, mat, no_comp, etape, population
-            ) as n_obs_g,
-            count(res_etape_num) over (
-                partition by annee, mat, no_comp, etape, population, plan_interv_ehdaa
-            ) as n_obs_pi,
-            count(res_etape_num) over (
-                partition by annee, mat, no_comp, etape, population, genre
-            ) as n_obs_gre,
-            sum(try_cast(tx_reussite as float)) over (
-                partition by annee, mat, no_comp, etape, population
-            ) as n_reussite_g,
-            sum(try_cast(tx_reussite as float)) over (
-                partition by annee, mat, no_comp, etape, population, plan_interv_ehdaa
-            ) as n_reussite_pi,
-            sum(try_cast(tx_reussite as float)) over (
-                partition by annee, mat, no_comp, etape, population, genre
-            ) as n_reussite_gre,
-            sum(try_cast(tx_reussite as float)) over (
-                partition by
-                    population, annee, mat, no_comp, etape, genre, plan_interv_ehdaa
-            ) as n_reussite_f,
-            sum(try_cast(tx_risque as float)) over (
-                partition by annee, mat, no_comp, etape, population
-            ) as n_risque_g,
-            sum(try_cast(tx_risque as float)) over (
-                partition by
-                    population, annee, mat, no_comp, etape, genre, plan_interv_ehdaa
-            ) as n_risque_f,
-            sum(try_cast(tx_echec as float)) over (
-                partition by annee, mat, no_comp, etape, population
-            ) as n_echec_g,
-            sum(try_cast(tx_echec as float)) over (
-                partition by
-                    population, annee, mat, no_comp, etape, genre, plan_interv_ehdaa
-            ) as n_echec_f,
-            sum(try_cast(tx_maitrise as float)) over (
-                partition by annee, mat, no_comp, etape, population
-            ) as n_maitrise_g,
-            sum(try_cast(tx_maitrise as float)) over (
-                partition by
-                    population, annee, mat, no_comp, etape, genre, plan_interv_ehdaa
-            ) as n_maitrise_f,
-            avg(try_cast(res_etape_num as decimal(5, 2))) over (
-                partition by annee, mat, no_comp, etape, population
-            ) as resultat_avg_g,
-            avg(try_cast(res_etape_num as decimal(5, 2))) over (
-                partition by annee, mat, no_comp, etape, population, genre
-            ) as resultat_avg_gre,
-            avg(try_cast(res_etape_num as decimal(5, 2))) over (
-                partition by annee, mat, no_comp, etape, population, plan_interv_ehdaa
-            ) as resultat_avg_pi,
-            avg(try_cast(res_etape_num as decimal(5, 2))) over (
-                partition by
-                    population, annee, mat, no_comp, etape, genre, plan_interv_ehdaa
-            ) as resultat_avg_f
+            count(res_etape_num) as n_obs,
+            sum(try_cast(tx_reussite as float)) as n_reussite,
+            sum(try_cast(tx_risque as float)) as n_risque,
+            sum(try_cast(tx_echec as float)) as n_echec,
+            sum(try_cast(tx_maitrise as float)) as n_maitrise,
+            avg(try_cast(res_etape_num as decimal(5, 2))) as resultat_avg
         from cal
+        group by annee, mat, no_comp, etape, cube (genre, population, plan_interv_ehdaa)
+
     -- Add the statistis
     ),
     totaux as (
         select
-            population,
+            case when population is null then 'Tout' else population end as population,
             annee,
             mat,
-            genre,
-            plan_interv_ehdaa,
+            case when genre is null then 'Tout' else genre end as genre,
+            case
+                when plan_interv_ehdaa is null then 'Tout' else plan_interv_ehdaa
+            end as plan_interv_ehdaa,
             no_comp,
             etape,
-            descr,
-            max(n_obs_f) as n_obs_f,
-            max(n_obs_g) as n_obs_g,
-            max(n_obs_gre) as n_obs_gre,
-            max(n_obs_pi) as n_obs_pi,
-            max(n_reussite_f) as n_reussite_f,
-            max(n_reussite_g) as n_reussite_g,
-            max(n_reussite_gre) as n_reussite_gre,
-            max(n_reussite_pi) as n_reussite_pi,
-            max(n_risque_f) as n_risque_f,
-            max(n_risque_g) as n_risque_g,
-            max(n_echec_f) as n_echec_f,
-            max(n_echec_g) as n_echec_g,
-            max(n_maitrise_f) as n_maitrise_f,
-            max(n_maitrise_g) as n_maitrise_g,
-            max(resultat_avg_f) as resultat_avg_f,
-            max(resultat_avg_g) as resultat_avg_g,
-            max(resultat_avg_gre) as resultat_avg_gre,
-            max(resultat_avg_pi) as resultat_avg_pi
+            n_obs,
+            n_reussite,
+            n_echec,
+            n_risque,
+            n_maitrise,
+            resultat_avg
         from agg
-        group by population, annee, mat, no_comp, etape, genre, descr, plan_interv_ehdaa
     ),
 
     stats as (
@@ -188,8 +119,8 @@ with
                     [
                         "population",
                         "annee",
-                        "mat",
-                        "no_comp",
+                        "totaux.mat",
+                        "totaux.no_comp",
                         "etape",
                         "genre",
                         "plan_interv_ehdaa",
@@ -198,41 +129,29 @@ with
             }} as id_mat_year,
             population,
             annee,
-            mat,
-            no_comp,
-            descr,
+            totaux.mat,
+            dim.des_matiere,
+            totaux.no_comp,
+            descr_comp.descr,
             etape,
             genre,
             plan_interv_ehdaa,
-            n_obs_f,
-            n_obs_g,
-            n_obs_gre,
-            n_obs_pi,
-            resultat_avg_f,
-            resultat_avg_g,
-            resultat_avg_gre,
-            resultat_avg_pi,
-            n_reussite_f,
-            n_reussite_f / n_obs_f as percent_of_success_f,
-            n_reussite_g,
-            n_reussite_g / n_obs_g as percent_of_success_g,
-            n_reussite_gre,
-            n_reussite_gre / n_obs_gre as percent_of_success_gre,
-            n_reussite_pi,
-            n_reussite_pi / n_obs_pi as percent_of_success_pi,
-            n_echec_f,
-            n_echec_f / n_obs_f as percent_of_echec_f,
-            n_echec_g,
-            n_echec_g / n_obs_g as percent_of_echec_g,
-            n_risque_f,
-            n_risque_f / n_obs_f as percent_of_risque_f,
-            n_risque_g,
-            n_risque_g / n_obs_g as percent_of_risque_g,
-            n_maitrise_f,
-            n_maitrise_f / n_obs_f as percent_of_maitrise_f,
-            n_maitrise_g,
-            n_maitrise_g / n_obs_g as percent_of_maitrise_g
+            n_obs,
+            resultat_avg,
+            n_reussite,
+            n_reussite / n_obs as percent_of_success,
+            n_echec,
+            n_echec / n_obs as percent_of_echec,
+            n_risque,
+            n_risque / n_obs as percent_of_risque,
+            n_maitrise,
+            n_maitrise / n_obs as percent_of_maitrise
         from totaux
+        left join
+            {{ ref("stg_descr_comp") }} as descr_comp
+            on totaux.mat = descr_comp.mat
+            and totaux.no_comp = descr_comp.obj_01
+        left join {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = totaux.mat
     )
 select
     -- Dimensions
@@ -241,37 +160,20 @@ select
     annee,
     plan_interv_ehdaa,
     mat,
+    des_matiere,
     genre,
     no_comp,
     etape,
     descr,
     -- Metrics
-    n_obs_f,
-    n_obs_g,
-    n_obs_gre,
-    n_obs_pi,
-    resultat_avg_f,
-    resultat_avg_g,
-    resultat_avg_gre,
-    resultat_avg_pi,
-    n_reussite_f,
-    percent_of_success_f,
-    n_reussite_g,
-    percent_of_success_g,
-    n_reussite_gre,
-    percent_of_success_gre,
-    n_reussite_pi,
-    percent_of_success_pi,
-    n_echec_f,
-    percent_of_echec_f,
-    n_echec_g,
-    percent_of_echec_g,
-    n_risque_f,
-    percent_of_risque_f,
-    n_risque_g,
-    percent_of_risque_g,
-    n_maitrise_f,
-    percent_of_maitrise_f,
-    n_maitrise_g,
-    percent_of_maitrise_g
+    n_obs,
+    resultat_avg,
+    n_reussite,
+    percent_of_success,
+    n_echec,
+    percent_of_echec,
+    n_risque,
+    percent_of_risque,
+    n_maitrise,
+    percent_of_maitrise
 from stats
