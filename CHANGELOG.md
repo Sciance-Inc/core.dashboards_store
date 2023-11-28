@@ -2,6 +2,19 @@
 
 
 
+## v0.7.0-dev.11+20231125 (2023-11-25)
+
+### Chore
+
+* chore(fix): setting profile dir through env_var instead of hardcoding it ([`9c5c2c4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9c5c2c42047ecfe623f45cb7a4e93f0deda95305))
+
+* chore(fix): directctly calling poetry to run dbt during the docker build ([`7fbf267`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7fbf267211ba0bdfea34d630f852e62daa3c2c43))
+
+### Unknown
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`5d034d8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5d034d8dae2e827658e1caa0b5d0f8647fbefd4b))
+
+
 ## v0.7.0-dev.11+20231124 (2023-11-24)
 
 ### Feature
