@@ -97,7 +97,7 @@ with
                     unrm.category,
                     unrm.model,
                     unrm.target,
-                    unrm.scopê
+                    unrm.scope
                 order by abs(unrm.shap_value_avg - qtl.shap_value)
             ) as rank_distance
         from unnormalized_score as unrm
