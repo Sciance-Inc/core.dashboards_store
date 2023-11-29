@@ -2,6 +2,23 @@
 
 
 
+## v0.7.0-dev.12+20231129 (2023-11-29)
+
+### Feature
+
+* feat: adding new feature profiles (#25) ([`56463cb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/56463cb58f8fccd2a0a26d4f7c9196f9f3dff59e))
+
+* feat(predictive_view_aggregated): adding demo mode ([`a68ed57`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a68ed57ca5cabd562c936e6c66de217e2a49da8c))
+
+### Fix
+
+* fix(predictive_view_aggregated): typo in variable selection ([`519ad45`](https://github.com/Sciance-Inc/core.dashboards_store/commit/519ad452cf24767ed2f27eabb869752514b9b611))
+
+### Unknown
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`5823275`](https://github.com/Sciance-Inc/core.dashboards_store/commit/582327532a370073156081644c41d7d9b572cb3e))
+
+
 ## v0.7.0-dev.11+20231125 (2023-11-25)
 
 ### Chore
