@@ -33,7 +33,7 @@ with
             eta_comp.etape,
             eta_comp.res_etape_num,
             eta_comp.ind_reussite
-        from {{ ref("fact_res_etape_comp") }} as eta_comp
+        from {{ ref("fact_resultat_etape_competence") }} as eta_comp
         inner join
             {{ ref("fact_yearly_student") }} as y_stud
             on eta_comp.fiche = y_stud.fiche

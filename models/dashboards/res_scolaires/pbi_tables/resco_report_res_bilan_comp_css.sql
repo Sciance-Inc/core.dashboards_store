@@ -32,7 +32,7 @@ with
             res_bilan.no_comp,
             res_bilan.res_num_comp,
             res_bilan.ind_reussite
-        from {{ ref("fact_res_bilan_comp") }} as res_bilan
+        from {{ ref("fact_resultat_bilan_competence") }} as res_bilan
         inner join
             {{ ref("fact_yearly_student") }} as y_stud
             on res_bilan.fiche = y_stud.fiche

@@ -35,7 +35,7 @@ with
             dim.des_matiere,
             res_etape_num,
             eta_mat.ind_reussite
-        from {{ ref("fact_res_etape_mat") }} as eta_mat
+        from {{ ref("fact_resultat_etape_matiere") }} as eta_mat
         inner join
             {{ ref("fact_yearly_student") }} as y_stud
             on eta_mat.fiche = y_stud.fiche

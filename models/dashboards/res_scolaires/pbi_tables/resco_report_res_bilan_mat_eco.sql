@@ -34,7 +34,7 @@ with
             dim.des_matiere,
             res_bilan.res_num_som,
             res_bilan.ind_reussite
-        from {{ ref("fact_res_bilan_mat") }} as res_bilan
+        from {{ ref("fact_resultat_bilan_matiere") }} as res_bilan
         inner join
             {{ ref("fact_yearly_student") }} as y_stud
             on res_bilan.fiche = y_stud.fiche
