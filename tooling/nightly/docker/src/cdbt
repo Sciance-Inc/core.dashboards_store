@@ -1,2 +1,2 @@
 #!/bin/sh
-poetry run dbt --profiles-dir /root/.dbt $@ --profile nightly_profile 
+poetry run dbt  $@ --profile nightly_profile 

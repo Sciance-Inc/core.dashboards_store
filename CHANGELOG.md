@@ -2,6 +2,49 @@
 
 
 
+## v0.7.0-dev.12+20231129 (2023-11-29)
+
+### Feature
+
+* feat: adding new feature profiles (#25) ([`56463cb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/56463cb58f8fccd2a0a26d4f7c9196f9f3dff59e))
+
+* feat(predictive_view_aggregated): adding demo mode ([`a68ed57`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a68ed57ca5cabd562c936e6c66de217e2a49da8c))
+
+### Fix
+
+* fix(predictive_view_aggregated): typo in variable selection ([`519ad45`](https://github.com/Sciance-Inc/core.dashboards_store/commit/519ad452cf24767ed2f27eabb869752514b9b611))
+
+### Unknown
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`5823275`](https://github.com/Sciance-Inc/core.dashboards_store/commit/582327532a370073156081644c41d7d9b572cb3e))
+
+
+## v0.7.0-dev.11+20231125 (2023-11-25)
+
+### Chore
+
+* chore(fix): setting profile dir through env_var instead of hardcoding it ([`9c5c2c4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9c5c2c42047ecfe623f45cb7a4e93f0deda95305))
+
+* chore(fix): directctly calling poetry to run dbt during the docker build ([`7fbf267`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7fbf267211ba0bdfea34d630f852e62daa3c2c43))
+
+### Unknown
+
+* Merge branch &#39;develop&#39; of github.com:Sciance-Inc/core.dashboards_store into develop ([`5d034d8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5d034d8dae2e827658e1caa0b5d0f8647fbefd4b))
+
+
+## v0.7.0-dev.11+20231124 (2023-11-24)
+
+### Feature
+
+* feat: propagating switch to the fabric adapter ([`14bf027`](https://github.com/Sciance-Inc/core.dashboards_store/commit/14bf027861bf6b59af08ae2f282359ef4d53e9db))
+
+### Refactor
+
+* refactor: swtich the adapter from dbt-sqlserver to fabric (#24)
+
+Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`e249828`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e24982828a7c275f468100c3ab0ecc561f7ec240))
+
+
 ## v0.7.0-dev.10+20231114 (2023-11-14)
 
 ### Unknown

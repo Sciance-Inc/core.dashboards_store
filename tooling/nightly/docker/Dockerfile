@@ -15,6 +15,9 @@ ENV POETRY_VERSION=1.4.2
 # Set the working directory
 WORKDIR /src
 
+# Set the profiles dir
+ENV DBT_PROFILES_DIR /root/.dbt
+
 # Update and install dependencies
 RUN apt -y update && \
     apt -y upgrade && \
@@ -66,9 +69,6 @@ RUN chmod +x /usr/local/bin/integration
 RUN mkdir -p -m 0600 ~/.ssh && \
     ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
-# Set the working directory
-WORKDIR /src
-
 # Copy the nightly code
 COPY tooling/nightly/dbt/seeds seeds
 COPY tooling/nightly/dbt/models models
@@ -76,4 +76,4 @@ COPY tooling/nightly/dbt/dbt_project.yml dbt_project.yml
 COPY tooling/nightly/dbt/packages.yml packages.yml
 
 # Install the specified version of the core.
-RUN --mount=type=ssh cdbt deps
+RUN --mount=type=ssh poetry run dbt deps

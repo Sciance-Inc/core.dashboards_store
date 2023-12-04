@@ -2,7 +2,7 @@ nightly_profile:
   target: "{{ env_var('DBT_TARGET') }}"
   outputs:
     dev:
-      type: sqlserver
+      type: fabric
       driver: "ODBC Driver 17 for SQL Server"
       server: "{{ env_var('DBT_SERVER') }}"
       port: "{{ env_var('DBT_PORT') | int }}"
@@ -12,7 +12,7 @@ nightly_profile:
       password: "{{ env_var('DBT_PASSWORD') }}"
       trust_cert: True
     rc:
-      type: sqlserver
+      type: fabric
       driver: "ODBC Driver 17 for SQL Server"
       server: "{{ env_var('DBT_SERVER') }}"
       port: "{{ env_var('DBT_PORT') | int }}"
@@ -22,7 +22,7 @@ nightly_profile:
       password: "{{ env_var('DBT_PASSWORD') }}"
       trust_cert: True
     stable:
-      type: sqlserver
+      type: fabric
       driver: "ODBC Driver 17 for SQL Server"
       server: "{{ env_var('DBT_SERVER') }}"
       port: "{{ env_var('DBT_PORT') | int }}"
