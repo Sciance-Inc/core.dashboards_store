@@ -16,9 +16,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select
-    spi.fiche,
-    spi.id_eco,
-    spi.annee,
+    std.fiche,
+    std.id_eco,
+    std.annee,
     mat_ele.mat,
     mat_ele.grp,
     mat_ele.etat,
@@ -36,7 +36,7 @@ select
     mg.leg_obj_non_term,
     mg.eval_res_obj_final as eval_res_comp,
     mg.leg_obj_final
-from {{ ref("spine") }} as spi
+from {{ ref("fact_yearly_student") }} as std
 inner join
     {{ ref("i_gpm_e_mat_ele") }} as mat_ele
     on spi.fiche = mat_ele.fiche
