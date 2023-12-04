@@ -36,7 +36,7 @@ with
             eta_comp.res_etape_num,
             eta_comp.ind_reussite
         from {{ ref("fact_res_etape_comp") }} as eta_comp
-        left join
+        inner join
             {{ ref("fact_yearly_student") }} as y_stud
             on eta_comp.fiche = y_stud.fiche
             and eta_comp.id_eco = y_stud.id_eco
@@ -54,42 +54,42 @@ with
     cal as (
         select
             *,
-            case when ind_reussite = 'E' then 1 end as tx_echec,
-            case when ind_reussite = 'R' then 1 end as tx_reussite,
+            case when ind_reussite = 'E' then 1. end as tx_echec,
+            case when ind_reussite = 'R' then 1. end as tx_reussite,
             case
                 when
                     res_etape_num > 59
                     and res_etape_num
                     < {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
-                then 1
-                else 0
+                then 1.
+                else 0.
             end as tx_risque,
             case
                 when
                     res_etape_num
                     >= {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
-                then 1
-                else 0
+                then 1.
+                else 0.
             end as tx_maitrise
         from data
     ),
 
     agg as (
         select
-            population,
+            coalesce(population, 'Tout') as population,
             annee,
             nom_ecole,
             eco,
             mat,
             etape,
-            genre,
-            plan_interv_ehdaa,
+            coalesce(genre, 'Tout') as genre,
+            coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
             no_comp,
             count(res_etape_num) as n_obs,
-            sum(try_cast(tx_reussite as float)) as n_reussite,
-            sum(try_cast(tx_risque as float)) as n_risque,
-            sum(try_cast(tx_echec as float)) as n_echec,
-            sum(try_cast(tx_maitrise as float)) as n_maitrise,
+            avg(tx_reussite) as n_reussite,
+            avg(tx_risque) as n_risque,
+            avg(tx_echec) as n_echec,
+            avg(tx_maitrise) as n_maitrise,
             avg(try_cast(res_etape_num as decimal(5, 2))) as resultat_avg
         from cal
         group by
@@ -105,15 +105,13 @@ with
 
     totaux as (
         select
-            case when population is null then 'Tout' else population end as population,
+            population,
             annee,
             nom_ecole,
             mat,
             eco,
-            case when genre is null then 'Tout' else genre end as genre,
-            case
-                when plan_interv_ehdaa is null then 'Tout' else plan_interv_ehdaa
-            end as plan_interv_ehdaa,
+            genre,
+            plan_interv_ehdaa,
             no_comp,
             etape,
             n_obs,
@@ -138,7 +136,7 @@ with
                         "plan_interv_ehdaa",
                     ]
                 )
-            }} as id_mat_year,
+            }} as primary_key,
             population,
             annee,
             nom_ecole,
@@ -146,7 +144,7 @@ with
             totaux.mat,
             dim.des_matiere,
             totaux.no_comp,
-            descr_comp.descr,
+            descr_comp.description,
             genre,
             plan_interv_ehdaa,
             etape,
@@ -182,11 +180,11 @@ with
         from stats
         left join
             {{ ref("resco_report_res_etape_comp_css") }} as stcss
-            on stats.id_mat_year = stcss.id_mat_year
+            on stats.primary_key = stcss.primary_key
     )
 select
     -- Dimensions
-    id_mat_year,
+    primary_key,
     population,
     annee,
     plan_interv_ehdaa,
@@ -197,7 +195,7 @@ select
     genre,
     no_comp,
     etape,
-    descr,
+    description,
     -- Metrics
     n_obs,
     resultat_avg,

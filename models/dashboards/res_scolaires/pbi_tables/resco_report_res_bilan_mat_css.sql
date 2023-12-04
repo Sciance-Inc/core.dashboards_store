@@ -33,7 +33,7 @@ with
             res_bilan.res_num_som,
             res_bilan.ind_reussite
         from {{ ref("fact_res_bilan_mat") }} as res_bilan
-        left join
+        inner join
             {{ ref("fact_yearly_student") }} as y_stud
             on res_bilan.fiche = y_stud.fiche
             and res_bilan.id_eco = y_stud.id_eco
@@ -50,38 +50,38 @@ with
     cal as (
         select
             *,
-            case when ind_reussite = 'E' then 1 end as tx_echec,
-            case when ind_reussite = 'R' then 1 end as tx_reussite,
+            case when ind_reussite = 'E' then 1. end as tx_echec,
+            case when ind_reussite = 'R' then 1. end as tx_reussite,
             case
                 when
                     res_num_som > 59
                     and res_num_som
                     < {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
-                then 1
-                else 0
+                then 1.
+                else 0.
             end as tx_risque,
             case
                 when
                     res_num_som
                     >= {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
-                then 1
-                else 0
+                then 1.
+                else 0.
             end as tx_maitrise
         from data
     ),
     agg as (
         select
-            population,
+            coalesce(population, 'Tout') as population,
             annee,
             mat,
-            genre,
+            coalesce(genre, 'Tout') as genre,
+            coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
             des_matiere,
-            plan_interv_ehdaa,
             count(res_num_som) as n_obs,
-            sum(try_cast(tx_reussite as float)) as n_reussite,
-            sum(try_cast(tx_risque as float)) as n_risque,
-            sum(try_cast(tx_echec as float)) as n_echec,
-            sum(try_cast(tx_maitrise as float)) as n_maitrise,
+            avg(tx_reussite) as n_reussite,
+            avg(tx_risque) as n_risque,
+            avg(tx_echec) as n_echec,
+            avg(tx_maitrise) as n_maitrise,
             avg(try_cast(res_num_som as decimal(5, 2))) as resultat_avg
         from cal
         group by annee, mat, des_matiere, cube (genre, population, plan_interv_ehdaa)
@@ -90,14 +90,12 @@ with
 
     totaux as (
         select
-            case when population is null then 'Tout' else population end as population,
+            population,
             annee,
             mat,
             des_matiere,
-            case when genre is null then 'Tout' else genre end as genre,
-            case
-                when plan_interv_ehdaa is null then 'Tout' else plan_interv_ehdaa
-            end as plan_interv_ehdaa,
+            genre,
+            plan_interv_ehdaa,
             n_obs,
             n_reussite,
             n_echec,
@@ -120,7 +118,7 @@ with
                         "des_matiere",
                     ]
                 )
-            }} as id_mat_year,
+            }} as primary_key,
             population,
             annee,
             mat,
@@ -141,7 +139,7 @@ with
     )
 select
     -- Dimensions
-    id_mat_year,
+    primary_key,
     population,
     annee,
     mat,

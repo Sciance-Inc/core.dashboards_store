@@ -20,7 +20,7 @@ with
         select
             obj_mat.mat,
             obj_mat.obj_01,
-            obj_mat.descr,
+            obj_mat.descr as description,
             row_number() over (
                 partition by obj_mat.mat, obj_mat.obj_01 order by obj_mat.mat desc
             ) as seqid
@@ -28,6 +28,6 @@ with
         where descr is not null
     )
 
-select mat, obj_01, descr
+select mat, obj_01, description
 from row_num
 where seqid = 1
