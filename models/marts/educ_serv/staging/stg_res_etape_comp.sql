@@ -46,7 +46,7 @@ with
                 when
                     met1.seq_etape = coalesce(
                         {% for i in range(1, 31) %}
-                            {% if i < 30 %}
+                            {% if not loop.last %}
                                 case
                                     when res_comp.etape_eval_{{ "%02d" % i }} = '1'
                                     then {{ i }}

@@ -36,9 +36,9 @@ with
             o.id_obj_mat,
             o.res_final_obj as res_comp,
             eval_res_comp,
-            {% for i in range(1, 31) %} o.res_obj_{{ "%02d" % i }}, {% endfor %}
             {% for i in range(1, 31) %}
                 emgrp_yearly_comp.etape_eval_{{ "%02d" % i }},
+                o.res_obj_{{ "%02d" % i }},
             {% endfor %}
             case
                 when left(emgrp_yearly_comp.grp, 1) not like '[%0-9]%'  -- grp starting with a letter = retake
