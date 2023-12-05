@@ -149,11 +149,11 @@ with
             n_maitrise,
             n_maitrise / n_obs as percent_of_maitrise
         from totaux
-        left join
+        inner join
             {{ ref("stg_descr_comp") }} as descr_comp
             on totaux.mat = descr_comp.mat
             and totaux.no_comp = descr_comp.obj_01
-        left join {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = totaux.mat
+        inner join {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = totaux.mat
     ),
     ecart as (
         select
