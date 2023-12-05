@@ -45,7 +45,7 @@ models:
       - name: mat
         description: Description of the subject
       - name: grp
-        description: The group of the student
+        description: The group which the student is related to the subject
       - name: etat
         description: The state of the subject
       - name: ind_reprise
@@ -86,7 +86,7 @@ models:
       - name: mat
         description: The subject
       - name: grp
-        description: The group of the student
+        description: The group which the student is related to the subject
       - name: etat
         description: The state of the subject
       - name: ind_reprise
