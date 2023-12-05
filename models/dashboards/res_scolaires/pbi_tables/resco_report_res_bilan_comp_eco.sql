@@ -168,7 +168,7 @@ with
             - (stcss.percent_of_maitrise) as ecart_percent_of_maitrise,
             (stats.resultat_avg) - (stcss.resultat_avg) as ecart_resultat_avg
         from stats
-        left join
+        inner join
             {{ ref("resco_report_res_bilan_comp_css") }} as stcss
             on stats.primary_key = stcss.primary_key
     )

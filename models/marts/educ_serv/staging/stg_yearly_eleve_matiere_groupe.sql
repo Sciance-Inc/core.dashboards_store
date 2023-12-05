@@ -39,13 +39,13 @@ select
 from {{ ref("fact_yearly_student") }} as std
 inner join
     {{ ref("i_gpm_e_mat_ele") }} as mat_ele
-    on spi.fiche = mat_ele.fiche
-    and spi.id_eco = mat_ele.id_eco
+    on std.fiche = mat_ele.fiche
+    and std.id_eco = mat_ele.id_eco
 inner join {{ ref("i_gpm_t_mat_grp") }} as mg on mat_ele.id_mat_grp = mg.id_mat_grp
 inner join
     {{ ref("i_gpm_t_org_annee") }} as oa
-    on oa.annee = spi.annee
-    and spi.annee >= {{ store.get_current_year() }} - 10
+    on oa.annee = std.annee
+    and std.annee >= {{ store.get_current_year() }} - 10
 where
     mat_ele.res_som is not null  -- prendre en note le risque de perdre des données pour la compétence. a voir à le 2e itérations.
     and mat_ele.etat != 0  -- -- 0 = inactive, 1 = active, 5 = en continuation, 6 = equivalence, 8 = terminee
