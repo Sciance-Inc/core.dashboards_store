@@ -2,6 +2,13 @@
 
 
 
+## v0.7.0-dev.12+20231206 (2023-12-06)
+
+### Unknown
+
+* Merge branch &#39;master&#39; into develop ([`d17577a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d17577a09789ed82287e9b032ab790af91f597b3))
+
+
 ## v0.8.2+20231206 (2023-12-06)
 
 ### Fix
