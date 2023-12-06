@@ -50,8 +50,8 @@ with
     cal as (
         select
             *,
-            case when ind_reussite = 'E' then 1. end as tx_echec,
-            case when ind_reussite = 'R' then 1. end as tx_reussite,
+            case when ind_reussite = 'E' then 1. else 0. end as tx_echec,
+            case when ind_reussite = 'R' then 1. else 0. end as tx_reussite,
             case
                 when
                     res_num_som > 59
@@ -78,83 +78,48 @@ with
             coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
             des_matiere,
             count(res_num_som) as n_obs,
-            avg(tx_reussite) as n_reussite,
-            avg(tx_risque) as n_risque,
-            avg(tx_echec) as n_echec,
-            avg(tx_maitrise) as n_maitrise,
+            avg(tx_reussite) as taux_reussite,
+            sum(tx_reussite) as n_reussite,
+            avg(tx_risque) as taux_risque,
+            sum(tx_risque) as n_risque,
+            avg(tx_echec) as taux_echec,
+            sum(tx_echec) as n_echec,
+            avg(tx_maitrise) as taux_maitrise,
+            sum(tx_maitrise) as n_maitrise,
             avg(try_cast(res_num_som as decimal(5, 2))) as resultat_avg
         from cal
         group by annee, mat, des_matiere, cube (genre, population, plan_interv_ehdaa)
     -- Add the statistis
-    ),
-
-    totaux as (
-        select
-            population,
-            annee,
-            mat,
-            des_matiere,
-            genre,
-            plan_interv_ehdaa,
-            n_obs,
-            n_reussite,
-            n_echec,
-            n_risque,
-            n_maitrise,
-            resultat_avg
-        from agg
-    ),
-
-    stats as (
-        select
-            {{
-                dbt_utils.generate_surrogate_key(
-                    [
-                        "population",
-                        "annee",
-                        "mat",
-                        "genre",
-                        "plan_interv_ehdaa",
-                        "des_matiere",
-                    ]
-                )
-            }} as primary_key,
-            population,
-            annee,
-            mat,
-            des_matiere,
-            genre,
-            plan_interv_ehdaa,
-            n_obs,
-            resultat_avg,
-            n_reussite,
-            n_reussite / n_obs as percent_of_success,
-            n_echec,
-            n_echec / n_obs as percent_of_echec,
-            n_risque,
-            n_risque / n_obs as percent_of_risque,
-            n_maitrise,
-            n_maitrise / n_obs as percent_of_maitrise
-        from totaux
     )
 select
     -- Dimensions
-    primary_key,
+    {{
+        dbt_utils.generate_surrogate_key(
+            [
+                "population",
+                "annee",
+                "mat",
+                "genre",
+                "plan_interv_ehdaa",
+                "des_matiere",
+            ]
+        )
+    }} as primary_key,
     population,
     annee,
     mat,
+    des_matiere,
     genre,
     plan_interv_ehdaa,
-    des_matiere,
     -- Metrics
     n_obs,
-    resultat_avg,
+    taux_reussite,
     n_reussite,
-    percent_of_success,
+    taux_risque,
     n_echec,
-    percent_of_echec,
+    taux_echec,
     n_risque,
-    percent_of_risque,
+    taux_maitrise,
     n_maitrise,
-    percent_of_maitrise
-from stats
+    resultat_avg
+from agg
