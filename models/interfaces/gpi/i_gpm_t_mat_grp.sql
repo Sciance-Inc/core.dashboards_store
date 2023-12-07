@@ -16,9 +16,15 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select
-    fiche,
-    id_mat_ele,
-    id_obj_mat,
-    {% for i in range(1, 31) %} res_obj_{{ "%02d" % i }}, {% endfor %}
-    res_final_obj
-from {{ var("database_gpi") }}.dbo.gpm_e_obj
+    id_mat_grp,
+    id_eco,
+    mat,
+    grp,
+    leg_obj_term,
+    leg_obj_non_term,
+    eval_res_obj_final,
+    {% for i in range(1, 31) %} leg_etape_{{ "%02d" % i }}, {% endfor %}
+    {% for i in range(1, 31) %} eval_res_etape_{{ "%02d" % i }}, {% endfor %}
+    leg_som,
+    leg_obj_final
+from {{ var("database_gpi") }}.dbo.gpm_t_mat_grp

@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {{
     config(
-        alias="report_res_bilan_comp_css",
+        alias="report_res_etape_comp_css",
     )
 }}
 
@@ -25,27 +25,29 @@ with
     data as (
         select
             y_stud.population,
-            res_bilan.annee,
+            eta_comp.annee,
             y_stud.genre,
             y_stud.plan_interv_ehdaa,
-            res_bilan.code_matiere,
-            res_bilan.no_comp,
-            res_bilan.res_num_comp,
-            res_bilan.ind_reussite
-        from {{ ref("fact_resultat_bilan_competence") }} as res_bilan
+            eta_comp.code_matiere,
+            eta_comp.no_comp,
+            eta_comp.etape,
+            eta_comp.res_etape_num,
+            eta_comp.ind_reussite
+        from {{ ref("fact_resultat_etape_competence") }} as eta_comp
         inner join
             {{ ref("fact_yearly_student") }} as y_stud
-            on res_bilan.fiche = y_stud.fiche
-            and res_bilan.id_eco = y_stud.id_eco
+            on eta_comp.fiche = y_stud.fiche
+            and eta_comp.id_eco = y_stud.id_eco
         inner join
             {{ ref("resco_dim_matiere") }} as dim
-            on dim.cod_matiere = res_bilan.code_matiere  -- Only keep the tracked courses
+            on dim.cod_matiere = eta_comp.code_matiere  -- Only keep the tracked courses
         where
-            res_bilan.annee
+            y_stud.annee
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
-            and res_bilan.res_num_comp is not null
+            and eta_comp.res_etape_num is not null
+            and eta_comp.etape != 'EX'
             and y_stud.genre != 'X'  -- Non binaire
-            and res_bilan.ind_reprise = 0
+            and eta_comp.ind_reprise = 0
     ),
 
     cal as (
@@ -55,21 +57,22 @@ with
             case when ind_reussite = 'R' then 1. else 0. end as tx_reussite,
             case
                 when
-                    res_num_comp > 59
-                    and res_num_comp
+                    res_etape_num > 59
+                    and res_etape_num
                     < {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
                 then 1.
                 else 0.
             end as tx_risque,
             case
                 when
-                    res_num_comp
+                    res_etape_num
                     >= {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
                 then 1.
                 else 0.
             end as tx_maitrise
         from data
     ),
+
     agg as (
         select
             coalesce(population, 'Tout') as population,
@@ -78,7 +81,8 @@ with
             coalesce(genre, 'Tout') as genre,
             coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
             no_comp,
-            count(res_num_comp) as n_obs,
+            etape,
+            count(res_etape_num) as n_obs,
             avg(tx_reussite) as taux_reussite,
             sum(tx_reussite) as n_reussite,
             avg(tx_risque) as taux_risque,
@@ -87,14 +91,17 @@ with
             sum(tx_echec) as n_echec,
             avg(tx_maitrise) as taux_maitrise,
             sum(tx_maitrise) as n_maitrise,
-            avg(try_cast(res_num_comp as decimal(5, 2))) as resultat_avg
+            avg(try_cast(res_etape_num as decimal(5, 2))) as resultat_avg
         from cal
         group by
-            annee, code_matiere, no_comp, cube (genre, population, plan_interv_ehdaa)
+            annee,
+            code_matiere,
+            no_comp,
+            etape, cube (genre, population, plan_interv_ehdaa)
+
     -- Add the statistis
     )
 select
-    -- Dimensions
     {{
         dbt_utils.generate_surrogate_key(
             [
@@ -102,6 +109,7 @@ select
                 "annee",
                 "agg.code_matiere",
                 "agg.no_comp",
+                "etape",
                 "genre",
                 "plan_interv_ehdaa",
             ]
@@ -113,6 +121,7 @@ select
     dim.des_matiere,
     agg.no_comp,
     descr_comp.description,
+    etape,
     genre,
     plan_interv_ehdaa,
     -- Metrics

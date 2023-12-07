@@ -22,7 +22,9 @@ select
     spi.fiche,
     spi.population,
     spi.eco,
-    mapper_school.school_friendly_name as code_ecole,
+    dan.grp_rep,
+    dan.dist,
+    mapper_school.school_friendly_name as nom_ecole,
     dan.ordre_ens,
     case when ele.sexe = 'F' then 'Fille' when ele.sexe = 'M' then 'Garçon' end as genre
     ,
@@ -128,17 +130,14 @@ select
     end as niveau_scolaire
 -- spi.seqid
 from {{ ref("spine") }} as spi
-left join
+inner join
     {{ ref("i_gpm_e_dan") }} as dan  -- Niv scolaire
     on spi.fiche = dan.fiche
     and spi.id_eco = dan.id_eco
-left join
+inner join
     {{ ref("i_gpm_e_ele") }} as ele  -- Genre, PI
     on spi.fiche = ele.fiche
-left join
+inner join
     {{ ref("dim_mapper_schools") }} as mapper_school
     on spi.id_eco = mapper_school.id_eco
-where
-    seqid = 1
-    and spi.annee >= {{ store.get_current_year() }} - 10  -- On garde un max de 10 ans dans nos données d'étudiants / Limite par défaut
-    and ele.sexe != 'X'  -- Non binaire
+where seqid = 1 and spi.annee >= {{ store.get_current_year() }} - 10  -- On garde un max de 10 ans dans nos données d'étudiants / Limite par défaut

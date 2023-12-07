@@ -22,225 +22,108 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 }}
 
 with
+    data as (
+        select
+            y_stud.population,
+            res_bilan.annee,
+            y_stud.genre,
+            y_stud.plan_interv_ehdaa,
+            res_bilan.code_matiere,
+            dim.des_matiere,
+            res_bilan.res_num_som,
+            res_bilan.ind_reussite
+        from {{ ref("fact_resultat_bilan_matiere") }} as res_bilan
+        inner join
+            {{ ref("fact_yearly_student") }} as y_stud
+            on res_bilan.fiche = y_stud.fiche
+            and res_bilan.id_eco = y_stud.id_eco
+        inner join
+            {{ ref("resco_dim_matiere") }} as dim
+            on dim.cod_matiere = res_bilan.code_matiere  -- Only keep the tracked courses
+        where
+            res_bilan.annee
+            between {{ get_current_year() }} - 4 and {{ get_current_year() }}
+            and res_bilan.res_num_som is not null
+            and y_stud.genre != 'X'  -- Non binaire
+            and res_bilan.ind_reprise = 0
+    ),
+
     cal as (
         select
-            code_perm,
-            population,
-            annee,
-            ordre_ens,
-            mat,
-            des_matiere,
-            genre,
-            plan_interv_ehdaa,
-            case when res_num_mat < 60 then 1 else 0 end as tx_echec,
-            case when res_num_mat > 59 then 1 else 0 end as tx_reussite,
+            *,
+            case when ind_reussite = 'E' then 1. else 0. end as tx_echec,
+            case when ind_reussite = 'R' then 1. else 0. end as tx_reussite,
             case
                 when
-                    res_num_mat > 59
-                    and res_num_mat
+                    res_num_som > 59
+                    and res_num_som
                     < {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
-                then 1
-                else 0
+                then 1.
+                else 0.
             end as tx_risque,
             case
                 when
-                    res_num_mat
+                    res_num_som
                     >= {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
-                then 1
-                else 0
-            end as tx_maitrise,
-            res_num_mat
-        from {{ ref("fact_res_bilan_mat") }}
-        inner join {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = mat  -- Only keep the tracked courses
-        where annee between {{ get_current_year() }} - 4 and {{ get_current_year() }}
+                then 1.
+                else 0.
+            end as tx_maitrise
+        from data
     ),
     agg as (
         select
-            population,
+            coalesce(population, 'Tout') as population,
             annee,
-            ordre_ens,
-            mat,
-            genre,
+            code_matiere,
+            coalesce(genre, 'Tout') as genre,
+            coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
             des_matiere,
-            plan_interv_ehdaa,
-            count(res_num_mat) over (
-                partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
-            ) as n_obs_f,
-            count(res_num_mat) over (partition by annee, mat, population) as n_obs_g,
-            sum(try_cast(tx_reussite as float)) over (
-                partition by annee, mat, population
-            ) as n_reussite_g,
-            sum(try_cast(tx_reussite as float)) over (
-                partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
-            ) as n_reussite_f,
-            sum(try_cast(tx_risque as float)) over (
-                partition by annee, mat, population
-            ) as n_risque_g,
-            sum(try_cast(tx_risque as float)) over (
-                partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
-            ) as n_risque_f,
-            sum(try_cast(tx_echec as float)) over (
-                partition by annee, mat, population
-            ) as n_echec_g,
-            sum(try_cast(tx_echec as float)) over (
-                partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
-            ) as n_echec_f,
-            sum(try_cast(tx_maitrise as float)) over (
-                partition by annee, mat, population
-            ) as n_maitrise_g,
-            sum(try_cast(tx_maitrise as float)) over (
-                partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
-            ) as n_maitrise_f,
-            avg(try_cast(res_num_mat as decimal(5, 2))) over (
-                partition by annee, mat, population
-            ) as resultat_avg_g,
-            avg(try_cast(res_num_mat as decimal(5, 2))) over (
-                partition by
-                    population,
-                    annee,
-                    ordre_ens,
-                    mat,
-                    des_matiere,
-                    genre,
-                    plan_interv_ehdaa
-            ) as resultat_avg_f
+            count(res_num_som) as n_obs,
+            avg(tx_reussite) as taux_reussite,
+            sum(tx_reussite) as n_reussite,
+            avg(tx_risque) as taux_risque,
+            sum(tx_risque) as n_risque,
+            avg(tx_echec) as taux_echec,
+            sum(tx_echec) as n_echec,
+            avg(tx_maitrise) as taux_maitrise,
+            sum(tx_maitrise) as n_maitrise,
+            avg(try_cast(res_num_som as decimal(5, 2))) as resultat_avg
         from cal
-    -- Add the statistis
-    ),
-
-    totaux as (
-        select
-            population,
-            annee,
-            ordre_ens,
-            mat,
-            genre,
-            plan_interv_ehdaa,
-            des_matiere,
-            max(n_obs_f) as n_obs_f,
-            max(n_obs_g) as n_obs_g,
-            max(n_reussite_f) as n_reussite_f,
-            max(n_reussite_g) as n_reussite_g,
-            max(n_risque_f) as n_risque_f,
-            max(n_risque_g) as n_risque_g,
-            max(n_echec_f) as n_echec_f,
-            max(n_echec_g) as n_echec_g,
-            max(n_maitrise_f) as n_maitrise_f,
-            max(n_maitrise_g) as n_maitrise_g,
-            max(resultat_avg_f) as resultat_avg_f,
-            max(resultat_avg_g) as resultat_avg_g
-        from agg
         group by
-            population, annee, ordre_ens, mat, des_matiere, genre, plan_interv_ehdaa
-    ),
-
-    stats as (
-        select
-            {{
-                dbt_utils.generate_surrogate_key(
-                    [
-                        "population",
-                        "annee",
-                        "mat",
-                        "genre",
-                        "plan_interv_ehdaa",
-                        "des_matiere",
-                    ]
-                )
-            }} as id_mat_year,
-            population,
             annee,
-            ordre_ens,
-            mat,
-            des_matiere,
-            genre,
-            plan_interv_ehdaa,
-            n_obs_f,
-            n_obs_g,
-            resultat_avg_f,
-            resultat_avg_g,
-            n_reussite_f,
-            n_reussite_f / n_obs_f as percent_of_success_f,
-            n_reussite_g,
-            n_reussite_g / n_obs_g as percent_of_success_g,
-            n_echec_f,
-            n_echec_f / n_obs_f as percent_of_echec_f,
-            n_echec_g,
-            n_echec_g / n_obs_g as percent_of_echec_g,
-            n_risque_f,
-            n_risque_f / n_obs_f as percent_of_risque_f,
-            n_risque_g,
-            n_risque_g / n_obs_g as percent_of_risque_g,
-            n_maitrise_f,
-            n_maitrise_f / n_obs_f as percent_of_maitrise_f,
-            n_maitrise_g,
-            n_maitrise_g / n_obs_g as percent_of_maitrise_g
-        from totaux
+            code_matiere,
+            des_matiere, cube (genre, population, plan_interv_ehdaa)
+    -- Add the statistis
     )
 select
     -- Dimensions
-    id_mat_year,
+    {{
+        dbt_utils.generate_surrogate_key(
+            [
+                "population",
+                "annee",
+                "code_matiere",
+                "genre",
+                "plan_interv_ehdaa",
+                "des_matiere",
+            ]
+        )
+    }} as primary_key,
     population,
     annee,
-    ordre_ens,
-    mat,
+    code_matiere,
+    des_matiere,
     genre,
     plan_interv_ehdaa,
-    des_matiere,
     -- Metrics
-    n_obs_f,
-    n_obs_g,
-    resultat_avg_f,
-    resultat_avg_g,
-    n_reussite_f,
-    percent_of_success_f,
-    n_reussite_g,
-    percent_of_success_g,
-    n_echec_f,
-    percent_of_echec_f,
-    n_echec_g,
-    percent_of_echec_g,
-    n_risque_f,
-    percent_of_risque_f,
-    n_risque_g,
-    percent_of_risque_g,
-    n_maitrise_f,
-    percent_of_maitrise_f,
-    n_maitrise_g,
-    percent_of_maitrise_g
-from stats
+    n_obs,
+    taux_reussite,
+    n_reussite,
+    taux_risque,
+    n_echec,
+    taux_echec,
+    n_risque,
+    taux_maitrise,
+    n_maitrise,
+    resultat_avg
+from agg

@@ -15,10 +15,12 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select
-    fiche,
-    id_mat_ele,
-    id_obj_mat,
-    {% for i in range(1, 31) %} res_obj_{{ "%02d" % i }}, {% endfor %}
-    res_final_obj
-from {{ var("database_gpi") }}.dbo.gpm_e_obj
+with
+    raw_data as (
+        select mat.id_eco, mat.mat, mat.descr, mat.descr_abreg
+        from {{ ref("i_gpm_t_mat") }} as mat
+        where descr is not null
+    )
+
+select id_eco, mat, descr, descr_abreg
+from raw_data

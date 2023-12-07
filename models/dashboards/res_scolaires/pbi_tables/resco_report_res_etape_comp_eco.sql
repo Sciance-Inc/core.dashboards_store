@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {{
     config(
-        alias="report_res_bilan_mat_eco",
+        alias="report_res_etape_comp_eco",
     )
 }}
 
@@ -25,29 +25,31 @@ with
     data as (
         select
             y_stud.population,
-            res_bilan.annee,
+            eta_comp.annee,
             y_stud.nom_ecole,
             y_stud.eco,
             y_stud.genre,
             y_stud.plan_interv_ehdaa,
-            res_bilan.code_matiere,
-            dim.des_matiere,
-            res_bilan.res_num_som,
-            res_bilan.ind_reussite
-        from {{ ref("fact_resultat_bilan_matiere") }} as res_bilan
+            eta_comp.code_matiere,
+            eta_comp.etape,
+            eta_comp.no_comp,
+            eta_comp.res_etape_num,
+            eta_comp.ind_reussite
+        from {{ ref("fact_resultat_etape_competence") }} as eta_comp
         inner join
             {{ ref("fact_yearly_student") }} as y_stud
-            on res_bilan.fiche = y_stud.fiche
-            and res_bilan.id_eco = y_stud.id_eco
+            on eta_comp.fiche = y_stud.fiche
+            and eta_comp.id_eco = y_stud.id_eco
         inner join
             {{ ref("resco_dim_matiere") }} as dim
-            on dim.cod_matiere = res_bilan.code_matiere  -- Only keep the tracked courses
+            on dim.cod_matiere = eta_comp.code_matiere  -- Only keep the tracked courses
         where
-            res_bilan.annee
+            y_stud.annee
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
-            and res_bilan.res_num_som is not null
+            and eta_comp.res_etape_num is not null
+            and eta_comp.etape != 'EX'
             and y_stud.genre != 'X'  -- Non binaire
-            and res_bilan.ind_reprise = 0
+            and eta_comp.ind_reprise = 0
     ),
 
     cal as (
@@ -57,21 +59,22 @@ with
             case when ind_reussite = 'R' then 1. else 0. end as tx_reussite,
             case
                 when
-                    res_num_som > 59
-                    and res_num_som
+                    res_etape_num > 59
+                    and res_etape_num
                     < {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
                 then 1.
                 else 0.
             end as tx_risque,
             case
                 when
-                    res_num_som
+                    res_etape_num
                     >= {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
                 then 1.
                 else 0.
             end as tx_maitrise
         from data
     ),
+
     agg as (
         select
             coalesce(population, 'Tout') as population,
@@ -79,10 +82,11 @@ with
             nom_ecole,
             eco,
             code_matiere,
+            etape,
             coalesce(genre, 'Tout') as genre,
             coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
-            des_matiere,
-            count(res_num_som) as n_obs,
+            no_comp,
+            count(res_etape_num) as n_obs,
             avg(tx_reussite) as taux_reussite,
             sum(tx_reussite) as n_reussite,
             avg(tx_risque) as taux_risque,
@@ -91,17 +95,18 @@ with
             sum(tx_echec) as n_echec,
             avg(tx_maitrise) as taux_maitrise,
             sum(tx_maitrise) as n_maitrise,
-            avg(try_cast(res_num_som as decimal(5, 2))) as resultat_avg
+            avg(try_cast(res_etape_num as decimal(5, 2))) as resultat_avg
         from cal
         group by
             annee,
             code_matiere,
-            des_matiere,
-            eco,
-            nom_ecole, cube (genre, population, plan_interv_ehdaa)
+            no_comp,
+            etape,
+            nom_ecole,
+            eco, cube (genre, population, plan_interv_ehdaa)
+
     -- Add the statistis
     ),
-
     stats as (
         select
             {{
@@ -109,21 +114,25 @@ with
                     [
                         "population",
                         "annee",
-                        "code_matiere",
+                        "agg.code_matiere",
+                        "agg.no_comp",
+                        "etape",
                         "genre",
                         "plan_interv_ehdaa",
-                        "des_matiere",
                     ]
                 )
             }} as primary_key,
             population,
             annee,
-            genre,
-            plan_interv_ehdaa,
-            code_matiere,
-            des_matiere,
             nom_ecole,
             eco,
+            agg.code_matiere,
+            dim.des_matiere,
+            agg.no_comp,
+            descr_comp.description,
+            genre,
+            plan_interv_ehdaa,
+            etape,
             n_obs,
             taux_reussite,
             n_reussite,
@@ -135,6 +144,12 @@ with
             n_maitrise,
             resultat_avg
         from agg
+        inner join
+            {{ ref("stg_descr_comp") }} as descr_comp
+            on agg.code_matiere = descr_comp.mat
+            and agg.no_comp = descr_comp.obj_01
+        inner join
+            {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = agg.code_matiere
     ),
     ecart as (
         select
@@ -146,7 +161,7 @@ with
             (stats.resultat_avg) - (stcss.resultat_avg) as ecart_resultat_avg
         from stats
         inner join
-            {{ ref("resco_report_res_bilan_mat_css") }} as stcss
+            {{ ref("resco_report_res_etape_comp_css") }} as stcss
             on stats.primary_key = stcss.primary_key
     )
 select
@@ -158,8 +173,11 @@ select
     eco,
     nom_ecole,
     code_matiere,
-    genre,
     des_matiere,
+    genre,
+    no_comp,
+    etape,
+    description,
     -- Metrics
     n_obs,
     taux_reussite,

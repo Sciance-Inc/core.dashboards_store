@@ -15,10 +15,5 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select
-    fiche,
-    id_mat_ele,
-    id_obj_mat,
-    {% for i in range(1, 31) %} res_obj_{{ "%02d" % i }}, {% endfor %}
-    res_final_obj
-from {{ var("database_gpi") }}.dbo.gpm_e_obj
+select id_eco, modele_etape, seq_etape, etape, date_deb, date_fin
+from {{ var("database_gpi") }}.dbo.gpm_t_modele_etape_etapes

@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {{
     config(
-        alias="report_res_bilan_comp_css",
+        alias="report_res_etape_mat_css",
     )
 }}
 
@@ -25,60 +25,64 @@ with
     data as (
         select
             y_stud.population,
-            res_bilan.annee,
+            eta_mat.annee,
             y_stud.genre,
             y_stud.plan_interv_ehdaa,
-            res_bilan.code_matiere,
-            res_bilan.no_comp,
-            res_bilan.res_num_comp,
-            res_bilan.ind_reussite
-        from {{ ref("fact_resultat_bilan_competence") }} as res_bilan
+            eta_mat.code_matiere,
+            dim.des_matiere,
+            eta_mat.etape,
+            eta_mat.res_etape_num,
+            eta_mat.ind_reussite
+        from {{ ref("fact_resultat_etape_matiere") }} as eta_mat
         inner join
             {{ ref("fact_yearly_student") }} as y_stud
-            on res_bilan.fiche = y_stud.fiche
-            and res_bilan.id_eco = y_stud.id_eco
+            on eta_mat.fiche = y_stud.fiche
+            and eta_mat.id_eco = y_stud.id_eco
         inner join
             {{ ref("resco_dim_matiere") }} as dim
-            on dim.cod_matiere = res_bilan.code_matiere  -- Only keep the tracked courses
+            on dim.cod_matiere = eta_mat.code_matiere  -- Only keep the tracked courses
         where
-            res_bilan.annee
+            y_stud.annee
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
-            and res_bilan.res_num_comp is not null
+            and eta_mat.res_etape_num is not null
+            and eta_mat.etape != 'EX'
             and y_stud.genre != 'X'  -- Non binaire
-            and res_bilan.ind_reprise = 0
+            and eta_mat.ind_reprise = 0
     ),
 
     cal as (
         select
             *,
-            case when ind_reussite = 'E' then 1. else 0. end as tx_echec,
-            case when ind_reussite = 'R' then 1. else 0. end as tx_reussite,
+            case when ind_reussite = 'E' then 1. else 0 end as tx_echec,
+            case when ind_reussite = 'R' then 1. else 0 end as tx_reussite,
             case
                 when
-                    res_num_comp > 59
-                    and res_num_comp
+                    res_etape_num > 59
+                    and res_etape_num
                     < {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
                 then 1.
                 else 0.
             end as tx_risque,
             case
                 when
-                    res_num_comp
+                    res_etape_num
                     >= {{ var("res_scolaires", {"threshold": 70})["threshold"] }}
                 then 1.
                 else 0.
             end as tx_maitrise
         from data
     ),
+
     agg as (
         select
             coalesce(population, 'Tout') as population,
             annee,
             code_matiere,
+            des_matiere,
             coalesce(genre, 'Tout') as genre,
             coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
-            no_comp,
-            count(res_num_comp) as n_obs,
+            etape,
+            count(res_etape_num) as n_obs,
             avg(tx_reussite) as taux_reussite,
             sum(tx_reussite) as n_reussite,
             avg(tx_risque) as taux_risque,
@@ -87,21 +91,23 @@ with
             sum(tx_echec) as n_echec,
             avg(tx_maitrise) as taux_maitrise,
             sum(tx_maitrise) as n_maitrise,
-            avg(try_cast(res_num_comp as decimal(5, 2))) as resultat_avg
+            avg(try_cast(res_etape_num as decimal(5, 2))) as resultat_avg
         from cal
         group by
-            annee, code_matiere, no_comp, cube (genre, population, plan_interv_ehdaa)
+            annee,
+            code_matiere,
+            des_matiere,
+            etape, cube (genre, population, plan_interv_ehdaa)
     -- Add the statistis
     )
 select
-    -- Dimensions
     {{
         dbt_utils.generate_surrogate_key(
             [
                 "population",
                 "annee",
-                "agg.code_matiere",
-                "agg.no_comp",
+                "code_matiere",
+                "etape",
                 "genre",
                 "plan_interv_ehdaa",
             ]
@@ -109,11 +115,10 @@ select
     }} as primary_key,
     population,
     annee,
-    agg.code_matiere,
-    dim.des_matiere,
-    agg.no_comp,
-    descr_comp.description,
+    code_matiere,
+    etape,
     genre,
+    des_matiere,
     plan_interv_ehdaa,
     -- Metrics
     n_obs,
@@ -127,8 +132,3 @@ select
     n_maitrise,
     resultat_avg
 from agg
-inner join
-    {{ ref("stg_descr_comp") }} as descr_comp
-    on agg.code_matiere = descr_comp.mat
-    and agg.no_comp = descr_comp.obj_01
-inner join {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = agg.code_matiere

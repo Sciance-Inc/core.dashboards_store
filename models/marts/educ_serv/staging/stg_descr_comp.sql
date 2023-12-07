@@ -15,10 +15,19 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select
-    fiche,
-    id_mat_ele,
-    id_obj_mat,
-    {% for i in range(1, 31) %} res_obj_{{ "%02d" % i }}, {% endfor %}
-    res_final_obj
-from {{ var("database_gpi") }}.dbo.gpm_e_obj
+with
+    row_num as (
+        select
+            obj_mat.mat,
+            obj_mat.obj_01,
+            obj_mat.descr as description,
+            row_number() over (
+                partition by obj_mat.mat, obj_mat.obj_01 order by obj_mat.mat desc
+            ) as seqid
+        from {{ ref("i_gpm_t_obj_mat") }} as obj_mat
+        where descr is not null
+    )
+
+select mat, obj_01, description
+from row_num
+where seqid = 1
