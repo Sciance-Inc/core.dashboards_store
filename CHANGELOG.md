@@ -2,6 +2,16 @@
 
 
 
+## v0.7.0-dev.13+20231207 (2023-12-07)
+
+### Feature
+
+* feat: Ajout des résultats étapes au tdb Analyse des résultats scolaires (#22)
+
+Co-authored-by: sadqim &lt;sadqim@csvdc.qc.ca&gt;
+Co-authored-by: Hugo Juhel &lt;22279443+hugoJuhel@users.noreply.github.com&gt; ([`8e0ddab`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8e0ddab1c865fb463d1d92a13a7483e393f021c6))
+
+
 ## v0.7.0-dev.12+20231206 (2023-12-06)
 
 ### Unknown
