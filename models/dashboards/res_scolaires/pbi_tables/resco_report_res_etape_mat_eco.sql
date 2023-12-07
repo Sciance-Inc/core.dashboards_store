@@ -30,7 +30,7 @@ with
             y_stud.eco,
             y_stud.genre,
             y_stud.plan_interv_ehdaa,
-            eta_mat.mat,
+            eta_mat.code_matiere,
             eta_mat.etape,
             dim.des_matiere,
             res_etape_num,
@@ -41,7 +41,8 @@ with
             on eta_mat.fiche = y_stud.fiche
             and eta_mat.id_eco = y_stud.id_eco
         inner join
-            {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = eta_mat.mat  -- Only keep the tracked courses
+            {{ ref("resco_dim_matiere") }} as dim
+            on dim.cod_matiere = eta_mat.code_matiere  -- Only keep the tracked courses
         where
             y_stud.annee
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
@@ -82,7 +83,7 @@ with
             eco,
             coalesce(genre, 'Tout') as genre,
             coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
-            mat,
+            code_matiere,
             etape,
             des_matiere,
             count(res_etape_num) as n_obs,
@@ -98,7 +99,7 @@ with
         from cal
         group by
             annee,
-            mat,
+            code_matiere,
             des_matiere,
             nom_ecole,
             etape,
@@ -113,7 +114,7 @@ with
                     [
                         "population",
                         "annee",
-                        "mat",
+                        "code_matiere",
                         "etape",
                         "genre",
                         "plan_interv_ehdaa",
@@ -126,7 +127,7 @@ with
             eco,
             genre,
             plan_interv_ehdaa,
-            mat,
+            code_matiere,
             etape,
             des_matiere,
             n_obs,
@@ -163,7 +164,7 @@ select
     eco,
     genre,
     plan_interv_ehdaa,
-    mat,
+    code_matiere,
     etape,
     des_matiere,
     -- Metrics

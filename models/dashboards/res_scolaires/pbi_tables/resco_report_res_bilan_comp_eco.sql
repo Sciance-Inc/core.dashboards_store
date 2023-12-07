@@ -30,7 +30,7 @@ with
             y_stud.eco,
             y_stud.genre,
             y_stud.plan_interv_ehdaa,
-            res_bilan.mat,
+            res_bilan.code_matiere,
             res_bilan.no_comp,
             res_bilan.res_num_comp,
             res_bilan.ind_reussite
@@ -40,7 +40,8 @@ with
             on res_bilan.fiche = y_stud.fiche
             and res_bilan.id_eco = y_stud.id_eco
         inner join
-            {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = res_bilan.mat  -- Only keep the tracked courses
+            {{ ref("resco_dim_matiere") }} as dim
+            on dim.cod_matiere = res_bilan.code_matiere  -- Only keep the tracked courses
         where
             res_bilan.annee
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
@@ -77,7 +78,7 @@ with
             annee,
             nom_ecole,
             eco,
-            mat,
+            code_matiere,
             coalesce(genre, 'Tout') as genre,
             coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
             no_comp,
@@ -94,7 +95,7 @@ with
         from cal
         group by
             annee,
-            mat,
+            code_matiere,
             eco,
             nom_ecole,
             no_comp, cube (genre, population, plan_interv_ehdaa)
@@ -107,7 +108,7 @@ with
                     [
                         "population",
                         "annee",
-                        "agg.mat",
+                        "agg.code_matiere",
                         "agg.no_comp",
                         "genre",
                         "plan_interv_ehdaa",
@@ -118,7 +119,7 @@ with
             annee,
             nom_ecole,
             eco,
-            agg.mat,
+            agg.code_matiere,
             dim.des_matiere,
             agg.no_comp,
             descr_comp.description,
@@ -137,9 +138,10 @@ with
         from agg
         inner join
             {{ ref("stg_descr_comp") }} as descr_comp
-            on agg.mat = descr_comp.mat
+            on agg.code_matiere = descr_comp.mat
             and agg.no_comp = descr_comp.obj_01
-        inner join {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = agg.mat
+        inner join
+            {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = agg.code_matiere
     ),
     ecart as (
         select
@@ -162,7 +164,7 @@ select
     plan_interv_ehdaa,
     eco,
     nom_ecole,
-    mat,
+    code_matiere,
     genre,
     des_matiere,
     no_comp,

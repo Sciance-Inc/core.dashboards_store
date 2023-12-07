@@ -21,8 +21,8 @@ with
             emgrp_yearly.fiche,
             emgrp_yearly.id_eco,
             emgrp_yearly.annee,
-            emgrp_yearly.mat,
-            emgrp_yearly.grp,
+            emgrp_yearly.code_matiere,
+            emgrp_yearly.groupe_matiere,
             emgrp_yearly.etat,
             emgrp_yearly.id_mat_ele,
             emgrp_yearly.res_som,
@@ -34,7 +34,7 @@ with
             {% endfor %}
             {% for i in range(1, 31) %} leg_etape_{{ "%02d" % i }}, {% endfor %}
             case
-                when left(emgrp_yearly.grp, 1) not like '[%0-9]%'  -- grp starting with a letter = retake
+                when left(emgrp_yearly.groupe_matiere, 1) not like '[%0-9]%'  -- grp starting with a letter = retake
                 then 1
                 else 0
             end as ind_reprise,
@@ -46,7 +46,7 @@ with
         inner join
             {{ ref("i_gpm_t_mat") }} as mat
             on mat.id_eco = emgrp_yearly.id_eco
-            and emgrp_yearly.mat = mat.mat
+            and emgrp_yearly.code_matiere = mat.mat
     )
 select *
 from mat_ele

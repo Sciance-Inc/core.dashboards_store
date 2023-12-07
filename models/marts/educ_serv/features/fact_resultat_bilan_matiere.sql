@@ -22,8 +22,8 @@ with
             annee,
             fiche,
             id_mat_ele,
-            mat,
-            grp,
+            code_matiere,
+            groupe_matiere,
             etat,
             res_som,
             case
@@ -63,8 +63,8 @@ select
     annee,
     fiche,
     id_mat_ele,
-    mat,
-    grp,
+    code_matiere,
+    groupe_matiere,
     etat,
     ind_reussite,
     case

@@ -28,7 +28,7 @@ with
             eta_mat.annee,
             y_stud.genre,
             y_stud.plan_interv_ehdaa,
-            eta_mat.mat,
+            eta_mat.code_matiere,
             dim.des_matiere,
             eta_mat.etape,
             eta_mat.res_etape_num,
@@ -39,7 +39,8 @@ with
             on eta_mat.fiche = y_stud.fiche
             and eta_mat.id_eco = y_stud.id_eco
         inner join
-            {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = eta_mat.mat  -- Only keep the tracked courses
+            {{ ref("resco_dim_matiere") }} as dim
+            on dim.cod_matiere = eta_mat.code_matiere  -- Only keep the tracked courses
         where
             y_stud.annee
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
@@ -76,7 +77,7 @@ with
         select
             coalesce(population, 'Tout') as population,
             annee,
-            mat,
+            code_matiere,
             des_matiere,
             coalesce(genre, 'Tout') as genre,
             coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
@@ -93,7 +94,10 @@ with
             avg(try_cast(res_etape_num as decimal(5, 2))) as resultat_avg
         from cal
         group by
-            annee, mat, des_matiere, etape, cube (genre, population, plan_interv_ehdaa)
+            annee,
+            code_matiere,
+            des_matiere,
+            etape, cube (genre, population, plan_interv_ehdaa)
     -- Add the statistis
     )
 select
@@ -102,7 +106,7 @@ select
             [
                 "population",
                 "annee",
-                "mat",
+                "code_matiere",
                 "etape",
                 "genre",
                 "plan_interv_ehdaa",
@@ -111,7 +115,7 @@ select
     }} as primary_key,
     population,
     annee,
-    mat,
+    code_matiere,
     etape,
     genre,
     des_matiere,

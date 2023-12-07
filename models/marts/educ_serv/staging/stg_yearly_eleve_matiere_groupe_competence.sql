@@ -21,8 +21,8 @@ with
             emgrp_yearly.fiche,
             emgrp_yearly.id_eco,
             emgrp_yearly.annee,
-            emgrp_yearly.mat,
-            emgrp_yearly.grp,
+            emgrp_yearly.code_matiere,
+            emgrp_yearly.groupe_matiere,
             emgrp_yearly.etat,
             emgrp_yearly.id_mat_ele,
             emgrp_yearly.res_som,
@@ -41,7 +41,7 @@ with
         inner join
             {{ ref("i_gpm_t_obj_mat") }} as om
             on om.id_eco = emgrp_yearly.id_eco
-            and om.mat = emgrp_yearly.mat
+            and om.mat = emgrp_yearly.code_matiere
             and om.obj_02 is null
             and om.obj_03 is null
             and om.obj_04 is null

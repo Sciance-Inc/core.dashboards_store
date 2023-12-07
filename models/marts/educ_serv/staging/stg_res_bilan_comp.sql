@@ -21,8 +21,8 @@ with
             emgrp_yearly_comp.fiche,
             emgrp_yearly_comp.id_eco,
             emgrp_yearly_comp.annee,
-            emgrp_yearly_comp.mat,
-            emgrp_yearly_comp.grp,
+            emgrp_yearly_comp.code_matiere,
+            emgrp_yearly_comp.groupe_matiere,
             emgrp_yearly_comp.etat,
             emgrp_yearly_comp.id_mat_ele,
             emgrp_yearly_comp.modele_etape,
@@ -41,7 +41,7 @@ with
                 o.res_obj_{{ "%02d" % i }},
             {% endfor %}
             case
-                when left(emgrp_yearly_comp.grp, 1) not like '[%0-9]%'  -- grp starting with a letter = retake
+                when left(emgrp_yearly_comp.groupe_matiere, 1) not like '[%0-9]%'  -- grp starting with a letter = retake
                 then 1
                 else 0
             end as ind_reprise

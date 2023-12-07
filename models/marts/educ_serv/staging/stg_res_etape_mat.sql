@@ -21,8 +21,8 @@ with
             res_mat.fiche,
             res_mat.id_eco,
             res_mat.annee,
-            res_mat.mat,
-            res_mat.grp,
+            res_mat.code_matiere,
+            res_mat.groupe_matiere,
             res_mat.etat,
             res_mat.id_mat_ele,
             res_etape = case

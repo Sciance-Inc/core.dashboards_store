@@ -28,7 +28,7 @@ with
             res_bilan.annee,
             y_stud.genre,
             y_stud.plan_interv_ehdaa,
-            res_bilan.mat,
+            res_bilan.code_matiere,
             dim.des_matiere,
             res_bilan.res_num_som,
             res_bilan.ind_reussite
@@ -38,7 +38,8 @@ with
             on res_bilan.fiche = y_stud.fiche
             and res_bilan.id_eco = y_stud.id_eco
         inner join
-            {{ ref("resco_dim_matiere") }} as dim on dim.cod_matiere = res_bilan.mat  -- Only keep the tracked courses
+            {{ ref("resco_dim_matiere") }} as dim
+            on dim.cod_matiere = res_bilan.code_matiere  -- Only keep the tracked courses
         where
             res_bilan.annee
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
@@ -73,7 +74,7 @@ with
         select
             coalesce(population, 'Tout') as population,
             annee,
-            mat,
+            code_matiere,
             coalesce(genre, 'Tout') as genre,
             coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
             des_matiere,
@@ -88,7 +89,10 @@ with
             sum(tx_maitrise) as n_maitrise,
             avg(try_cast(res_num_som as decimal(5, 2))) as resultat_avg
         from cal
-        group by annee, mat, des_matiere, cube (genre, population, plan_interv_ehdaa)
+        group by
+            annee,
+            code_matiere,
+            des_matiere, cube (genre, population, plan_interv_ehdaa)
     -- Add the statistis
     )
 select
@@ -98,7 +102,7 @@ select
             [
                 "population",
                 "annee",
-                "mat",
+                "code_matiere",
                 "genre",
                 "plan_interv_ehdaa",
                 "des_matiere",
@@ -107,7 +111,7 @@ select
     }} as primary_key,
     population,
     annee,
-    mat,
+    code_matiere,
     des_matiere,
     genre,
     plan_interv_ehdaa,
