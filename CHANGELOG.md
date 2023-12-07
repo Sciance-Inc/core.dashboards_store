@@ -2,6 +2,22 @@
 
 
 
+## v0.7.0-dev.12+20231206 (2023-12-06)
+
+### Unknown
+
+* Merge branch &#39;master&#39; into develop ([`d17577a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d17577a09789ed82287e9b032ab790af91f597b3))
+
+
+## v0.8.2+20231206 (2023-12-06)
+
+### Fix
+
+* fix(adapter): swtich the adapter from dbt-sqlserver to fabric (#26)
+
+Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`9b507f5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9b507f5a367ac7600f2027c656435982dc9c3399))
+
+
 ## v0.7.0-dev.12+20231129 (2023-11-29)
 
 ### Feature
