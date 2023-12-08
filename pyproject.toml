@@ -22,24 +22,18 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.semantic_release]
-version_variables = [
+version_variable = [
     "dbt_project.yml:version",
     "pyproject.toml:tool.poetry:version",
 ]
+
+[tool.semantic_release.changelog]
+template_dir = "tooling/release/templates"
 
 [tool.semantic_release.branches.master]
 match = "(main|master)"
 prerelease = false
 
-[tool.semantic_release.branches.develop]
-match = "develop"
-prerelease = true
-prerelease_token = 'dev'
-
-[tool.semantic_release.branches.release]
-match = "release.*"
-prerelease = true
-prerelease_token = 'rc'
 
 [tool.sqlfmt]
 line_length = 88
