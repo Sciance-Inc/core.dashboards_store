@@ -2,6 +2,17 @@
 
 
 
+## v0.9.2+20231210 (2023-12-10)
+
+### Chore
+
+* chore(nightly): the nightly build will now run using the branch instead of the tag ([`9f2db4c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9f2db4c61a10074c2f4550b09ee3ab1a9004d37e))
+
+### Fix
+
+* fix(tests): propagating columns renaming in the tests ([`59cfc94`](https://github.com/Sciance-Inc/core.dashboards_store/commit/59cfc948b55656240dff3fd63f483a3b6fdd3a0b))
+
+
 ## v0.9.1+20231208 (2023-12-08)
 
 ### Chore
