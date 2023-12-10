@@ -69,7 +69,7 @@ jobs:
           file: tooling/nightly/docker/Dockerfile
           pull: true
           build-args: |
-            CORE_VERSION=${{ steps.get_release.outputs.tag_name }}
+            CORE_VERSION=${{ matrix.configs.branch }}
             TARGET=${{ matrix.configs.target }}
           ssh: |
             default=${{ env.SSH_AUTH_SOCK }}
