@@ -86,8 +86,8 @@ models:
           combination_of_columns:
             - fiche
             - id_eco
-            - mat
-            - grp
+            - code_matiere
+            - groupe_matiere
 
   - name: stg_yearly_eleve_matiere_groupe_competence
     config:
@@ -100,8 +100,8 @@ models:
           combination_of_columns:
             - fiche
             - id_eco
-            - mat
-            - grp
+            - code_matiere
+            - groupe_matiere
             - no_comp
 
   - name: stg_res_bilan_comp
@@ -115,10 +115,10 @@ models:
           combination_of_columns:
             - fiche
             - id_eco
-            - mat
-            - grp
+            - code_matiere
+            - groupe_matiere
             - no_comp
-            
+
   - name: stg_res_bilan_mat
     config:
       tags:
@@ -130,8 +130,8 @@ models:
           combination_of_columns:
             - fiche
             - id_eco
-            - mat
-            - grp
+            - code_matiere
+            - groupe_matiere
 
   - name: stg_res_etape_comp
     config:
@@ -144,10 +144,10 @@ models:
           combination_of_columns:
             - fiche
             - id_eco
-            - mat
-            - grp     
+            - code_matiere
+            - groupe_matiere
             - no_comp
-            - etape       
+            - etape
 
   - name: stg_res_etape_mat
     config:
@@ -160,6 +160,6 @@ models:
           combination_of_columns:
             - fiche
             - id_eco
-            - mat
-            - grp     
-            - etape       
+            - code_matiere
+            - groupe_matiere
+            - etape
