@@ -79,5 +79,5 @@ inner join
     {{ ref("dim_employment_status_yearly") }} as statut
     on statut.etat_empl = etat
     and statut.etat_actif = 1
-    and statut.is_current = 1 -- Only keep the currently valid employment status mapping
+    and statut.is_current = 1  -- Only keep the currently valid employment status mapping
 where seqid = 1
