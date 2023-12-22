@@ -33,8 +33,8 @@ with
             res_comp.leg_obj_non_term,
             res_comp.no_comp,
             met1.etape,
-            met1.date_deb as date_fin_etape,
-            met1.date_fin as date_debut_etape,
+            met1.date_deb as date_debut_etape,
+            met1.date_fin as date_fin_etape,
             res_comp.id_obj_mat,
             res_comp_etape = case
                 met1.seq_etape
