@@ -2,6 +2,29 @@
 
 
 
+## v0.9.3+20240111 (2024-01-11)
+
+### Chore
+
+* chore(nighlty): installing the core through the branch ([`e8fee16`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e8fee165f18fea69b9b6a631d9e0ffb0a78953ba))
+
+### Fix
+
+* fix(cookiecutter): stg_sectors does not cause a rendering error anymore ([`69534b5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/69534b5099c662e480b015e5a33634ecf1323409))
+
+* fix: swtich back compentency ID (#29)
+
+Co-authored-by: sadqim &lt;sadqim@csvdc.qc.ca&gt; ([`2131f6e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2131f6ea1ba355029bdcfd811225e4181a7cb577))
+
+* fix: corrections d&#39;orthographe (#28) ([`c5fe336`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c5fe336f59fd40ea16dd22ac3ba3a6c600a821f3))
+
+### Style
+
+* style(template): applying sqlfmt ([`990cc45`](https://github.com/Sciance-Inc/core.dashboards_store/commit/990cc451612b230a048df8e07cb584be83ed2e84))
+
+* style: applying sqlfmt ([`a6374f2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a6374f214e7772325f3a4002aacd8f263232db75))
+
+
 ## v0.9.2+20231210 (2023-12-10)
 
 ### Chore
