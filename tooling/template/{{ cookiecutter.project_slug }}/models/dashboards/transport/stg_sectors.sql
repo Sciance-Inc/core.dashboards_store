@@ -1,3 +1,4 @@
+{% raw %}
 {#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
@@ -47,4 +48,4 @@ where
     end as abbr_sector
 from {{ ref("i_geo_p_circ") }}
 where simul = 0 #}
-    
+{% endraw %}    
