@@ -48,4 +48,4 @@ where
     end as abbr_sector
 from {{ ref("i_geo_p_circ") }}
 where simul = 0 #}
-{% endraw %}    
+    {% endraw %}
