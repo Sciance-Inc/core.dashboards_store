@@ -22,7 +22,8 @@ with
             obj_mat.obj_01,
             obj_mat.descr as description,
             row_number() over (
-                partition by obj_mat.mat, obj_mat.obj_01 order by obj_mat.mat desc
+                partition by obj_mat.mat, obj_mat.obj_01
+                order by obj_mat.id_obj_mat desc
             ) as seqid
         from {{ ref("i_gpm_t_obj_mat") }} as obj_mat
         where descr is not null
