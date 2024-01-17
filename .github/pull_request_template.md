@@ -35,7 +35,7 @@ dbt build --select +tag:<my resources tag>+
     * [ ] I have you populated the `tooling/nightly` project with my new seed / adapter.
     * [ ] An exemple of how to populate the adapter can be found in the `analysis` folder.
   * I have added a new **dashboard** : 
-    * [ ] I have updated the `core.dashboards_store/tooling/template/{{ cookiecutter.project_slug }}/dbt_project.yml` file with my new dashboard. 
+    * [ ] I have updated the `core.dashboards_store/tooling/template/{{ cookiecutter.css_short_name + '.dashboards_store' }}/dbt_project.yml` file with my new dashboard. 
     * [ ] I have added a new `doc` page in the `core.dashboards_store/tooling/docs/content/` appropriate folder, describing what my dashboards does and how to configure it.
     * [ ] The dashboard is saved with `.pbit` extension, **not** a `.pbix` extension, so it doesn't contains any data.
   * [ ] I have called `sqfmt .` to format my code, and **made sure my code was still running as expected after having been reformated**.

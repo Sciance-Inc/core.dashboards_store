@@ -34,7 +34,7 @@ dbt build --select tag:<my resources tag>
   * [ ] I have formatted the code with the help of `sqlfmt .`.
   * [ ] Did you add a new **mandatory seed** ? If so, have you populated the `nightly` project with your new seed ?
 * **Template** :
-  *  [ ] I have updated the `core/template/{{ cookiecutter.project_slug }}/dbt_project.yml` file accordingly to my changes.
+  *  [ ] I have updated the `core/template/{{ cookiecutter.css_short_name + '.dashboards_store' }}/dbt_project.yml` file accordingly to my changes.
 * **Documentation** : 
   * [ ]  I have updated the documentation (README) accordingly to my changes.
   * [ ]  The models I have added are documented in a `schema.yml` file.
