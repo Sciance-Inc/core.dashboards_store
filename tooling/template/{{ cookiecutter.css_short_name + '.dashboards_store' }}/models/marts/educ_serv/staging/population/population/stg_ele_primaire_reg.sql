@@ -34,4 +34,4 @@ WHERE
     AND (eledan.grp_rep NOT IN ('999') OR eledan.grp_rep IS NULL)       -- Ignore l'enseignement réalisé à la maison par les parents
     AND (eledan.grp_rep NOT IN ('801','802') OR eledan.grp_rep IS NULL)   -- Ignore les élèves en classe d'accueil
     */
-{% endraw %}
+    {% endraw %}

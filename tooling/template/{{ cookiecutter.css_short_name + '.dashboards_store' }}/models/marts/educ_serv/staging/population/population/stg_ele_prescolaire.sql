@@ -36,4 +36,4 @@ left join
             AND (eledan.grp_rep NOT LIKE '9%' OR eledan.grp_rep IS NULL)
             )
     )*/
-{% endraw %}
+    {% endraw %}

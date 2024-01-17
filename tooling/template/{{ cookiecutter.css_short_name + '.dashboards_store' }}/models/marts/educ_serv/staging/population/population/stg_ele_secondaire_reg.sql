@@ -35,4 +35,4 @@ WHERE
     AND lower(eledan.dist) IN ('g1','g2','g2c','g3','g3a','g4','g4a','g5','g6','xf1','xf2','xfp','sfp')
     AND (eledan.grp_rep NOT IN ('999') OR eledan.grp_rep IS NULL)    -- Ignore l'enseignement réalisé à la maison par les parents #}
         */
-{% endraw %}
+    {% endraw %}
