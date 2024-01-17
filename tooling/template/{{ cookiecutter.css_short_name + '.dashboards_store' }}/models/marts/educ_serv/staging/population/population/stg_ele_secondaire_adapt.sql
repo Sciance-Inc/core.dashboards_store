@@ -18,6 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {# 
     UPDATE THIS FILE TO MATCH YOUR CSS REALITY.
 #}
+{% raw %}
 select distinct ele.code_perm, eco.id_eco, eco.annee
 from {{ ref("i_gpm_e_dan") }} as eledan
 left join {{ ref("i_gpm_t_eco") }} as eco on eledan.id_eco = eco.id_eco
@@ -37,4 +38,4 @@ WHERE
         eco = '064'
     )
 	*/
-    
+{% endraw %}
