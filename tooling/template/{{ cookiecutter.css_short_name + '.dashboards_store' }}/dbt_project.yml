@@ -1,5 +1,5 @@
-name: {{ cookiecutter.css_short_name + '_store' }}
-profiles: {{ cookiecutter.css_short_name + '_store' }}
+name: {{ cookiecutter.css_short_name + '.dashboards_store' }}
+profiles: {{ cookiecutter.css_short_name + '_dashboards_store' }}
 
 version: "1.0.0"
 config-version: 2
