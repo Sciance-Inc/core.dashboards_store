@@ -1,4 +1,4 @@
-{{ cookiecutter.css_short_name + '_store' }}:
+{{ cookiecutter.css_short_name + '_dashboards_store' }}:
   target: dev
   outputs:
     # The target to be used by default, to work on the database without tampering with neither the production data, nor the others schemas
