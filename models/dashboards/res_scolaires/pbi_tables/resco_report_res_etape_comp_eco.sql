@@ -163,6 +163,17 @@ with
         inner join
             {{ ref("resco_report_res_etape_comp_css") }} as stcss
             on stats.primary_key = stcss.primary_key
+    ),
+    rank_ as (
+        select
+            *,
+            dense_rank() over (
+                partition by primary_key order by ecart_resultat_avg desc
+            ) as ecart_resultat_avg_rank,
+            dense_rank() over (
+                partition by primary_key order by ecart_percent_of_success desc
+            ) as ecart_percent_of_success_rank
+        from ecart
     )
 select
     -- Dimensions
@@ -193,5 +204,7 @@ select
     ecart_percent_of_risque,
     ecart_percent_of_echec,
     ecart_percent_of_maitrise,
-    ecart_resultat_avg
-from ecart
+    ecart_resultat_avg,
+    ecart_resultat_avg_rank,
+    ecart_percent_of_success_rank
+from rank_
