@@ -26,6 +26,15 @@ models:
         description: The date at which the employment started.
       - name: date_fin
         description: The date at which the employment ended.
+    tests:
+      - accepted_values_from_ref:
+          target_column: etat_empl
+          ref_table: ref('dim_employment_status_yearly')
+          ref_column: etat_empl
+          target_join_fields:
+            - school_year
+          ref_join_fields:
+            - school_year
 
   - name: stg_main_job_history
     description: >
