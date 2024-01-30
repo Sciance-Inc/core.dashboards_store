@@ -1,7 +1,14 @@
 version: 2
 
 models:
-  - name: srslt_portrait_eleve
+
+  - name: srslt_dim_matieres_suivi
+    description: >
+      Table de dimensions listant les codes_matières et leur description.
+      La table est constuite en unionant la dimension par défaut (core/seeds/res_suivi/default_tracked_courses.csv) et la dimension custom (cssss/seeds/res_epreuves/custom_tracked_courses.csv).
+      La table `custom` peut-etre adaptée pour chaque CSS pour rajouter des matières.
+
+  - name: srslt_report_portrait_eleve
     description: >
       Cette table donne un portrait de l'élèves en combinant les résultats des compétences de base aux informations personnelles de l'élève.
     tests:
@@ -12,7 +19,7 @@ models:
             - eco
             - niveau_res
   
-  - name: srslt_suivi_resultats
+  - name: srslt_report_suivi_resultats
     description: >
       Cette table permet d'avoir les résultats historique des 5 dernières années pour les élèves actuels avec la possibilité de filtré les élèves en dificulté, en maitrise ou en échec.
     tests:

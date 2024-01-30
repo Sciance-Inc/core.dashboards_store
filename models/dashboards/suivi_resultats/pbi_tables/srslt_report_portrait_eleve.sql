@@ -52,7 +52,7 @@ with
             is_diff_course_previous,
             is_maitrise_course_current,
             is_maitrise_course_previous
-        from {{ ref("srslt_suivi_resultats") }} as res
+        from {{ ref("srslt_report_suivi_resultats") }} as res
         inner join
             {{ ref("fact_yearly_student") }} as el
             on res.fiche = el.fiche
