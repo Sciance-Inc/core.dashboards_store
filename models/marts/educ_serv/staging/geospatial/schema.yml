@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: stg_exemple
+    description: >
+      This is an exemple
+    # tests:
+    #   - resolution:
+    #       combination_of_columns:
+    #         - fiche
+    #         - date_abs
+    #         - id_eco
+    #         - category_abs
