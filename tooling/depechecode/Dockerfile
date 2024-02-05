@@ -7,6 +7,9 @@ ENV POETRY_VERSION=1.4.2
 # Set the working directory
 WORKDIR /src
 
+# Set the profiles dir
+ENV DBT_PROFILES_DIR /root/.dbt
+
 # Update and install dependencies
 RUN apt -y update && \
     apt -y upgrade && \
