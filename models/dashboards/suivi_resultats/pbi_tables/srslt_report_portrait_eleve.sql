@@ -15,76 +15,30 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{{ config(alias="portrait_eleve") }}
+{{ config(alias="report_portrait_eleve") }}
 
 with
     src_tab as (
         select
-            el.fiche,
-            el.nom_prenom_fiche,
-            el.population,
-            el.eco,
-            el.nom_ecole,
-            el.annee,
-            el.niveau_scolaire,
-            el.grp_rep,
-            el.is_doubleur,
-            el.plan_interv_ehdaa,
-            el.difficulte,
-            el.type_mesure,
-            el.age_30_sept,
-            el.particularite_sante,
-            el.recommandations,
-            el.mesure_30810,
-            el.dist,
-            -- , el.besoin_ressources
+            fiche,
+            id_eco,
             code_matiere,
-            des_matiere,
-            -- , groupe_matiere
+            description_competence_abreg,
             niveau_res,
             no_comp,
-            res_num_comp,
-            is_current_year,
-            is_previous_year,
-            is_echec_course_current,
-            is_diff_course_current,
-            is_echec_course_previous,
-            is_diff_course_previous,
-            is_maitrise_course_current,
-            is_maitrise_course_previous
+            res_num_comp
         from {{ ref("srslt_report_suivi_resultats") }} as res
-        inner join
-            {{ ref("fact_yearly_student") }} as el
-            on res.fiche = el.fiche
-            and res.eco = el.eco
-            and res.annee = el.annee
+
         where
-            des_matiere like 'ANG%'
-            or des_matiere like 'FRA%'
-            or des_matiere like 'MAT%'
+            description_matiere like 'ANG%'
+            or description_matiere like 'FRA%'
+            or description_matiere like 'MAT%'
     ),
     piv_tab as (
         select
             fiche,
-            nom_prenom_fiche,
-            population,
-            eco,
-            nom_ecole,
-            annee,
-            niveau_scolaire,
-            grp_rep,
-            is_doubleur,
-            plan_interv_ehdaa,
-            difficulte,
-            type_mesure,
-            age_30_sept,
-            particularite_sante,
-            recommandations,
-            mesure_30810,
-            -- , besoin_ressources     
-            dist,
+            id_eco,
             niveau_res,
-            -- , groupe_matiere
             max(lire) as lire,
             max(écrire) as écrire,
             max(résoudre) as résoudre,
@@ -95,184 +49,101 @@ with
             (
                 select
                     fiche,
-                    nom_prenom_fiche,
-                    population,
-                    eco,
-                    nom_ecole,
-                    annee,
-                    niveau_scolaire,
-                    grp_rep,
-                    is_doubleur,
-                    plan_interv_ehdaa,
-                    difficulte,
-                    type_mesure,
-                    age_30_sept,
-                    particularite_sante,
-                    recommandations,
-                    mesure_30810,
-                    -- , besoin_ressources      
-                    dist,
+                    id_eco,
                     niveau_res,
-                    -- , groupe_matiere
                     case
-                        when (des_matiere like 'FRA%' and no_comp = 1) then res_num_comp
+                        when description_competence_abreg = 'lire' then res_num_comp
                     end as 'Lire',
                     case
-                        when (des_matiere like 'FRA%' and no_comp = 2) then res_num_comp
+                        when description_competence_abreg = 'Écrire' then res_num_comp
                     end as 'Écrire',
                     case
-                        when (des_matiere like 'MAT%' and no_comp = 1) then res_num_comp
+                        when description_competence_abreg = 'Résoudre' then res_num_comp
                     end as 'Résoudre',
                     case
-                        when (des_matiere like 'MAT%' and no_comp = 2) then res_num_comp
+                        when description_competence_abreg = 'Raisonner'
+                        then res_num_comp
                     end as 'Raisonner',
                     case
-                        when
-                            (
-                                des_matiere like 'ANG%'
-                                and (
-                                    code_matiere != 'ANG100'
-                                    and code_matiere != 'ANG200'
-                                )
-                                and no_comp = 1
-                            )
-                            or (
-                                (code_matiere = 'ANG100' or code_matiere = 'ANG200')
-                                and no_comp = 2
-                            )
+                        when description_competence_abreg = 'Communiquer'
                         then res_num_comp
                     end as 'Communiquer',
                     case
-                        when
-                            (des_matiere like 'ANG%' and no_comp = 2)
-                            or (
-                                (code_matiere = 'ANG100' or code_matiere = 'ANG200')
-                                and no_comp = 1
-                            )
+                        when description_competence_abreg = 'Comprendre'
                         then res_num_comp
                     end as 'Comprendre'
                 from src_tab
             ) as srctable
-        group by
-            fiche,
-            nom_prenom_fiche,
-            population,
-            eco,
-            nom_ecole,
-            annee,
-            niveau_scolaire,
-            grp_rep,
-            is_doubleur,
-            plan_interv_ehdaa,
-            difficulte,
-            type_mesure,
-            age_30_sept,
-            particularite_sante,
-            recommandations,
-            mesure_30810,
-            -- , besoin_ressources      
-            dist,
-            -- , groupe_matiere
-            niveau_res
+        group by fiche, id_eco, niveau_res
 
     )
 
 select
-    fiche,
-    nom_prenom_fiche,
-    population,
-    eco,
-    nom_ecole,
-    annee,
-    niveau_scolaire,
-    grp_rep,
-    is_doubleur,
-    plan_interv_ehdaa,
-    difficulte,
-    type_mesure,
-    age_30_sept,
+    pt.fiche,
+    dim_el.nom_prenom_fiche,
+    el.population,
+    el.eco,
+    el.nom_ecole,
+    el.annee,
+    el.niveau_scolaire,
+    el.grp_rep,
+    el.is_doubleur,
+    el.plan_interv_ehdaa,
+    el.difficulte,
+    el.type_mesure,
+    el.age_30_sept,
+    el.dist,
     case
-        when particularite_sante is null then 'Non' else 'Oui'
+        when el.particularite_sante is null then 'Non' else 'Oui'
     end as particularite_sante,
-    recommandations,
     case
-        when mesure_30810 is null or mesure_30810 = '0' then 'Non' else 'Oui'
+        when el.mesure_30810 is null or el.mesure_30810 = '0' then 'Non' else 'Oui'
     end as mesure_30810,
-    dist,
     niveau_res,
-    -- , groupe_matiere    
+    -- indice echec    
+    {% for i in [
+        "écrire",
+        "lire",
+        "raisonner",
+        "résoudre",
+        "comprendre",
+        "communiquer",
+    ] %}
+        case when {{ i }} < 60 then 'Oui' else 'Non' end as is_echec_{{ i }},
+    {%- endfor -%}
+    {% for i in [
+        "écrire",
+        "lire",
+        "raisonner",
+        "résoudre",
+        "comprendre",
+        "communiquer",
+    ] %}
+        case
+            when {{ i }} between 60 and 69 then 'Oui' else 'Non'
+        end as is_diff_{{ i }},
+    {%- endfor -%}
+    {% for i in [
+        "écrire",
+        "lire",
+        "raisonner",
+        "résoudre",
+        "comprendre",
+        "communiquer",
+    ] %}
+        case when {{ i }} >= 70 then 'Oui' else 'Non' end as is_maitrise_{{ i }},
+    {%- endfor -%}
+
     -- résultats compétences    
     lire,
     écrire,
     résoudre,
     raisonner,
     communiquer,
-    comprendre,
-    -- indice echec    
-    case when lire < 60 then 'Oui' else 'Non' end is_echec_lecture,
-    case when écrire < 60 then 'Oui' else 'Non' end is_echec_écrire,
-    case
-        when lire < 60 and écrire < 60 then 'Oui' else 'Non'
-    end is_echec_lecture_écrire,
-    case when résoudre < 60 then 'Oui' else 'Non' end is_echec_résoudre,
-    case when raisonner < 60 then 'Oui' else 'Non' end is_echec_raisonner,
-    case
-        when résoudre < 60 and raisonner < 60 then 'Oui' else 'Non'
-    end is_echec_raisonner_résoudre,
-    case when comprendre < 60 then 'Oui' else 'Non' end is_echec_comprendre,
-    case when communiquer < 60 then 'Oui' else 'Non' end is_echec_communiquer,
-    case
-        when comprendre < 60 and écrire < 60 then 'Oui' else 'Non'
-    end is_echec_communiquer_comprendre,
-    -- indice diff    
-    case when lire >= 60 and lire < 70 then 'Oui' else 'Non' end is_diff_lecture,
-    case when écrire >= 60 and écrire < 70 then 'Oui' else 'Non' end is_diff_écrire,
-    case
-        when lire >= 60 and lire < 70 and écrire >= 60 and écrire < 70
-        then 'Oui'
-        else 'Non'
-    end is_diff_lecture_écrire,
-    case
-        when résoudre >= 60 and résoudre < 70 then 'Oui' else 'Non'
-    end is_diff_résoudre,
-    case
-        when raisonner >= 60 and raisonner < 70 then 'Oui' else 'Non'
-    end is_diff_raisonner,
-    case
-        when résoudre >= 60 and résoudre < 70 and raisonner >= 60 and raisonner < 70
-        then 'Oui'
-        else 'Non'
-    end is_diff_raisonner_résoudre,
-    case
-        when comprendre >= 60 and comprendre < 70 then 'Oui' else 'Non'
-    end is_diff_comprendre,
-    case
-        when communiquer >= 60 and communiquer < 70 then 'Oui' else 'Non'
-    end is_diff_communiquer,
-    case
-        when
-            comprendre >= 60
-            and comprendre < 70
-            and communiquer >= 60
-            and communiquer < 70
-        then 'Oui'
-        else 'Non'
-    end is_diff_communiquer_comprendre,
-    -- indice maitrise
-    case when lire >= 70 then 'Oui' else 'Non' end is_maitrise_lecture,
-    case when écrire >= 70 then 'Oui' else 'Non' end is_maitrise_écrire,
-    case
-        when lire >= 70 and écrire >= 70 then 'Oui' else 'Non'
-    end is_maitrise_lecture_écrire,
-    case when résoudre >= 70 then 'Oui' else 'Non' end is_maitrise_résoudre,
-    case when raisonner >= 70 then 'Oui' else 'Non' end is_maitrise_raisonner,
-    case
-        when résoudre >= 70 and raisonner >= 70 then 'Oui' else 'Non'
-    end is_maitrise_raisonner_résoudre,
-    case when comprendre >= 70 then 'Oui' else 'Non' end is_maitrise_comprendre,
-    case when communiquer >= 70 then 'Oui' else 'Non' end is_maitrise_communiquer,
-    case
-        when comprendre >= 70 and communiquer >= 70 then 'Oui' else 'Non'
-    end is_maitrise_communiquer_comprendre
-
-from piv_tab
+    comprendre
+from piv_tab as pt
+inner join
+    {{ ref("fact_yearly_student") }} as el
+    on pt.fiche = el.fiche
+    and pt.id_eco = el.id_eco
+inner join {{ ref("dim_eleve") }} as dim_el on pt.fiche = dim_el.fiche

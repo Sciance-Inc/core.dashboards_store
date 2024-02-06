@@ -60,7 +60,7 @@ models:
           combination_of_columns:
             - id_eco
             - mat
-            - descr
+            - description
 
   - name: stg_descr_comp
     config:

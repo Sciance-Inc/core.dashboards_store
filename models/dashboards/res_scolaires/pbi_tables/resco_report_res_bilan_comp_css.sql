@@ -26,7 +26,7 @@ with
         select
             y_stud.population,
             res_bilan.annee,
-            y_stud.genre,
+            el.genre,
             y_stud.plan_interv_ehdaa,
             res_bilan.code_matiere,
             res_bilan.no_comp,
@@ -37,6 +37,7 @@ with
             {{ ref("fact_yearly_student") }} as y_stud
             on res_bilan.fiche = y_stud.fiche
             and res_bilan.id_eco = y_stud.id_eco
+        inner join {{ ref("dim_eleve") }} as el on y_stud.code_perm = el.code_perm
         inner join
             {{ ref("resco_dim_matiere") }} as dim
             on dim.cod_matiere = res_bilan.code_matiere  -- Only keep the tracked courses
@@ -44,7 +45,7 @@ with
             res_bilan.annee
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
             and res_bilan.res_num_comp is not null
-            and y_stud.genre != 'X'  -- Non binaire
+            and el.genre != 'X'  -- Non binaire
             and res_bilan.ind_reprise = 0
     ),
 

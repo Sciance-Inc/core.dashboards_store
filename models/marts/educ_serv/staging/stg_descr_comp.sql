@@ -21,7 +21,7 @@ with
             obj_mat.mat,
             obj_mat.obj_01,
             obj_mat.descr as description,
-            obj_mat.descr_abreg,
+            obj_mat.descr_abreg as description_abreg,
             row_number() over (
                 partition by obj_mat.mat, obj_mat.obj_01
                 order by obj_mat.id_obj_mat desc
@@ -30,6 +30,6 @@ with
         where descr is not null
     )
 
-select mat, obj_01, description, descr_abreg
+select mat, obj_01, description, description_abreg
 from row_num
 where seqid = 1

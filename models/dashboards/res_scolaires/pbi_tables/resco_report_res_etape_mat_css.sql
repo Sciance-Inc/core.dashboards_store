@@ -26,7 +26,7 @@ with
         select
             y_stud.population,
             eta_mat.annee,
-            y_stud.genre,
+            el.genre,
             y_stud.plan_interv_ehdaa,
             eta_mat.code_matiere,
             dim.des_matiere,
@@ -38,6 +38,7 @@ with
             {{ ref("fact_yearly_student") }} as y_stud
             on eta_mat.fiche = y_stud.fiche
             and eta_mat.id_eco = y_stud.id_eco
+        inner join {{ ref("dim_eleve") }} as el on y_stud.code_perm = el.code_perm
         inner join
             {{ ref("resco_dim_matiere") }} as dim
             on dim.cod_matiere = eta_mat.code_matiere  -- Only keep the tracked courses
@@ -46,7 +47,7 @@ with
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
             and eta_mat.res_etape_num is not null
             and eta_mat.etape != 'EX'
-            and y_stud.genre != 'X'  -- Non binaire
+            and el.genre != 'X'  -- Non binaire
             and eta_mat.ind_reprise = 0
     ),
 

@@ -12,3 +12,13 @@ models:
           combination_of_columns:
             - annee
             - eco
+
+  - name: dim_eleve
+    description: >
+      Table listing static information for each student.
+      
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            

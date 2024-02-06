@@ -11,7 +11,7 @@ seeds:
         tests:
           - not_null
           - unique
-      - name: des_matiere
+      - name: description_matiere 
         description: The friendly name of the course to track.
         tests:
           - not_null
@@ -19,8 +19,8 @@ seeds:
       tags:
         - suivi_resultats
       column_types:
-        cod_matiere: nvarchar(32)
-        des_matiere: nvarchar(128)
+        code_matiere: nvarchar(32)
+        description_matiere : nvarchar(128)
 
   - name: custom_tracked_courses
     description: An optional mapping of courses to be tracked by the dahsboard
@@ -30,15 +30,15 @@ seeds:
         tests:
           - not_null
           - unique
-      - name: des_matiere
+      - name: description_matiere 
         description: The friendly name of the course to track.
         tests:
           - not_null
     config:
       tags: 
         - suivi_resultats
-      schema: suivi_resultats_seeds
+      schema: dashboard_suivi_resultats
       column_types:
         code_matiere: nvarchar(32)
-        des_matiere: nvarchar(32)
+        description_matiere : nvarchar(32)
 

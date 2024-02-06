@@ -23,43 +23,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     The code check for the custom table existence and adds it to the default table
     For the CUSTOM table to be detected, the table must be :
         * named 'custom_tracked_courses'
-        * located in the schema 'suivi_resultats_seeds'
+        * located in the schema 'dashboard_suivi_resultats'
 #}
-{{ config(alias="dim_matiere_suivi") }}
+{{ config(alias="dim_matieres_suivi") }}
 
-{%- set source_relation = adapter.get_relation(
-    database=target.database,
-    schema=target.schema + "suivi_resultats_seeds",
-    identifier="custom_tracked_courses",
-) -%}
-{% set table_exists = source_relation is not none %}
+select
+    code_matiere,
+    description_matiere,
+    case
+        when
+            code_matiere like 'ANG%'
+            or code_matiere like 'FRA%'
+            or code_matiere like 'MAT%'
+        then 'PRI' + ' ' + substring(code_matiere, 4, 1)
+        else 'SEC' + ' ' + substring(code_matiere, 4, 1)
+    end as niveau_res
 
-{% if table_exists %}
-    {% if execute %}
-        {{
-            log(
-                "The seed '*_suivi_resultats_seeds.custom_tracked_courses' DOES EXIST and will be added to the 'default_tracked_courses'",
-                true,
-            )
-        }}
-    {% endif %}
-
-    select code_matiere, des_matiere
-    from {{ ref("default_tracked_courses") }}
-    union all
-    select code_matiere, des_matiere
-    from {{ source_relation }}
-
-{% else %}
-    {% if execute %}
-        {{
-            log(
-                "The seed '*_suivi_resultats_seeds.custom_tracked_courses' DOES NOT exists. The 'srslt_dim_matieres_suivi' table will be defaulted to 'default_tracked_courses'.",
-                true,
-            )
-        }}
-    {% endif %}
-
-    select code_matiere, des_matiere
-    from {{ ref("default_tracked_courses") }}
-{% endif %}
+from {{ ref("srslt_stg_matieres_suivi") }}

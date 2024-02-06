@@ -15,7 +15,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{{ config(alias="suivi_resultats") }}
+{{ config(alias="report_suivi_resultats") }}
 
 with
     perim as (
@@ -32,12 +32,25 @@ with
             mat.code_matiere,
             mat.groupe_matiere,
             mat.etat,
-            dim.des_matiere,
+            dim.description_matiere,
             res_num_som,
+            mat.is_previous_echec as is_previous_matiere_echec,
+            mat.is_previous_difficulte as is_previous_matiere_difficulte,
+            mat.is_previous_maitrise as is_previous_matiere_maitrise,
+            mat.is_current_echec as is_current_matiere_echec,
+            mat.is_current_difficulte as is_current_matiere_difficulte,
+            mat.is_current_maitrise as is_current_matiere_maitrise,
             mat.ind_reussite as ind_reussite_mat,
             no_comp,
             res_num_comp,
-            comp.ind_reussite as ind_reussite_comp
+            comp.is_previous_echec as is_previous_competence_echec,
+            comp.is_previous_difficulte as is_previous_competence_difficulte,
+            comp.is_previous_maitrise as is_previous_competence_maitrise,
+            comp.is_current_echec as is_current_competence_echec,
+            comp.is_current_difficulte as is_current_competence_difficulte,
+            comp.is_current_maitrise as is_current_competence_maitrise,
+            comp.ind_reussite as ind_reussite_comp,
+            niveau_res
         from perim as el
         left join
             {{ ref("fact_resultat_bilan_matiere") }} as mat on mat.fiche = el.fiche
@@ -71,12 +84,25 @@ with
             null as code_matiere,
             null as groupe_matiere,
             null as etat,
-            null as des_matiere,
+            null as description_matiere,
             null as res_num_som,
+            null as is_previous_matiere_echec,
+            null as is_previous_matiere_difficulte,
+            null as is_previous_matiere_maitrise,
+            null as is_current_matiere_echec,
+            null as is_current_matiere_difficulte,
+            null as is_current_matiere_maitrise,
             null as ind_reussite_mat,
             null as no_comp,
             null as res_num_comp,
-            null as ind_reussite_comp
+            null as is_previous_competence_echec,
+            null as is_previous_competence_difficulte,
+            null as is_previous_competence_maitrise,
+            null as is_current_competence_echec,
+            null as is_current_competence_difficulte,
+            null as is_current_competence_maitrise,
+            null as ind_reussite_comp,
+            niveau_res
         from src
         where annee = {{ store.get_current_year() }}
     ),
@@ -97,18 +123,25 @@ with
             code_matiere,
             etat,
             groupe_matiere,
-            des_matiere,
+            description_matiere,
             res_num_som,
+            is_previous_matiere_echec,
+            is_previous_matiere_difficulte,
+            is_previous_matiere_maitrise,
+            is_current_matiere_echec,
+            is_current_matiere_difficulte,
+            is_current_matiere_maitrise,
             ind_reussite_mat,
             no_comp,
             res_num_comp,
+            is_previous_competence_echec,
+            is_previous_competence_difficulte,
+            is_previous_competence_maitrise,
+            is_current_competence_echec,
+            is_current_competence_difficulte,
+            is_current_competence_maitrise,
             ind_reussite_comp,
-            case
-                when annee = {{ store.get_current_year() }} then 1 else 0
-            end as is_current_year,
-            case
-                when annee = {{ store.get_current_year() }} - 1 then 1 else 0
-            end as is_previous_year
+            niveau_res
         from merg
     -- ajouter le flag difficulté
     ),
@@ -121,84 +154,55 @@ with
             code_matiere,
             groupe_matiere,
             etat,
-            des_matiere,
+            description_matiere,
             res_num_som,
             ind_reussite_mat,
             no_comp,
             res_num_comp,
             ind_reussite_comp,
-            is_current_year,
-            is_previous_year,
             case
                 when
-                    (ordre_ens = 3 and is_current_year = 1 and res_num_comp < 60)
-                    or (ordre_ens = 4 and is_current_year = 1 and res_num_som < 60)
+                    (ordre_ens = 3 and is_current_competence_echec = 1)
+                    or (ordre_ens = 4 and is_current_matiere_echec = 1)
                 then 1
                 else 0
             end as is_echec_current_y,
             case
                 when
-                    (
-                        ordre_ens = 3
-                        and is_current_year = 1
-                        and res_num_comp >= 60
-                        and res_num_comp < 70
-                    )
-                    or (
-                        ordre_ens = 4
-                        and is_current_year = 1
-                        and res_num_som >= 60
-                        and res_num_som < 70
-                    )
+                    (ordre_ens = 3 and is_current_competence_difficulte = 1)
+                    or (ordre_ens = 4 and is_current_matiere_difficulte = 1)
                 then 1
                 else 0
             end as is_diff_current_y,
             case
                 when
-                    (ordre_ens = 3 and is_previous_year = 1 and res_num_comp < 60)
-                    or (ordre_ens = 4 and is_previous_year = 1 and res_num_som < 60)
-                then 1
-                else 0
-            end as is_echec_previous_y,
-            case
-                when
-                    (
-                        ordre_ens = 3
-                        and is_previous_year = 1
-                        and res_num_comp >= 60
-                        and res_num_comp < 70
-                    )
-                    or (
-                        ordre_ens = 4
-                        and is_previous_year = 1
-                        and res_num_som >= 60
-                        and res_num_som < 70
-                    )
-                then 1
-                else 0
-            end as is_diff_previous_y,
-            case
-                when
-                    (ordre_ens = 3 and is_current_year = 1 and res_num_comp >= 70)
-                    or (ordre_ens = 4 and is_current_year = 1 and res_num_som >= 70)
+                    (ordre_ens = 3 and is_current_competence_maitrise = 1)
+                    or (ordre_ens = 4 and is_current_matiere_maitrise = 1)
                 then 1
                 else 0
             end as is_maitrise_current_y,
             case
                 when
-                    (ordre_ens = 3 and is_previous_year = 1 and res_num_comp >= 70)
-                    or (ordre_ens = 4 and is_previous_year = 1 and res_num_som >= 70)
+                    (ordre_ens = 3 and is_previous_competence_echec = 1)
+                    or (ordre_ens = 4 and is_previous_matiere_echec = 1)
+                then 1
+                else 0
+            end as is_echec_previous_y,
+            case
+                when
+                    (ordre_ens = 3 and is_previous_competence_difficulte = 1)
+                    or (ordre_ens = 4 and is_previous_matiere_difficulte = 1)
+                then 1
+                else 0
+            end as is_diff_previous_y,
+            case
+                when
+                    (ordre_ens = 3 and is_previous_competence_maitrise = 1)
+                    or (ordre_ens = 4 and is_previous_matiere_maitrise = 1)
                 then 1
                 else 0
             end as is_maitrise_previous_y,
-            case
-                when
-                    code_matiere like 'ANG%'
-                    or code_matiere like 'FRA%'
-                    or code_matiere like 'MAT%'
-                then 'PRI' + ' ' + substring(code_matiere, 4, 1)
-                else 'SEC' + ' ' + substring(code_matiere, 4, 1)
-            end as niveau_res
+            niveau_res
         from tag
     ),
     step1 as (
@@ -210,32 +214,31 @@ with
             code_matiere,
             groupe_matiere,
             etat,
-            des_matiere,
+            description_matiere,
             niveau_res,
             res_num_som,
             ind_reussite_mat,
             no_comp,
             res_num_comp,
             ind_reussite_comp,
-            is_current_year,
-            is_previous_year,
+
             max(is_echec_current_y) over (
-                partition by fiche, des_matiere
+                partition by fiche, description_matiere
             ) as is_echec_course_current,
             max(is_diff_current_y) over (
-                partition by fiche, des_matiere
+                partition by fiche, description_matiere
             ) as is_diff_course_current,
             max(is_echec_previous_y) over (
-                partition by fiche, des_matiere
+                partition by fiche, description_matiere
             ) as is_echec_course_previous,
             max(is_diff_previous_y) over (
-                partition by fiche, des_matiere
+                partition by fiche, description_matiere
             ) as is_diff_course_previous,
             max(is_maitrise_current_y) over (
-                partition by fiche, des_matiere
+                partition by fiche, description_matiere
             ) as is_maitrise_course_current,
             max(is_maitrise_previous_y) over (
-                partition by fiche, des_matiere
+                partition by fiche, description_matiere
             ) as is_maitrise_course_previous
         from dif
     )
@@ -243,26 +246,16 @@ select
     step1.id_eco,
     step1.annee,
     step1.fiche,
-    el.eco,
-    el.nom_ecole,
+    el_y.eco,
+    el_y.nom_ecole,
     el.nom_prenom_fiche,
-    el.population,
+    el_y.population,
     step1.ordre_ens,
     step1.code_matiere,
     groupe_matiere,
-    case
-        when des_matiere like 'Fr%'
-        then 'Français'
-        when des_matiere like 'Math%'
-        then 'Mathématique'
-        when des_matiere like 'Sc%'
-        then 'Science'
-        when des_matiere like 'Hi%'
-        then 'Histoire'
-        else 'Anglais'
-    end as discipline,
+    descr_mat.description_abreg as discipline,
     etat,
-    step1.des_matiere,
+    step1.description_matiere,
     step1.res_num_som,
     niveau_scolaire,
     grp_rep,
@@ -270,11 +263,9 @@ select
     niveau_res,
     step1.ind_reussite_mat,
     step1.no_comp,
-    descr_comp.descr_abreg,
+    descr_comp.description_abreg as description_competence_abreg,
     step1.res_num_comp,
     step1.ind_reussite_comp,
-    step1.is_current_year,
-    step1.is_previous_year,
     case
         when is_echec_course_current = 1 then 'Oui' else 'Non'
     end as is_echec_course_current,
@@ -296,10 +287,12 @@ select
 
 from step1
 inner join
-    {{ ref("fact_yearly_student") }} as el
-    on step1.fiche = el.fiche
-    and step1.id_eco = el.id_eco
-left join
+    {{ ref("fact_yearly_student") }} as el_y
+    on step1.fiche = el_y.fiche
+    and step1.id_eco = el_y.id_eco
+inner join {{ ref("dim_eleve") }} as el on step1.fiche = el.fiche
+inner join {{ ref("stg_descr_mat") }} as descr_mat on step1.code_matiere = descr_mat.mat
+inner join
     {{ ref("stg_descr_comp") }} as descr_comp
     on step1.code_matiere = descr_comp.mat
     and step1.no_comp = descr_comp.obj_01
