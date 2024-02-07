@@ -12,3 +12,16 @@ models:
           combination_of_columns:
             - annee
             - eco
+
+  - name: dim_adresses
+    description: >
+      Map each address with a zip code.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - no_civ
+            - genre_rue
+            - orient_rue
+            - rue
+            - ville 
+            - code_post  
