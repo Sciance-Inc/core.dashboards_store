@@ -16,9 +16,15 @@ models:
   - name: dim_eleve
     description: >
       Table listing static information for each student.
-      
-    tests:
-      - resolution:
-          combination_of_columns:
-            - fiche
+    columns:
+      - name: fiche
+        description: fiche de l'élève
+        tests:
+          - not_null
+          - unique  
+      - name: code_perm
+        description: code permanent de l'élève
+        tests:
+          - not_null
+          - unique            
             

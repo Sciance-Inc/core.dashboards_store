@@ -53,8 +53,11 @@ with
             niveau_res
         from perim as el
         left join
-            {{ ref("fact_resultat_bilan_matiere") }} as mat on mat.fiche = el.fiche
-        -- and mat.id_eco = el.id_eco
+            {{ ref("fact_resultat_bilan_matiere") }} as mat
+            on mat.fiche = el.fiche
+            and mat.annee
+            between {{ store.get_current_year() }}
+            - 4 and {{ store.get_current_year() }}
         left join
             {{ ref("fact_resultat_bilan_competence") }} as comp
             on mat.fiche = comp.fiche
@@ -65,10 +68,7 @@ with
             {{ ref("srslt_dim_matieres_suivi") }} as dim
             on dim.code_matiere = mat.code_matiere  -- Only keep the tracked courses           
         where
-            mat.annee
-            between {{ store.get_current_year() }}
-            - 4 and {{ store.get_current_year() }}
-            and mat.etat != 0
+            mat.etat != 0
             and comp.etat != 0
             and mat.ind_reprise = 0
             and comp.ind_reprise = 0
@@ -263,7 +263,11 @@ select
     niveau_res,
     step1.ind_reussite_mat,
     step1.no_comp,
-    descr_comp.description_abreg as description_competence_abreg,
+    case
+        when descr_comp.description_abreg = 'Utiliser'
+        then 'Raisonner'
+        else descr_comp.description_abreg
+    end as description_competence_abreg,
     step1.res_num_comp,
     step1.ind_reussite_comp,
     case

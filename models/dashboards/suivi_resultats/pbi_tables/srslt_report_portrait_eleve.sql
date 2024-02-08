@@ -17,12 +17,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {{ config(alias="report_portrait_eleve") }}
 
+{% set courses = [
+    "écrire",
+    "lire",
+    "raisonner",
+    "résoudre",
+    "comprendre",
+    "communiquer",
+] %}
+
 with
     src_tab as (
         select
             fiche,
             id_eco,
             code_matiere,
+            discipline,
             description_competence_abreg,
             niveau_res,
             no_comp,
@@ -30,9 +40,12 @@ with
         from {{ ref("srslt_report_suivi_resultats") }} as res
 
         where
-            description_matiere like 'ANG%'
-            or description_matiere like 'FRA%'
-            or description_matiere like 'MAT%'
+            annee = {{ store.get_current_year() }}
+            and (
+                description_matiere like 'ANG%'
+                or description_matiere like 'FRA%'
+                or description_matiere like 'MAT%'
+            )
     ),
     piv_tab as (
         select
@@ -55,17 +68,21 @@ with
                         when description_competence_abreg = 'lire' then res_num_comp
                     end as 'Lire',
                     case
-                        when description_competence_abreg = 'Écrire' then res_num_comp
+                        when
+                            discipline = 'Français'
+                            and description_competence_abreg = 'Écrire'
+                        then res_num_comp
                     end as 'Écrire',
                     case
                         when description_competence_abreg = 'Résoudre' then res_num_comp
                     end as 'Résoudre',
                     case
-                        when description_competence_abreg = 'Raisonner'
-                        then res_num_comp
+                        when description_competence_abreg = 'Utiliser' then res_num_comp
                     end as 'Raisonner',
                     case
-                        when description_competence_abreg = 'Communiquer'
+                        when
+                            discipline != 'Français'
+                            and description_competence_abreg = 'Communiquer'
                         then res_num_comp
                     end as 'Communiquer',
                     case
@@ -101,36 +118,15 @@ select
     end as mesure_30810,
     niveau_res,
     -- indice echec    
-    {% for i in [
-        "écrire",
-        "lire",
-        "raisonner",
-        "résoudre",
-        "comprendre",
-        "communiquer",
-    ] %}
+    {% for i in courses %}
         case when {{ i }} < 60 then 'Oui' else 'Non' end as is_echec_{{ i }},
     {%- endfor -%}
-    {% for i in [
-        "écrire",
-        "lire",
-        "raisonner",
-        "résoudre",
-        "comprendre",
-        "communiquer",
-    ] %}
+    {% for i in courses %}
         case
             when {{ i }} between 60 and 69 then 'Oui' else 'Non'
         end as is_diff_{{ i }},
     {%- endfor -%}
-    {% for i in [
-        "écrire",
-        "lire",
-        "raisonner",
-        "résoudre",
-        "comprendre",
-        "communiquer",
-    ] %}
+    {% for i in courses %}
         case when {{ i }} >= 70 then 'Oui' else 'Non' end as is_maitrise_{{ i }},
     {%- endfor -%}
 

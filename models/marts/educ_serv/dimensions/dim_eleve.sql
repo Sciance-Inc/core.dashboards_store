@@ -19,7 +19,7 @@ select
     code_perm,
     fiche,
     nom,
-    pnom,
+    pnom as prenom,
     concat(nom, ', ', pnom, ' (', fiche, ' )') as nom_prenom_fiche,
     date_naissance,
     case
