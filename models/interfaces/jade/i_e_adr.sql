@@ -17,7 +17,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select 
     fiche
+    , typeadr as type_adr
     , dateeffect as date_effect
+    , datefin as date_fin
+    , nociv as no_civ
+    , orientrue as orient_rue
+    , genrerue as genre_rue
+    , rue
+    , app
+    , ville
+    , prov
     , codepost as code_post
     , envoimeq as ind_envoi_meq
+    , envoidoc as ind_envoi_doc
+    , envoitrsp as ind_envoi_trsp
 from {{ var("database_jade") }}.dbo.e_adr
