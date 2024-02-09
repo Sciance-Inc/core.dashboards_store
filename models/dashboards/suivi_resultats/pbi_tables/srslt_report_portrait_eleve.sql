@@ -68,21 +68,18 @@ with
                         when description_competence_abreg = 'lire' then res_num_comp
                     end as 'Lire',
                     case
-                        when
-                            discipline = 'Français'
-                            and description_competence_abreg = 'Écrire'
+                        when description_competence_abreg = 'Écrire_fr'
                         then res_num_comp
                     end as 'Écrire',
                     case
                         when description_competence_abreg = 'Résoudre' then res_num_comp
                     end as 'Résoudre',
                     case
-                        when description_competence_abreg = 'Utiliser' then res_num_comp
+                        when description_competence_abreg = 'Raisonner'
+                        then res_num_comp
                     end as 'Raisonner',
                     case
-                        when
-                            discipline != 'Français'
-                            and description_competence_abreg = 'Communiquer'
+                        when description_competence_abreg = 'Communiquer_ang'
                         then res_num_comp
                     end as 'Communiquer',
                     case

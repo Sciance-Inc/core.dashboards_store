@@ -263,11 +263,7 @@ select
     niveau_res,
     step1.ind_reussite_mat,
     step1.no_comp,
-    case
-        when descr_comp.description_abreg = 'Utiliser'
-        then 'Raisonner'
-        else descr_comp.description_abreg
-    end as description_competence_abreg,
+    descr_comp.description_abreg as description_competence_abreg,
     step1.res_num_comp,
     step1.ind_reussite_comp,
     case

@@ -19,6 +19,7 @@ with
     row_num as (
         select
             obj_mat.mat,
+            mat.description_abreg as description_mat_abreg,
             obj_mat.obj_01,
             obj_mat.descr as description,
             obj_mat.descr_abreg as description_abreg,
@@ -27,9 +28,32 @@ with
                 order by obj_mat.id_obj_mat desc
             ) as seqid
         from {{ ref("i_gpm_t_obj_mat") }} as obj_mat
+        inner join
+            {{ ref("stg_descr_mat") }} as mat
+            on obj_mat.id_eco = mat.id_eco
+            and obj_mat.mat = mat.mat
         where descr is not null
+    ),
+    step as (
+        select mat, description_mat_abreg, obj_01, description, description_abreg
+        from row_num
+        where seqid = 1
     )
-
-select mat, obj_01, description, description_abreg
-from row_num
-where seqid = 1
+select
+    mat,
+    obj_01,
+    description,
+    case
+        when description_mat_abreg like 'Fr%' and description_abreg like 'Écrire'
+        then 'Écrire_fr'
+        when description_mat_abreg like 'Fr%' and description_abreg like 'Communiquer'
+        then 'Communiquer_fr'
+        when description_mat_abreg like 'ang%' and description_abreg like 'Écrire'
+        then 'Écrire_ang'
+        when description_mat_abreg like 'ang%' and description_abreg like 'Communiquer'
+        then 'Communiquer_ang'
+        when description_abreg = 'Utiliser'
+        then 'Raisonner'
+        else description_abreg
+    end as description_abreg
+from step
