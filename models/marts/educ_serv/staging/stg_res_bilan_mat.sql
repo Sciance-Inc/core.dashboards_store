@@ -50,3 +50,4 @@ with
     )
 select *
 from mat_ele
+where res_som is not null

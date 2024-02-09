@@ -60,7 +60,6 @@ models:
           combination_of_columns:
             - id_eco
             - mat
-            - descr
 
   - name: stg_descr_comp
     config:
@@ -73,7 +72,6 @@ models:
           combination_of_columns:
             - mat
             - obj_01
-            - description
 
   - name: stg_yearly_eleve_matiere_groupe
     config:
