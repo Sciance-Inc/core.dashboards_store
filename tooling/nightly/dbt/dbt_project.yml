@@ -21,6 +21,13 @@ on-run-start:
 on-run-end:
   - "{{ store.purge_metadata_table() }}"
 
+tests:
+  store:
+    marts:
+      educ_serv:
+        dimensions:
+          +severity: warn
+
 models:
   store:
     +enabled: True
