@@ -9,4 +9,3 @@ models:
           combination_of_columns:
             - fiche
             - annee
-            - seqid
