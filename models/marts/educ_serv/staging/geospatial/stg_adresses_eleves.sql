@@ -17,16 +17,15 @@ along with this program.  if not, see <https://www.gnu.org/licenses/>.
 #}
 with adr as (
     select    
-        adr.fiche
-        , adr.type_adr
-        , cast(adr.date_effect as date) as date_effect
-        , adr.date_fin
-        , adr.ind_envoi_meq                      
-        , dim.code_post   
+        fiche
+        , type_adr
+        , cast(date_effect as date) as date_effect
+        , date_fin
+        , ind_envoi_meq                      
+        , code_post   
         , row_number() over (partition by fiche order by date_effect) as seqid -- pour identifier la 1ere adresse
-    from {{ ref('i_e_adr') }} as adr
-    left join {{ ref('dim_adresses') }} as dim
-        on dim.no_civ=adr.no_civ and dim.genre_rue=adr.genre_rue and dim.orient_rue=adr.orient_rue and dim.rue=adr.rue and dim.ville=adr.ville
+    from {{ ref('i_e_adr') }}
+    where date_effect != date_fin
 
 -- dates avec un ind_envoi_meq de 1 (sauf date initiale)
 ), adr2 as (
@@ -52,7 +51,7 @@ with adr as (
         , date_effect
         , case 
             when (lead(date_effect) over(partition by fiche order by date_effect)) is null then getdate() 
-            else lead(date_effect) over(partition by fiche order by date_effect)
+            else dateadd(day, -1, lead(date_effect) over (partition by fiche order by date_effect))
         end as date_effect_fin
         , code_post
     from adr3
@@ -87,14 +86,27 @@ with adr as (
     from tab as t
     join master..spt_values n 
         on type = 'p' and number between 0 and t.annee_sco_fin - t.annee_sco_deb
-)
 
-select
-    long.fiche
-    , long.annee
-    , y_sco.code_post
-    , case when datefromparts(long.annee, 9, 30) between y_sco.date_effect and y_sco.date_effect_fin then 1 else 0 end as adresse_30sept
-    , row_number() over (partition by long.fiche, long.annee order by y_sco.date_effect desc) as seqid
-from long
-left join y_sco
-    on y_sco.fiche=long.fiche and long.annee between y_sco.annee_sco_deb and y_sco.annee_sco_fin
+-- generer un seq_id pour garder le cp le plus recent
+), last_cp as (
+    select
+        long.fiche
+        , long.annee
+        , y_sco.code_post
+        , case when datefromparts(long.annee, 9, 30) between y_sco.date_effect and y_sco.date_effect_fin then 1 else 0 end as adresse_30sept
+        , row_number() over (partition by long.fiche, long.annee order by y_sco.date_effect desc) as seqid
+    from long
+    left join y_sco
+        on y_sco.fiche=long.fiche and long.annee between y_sco.annee_sco_deb and y_sco.annee_sco_fin
+) 
+
+select 
+    t1.fiche
+    , t1.annee
+    , t1.code_post as last_code_post
+    , t2.code_post as code_post_30sept
+from last_cp as t1
+left join (select * from last_cp where adresse_30sept=1) as t2    -- adresse enregistré le 30 septembre
+    on t2.fiche=t1.fiche and t2.annee=t1.annee
+where 
+    t1.seqid=1                                                    -- adresse courante par annee
