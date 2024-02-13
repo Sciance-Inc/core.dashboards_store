@@ -27,25 +27,34 @@ with adr as (
     from {{ ref('i_e_adr') }}
     where date_effect != date_fin
 
--- dates avec un ind_envoi_meq de 1 (sauf date initiale)
+-- fiches avec un seul type d'adresse -> on considere tt les adresses
 ), adr2 as (
-    select *
+    select 
+        fiche
+        , count(distinct type_adr) as nb_type_adr
     from adr
-    where 
-        ind_envoi_meq = 1
-        and seqid != 1
+    group by fiche
 
--- adresses à considerer
+-- fiches avec un plusieurs types d'adresse -> on considere uniquement celles avec un ind_envoi_meq de 1 (sauf date initiale)
 ), adr3 as (
     select *
     from adr
-    where seqid=1
+    where 
+        fiche in (select distinct fiche from adr2 where nb_type_adr != 1)
+        and ind_envoi_meq = 1 
+        and seqid != 1
+
+-- adresses à considerer
+), adr4 as (
+    select *
+    from adr
+    where seqid=1 or fiche in (select distinct fiche from adr2 where nb_type_adr = 1)
     union all
     select *
-    from adr2
+    from adr3
 
 -- modifier les dates effectives avec les adresses conservées
-), adr4 as (
+), adr5 as (
     select 
         fiche
         , date_effect
@@ -54,7 +63,7 @@ with adr as (
             else dateadd(day, -1, lead(date_effect) over (partition by fiche order by date_effect))
         end as date_effect_fin
         , code_post
-    from adr3
+    from adr4
 
 -- identifier les annees scolaire d'appartenance de chaque CP
 ), y_sco as (
@@ -67,7 +76,7 @@ with adr as (
 	    , case when  month(date_effect_fin) < 9 then year(date_effect_fin) - 1 else year(date_effect_fin)
 		end as annee_sco_fin
         , code_post
-    from adr4
+    from adr5
 
 -- recuperer les annees scolaire de debut et de fin pour chaque fiche
 ), tab  as (
