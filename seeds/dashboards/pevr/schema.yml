@@ -1,0 +1,26 @@
+version: 2
+
+seeds:
+  - name: common_indicateurs_pevr
+    description: Mapping des indicateurs communs avec leur description, leur code_matière, si c'est le cas, et leur numéros de compétences.   
+    config:
+      tags: 
+        - pevr
+      schema: pevr_seeds
+      column_types:
+        id_indicateur: nvarchar(8)
+        description_indicateur: nvarchar(max)      
+        cod_matiere: nvarchar(32)
+        des_matiere: nvarchar(32)
+  
+  - name: custom_indicateurs_pevr
+    description: mapping optionnel des indicateurs personalisés des css.
+    config:
+      tags: 
+        - pevr
+      schema: pevr_seeds
+      column_types:
+        id_indicateur: nvarchar(8)
+        description_indicateur: nvarchar(max)      
+        cod_matiere: nvarchar(32)
+        des_matiere: nvarchar(32)

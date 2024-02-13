@@ -15,6 +15,27 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select fiche, id_eco, string_agg(type_mesure, ', ') as type_mesure
-from {{ ref("i_gpm_e_mesures") }}
-group by fiche, id_eco
+with
+    franci as (
+        select fiche, id_eco, string_agg(type_mesure, ', ') as type_mesure
+        from {{ ref("i_gpm_e_mesures") }}
+        group by fiche, id_eco
+
+    )
+
+select
+    fiche,
+    id_eco,
+    case
+        when
+            type_mesure like '%11%'
+            or type_mesure like '%22%'
+            or type_mesure like '%23%'
+            or type_mesure like '%32%'
+            or type_mesure like '%33%'
+            or type_mesure like '%34%'
+        then 1
+        else null
+    end as francisation,
+    type_mesure
+from franci
