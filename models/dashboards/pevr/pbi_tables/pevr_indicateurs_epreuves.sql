@@ -29,12 +29,8 @@ with
             y_stud.population,
             y_stud.francisation,
             mat.code_matiere,
-            -- groupe_matiere,
-            -- id_obj_mat,
             mat.no_competence,
-            -- etat,
             etape,
-            -- ind_reprise,
             cast(is_maitrise as decimal(2, 1)) is_maitrise,
             res_etape_num,
             case when ind_reussite = 'R' then 1. else 0. end as ind_reussite
