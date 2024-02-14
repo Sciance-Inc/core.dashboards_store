@@ -33,7 +33,7 @@ with
             res_bilan.code_matiere,
             dim.des_matiere,
             res_bilan.res_num_som,
-            res_bilan.ind_reussite
+            res_bilan.is_reussite
         from {{ ref("fact_resultat_bilan_matiere") }} as res_bilan
         inner join
             {{ ref("fact_yearly_student") }} as y_stud
@@ -48,14 +48,14 @@ with
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
             and res_bilan.res_num_som is not null
             and el.genre != 'X'  -- Non binaire
-            and res_bilan.ind_reprise = 0
+            and res_bilan.is_reprise = 0
     ),
 
     cal as (
         select
             *,
-            case when ind_reussite = 'E' then 1. else 0. end as tx_echec,
-            case when ind_reussite = 'R' then 1. else 0. end as tx_reussite,
+            case when is_reussite = 'E' then 1. else 0. end as tx_echec,
+            case when is_reussite = 'R' then 1. else 0. end as tx_reussite,
             case
                 when
                     res_num_som > 59

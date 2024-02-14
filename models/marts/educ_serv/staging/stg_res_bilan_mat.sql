@@ -37,7 +37,7 @@ with
                 when left(emgrp_yearly.groupe_matiere, 1) not like '[%0-9]%'  -- grp starting with a letter = retake
                 then 1
                 else 0
-            end as ind_reprise,
+            end as is_reprise,
             emgrp_yearly.date_deb,
             emgrp_yearly.date_fin,
             emgrp_yearly.modele_etape,

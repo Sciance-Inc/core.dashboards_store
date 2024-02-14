@@ -19,8 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 with
     src as (
-        select
-            annee, fiche, eco, case when ind_ppp = 'Oui' then 1. else 0. end as ind_ppp
+        select annee, fiche, eco, case when is_ppp = 1 then 1. else 0. end as is_ppp
         from {{ ref("fact_yearly_student") }}
         where
             ordre_ens = 4
@@ -33,9 +32,8 @@ with
             '1.3.4.11' as id_indicateur,
             annee,
             eco,
-            sum(ind_ppp) as nb_ppp,
-            count(ind_ppp) as nb_eleve,
-            sum(ind_ppp) / count(ind_ppp) as tx_ppp
+            sum(is_ppp) as nb_ppp,
+            avg(is_ppp) as tx_ppp
         from src
         group by annee, cube (eco)
     )
@@ -46,7 +44,6 @@ select
     coalesce(ppp.eco, 'CSS') as eco,
     coalesce(school_friendly_name, 'CSS') as nom_ecole,
     nb_ppp,
-    nb_eleve,
     tx_ppp
 from ppp
 left join

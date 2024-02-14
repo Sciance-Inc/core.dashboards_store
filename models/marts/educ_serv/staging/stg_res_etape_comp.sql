@@ -70,7 +70,7 @@ with
                     when {{ i }} then res_comp.etape_eval_{{ "%02d" % i }}
                 {% endfor %}
             end,
-            ind_reprise
+            is_reprise
         from {{ ref("stg_res_bilan_comp") }} as res_comp
         inner join
             {{ ref("i_gpm_t_modele_etape_etapes") }} as met1
@@ -94,6 +94,6 @@ select
     res_comp_etape,
     etape_eval,
     legende,
-    ind_reprise
+    is_reprise
 from stg_yearly_comp
 where res_comp_etape is not null

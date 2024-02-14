@@ -44,7 +44,7 @@ with
                 when left(emgrp_yearly_comp.groupe_matiere, 1) not like '[%0-9]%'  -- grp starting with a letter = retake
                 then 1
                 else 0
-            end as ind_reprise
+            end as is_reprise
         from
             {{ ref("stg_yearly_eleve_matiere_groupe_competence") }} as emgrp_yearly_comp
         inner join

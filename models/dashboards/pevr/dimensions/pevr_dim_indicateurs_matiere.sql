@@ -25,12 +25,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         * named 'custom_indicateur_pevr'
         * located in the schema 'dashboard_pevr'
 #}
-{{ config(alias="dim_indicateurs_pevr") }}
+{{ config(alias="dim_indicateurs_pevr_matiere") }}
 
 {%- set source_relation = adapter.get_relation(
     database=target.database,
     schema=target.schema + "_dashboard_pevr",
-    identifier="custom_indicateurs_pevr",
+    identifier="custom_indicateurs_pevr_matiere",
 ) -%}
 {% set table_exists = source_relation is not none %}
 
@@ -38,28 +38,28 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     {% if execute %}
         {{
             log(
-                "The seed '*_dashboard_pevr.custom_indicateurs_pevr' DOES EXIST and will be added to the 'common_indicateurs_pevr'",
+                "The seed '*_dashboard_pevr.custom_indicateurs_pevr_matiere' DOES EXIST and will be added to the 'common_indicateurs_pevr_matiere'",
                 true,
             )
         }}
     {% endif %}
 
-    select id_indicateur, description_indicateur
-    from {{ ref("common_indicateurs_pevr") }}
+    select id_indicateur, description_indicateur, code_matiere, no_competence
+    from {{ ref("common_indicateurs_pevr_matiere") }}
     union all
-    select id_indicateur, description_indicateur
+    select id_indicateur, description_indicateur, code_matiere, no_competence
     from {{ source_relation }}
 
 {% else %}
     {% if execute %}
         {{
             log(
-                "The seed '*_dashboard_pevr.custom_indicateurs_pevr' DOES NOT exists. The 'pevr_dim_indicateurs' table will be defaulted to 'common_indicateurs_pevr'.",
+                "The seed '*_dashboard_pevr.custom_indicateurs_pevr_matiere' DOES NOT exists. The 'pevr_dim_indicateurs' table will be defaulted to 'common_indicateurs_pevr_matiere'.",
                 true,
             )
         }}
     {% endif %}
 
-    select id_indicateur, description_indicateur
-    from {{ ref("common_indicateurs_pevr") }}
+    select id_indicateur, description_indicateur, code_matiere, no_competence
+    from {{ ref("common_indicateurs_pevr_matiere") }}
 {% endif %}

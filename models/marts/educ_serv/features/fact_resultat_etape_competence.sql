@@ -33,7 +33,7 @@ with
             cote.note_equiv,
             cote.cote,
             cote.indic_reus_echec,
-            mat_ele.ind_reprise
+            mat_ele.is_reprise
         from {{ ref("stg_res_etape_comp") }} as mat_ele
         left join
             {{ ref("i_gpm_t_leg") }} as leg
@@ -56,7 +56,7 @@ with
             no_comp,
             etat,
             etape,
-            ind_reprise,
+            is_reprise,
             case
                 when cote is not null
                 then note_equiv
@@ -76,7 +76,7 @@ with
                 when res_comp_etape < seuil_reus
                 then 'E'
                 else 'N/A'
-            end as ind_reussite
+            end as is_reussite
         from step1
     )
 select
@@ -89,9 +89,9 @@ select
     no_comp,
     etat,
     etape,
-    ind_reprise,
+    is_reprise,
     res_etape_num,
-    ind_reussite,
+    is_reussite,
     case when res_etape_num < 60 then 1 else 0 end as is_echec,
     case when (res_etape_num between 60 and 69) then 1 else 0 end as is_difficulte,
     case when res_etape_num >= 70 then 1 else 0 end as is_maitrise

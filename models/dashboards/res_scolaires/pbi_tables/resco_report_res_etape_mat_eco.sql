@@ -34,7 +34,7 @@ with
             eta_mat.etape,
             dim.des_matiere,
             res_etape_num,
-            eta_mat.ind_reussite
+            eta_mat.is_reussite
         from {{ ref("fact_resultat_etape_matiere") }} as eta_mat
         inner join
             {{ ref("fact_yearly_student") }} as y_stud
@@ -50,14 +50,14 @@ with
             and eta_mat.res_etape_num is not null
             and eta_mat.etape != 'EX'
             and el.genre != 'X'  -- Non binaire
-            and eta_mat.ind_reprise = 0
+            and eta_mat.is_reprise = 0
     ),
 
     cal as (
         select
             *,
-            case when ind_reussite = 'E' then 1. else 0 end as tx_echec,
-            case when ind_reussite = 'R' then 1. else 0 end as tx_reussite,
+            case when is_reussite = 'E' then 1. else 0 end as tx_echec,
+            case when is_reussite = 'R' then 1. else 0 end as tx_reussite,
             case
                 when
                     res_etape_num > 59
