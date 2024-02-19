@@ -2,12 +2,12 @@
 name = "core.data.store"
 version = "0.2.0"
 description = ""
-authors = ["alluardj <alluardj@csvdc.qc.ca>"]
+authors = ["hugo juhel <juhel.hugo@sciance.ca>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-dbt-core = "~1.4"
-dbt-sqlserver = "~1.4"
+dbt-core = "~1.6"
+dbt-fabric = {git = "https://github.com/Sciance-Inc/dbt-fabric.git", rev = "v0.16.0"}
 pyodbc = "~4.0"
 python-semantic-release = "^7.33.4"
 
