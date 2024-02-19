@@ -12,7 +12,4 @@ models:
     tests:
       - resolution:
           combination_of_columns:
-            - matr
-            - email_address
-            - currently_active
-            
+            - matr            

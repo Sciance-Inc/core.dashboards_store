@@ -26,7 +26,7 @@ with
 
 select
     util.matr,
-    util.first_name + ' ' + util.last_name as full_name,
+    util.legal_name as full_name,
     util.email_address,
     emp.etat as state,
     emp.lieu_trav as workplace,
@@ -40,4 +40,4 @@ select
 from {{ ref("dim_employees") }} as util
 left join {{ ref("i_pai_dos_empl") }} emp on util.matr = emp.matr
 left join currentactive ca on util.matr = ca.matr
-where emp.etat like 'a%' and emp.ind_empl_princ = 1
+where ca.etat like 'a%' and emp.is_main_job = 1
