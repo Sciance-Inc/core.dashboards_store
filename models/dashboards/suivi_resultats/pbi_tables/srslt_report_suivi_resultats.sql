@@ -40,7 +40,7 @@ with
             mat.is_current_echec as is_current_matiere_echec,
             mat.is_current_difficulte as is_current_matiere_difficulte,
             mat.is_current_maitrise as is_current_matiere_maitrise,
-            mat.ind_reussite as ind_reussite_mat,
+            mat.is_reussite as is_reussite_mat,
             no_comp,
             res_num_comp,
             comp.is_previous_echec as is_previous_competence_echec,
@@ -49,7 +49,7 @@ with
             comp.is_current_echec as is_current_competence_echec,
             comp.is_current_difficulte as is_current_competence_difficulte,
             comp.is_current_maitrise as is_current_competence_maitrise,
-            comp.ind_reussite as ind_reussite_comp,
+            comp.is_reussite as is_reussite_comp,
             niveau_res
         from perim as el
         left join
@@ -70,8 +70,8 @@ with
         where
             mat.etat != 0
             and comp.etat != 0
-            and mat.ind_reprise = 0
-            and comp.ind_reprise = 0
+            and mat.is_reprise = 0
+            and comp.is_reprise = 0
 
     -- ajouter le flag years
     ),
@@ -92,7 +92,7 @@ with
             null as is_current_matiere_echec,
             null as is_current_matiere_difficulte,
             null as is_current_matiere_maitrise,
-            null as ind_reussite_mat,
+            null as is_reussite_mat,
             null as no_comp,
             null as res_num_comp,
             null as is_previous_competence_echec,
@@ -101,7 +101,7 @@ with
             null as is_current_competence_echec,
             null as is_current_competence_difficulte,
             null as is_current_competence_maitrise,
-            null as ind_reussite_comp,
+            null as is_reussite_comp,
             niveau_res
         from src
         where annee = {{ store.get_current_year() }}
@@ -131,7 +131,7 @@ with
             is_current_matiere_echec,
             is_current_matiere_difficulte,
             is_current_matiere_maitrise,
-            ind_reussite_mat,
+            is_reussite_mat,
             no_comp,
             res_num_comp,
             is_previous_competence_echec,
@@ -140,7 +140,7 @@ with
             is_current_competence_echec,
             is_current_competence_difficulte,
             is_current_competence_maitrise,
-            ind_reussite_comp,
+            is_reussite_comp,
             niveau_res
         from merg
     -- ajouter le flag difficulté
@@ -156,10 +156,10 @@ with
             etat,
             description_matiere,
             res_num_som,
-            ind_reussite_mat,
+            is_reussite_mat,
             no_comp,
             res_num_comp,
-            ind_reussite_comp,
+            is_reussite_comp,
             case
                 when
                     (ordre_ens = 3 and is_current_competence_echec = 1)
@@ -217,10 +217,10 @@ with
             description_matiere,
             niveau_res,
             res_num_som,
-            ind_reussite_mat,
+            is_reussite_mat,
             no_comp,
             res_num_comp,
-            ind_reussite_comp,
+            is_reussite_comp,
 
             max(is_echec_current_y) over (
                 partition by fiche, description_matiere
@@ -261,11 +261,9 @@ select
     grp_rep,
     dist,
     niveau_res,
-    step1.ind_reussite_mat,
     step1.no_comp,
     descr_comp.description_abreg as description_competence_abreg,
     step1.res_num_comp,
-    step1.ind_reussite_comp,
     case
         when is_echec_course_current = 1 then 'Oui' else 'Non'
     end as is_echec_course_current,

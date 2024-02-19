@@ -15,6 +15,26 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select fiche, id_eco, string_agg(type_mesure, ', ') as type_mesure
-from {{ ref("i_gpm_e_mesures") }}
-group by fiche, id_eco
+with
+    indice as (
+        select distinct
+            type_mesure,
+            case
+                when type_mesure in ('11', '22', '23', '32', '33', '34') then 1 else 0
+            end as is_francisation
+        from {{ ref("i_gpm_e_mesures") }}
+
+    ),
+    franci as (
+        select
+            mes.fiche,
+            mes.id_eco,
+            string_agg(mes.type_mesure, ', ') as type_mesure,
+            max(ind.is_francisation) is_francisation
+        from {{ ref("i_gpm_e_mesures") }} mes
+        inner join indice ind on mes.type_mesure = ind.type_mesure
+        group by mes.fiche, mes.id_eco
+    )
+
+select fiche, id_eco, is_francisation, type_mesure
+from franci

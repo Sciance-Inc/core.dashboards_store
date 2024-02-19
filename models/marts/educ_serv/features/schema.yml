@@ -48,7 +48,7 @@ models:
         description: The group which the student is related to the subject
       - name: etat
         description: The state of the subject
-      - name: ind_reprise
+      - name: is_reprise
         description: Indicate if its a retake
       - name: no_comp
         description: The competency number of the subject
@@ -63,7 +63,7 @@ models:
           combination_of_columns:
             - fiche
             - id_eco
-            - ind_reprise
+            - is_reprise
             - mat
             - no_comp
             - grp
@@ -89,9 +89,9 @@ models:
         description: The group which the student is related to the subject
       - name: etat
         description: The state of the subject
-      - name: ind_reprise
+      - name: is_reprise
         description: Indicate if its a retake
-      - name: ind_reussite
+      - name: is_reussite
         description: Indicate if its a success
       - name: res_num_som
         description: The results of the student per mat
@@ -100,7 +100,7 @@ models:
           combination_of_columns:
             - fiche
             - id_eco
-            - ind_reprise
+            - is_reprise
             - mat
             - grp
 
@@ -132,9 +132,9 @@ models:
         description: The stage of the subject
       - name: res_comp_num
         description: The result in numeric
-      - name: ind_reussite
+      - name: is_reussite
         description: Indicate if its a success
-      - name: ind_reprise
+      - name: is_reprise
         description: Indicate a retake
     tests:
       - resolution:
@@ -170,9 +170,9 @@ models:
         description: The stage of the subject
       - name: res_etape_num
         description: The result in numeric
-      - name: ind_reussite
+      - name: is_reussite
         description: Indicate if its a success
-      - name: ind_reprise
+      - name: is_reprise
         description: Indicate a retake
     tests:
       - resolution:

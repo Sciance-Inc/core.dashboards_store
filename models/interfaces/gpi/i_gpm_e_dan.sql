@@ -30,5 +30,7 @@ select
     date_deb,
     plan_interv_ehdaa,
     difficulte,
-    age_30_sept
+    age_30_sept,
+    categ_prog_part,
+    type_prog_part
 from {{ var("database_gpi") }}.dbo.gpm_e_dan

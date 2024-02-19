@@ -45,7 +45,7 @@ with
             end,
             met1.etape,
             met1.date_fin,
-            res_mat.ind_reprise
+            res_mat.is_reprise
         from {{ ref("stg_res_bilan_mat") }} as res_mat
         inner join
             {{ ref("i_gpm_t_modele_etape_etapes") }} as met1

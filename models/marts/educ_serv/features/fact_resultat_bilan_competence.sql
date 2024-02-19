@@ -32,7 +32,7 @@ with
             cote.note_equiv,
             cote.cote,
             cote.indic_reus_echec,
-            mat_ele.ind_reprise
+            mat_ele.is_reprise
         from {{ ref("stg_res_bilan_comp") }} as mat_ele
         left join
             {{ ref("i_gpm_t_leg") }} as leg
@@ -76,8 +76,8 @@ with
                 when res_comp < seuil_reus
                 then 'E'
                 else 'N/A'
-            end as ind_reussite,
-            ind_reprise,
+            end as is_reussite,
+            is_reprise,
             case
                 when annee = {{ store.get_current_year() }} then 1 else 0
             end as is_current_year,
@@ -96,8 +96,8 @@ select
     no_comp,
     etat,
     res_comp,
-    ind_reussite,
-    ind_reprise,
+    is_reussite,
+    is_reprise,
     case
         when annee = 2019 and res_comp in ('NR')
         then 0

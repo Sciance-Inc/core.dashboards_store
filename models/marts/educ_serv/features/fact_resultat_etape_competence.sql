@@ -33,7 +33,7 @@ with
             cote.note_equiv,
             cote.cote,
             cote.indic_reus_echec,
-            mat_ele.ind_reprise
+            mat_ele.is_reprise
         from {{ ref("stg_res_etape_comp") }} as mat_ele
         left join
             {{ ref("i_gpm_t_leg") }} as leg
@@ -44,6 +44,40 @@ with
             on cote.id_eco = leg.id_eco
             and cote.leg = leg.leg
             and cote.cote = mat_ele.res_comp_etape
+    ),
+    res_num as (
+        select
+            annee,
+            fiche,
+            id_eco,
+            code_matiere,
+            groupe_matiere,
+            id_obj_mat,
+            no_comp,
+            etat,
+            etape,
+            is_reprise,
+            case
+                when cote is not null
+                then note_equiv
+                when isnumeric(res_comp_etape) = 1
+                then convert(int, res_comp_etape)
+                else null
+            end as res_etape_num,
+            case
+                when cote is not null and indic_reus_echec = '1'
+                then 'R'
+                when cote is not null and indic_reus_echec = '2'
+                then 'E'
+                when (seuil_reus is null) or (isnumeric(res_comp_etape) <> 1)
+                then 'N/A'
+                when res_comp_etape >= seuil_reus
+                then 'R'
+                when res_comp_etape < seuil_reus
+                then 'E'
+                else 'N/A'
+            end as is_reussite
+        from step1
     )
 select
     annee,
@@ -55,25 +89,10 @@ select
     no_comp,
     etat,
     etape,
-    ind_reprise,
-    case
-        when cote is not null
-        then note_equiv
-        when isnumeric(res_comp_etape) = 1
-        then convert(int, res_comp_etape)
-        else null
-    end as res_etape_num,
-    case
-        when cote is not null and indic_reus_echec = '1'
-        then 'R'
-        when cote is not null and indic_reus_echec = '2'
-        then 'E'
-        when (seuil_reus is null) or (isnumeric(res_comp_etape) <> 1)
-        then 'N/A'
-        when res_comp_etape >= seuil_reus
-        then 'R'
-        when res_comp_etape < seuil_reus
-        then 'E'
-        else 'N/A'
-    end as ind_reussite
-from step1
+    is_reprise,
+    res_etape_num,
+    is_reussite,
+    case when res_etape_num < 60 then 1 else 0 end as is_echec,
+    case when (res_etape_num between 60 and 69) then 1 else 0 end as is_difficulte,
+    case when res_etape_num >= 70 then 1 else 0 end as is_maitrise
+from res_num
