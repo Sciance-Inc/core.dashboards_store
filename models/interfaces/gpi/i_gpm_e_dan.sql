@@ -25,8 +25,12 @@ select
     effectif,
     ordre_ens,
     classe,
+    class,
     dist,
     date_deb,
     plan_interv_ehdaa,
-    difficulte
+    difficulte,
+    age_30_sept,
+    categ_prog_part,
+    type_prog_part
 from {{ var("database_gpi") }}.dbo.gpm_e_dan

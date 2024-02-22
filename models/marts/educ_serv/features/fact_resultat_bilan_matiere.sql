@@ -45,8 +45,14 @@ with
                 when res_som < seuil_reus
                 then 'E'
                 else 'N/A'
-            end as ind_reussite,
-            ind_reprise
+            end as is_reussite,
+            is_reprise,
+            case
+                when annee = {{ store.get_current_year() }} then 1 else 0
+            end as is_current_year,
+            case
+                when annee = {{ store.get_current_year() }} - 1 then 1 else 0
+            end as is_previous_year
         from {{ ref("stg_res_bilan_mat") }} as mat_ele
         left join
             {{ ref("i_gpm_t_leg") }} as leg
@@ -66,7 +72,7 @@ select
     code_matiere,
     groupe_matiere,
     etat,
-    ind_reussite,
+    is_reussite,
     case
         when annee = 2019 and res_som in ('NR')
         then 0
@@ -74,5 +80,23 @@ select
         then 100
         else res_num_som
     end as res_num_som,
-    ind_reprise
+    is_reprise,
+    case
+        when res_num_som < 60 and is_current_year = 1 then 1 else 0
+    end as is_current_echec,
+    case
+        when (res_num_som between 60 and 69) and is_current_year = 1 then 1 else 0
+    end as is_current_difficulte,
+    case
+        when res_num_som >= 70 and is_current_year = 1 then 1 else 0
+    end as is_current_maitrise,
+    case
+        when res_num_som < 60 and is_previous_year = 1 then 1 else 0
+    end as is_previous_echec,
+    case
+        when (res_num_som between 60 and 69) and is_previous_year = 1 then 1 else 0
+    end as is_previous_difficulte,
+    case
+        when res_num_som >= 70 and is_previous_year = 1 then 1 else 0
+    end as is_previous_maitrise
 from res_num

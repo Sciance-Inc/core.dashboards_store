@@ -32,7 +32,7 @@ with
             cote.note_equiv,
             cote.cote,
             cote.indic_reus_echec,
-            mat_ele.ind_reprise
+            mat_ele.is_reprise
         from {{ ref("stg_res_etape_mat") }} as mat_ele
         left join
             {{ ref("i_gpm_t_leg") }} as leg
@@ -51,7 +51,7 @@ select
     code_matiere,
     groupe_matiere,
     etat,
-    ind_reprise,
+    is_reprise,
     etape,
     case
         when cote is not null
@@ -72,5 +72,5 @@ select
         when res_etape < seuil_reus
         then 'E'
         else 'N/A'
-    end as ind_reussite
+    end as is_reussite
 from step1

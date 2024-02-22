@@ -60,7 +60,6 @@ models:
           combination_of_columns:
             - id_eco
             - mat
-            - descr
 
   - name: stg_descr_comp
     config:
@@ -73,7 +72,6 @@ models:
           combination_of_columns:
             - mat
             - obj_01
-            - description
 
   - name: stg_yearly_eleve_matiere_groupe
     config:
@@ -163,3 +161,17 @@ models:
             - code_matiere
             - groupe_matiere
             - etape
+
+  - name: stg_type_mesure
+    config:
+      tags:
+        - res_scolaires
+    description: >
+      Table de staging qui liste des élèves qui ont des types de mesure (frnacisation etc) par année.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - id_eco
+
+

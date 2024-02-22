@@ -26,17 +26,18 @@ with
         select
             y_stud.population,
             res_bilan.annee,
-            y_stud.genre,
+            el.genre,
             y_stud.plan_interv_ehdaa,
             res_bilan.code_matiere,
             dim.des_matiere,
             res_bilan.res_num_som,
-            res_bilan.ind_reussite
+            res_bilan.is_reussite
         from {{ ref("fact_resultat_bilan_matiere") }} as res_bilan
         inner join
             {{ ref("fact_yearly_student") }} as y_stud
             on res_bilan.fiche = y_stud.fiche
             and res_bilan.id_eco = y_stud.id_eco
+        inner join {{ ref("dim_eleve") }} as el on y_stud.code_perm = el.code_perm
         inner join
             {{ ref("resco_dim_matiere") }} as dim
             on dim.cod_matiere = res_bilan.code_matiere  -- Only keep the tracked courses
@@ -44,15 +45,15 @@ with
             res_bilan.annee
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
             and res_bilan.res_num_som is not null
-            and y_stud.genre != 'X'  -- Non binaire
-            and res_bilan.ind_reprise = 0
+            and el.genre != 'X'  -- Non binaire
+            and res_bilan.is_reprise = 0
     ),
 
     cal as (
         select
             *,
-            case when ind_reussite = 'E' then 1. else 0. end as tx_echec,
-            case when ind_reussite = 'R' then 1. else 0. end as tx_reussite,
+            case when is_reussite = 'E' then 1. else 0. end as tx_echec,
+            case when is_reussite = 'R' then 1. else 0. end as tx_reussite,
             case
                 when
                     res_num_som > 59

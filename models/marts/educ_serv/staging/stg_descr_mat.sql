@@ -17,10 +17,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 with
     raw_data as (
-        select mat.id_eco, mat.mat, mat.descr, mat.descr_abreg
+        select
+            mat.id_eco,
+            mat.mat,
+            mat.descr as description,
+            mat.descr_abreg as description_abreg,
+            row_number() over (partition by mat.mat order by mat.id_eco desc) as seqid
         from {{ ref("i_gpm_t_mat") }} as mat
         where descr is not null
     )
 
-select id_eco, mat, descr, descr_abreg
+select id_eco, mat, description, description_abreg
 from raw_data
+where seqid = 1

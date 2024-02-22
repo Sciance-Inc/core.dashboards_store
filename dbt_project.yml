@@ -43,6 +43,9 @@ seeds:
             chronic_absenteeism:
                 +tags: ["chronic_absenteeism"]
                 +schema: "dashboard_chronic_absenteeism"
+            pevr:
+                +tags: ["pevr"]
+                +schema: "dashboard_pevr"                
 models:
     +materialized: table
     store:
@@ -142,6 +145,15 @@ models:
                         [
                             "{{ store.stamp_model('dashboard_predictive_view_aggregated') }}",
                         ]
+
+            pevr:
+                +tags: ["pevr"]
+                +schema: "dashboard_pevr"
+                pbi_tables:
+                    +post-hook:
+                        [
+                            "{{ store.stamp_model('dashboard_pevr') }}",
+                        ]                        
 
         interfaces:
             +tags: ["interfaces"]

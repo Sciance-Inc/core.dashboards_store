@@ -26,18 +26,19 @@ with
         select
             y_stud.population,
             eta_comp.annee,
-            y_stud.genre,
+            el.genre,
             y_stud.plan_interv_ehdaa,
             eta_comp.code_matiere,
             eta_comp.no_comp,
             eta_comp.etape,
             eta_comp.res_etape_num,
-            eta_comp.ind_reussite
+            eta_comp.is_reussite
         from {{ ref("fact_resultat_etape_competence") }} as eta_comp
         inner join
             {{ ref("fact_yearly_student") }} as y_stud
             on eta_comp.fiche = y_stud.fiche
             and eta_comp.id_eco = y_stud.id_eco
+        inner join {{ ref("dim_eleve") }} as el on y_stud.code_perm = el.code_perm
         inner join
             {{ ref("resco_dim_matiere") }} as dim
             on dim.cod_matiere = eta_comp.code_matiere  -- Only keep the tracked courses
@@ -46,15 +47,15 @@ with
             between {{ get_current_year() }} - 4 and {{ get_current_year() }}
             and eta_comp.res_etape_num is not null
             and eta_comp.etape != 'EX'
-            and y_stud.genre != 'X'  -- Non binaire
-            and eta_comp.ind_reprise = 0
+            and el.genre != 'X'  -- Non binaire
+            and eta_comp.is_reprise = 0
     ),
 
     cal as (
         select
             *,
-            case when ind_reussite = 'E' then 1. else 0. end as tx_echec,
-            case when ind_reussite = 'R' then 1. else 0. end as tx_reussite,
+            case when is_reussite = 'E' then 1. else 0. end as tx_echec,
+            case when is_reussite = 'R' then 1. else 0. end as tx_reussite,
             case
                 when
                     res_etape_num > 59
