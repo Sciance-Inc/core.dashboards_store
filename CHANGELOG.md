@@ -2,11 +2,27 @@
 
 
 
+## v0.10.0+20240222 (2024-02-22)
+
+### Feature
+
+* feat: v0.10.0 (#41) ([`cad05b2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cad05b2e99c108a24ca5dd93afc511c106250082))
+
+
+## v0.9.3+20240111 (2024-01-11)
+
+### Fix
+
+* fix(cookiecutter): stg_sectors does not cause a rendering error anymore ([`69534b5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/69534b5099c662e480b015e5a33634ecf1323409))
+
+* fix: swtich back compentency ID (#29)
+
+Co-authored-by: sadqim &lt;sadqim@csvdc.qc.ca&gt; ([`2131f6e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2131f6ea1ba355029bdcfd811225e4181a7cb577))
+
+* fix: corrections d&#39;orthographe (#28) ([`c5fe336`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c5fe336f59fd40ea16dd22ac3ba3a6c600a821f3))
+
+
 ## v0.9.2+20231210 (2023-12-10)
-
-### Chore
-
-* chore(nightly): the nightly build will now run using the branch instead of the tag ([`9f2db4c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9f2db4c61a10074c2f4550b09ee3ab1a9004d37e))
 
 ### Fix
 
@@ -14,14 +30,6 @@
 
 
 ## v0.9.1+20231208 (2023-12-08)
-
-### Chore
-
-* chore: removing unknown commit from changelog ([`dd18341`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dd1834182ce2f0f49ed28312353a94b1cfe460b6))
-
-* chore: disabling dev-* chagelog rendering ([`3559aa3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3559aa32ba697d9c1b89836ca129f08e57fe60c2))
-
-* chore: adding changelog template ([`b2cb311`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b2cb311558b36e073c78d9f1037c4607f224aedc))
 
 ### Fix
 
@@ -31,10 +39,6 @@
 
 
 ## v0.9.0+20231208 (2023-12-08)
-
-### Chore
-
-* chore: disabling tagging of dev version ([`5886bac`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5886bac9faf0e8f1ba7b9f9958c793c5474dd75f))
 
 ### Feature
 
@@ -49,12 +53,6 @@ Co-authored-by: Hugo Juhel &lt;22279443+hugoJuhel@users.noreply.github.com&gt; (
 
 
 ## v0.8.2+20231206 (2023-12-06)
-
-### Chore
-
-* chore(fix): setting profile dir through env_var instead of hardcoding it ([`9c5c2c4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9c5c2c42047ecfe623f45cb7a4e93f0deda95305))
-
-* chore(fix): directctly calling poetry to run dbt during the docker build ([`7fbf267`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7fbf267211ba0bdfea34d630f852e62daa3c2c43))
 
 ### Feature
 
@@ -90,56 +88,6 @@ Co-authored-by: Gabriel Thiffault &lt;147753578+gabrielThiffault@users.noreply.g
 
 
 ## v0.8.0+20231102 (2023-11-02)
-
-### Chore
-
-* chore: forcing push to the CSSVDC repo ([`47ae4cc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/47ae4cc055b1742487c9dc0203d79d1f2f92010e))
-
-* chore: adding the stamper to the gabarit (#12)
-
-Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`92ed003`](https://github.com/Sciance-Inc/core.dashboards_store/commit/92ed0034bfa9849ad051e1fcad2e8fcd1e335873))
-
-* chore: the nightly build can now be manually triggered ([`5b7f227`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5b7f2274514e58f91cb62a60b9401abda7929f10))
-
-* chore: increasing verbosity of the release pipeline ([`537283d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/537283d1f0578eb5a4c49f7bba7f742f57fde0a2))
-
-* chore: sqlfmt is now run in check mode and will raise an error if something is left to be formatted ([`8de5860`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8de5860234cd5eced3d9c5f49ff0840d10cb5865))
-
-* chore(cicd): running the fmt on all files ([`4d20729`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4d20729a7b899afe98790035c4f911253db8ade1))
-
-* chore(cicd): disabling the sqlfmt checks on template ([`2207449`](https://github.com/Sciance-Inc/core.dashboards_store/commit/22074499d21a050c8bc49e8e05b0017d0766b9f8))
-
-* chore(licence-check): warning won t be treated as error anymore ([`c161e9e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c161e9e62a791eceae175b60ffa64c34b13f2515))
-
-* chore(fix): fixing badly resolved conflict in the template s dbt_project ([`89dc589`](https://github.com/Sciance-Inc/core.dashboards_store/commit/89dc58970ed194b3f55b85c6d80ac845dd3067d0))
-
-* chore: excluding template from formatting ([`8cf9428`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8cf94285fc8304e463cdbd936e5540a8d305fefb))
-
-* chore: mobing the template folder into the tooling folder ([`0a0bd2f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0a0bd2f78defbe96dc7488bdf905a068f446f117))
-
-* chore: adding missing licence ([`fa498a6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fa498a60d189c8c369a790cb185a616bd9962346))
-
-* chore: fixing path in licence checker ([`c1f5523`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c1f552383289cf5bd914f253f431ead156f2a653))
-
-* chore: adding assignee item ([`e9d123d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e9d123dbb22d440811e9f6f53e80dcf7496ff4df))
-
-* chore: adding licence checker ([`468e4a0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/468e4a08ff9672b849217a3c37e035b72054070e))
-
-* chore: updating actions to not triggers on PR if not needed ([`5b68894`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5b68894fa4a7425dabf85d67b6320b679cc7703e))
-
-* chore: adding sqlfmt guidelines and check ([`9623bae`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9623baed2cacb68dac60b83cc53232c98e2d5b63))
-
-* chore: adding question template ([`81b9cf7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/81b9cf72e7517e48d495995de0fde152cd405579))
-
-* chore: updating feature request template ([`6ac3de5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6ac3de52da533f6db26e9f14048958a6213e96fd))
-
-* chore: adding PR, bug, and feature templates ([`a14021f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a14021fdca6d65ec53889f52587b56d9e0de6c50))
-
-* chore: moving the nightly build to the tooling subfolder ([`1d82aec`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1d82aecd7e159e4d2c472a04a67ad16381a68c54))
-
-* chore(fix): setting the build context to the root of the folder as pyproject is required ([`36b7a8f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/36b7a8fdf190188d3ee6818ac9e34ce1accad10a))
-
-* chore: moving depeche code to the tooling folder ([`a928669`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a9286696bbb76b3454f66eaa8de7a8fc3265a8f4))
 
 ### Documentation
 
@@ -204,18 +152,8 @@ Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`3c120b2`](https:/
 
 Co-authored-by: hugo juhel &lt;juhel.hugo@stratemia.com&gt; ([`608d260`](https://github.com/Sciance-Inc/core.dashboards_store/commit/608d2604d34beaade44a54b85542912be2f4327c))
 
-### Style
-
-* style: applying sqlfmt ([`a6c4b99`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a6c4b9971d3b2b0764bfc32fb4d4fc484bb8cfd3))
-
 
 ## v0.7.0+20231020 (2023-10-20)
-
-### Chore
-
-* chore: disabling fail-fast so all the matrix runs will be tried each day ([`8a00df3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8a00df3c8a123663674eae98b06a314741a92160))
-
-* chore: renaming gabarait to gabarit ([`34d409c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/34d409c6c608bf1962cf3552f47bca10ef7edcaa))
 
 ### Documentation
 
@@ -322,10 +260,6 @@ dbt build --select +tag:human_resources --full-refresh
 
 ## v0.7.0+20230926 (2023-09-26)
 
-### Chore
-
-* chore: gitignoring the pbix ([`cb92a3d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cb92a3d35c6f6417ab7ad36642e23d8bd7ed6d28))
-
 ### Feature
 
 * feat: adding dashboards ([`7ab3ec2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7ab3ec2bb1249e10fe2aa94943176841cf9b2280))
@@ -348,17 +282,9 @@ dbt build --select +tag:human_resources --full-refresh
 
 ## v0.6.2+20230831 (2023-08-31)
 
-### Chore
-
-* chore(cicd): adding concurrency piority ([`dbff52c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dbff52c6c90b055510733b4b00811304c1bcc58f))
-
 ### Fix
 
 * fix(cicd): adding job scope to group name ([`508f8de`](https://github.com/Sciance-Inc/core.dashboards_store/commit/508f8de800f145202bf23de0419053f61e1baa3c))
-
-### Style
-
-* style: applying sqlfmt ([`b822989`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b82298934ab59740fe2ece0097eb2f44d63d579b))
 
 
 ## v0.6.1+20230831 (2023-08-31)
@@ -371,22 +297,6 @@ dbt build --select +tag:human_resources --full-refresh
 
 
 ## v0.6.0+20230831 (2023-08-31)
-
-### Chore
-
-* chore(test): adding the stable version to the nightly build ([`ad7fc6c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ad7fc6c7c4e0aef4c338049830a0a19c306ed460))
-
-* chore(cicd): fixing maximal matrix concurrency to 1 to avoid burning the database ([`e22153a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e22153a163345ae009ce9524a3507a8673deab28))
-
-* chore(fix): logging to the github registry before pushing the docker ([`493e726`](https://github.com/Sciance-Inc/core.dashboards_store/commit/493e726ffd8395aa2ab3f46c6e1e4eff7d470fc2))
-
-* chore(cicd): adding the command to run the integration tests suite ([`da003f3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/da003f39d1925e5c50575d1c438ae98c3df187d2))
-
-* chore: trigger the nightly on master ([`5e34159`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5e34159c32fcd697667b1abdda44bfcae95134f6))
-
-* chore: adding CICD pipeline for nightly release ([`1fc829f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1fc829ffe2b1e1f82f94fea1790bb8ff5d82492a))
-
-* chore(test): adding the dockerfile and the required files to run the integration tests ([`c99333d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c99333dfbd03f8296d0fe61724fbc7a829884019))
 
 ### Documentation
 
@@ -406,75 +316,6 @@ dbt build --select +tag:human_resources --full-refresh
 ### Build
 
 * build(dag): disabling email on failure as I don t have any smtp server ([`e66f488`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e66f488f4e33b6bee7490eccbfeb38110cfebf75))
-
-### Chore
-
-* chore: adding the sqlfmt linter
-
-# Objectives of the Pull Request ?
-&gt; Describe the high level purpose of your pull request. What are you trying to achieve ? How are you doing it ?
-
-* The PR introduces the `sqlfmt` formatter in the tools chain.
-* `sqlfmt` parses the SQL code and produces a formatted version of it.
-* The formatted version uses standard style guidelines, that are NOT developer-dependant, resulting in a more coherent developing experience.
-* Formatting the SQL code will help developers review other developer&#39;s code
-
-* The PR also adds a `git pre-commit-hook` that can be installed to automagically format the code prior to the commit.
-* The pre-commit-hook can be install with the commands documented in the `README.md`
-
-* A new item is added to the `pull-request-template` to remind developers of formatting their code.
-
-# What is left out of the Pull Request ?
-&gt; Describe what is not included in the pull request. Why did you not include it in the PR. What are the next steps ?
-
-* The PR does not decide on whether or not, the particular style-guide of `sqlfmt` should be accepted as-is or tuned. For now, everything is set as default
-
-# How to review the PR ?
-* The commit `style: applying fmt` contains ALL newly-styled files.
-* I advise you not to first select this commit, as doing so will impair your ability to review the other files.
-
-# How to run the pull request ?
-&gt; Provide the code required to run the pull request. This is the code that will be used to review your pull request. **The provided code must work as-is. If a DBT error is raised while running the code, the PR will be rejected. The following code / placeholder is only provided as documentation / helper to get you started and you will need to adjust it.**
-
-```bash
-# Assuming you are in a folder containing both the core.data.store and the cssvdc.data.store folder.
-
-## MIGHT BE core.data.tbe AND cssvdc.data.tbe depending on your setup
-
-# Update the code
-cd core.data.store
-git checkout feature/linter
-git pull
-
-# Install the linter
-poetry shell
-poetry lock
-poetry install
-
-# Might as well install the precommit
-pre-commit install
-
-cd ../cssvdc.data.store
-git checkout feature/develop
-git pull
-
-# Run everything as a sanity check
-dbt build --full-refresh
-```
-
-# Pull request&#39;s checklist
-&gt; Please, read carefully each item before checking it. Your PR&#39;s review might be delayed otherwise.
-
-* **Code** :
-  * [X] The code I m asking a review for is working. **I understand that my PR will be rejected as-is otherwise.**
-  * [ ] My tables/variables naming follows the conventions described in the `readme.md`.
-  * [ ] I have added DBT tests to my models (at least a `non null` / `unique` per models).
-* **Template** :
-  *  [X] I have updated the `core/template/{{ cookiecutter.project_slug }}/dbt_project.yml` file accordingly to my changes.
-* **Documentation** :
-  * [X]  I have updated the documentation (README) accordingly to my changes.
-  * [ ]  The models I have added are documented in a `schema.yml` file.
-* **Pull-request... ([`c80072e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c80072e048897680152d38f83b71020afb28153a))
 
 ### Fix
 
@@ -516,10 +357,6 @@ Date:   Wed Aug 30 12:58:33 2023 -0400
 
 * build(release): updating the release process ([`c323552`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c3235522cbe90b3c7de921ced9f25f41f6502207))
 
-### Chore
-
-* chore: removing dead code ([`6f4b768`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6f4b76829df260c4a774dc8e235dc782518c5535))
-
 ### Fix
 
 * fix: dependencies will now be parsed as ref when source are used and is_context_core is set to false ([`a8316f7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a8316f7346e4c62725eeea6f76eff77468cc2e6a))
@@ -542,10 +379,6 @@ Date:   Wed Aug 30 12:58:33 2023 -0400
 * build: pining sr version ([`7f2f78a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7f2f78a55d96de77265b5341cc86357d150b9d55))
 
 * build: casting the timeout as integer to allow for string like definition in the inherited dags ([`2f99f7f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2f99f7f88374032484b746d86750dcd7fd8b49c7))
-
-### Chore
-
-* chore: updating PR template ([`1abf722`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1abf722c9adc2b84a3e1f9f8acb638fd4201c6b8))
 
 ### Documentation
 
@@ -1219,10 +1052,6 @@ refactor: renaming ressources -&gt; resources ([`48381fe`](https://github.com/Sc
 
 * build: add profiles and dag file to the image ([`561ef91`](https://github.com/Sciance-Inc/core.dashboards_store/commit/561ef91313980b92d2bdcfd150082e0a259b5862))
 
-### Chore
-
-* chore: adding item to the pull request template ([`68b6eee`](https://github.com/Sciance-Inc/core.dashboards_store/commit/68b6eeed603b2b66b0edd10616417d17820d7388))
-
 ### Fix
 
 * fix: remove blank results and correct subject evaluation code
@@ -1302,74 +1131,6 @@ feat: adding semantic release
 feat: disabling all release ([`d689069`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d689069fcb984a2f68551d9f7bd84d7004baa8c5))
 
 * build: adding semantic release ([`8a80d88`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8a80d8833cbee0e1306447b51b0c2212d7814608))
-
-### Chore
-
-* chore: template typo correction ([`1466eef`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1466eef469bb630ad9d5a59f5482f297f7de7669))
-
-* chore: template typo correction ([`fbc9541`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fbc9541f7e77026a69bcd87f8e2d0b4f6df08f0f))
-
-* chore: adding a pull request template to the repo ([`c84fed3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c84fed331269e24307f099babc6ec89892e81067))
-
-* chore: empty commit to trigger a revierw from Julie and Nathalie ([`1d1a660`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1d1a660dd6db4ab95cf8441b7fa3316ce38ba951))
-
-* chore: updating dependencies ([`6c1ca12`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6c1ca12227cc817a37455af9fa84251fa47ac23e))
-
-* chore: adjustment of the schema that describes the emp_conge dashboard scripts ([`b8c3981`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b8c39812bd059d765417f8fa7c41c5482723beb1))
-
-* chore: update README part 2 ([`243bca7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/243bca72396eb9c6ab4f4e0971b4224d3c6ad27c))
-
-* chore: management of the centralized schema ([`718b7a4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/718b7a40881700c7144802bb8efd96ad3b813b3e))
-
-* chore: update the README ([`1eb7208`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1eb720861fd881a43f2f5610f3da6d98095d6e8d))
-
-* chore: change the table empcong_fact_emp_conge to fact_emp_conge ([`9952e66`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9952e66a5ba7047615d34f907972f85be865fc0f))
-
-* chore: adjustment of the schema that describes the dashboard scripts prospective_cdp ([`8a5a316`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8a5a3162fa15788d788aaeaa0ee3341ada2bad51))
-
-* chore: adjustment of the schema that describes the emp_conge dashboard scripts ([`0aaf111`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0aaf1112f7a29f86b581b024aced1513efe8c459))
-
-* chore: modification of the dbt_project so that it respects the conventions of the tbe project ([`ccc203e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ccc203efb7d8ae6f1e59e759352ce095a0e910b9))
-
-* chore: rename the script stg_parc_activ_10y because it is not used to generate a staging table ([`a7cbebf`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a7cbebfda9c62a02aa865ce8af2e91ec57e79664))
-
-* chore: rename the script stg_parc_activ_10y because it is not used to generate a staging table ([`ee0cf3f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ee0cf3fc806313d9f74d80e660e8f62a29692f3c))
-
-* chore: modif of the stg_parc_activ_10y script so that it respects the conventions of the project ([`97b0fd3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/97b0fd334a3d567a558754952ff1e71e1f7d2ce2))
-
-* chore: adjustment of the schema that describes the interface tables of the geobus database ([`0f17bc9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0f17bc9f7082b5d2dac4bf5e9570e5f2059ccdc4))
-
-* chore: modification of the i_geobus_parc script so that it respects the conventions of the project (part2). ([`2bfc12d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2bfc12d644dbdbc94c78a8bbc0ed5a12241e338a))
-
-* chore: adjustment of the schema that describes the interface tables of the piastre database ([`863cccc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/863cccc3ce258c7bd2dc59e4348a232f7cabf74f))
-
-* chore: modification of the i_geobus_parc script so that it respects the project conventions ([`eb0088c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/eb0088c485cacfa71b5e1789bb805c27334c4e6a))
-
-* chore: move the schema of the &#39;transport&#39; dashboard. 1 schema that centralizes all the information ([`81123d2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/81123d22b133b6139890862735f4ec0f85ee5b04))
-
-* chore: change the project structure (store structure) ([`961bf8c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/961bf8c1f2c340f57f4172cb67ce490485a76f6f))
-
-* chore: put the tests in the macro adapt in comments ([`66f790d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/66f790d004f90313daa492e88338a24d4767eafd))
-
-* chore: update the packages ([`f9c77d5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f9c77d5e222896f632406b5e892bae2fd53d2322))
-
-* chore: update the sources file ([`4ba22f8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4ba22f8a127c3f2e87ae6f86c3b9d74317deeabf))
-
-* chore: change the project structure (store structure) ([`c1f2d90`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c1f2d9069f3c0a0764516176f8059f69c507639c))
-
-* chore: put the tests in the macro adapt in comments ([`4f576fd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4f576fd7767ee6fa7e284bcf744b08b1fc063a46))
-
-* chore: update the packages ([`aa19145`](https://github.com/Sciance-Inc/core.dashboards_store/commit/aa19145099f5c21ebb98c9608466a2cddfc378ee))
-
-* chore: update the sources file ([`a8e09f9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a8e09f919e85087d87643861fd41755eda231086))
-
-* chore: update of the source file which indicates the adapters ([`140c98d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/140c98d1bd1ce282898b3ed2b0af79656f248c73))
-
-* chore: change the name of the source database ([`8ef893a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8ef893a92ebe9a3411c83d1c5441a30c90c432b9))
-
-* chore: add schema file for bridges folder ([`bf0f765`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bf0f7659a1eaad9da71d99d12e0ecfca728708ac))
-
-* chore: change keyword pevr by tbe ([`8ba436e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8ba436e1c2458b46671f39cd24d09a0ebe6c523d))
 
 ### Documentation
 
