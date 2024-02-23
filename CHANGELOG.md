@@ -2,11 +2,44 @@
 
 
 
+## v0.11.0+20240223 (2024-02-23)
+
+### Fix
+
+* fix(template): removing a useless s in the profile ([`7caf858`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7caf8582daa12abefacba174917235208e646ae7))
+
+
 ## v0.10.0+20240222 (2024-02-22)
+
+### Documentation
+
+* docs: removing CDVDP specific documentation ([`758d1fa`](https://github.com/Sciance-Inc/core.dashboards_store/commit/758d1fa736cd066dbe962dadf2c166742d75dc86))
+
+* docs: addressing docs issues identified by core.dashboards_store/issues/38 ([`8894275`](https://github.com/Sciance-Inc/core.dashboards_store/commit/88942751dd8af9c90de595fda249fc893a388e5a))
+
+* docs: fixing a typo in the overriding link ([`dee9b18`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dee9b187fae0cb91b7895274e680082ae030cc9f))
+
+* docs: fixing various legacy typo in the docs ([`541b85a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/541b85a5a373dc9373c3b35661139d3b375b49a6))
 
 ### Feature
 
 * feat: v0.10.0 (#41) ([`cad05b2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cad05b2e99c108a24ca5dd93afc511c106250082))
+
+* feat(pevr): creation d&#39;un mvp pour le tdb pevr (#36)
+
+Co-authored-by: sadqim &lt;sadqim@csvdc.qc.ca&gt; ([`ba62f93`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ba62f9304dbc38dc5d29d384d62b277733b13ae1))
+
+* feat(suivi_resultats): adding a per student portrait (#33) ([`578d1b4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/578d1b493d2770e3090b9493a6123b4ad193faf7))
+
+* feat(res_scolaire): adding a visual ranking difference between a school success score, and the schoolboard&#39;s one. (#32) ([`9658074`](https://github.com/Sciance-Inc/core.dashboards_store/commit/96580745a967b8d2e12aacdd5cf90456c5f2e52d))
+
+### Fix
+
+* fix(suivi_resultats): remove css specific table (#39) ([`a6b4506`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a6b450675768d70ef8811d0fdedc9ffba95fb76c))
+
+* fix(res_scolaire): fixed error on legend and fixed missing title (#34) ([`db69a96`](https://github.com/Sciance-Inc/core.dashboards_store/commit/db69a963341f1907f8c5bfa40ea9eaa720a10c5f))
+
+* fix(tracking): the requests json attribute has been replaced with a data attributes ([`1e1cc84`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1e1cc84427f2188ea6d27cb8716265647bdb5ff8))
 
 
 ## v0.9.3+20240111 (2024-01-11)
@@ -20,6 +53,14 @@
 Co-authored-by: sadqim &lt;sadqim@csvdc.qc.ca&gt; ([`2131f6e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2131f6ea1ba355029bdcfd811225e4181a7cb577))
 
 * fix: corrections d&#39;orthographe (#28) ([`c5fe336`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c5fe336f59fd40ea16dd22ac3ba3a6c600a821f3))
+
+* fix(cookiecutter): stg_sectors does not cause a rendering error anymore ([`d381d53`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d381d530c016f9e0c64b7d515318732ea06783c0))
+
+* fix: swtich back compentency ID (#29)
+
+Co-authored-by: sadqim &lt;sadqim@csvdc.qc.ca&gt; ([`6d20da7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6d20da7e4adad682a0f5e05b1ae1a952ba0a878c))
+
+* fix: corrections d&#39;orthographe (#28) ([`9a3ed3e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9a3ed3ed4b6fbac8e8ad282524abc9cbbc2ac20b))
 
 
 ## v0.9.2+20231210 (2023-12-10)
