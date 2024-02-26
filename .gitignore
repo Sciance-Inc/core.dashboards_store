@@ -2,7 +2,7 @@
 target/
 dbt_packages/
 logs/
-
+analyses/cache(workflows)
 # Do not track the PBIX since we don't want any data embedded in the repo
 **/*.pbix
 .python-version
