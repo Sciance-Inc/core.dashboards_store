@@ -39,11 +39,7 @@ with
             dan.type_prog_part as type_programme_particulier,
             mes.type_mesure,
             mes.is_francisation,
-            des_mes.cf_descr_abreg as description_type_mesure,
-            zele.particularite_sante,
-            zele.recommandations,
-            zele.mesure_30810,
-            zele.besoin_ressources
+            des_mes.cf_descr_abreg as description_type_mesure
         from {{ ref("spine") }} as spi
         inner join
             {{ ref("i_gpm_e_dan") }} as dan  -- Niv scolaire
@@ -60,7 +56,6 @@ with
             {{ ref("i_wl_descr") }} as des_mes
             on des_mes.code = mes.type_mesure
             and nom_table = 'type_mesure'
-        left join {{ ref("i_gpm_e_ele_z_pers") }} as zele on spi.fiche = zele.fiche
         where seqid = 1 and spi.annee >= {{ store.get_current_year() }} - 10  -- On garde un max de 10 ans dans nos données d'étudiants / Limite par défaut
     )
 select
@@ -187,9 +182,5 @@ select
     case when categorie_programme_particulier is not null then 1 else 0 end as is_ppp,
     type_mesure,
     case when is_francisation = 1 then 1 else 0 end as is_francisation,
-    description_type_mesure,
-    particularite_sante,
-    recommandations,
-    mesure_30810,
-    besoin_ressources
+    description_type_mesure
 from step1

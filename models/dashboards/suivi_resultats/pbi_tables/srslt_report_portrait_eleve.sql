@@ -107,12 +107,6 @@ select
     el.type_mesure,
     el.age_30_sept,
     el.dist,
-    case
-        when el.particularite_sante is null then 'Non' else 'Oui'
-    end as particularite_sante,
-    case
-        when el.mesure_30810 is null or el.mesure_30810 = '0' then 'Non' else 'Oui'
-    end as mesure_30810,
     niveau_res,
     -- indice echec    
     {% for i in courses %}
