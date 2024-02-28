@@ -15,7 +15,7 @@ models:
             - absence_sequence_id
             - category_abs
 
-  - name: fact_res_bilan_comp
+  - name: fact_resultat_bilan_competence
     config:
       tags:
         - res_scolaires
@@ -68,7 +68,7 @@ models:
             - no_comp
             - grp
 
-  - name: fact_res_bilan_mat
+  - name: fact_resultat_bilan_matiere
     config:
       tags:
         - res_scolaires
@@ -104,8 +104,7 @@ models:
             - mat
             - grp
 
-
-  - name: fact_res_etape_comp
+  - name: fact_resultat_etape_competence
     config:
       tags:
         - res_scolaires
@@ -145,7 +144,7 @@ models:
             - grp
             - id_obj_mat
 
-  - name: fact_res_etape_mat
+  - name: fact_resultat_etape_matiere
     config:
       tags:
         - res_scolaires
