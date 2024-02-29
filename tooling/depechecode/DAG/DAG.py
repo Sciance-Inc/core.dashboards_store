@@ -11,6 +11,7 @@
 """
 
 import json
+import logging
 import os
 from datetime import datetime, timedelta  # type: ignore
 from pathlib import Path
@@ -108,14 +109,9 @@ def RunFactory(model_name: str, dag: DAG) -> DockerOperator:
     )
 
 
-# Open the JSON manifest
-with open(ROOT_PATH / "manifest.json", "r") as f:
-    manifest = json.load(f)
-
-
-def dag_failure_callback(context):
+def _notify_sciance(context):
     """
-    Callback to send a message on Microsoft Teams when the DAG fails.
+    Send a funny message to the Sciance Teams when the DAG fails.
     """
 
     payload = {
@@ -150,7 +146,64 @@ def dag_failure_callback(context):
         ],
     }
 
-    requests.post(config["teams_webhook"], data=json.dumps(payload))
+    try:
+        uri = config["teams_webhook"]["sciance"]
+        out = requests.post(uri, data=json.dumps(payload))
+        logging.info(f"Message sent to the client Teams. Payload : {out}")
+    except KeyError:
+        raise ValueError(
+            "Missing the 'teams_webhook' key in the config.yml file. Please add it to send a message to Microsoft Teams."
+        )
+
+    requests.post(uri, data=json.dumps(payload))
+
+
+def _notify_client(context):
+    """
+    Send a serious message to the Client Teams when the DAG fails, cause we ain't playin'
+    """
+
+    payload = {
+        "@type": "MessageCard",
+        "@context": "http://schema.org/extensions",
+        "themeColor": "0076D7",
+        "summary": f"Erreur lors de l'exécution de l'ETL du comptoir de tableaux de bord pour l'environnement : '{TARGET}'",
+        "sections": [
+            {
+                "activityTitle": f"Erreur dans l'environnement : '{TARGET}'",
+                "activitySubtitle": "Dashboards store",
+                "activityImage": "https://ih1.redbubble.net/image.2514217471.5676/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg",
+                "facts": [
+                    {"name": "Environnement", "value": TARGET},
+                    {"name": "Date d'éxécution", "value": context["execution_date"]},
+                ],
+                "markdown": True,
+            }
+        ],
+    }
+
+    try:
+        uri = config["teams_webhook"]["client"]
+        out = requests.post(uri, data=json.dumps(payload))
+        logging.info(f"Message sent to the client Teams. Payload : {out}")
+    except KeyError:
+        logging.info(
+            "Missing the 'client_webhook' key in the config.yml file. Please add it to send a message to Microsoft Teams."
+        )
+
+
+def dag_failure_callback(context):
+    """
+    Callback to send a message on Microsoft Teams when the DAG fails.
+    """
+
+    _notify_sciance(context)
+    _notify_client(context)
+
+
+# Open the JSON manifest
+with open(ROOT_PATH / "manifest.json", "r") as f:
+    manifest = json.load(f)
 
 
 with DAG(
