@@ -20,6 +20,11 @@ with
         select
             fiche,
             type_adr,
+            no_civ,
+            orient_rue,
+            genre_rue,
+            rue,
+            ville,
             cast(date_effect as date) as date_effect,
             date_fin,
             ind_envoi_meq,
@@ -61,6 +66,11 @@ with
     adr5 as (
         select
             fiche,
+            no_civ,
+            orient_rue,
+            genre_rue,
+            rue,
+            ville,
             date_effect,
             case
                 when
@@ -82,6 +92,11 @@ with
     y_sco as (
         select
             fiche,
+            no_civ,
+            orient_rue,
+            genre_rue,
+            rue,
+            ville,
             date_effect,
             date_effect_fin,
             case
@@ -123,6 +138,11 @@ with
         select
             long.fiche,
             long.annee,
+            y_sco.no_civ,
+            y_sco.orient_rue,
+            y_sco.genre_rue,
+            y_sco.rue,
+            y_sco.ville,
             y_sco.code_post,
             case
                 when
@@ -142,7 +162,15 @@ with
     )
 
 select
-    t1.fiche, t1.annee, t1.code_post as last_code_post, t2.code_post as code_post_30sept
+    t1.fiche, 
+    t1.annee, 
+    t1.no_civ, 
+    t1.orient_rue, 
+    t1.genre_rue, 
+    t1.rue, 
+    t1.ville, 
+    t1.code_post as last_code_post, 
+    t2.code_post as code_post_30sept
 from last_cp as t1
 left join
     (select * from last_cp where adresse_30sept = 1) as t2  -- adresse enregistré le 30 septembre
