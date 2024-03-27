@@ -46,7 +46,7 @@ DOCKER_URL = (
     config["docker_url"] or "unix://var/run/docker.sock"
 )  # The backend to run the ETL on
 OP_URL = (
-    config["onepassword_url"] or "http://192.168.26.100:8079"
+    config["onepassword_url"] or "http://op-connect-api:8080"
 )  # The 1Password Connect URL, located on the backend
 
 
