@@ -21,3 +21,13 @@ etl_profile:
       user: "{{ env_var('DBT_USERNAME') }}"
       password: "{{ env_var('DBT_PASSWORD') }}"
       trust_cert: True
+    main: # Shadow master environment aliased to main.
+      type: fabric
+      driver: "ODBC Driver 17 for SQL Server"
+      server: "{{ env_var('DBT_SERVER') }}"
+      port: "{{ env_var('DBT_PORT') | int }}"
+      database: "{{ env_var('DBT_DATABASE') }}"
+      schema: dbo
+      user: "{{ env_var('DBT_USERNAME') }}"
+      password: "{{ env_var('DBT_PASSWORD') }}"
+      trust_cert: True
