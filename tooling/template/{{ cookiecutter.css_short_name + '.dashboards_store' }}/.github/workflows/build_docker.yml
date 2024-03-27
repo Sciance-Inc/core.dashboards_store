@@ -99,7 +99,7 @@ jobs:
         run: |
           touch env
           echo DBT_USERNAME=${{steps.creds.outputs.creds_username}} >> env
-          echo DBT_PASSWORD=${{steps.creds.outputs.creds_password}} >> env
+          echo DBT_PASSWORD='${{steps.creds.outputs.creds_password}}' >> env
           echo DBT_SERVER=${{steps.creds.outputs.creds_server}} >> env
           echo DBT_PORT=${{steps.creds.outputs.creds_port}} >> env
           echo DBT_TARGET=${{needs.extract_metadata.outputs.target_branch}} >> env
