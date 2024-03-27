@@ -15,4 +15,4 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select annee, org, date_deb, date_fin from {{ var("database_gpi") }}.dbo.gpm_t_org_annee
+select id_eco, modele_etape from {{ var("database_gpi") }}.dbo.gpm_t_modele_etape

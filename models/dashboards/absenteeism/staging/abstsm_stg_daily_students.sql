@@ -89,15 +89,25 @@ on src.date_ = cal.date_evenement and src.id_eco = cal.id_eco
 where 
 	grille in {{ grille_value }} and 
 	 cal.date_evenement <= GETDATE()
-)
 
-
+), daily as (
 select 
 	id_eco, 
 	date_,
 	is_school_day,
 	sum(delta) over (partition by id_eco order by date_ rows between unbounded preceding and current row) as n_students_daily
 from padded
+)
+-- Extract the etapes to be mapped back to table
+, etapes (
+	select id_eco, description, date_debut, date_fin
+	from {{ ref("i_gpm_t_etape") }}
+	WHERE etape in ('1','2','3') and date_deb is not null and date_fin is not null and nb_jours_classe IS NOT NULL
+)
+
+
+
+
 
 
 
