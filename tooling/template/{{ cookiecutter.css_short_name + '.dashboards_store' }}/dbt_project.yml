@@ -1,4 +1,4 @@
-name: {{ cookiecutter.css_short_name + '.dashboards_store' }}
+name: {{ cookiecutter.css_short_name + '_dashboards_store' }}
 profile: {{ cookiecutter.css_short_name + '_dashboards_store' }}
 
 version: "1.0.0"
