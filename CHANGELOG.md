@@ -2,6 +2,21 @@
 
 
 
+## v0.11.1+20240327 (2024-03-27)
+
+### Documentation
+
+* docs: properly coloring alert block ([`9c9475f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9c9475f5903e0dfae42cdc9b93e0d9bac043c8de))
+
+* docs: adding the need for a github account ([`cc3c37c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cc3c37cbe960b609884479cad1cd15b955b84c85))
+
+* docs: adding missing sudo ([`fa1822f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fa1822f6104990216d57de582d0840c2688f5750))
+
+### Fix
+
+* fix(cicd): escaping password injection ([`14cb981`](https://github.com/Sciance-Inc/core.dashboards_store/commit/14cb981471b7a1f61b8a9dc13aa41cb5c24235ff))
+
+
 ## v0.11.0+20240223 (2024-02-23)
 
 ### Fix
