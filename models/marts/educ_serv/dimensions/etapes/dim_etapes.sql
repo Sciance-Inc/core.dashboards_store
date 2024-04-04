@@ -61,6 +61,12 @@ with
                 mee1.date_deb >= org_year.date_deb
                 and mee1.date_fin <= org_year.date_fin
             )
+        where
+            -- additionals constraints : if a model is defined, the id_eco, ordre_ens
+            -- and classe must not be null
+            model_etape_client.id_eco is not null
+            and model_etape_client.ordre_ens is not null
+            and model_etape_client.classe is not null
 
     -- Handle cases were no 'model_etape' is defined
     ),
@@ -99,11 +105,16 @@ with
             {{ ref("i_gpm_t_modele_etape_client") }} as model_etape_client
             on model_etape_client.modele_etape is null  -- Make sure we are only fetching the ones without a model
             and model_etape_client.id_eco = eco.id_eco
+        where
+            -- additionals constraints : the id_eco, ordre_ens and classe must not be
+            -- null
+            model_etape_client.id_eco is not null
+            and model_etape_client.ordre_ens is not null
+            and model_etape_client.classe is not null
     )
 
 select *
 from with_model
 union all
 select *
-from
-    without_model
+from without_model
