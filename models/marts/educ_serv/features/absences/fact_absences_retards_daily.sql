@@ -32,7 +32,7 @@ with
             count(*) as n_periods_events,
             coalesce(min(dim.description_abs), 'inconnue') as event_description  -- Take the first one, in lexicographic order. It's completely arbitrary ;) A better proxy would be the most common occurence
         from {{ ref("i_gpm_e_abs") }} as fct
-        left join
+        inner join
             {{ ref("stg_dim_absences_retards_inclusion") }} as dim
             on fct.id_eco = dim.id_eco
             and fct.motif_abs = dim.motif_abs
