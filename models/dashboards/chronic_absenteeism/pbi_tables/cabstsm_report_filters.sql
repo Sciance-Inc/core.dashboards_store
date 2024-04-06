@@ -35,18 +35,18 @@ with
     ),
     popu as (select distinct population from {{ ref("spine") }}),
 
-    -- Select all the distinct category_abs we have data for 
-    cat as (select distinct category_abs from {{ ref("fact_absences_sequence") }})
+    -- Select all the distinct event_kind we have data for 
+    cat as (select distinct event_kind from {{ ref("fact_absences_retards_sequence") }})
 
 -- Create the composite filter key
 select
     eco.school_friendly_name,
     convert(date, concat(eco.school_year, '-09-1'), 102) as school_year,
     popu.population,
-    cat.category_abs as category,
+    cat.event_kind as category,
     {{
         dbt_utils.generate_surrogate_key(
-            ["eco.eco", "eco.school_year", "popu.population", "cat.category_abs"]
+            ["eco.eco", "eco.school_year", "popu.population", "cat.event_kind"]
         )
     }} as filter_key
 from eco as eco
