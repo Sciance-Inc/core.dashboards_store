@@ -27,16 +27,4 @@ models:
           - not_null
           - unique
 
-  - name: dim_etapes
-    description: >
-      This table maps the "étape" calendar to a grouping of students. Identifcation of the students is done through code distribution, groupe repere, ordre enseignement and class.
-    columns:
-      - name: classe
-        tests:
-          - not_null
-      - name: id_eco
-        tests:
-          - not_null
-      - name: ordre_ens
-        tests:
-          - not_null
+

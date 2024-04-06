@@ -1,17 +1,6 @@
 version: 2
 
 models:
-  - name: stg_absences_per_period
-    description: >
-      Compute the aggregated number of absences per period, for each student with at LEAST one absence for a given period.
-    tests:
-      - resolution:
-          combination_of_columns:
-            - fiche
-            - date_abs
-            - id_eco
-            - category_abs
-
   - name: stg_dim_absences_retards_inclusion
     description: >
       Ancillary table selecting the absences and retards reasons you wan't to include in the computation.
