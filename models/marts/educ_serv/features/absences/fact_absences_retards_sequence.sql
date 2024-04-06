@@ -162,9 +162,9 @@ with
             min(date_evenement) as event_start_date,
             max(date_evenement) as event_end_date,
             max(day_id) - min(day_id) + 1 as events_sequence_length,
-            min(etape) as etape, -- dummy aggregation
-            min(etape_description) as etape_description, -- dummy aggregation
-            min(seq_etape) as seq_etape -- dummy aggregation
+            min(etape) as etape,  -- dummy aggregation
+            min(etape_description) as etape_description,  -- dummy aggregation
+            min(seq_etape) as seq_etape  -- dummy aggregation
         from contextualized
         group by school_year, fiche, id_eco, absence_sequence_id, event_kind
     )
