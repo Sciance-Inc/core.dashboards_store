@@ -141,7 +141,7 @@ select
     etape,
     etape_description,
     nb_jours_classe,
-    date_deb,
+    date_deb as date_debut,
     date_fin,
     is_based_on_etape_model
 from unionized
