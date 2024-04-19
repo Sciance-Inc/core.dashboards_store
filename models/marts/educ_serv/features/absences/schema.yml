@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: fact_absences_retards_sequence
+    description: >
+      List the sequence of absences for each student.
+      A sequence of absences is a set of consecutives school days with at least one absence for each day.
+      A sequence of absences is caracterized by its start date, its end date, and the absences in the sequence.
+      Only computed for the past 10 years.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - school_year
+            - fiche
+            - id_eco
+            - absence_sequence_id
+            - event_kind
+
+  - name: fact_absences_retards_daily
+    description: >
+      Compute the aggregated number of absences and delay per day, for each student with at LEAST one absence for a given period.
+      Only computed for the past 10 years.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - date_abs
+            - id_eco
+            - event_kind

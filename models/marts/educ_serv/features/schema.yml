@@ -1,20 +1,6 @@
 version: 2
 
 models:
-  - name: fact_absences_sequence
-    description: >
-      List the sequence of absences for each student.
-      A sequence of absences is a set of consecutives school days with at least one absence for each day.
-      A sequence of absences is caracterized by its start date, its end date, and the absences in the sequence.
-    tests:
-      - resolution:
-          combination_of_columns:
-            - school_year
-            - fiche
-            - eco
-            - absence_sequence_id
-            - category_abs
-
   - name: fact_res_bilan_comp
     config:
       tags:
@@ -104,7 +90,6 @@ models:
             - mat
             - grp
 
-
   - name: fact_res_etape_comp
     config:
       tags:
@@ -150,7 +135,7 @@ models:
       tags:
         - res_scolaires
     description: >
-        List the result of all student
+      List the result of all student
     columns:
       - name: annee
         description: The school year
@@ -188,7 +173,7 @@ models:
       tags:
         - res_scolaires
     description: >
-        Grouping of the spine students including some information used for filters.
+      Grouping of the spine students including some information used for filters.
     columns:
       - name: code_perm
         description: Unique ID of the student
