@@ -27,7 +27,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     The alternative would be to use a fan-out then aggregate pattern, through a cross join on the seq_int_0_to_1000 table. This would have had something like a O(360*N) complexity. 
 
 #}
-{{ config(alias="report_stg_daily_students") }}
+{{ config(alias="stg_daily_students") }}
 
 -- Extract the DAN
 with
@@ -51,7 +51,7 @@ with
     etapes as (
         select id_eco, fiche, seq_etape, etape, etape_description, date_debut, date_fin
         from {{ ref("stg_fact_fiche_etapes") }}
-        where etape in ('1', '2', '3')
+        where etape in ('1', '2', '3')  -- If you want to consider ALL etapes, remove the the where clause and add a CASE WHEN etape in ('1', '2', '3') then etape else 0 end
 
     -- Expanse the DAN to get one row per student and etape (The bathtub algorithm
     -- needs the cells to be disjunctive. But, because of the grid depends on some low

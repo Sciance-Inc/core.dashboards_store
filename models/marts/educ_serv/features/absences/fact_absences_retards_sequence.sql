@@ -90,7 +90,7 @@ with
             case
                 when
                     day_id - lag(day_id) over (
-                        partition by school_year, id_eco, fiche, event_kind  -- No need to partition by grille, as a student (file) has only one grid (even if the school the student belongs to might have multiples grids). The fiche superseed the grid. 
+                        partition by school_year, id_eco, fiche, event_kind  -- No need to partition by grille, as a student (fiche) has only one grid (even if the school the student belongs to might have multiples grids). The fiche superseed the grid. 
                         order by day_id
                     )
                     > 1

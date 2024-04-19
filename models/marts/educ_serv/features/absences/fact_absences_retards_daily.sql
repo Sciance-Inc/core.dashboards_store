@@ -131,6 +131,7 @@ with
             id_eco,
             max(grille) as grille,  -- dymmy aggregation. Already controlled by the tuple (id_eco, fiche)
             coalesce(event_kind, 'tous types') as event_kind,
+            case when event_kind is null then 1 else 0 end as is_aggregate_kind,  -- To flag the 'tous types' category
             -- By additivity of absences / retards : two differents events can't be
             -- registered for the same period
             case
@@ -157,6 +158,7 @@ with
             id_eco,
             grille,
             event_kind,
+            is_aggregate_kind,
             is_absence,
             event_description,
             case
@@ -175,6 +177,7 @@ select
     src.id_eco,
     src.grille,
     src.event_kind,
+    src.is_aggregate_kind,
     src.is_absence,
     src.event_description,
     src.prct_observed_periods_over_expected,
@@ -186,4 +189,4 @@ left join
     {{ ref("stg_fact_fiche_etapes") }} as etp
     on src.fiche = etp.fiche
     and src.id_eco = etp.id_eco
-    and src.date_abs between etp.date_deb and etp.date_fin
+    and src.date_abs between etp.date_debut and etp.date_fin
