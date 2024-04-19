@@ -45,7 +45,7 @@ seeds:
                 +schema: "dashboard_chronic_absenteeism"
             pevr:
                 +tags: ["pevr"]
-                +schema: "dashboard_pevr"                
+                +schema: "dashboard_pevr"
 models:
     +materialized: table
     store:
@@ -128,6 +128,13 @@ models:
                     +post-hook:
                         ["{{ store.stamp_model('dashboard_retirement') }}"]
 
+            absenteeism:
+                +tags: ["absenteeism"]
+                +schema: "dashboard_absenteeism"
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_absenteeism') }}"]
+
             chronic_absenteeism:
                 +tags: ["chronic_absenteeism"]
                 +schema: "dashboard_chronic_absenteeism"
@@ -150,10 +157,7 @@ models:
                 +tags: ["pevr"]
                 +schema: "dashboard_pevr"
                 pbi_tables:
-                    +post-hook:
-                        [
-                            "{{ store.stamp_model('dashboard_pevr') }}",
-                        ]                        
+                    +post-hook: ["{{ store.stamp_model('dashboard_pevr') }}"]
 
         interfaces:
             +tags: ["interfaces"]

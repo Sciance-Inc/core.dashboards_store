@@ -34,7 +34,8 @@ select
     descr as description_abs,
     case
         when cpt_abs in (1, 2) then 'absence' when cpt_abs = 3 then 'retard' else null  -- Test hook.
-    end as category_abs
+    end as category_abs,
+    case when cpt_abs in (1, 2) then 1 else 0 end as is_absence  -- Flag for complete absence
 from {{ ref("i_gpm_t_motif_abs") }}
 where cpt_abs is not null  -- Filter out the motiveless absences / lateness
 group by

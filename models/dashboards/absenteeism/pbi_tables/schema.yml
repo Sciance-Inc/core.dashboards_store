@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: abstsm_report_bris_service
+    description: >
+      Identify the students with a sequence of complete (full day) absence of more than 8 days (bris de service).
+      The table only compute the absence sequences for the current school year.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - school_friendly_name
+            - code_permanent
+            - event_start_date
+
+  - name: abstsm_report_daily_absences_kind_distribution
+    description: >
+      Aggregate the absence events by category for the past two years. Used to drill down and better understand the absences reasons.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filker_key
+            - date_evenement
+            - event_description
+
+  - name: abstsm_report_daily_absences_rate
+    description: >
+      Compute the daily absence rate for various king of absenteeisme events (full day absence, partial absences, ...).
+      The rate is computed at a day * school * absence kind level.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filker_key
+            - date_evenement
+
+  - name: abstsm_report_etape_absences_rate
+    description: >
+      Compute the aggregate absence rate for various king of absenteeisme events (full day absence, partial absences, ...).
+      The absence rate is aggregated by etape. 
+      The rate is computed at a etape * school * absence kind level.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filker_key
+            - etape_friendly
+
+  - name: abstsm_report_filters
+    description: Ancillary table used to sync the filters between the different absenteeism reports.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - annee
+            - school_friendly_name
+            - event_kind
