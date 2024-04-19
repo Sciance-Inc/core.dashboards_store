@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: stg_fact_fiche_etapes
+    description: >
+      Maps the (fiche, id_eco) tuple to it's etape's calendar.
+    columns:
+      - name: fiche
+        tests:
+          - not_null
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - id_eco
+            - etape

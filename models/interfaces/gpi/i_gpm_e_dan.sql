@@ -32,5 +32,8 @@ select
     difficulte,
     age_30_sept,
     categ_prog_part,
-    type_prog_part
+    type_prog_part,
+    date_deb as date_debut,
+    date_depart,
+    grille
 from {{ var("database_gpi") }}.dbo.gpm_e_dan

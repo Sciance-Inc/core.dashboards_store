@@ -15,12 +15,25 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
+{#
+    Gather all the filters into one table to allow for between-pages corss filtering.
+#}
+{{ config(alias="report_filters") }}
+
+with
+    source as (
+        select annee, school_friendly_name, event_kind
+        from {{ ref("abstsm_stg_daily_metrics") }}
+        group by annee, school_friendly_name, event_kind
+    )
+
 select
-    id_eco,
-    grille,
-    date_evenement,
-    jour_cycle,
-    {% for i in range(1, 21) %}
-        per_{{ "%02d" % i }} {%- if not loop.last %},{% endif -%}
-    {% endfor %}
-from {{ var("database_gpi") }}.dbo.gpm_t_cal
+    annee,
+    school_friendly_name,
+    event_kind,
+    {{
+        dbt_utils.generate_surrogate_key(
+            ["annee", "school_friendly_name", "event_kind"]
+        )
+    }} as filker_key
+from source
