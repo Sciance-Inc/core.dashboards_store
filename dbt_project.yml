@@ -28,9 +28,6 @@ seeds:
         common:
             +schema: common_seeds
         dashboards:
-            prospectif_cdp:
-                +tags: ["prospectif_cdp"]
-                +schema: "dashbaord_prospectif_cdp"
             res_epreuves:
                 +tags: ["res_epreuves"]
                 +schema: "dashboard_res_epreuves"
@@ -85,20 +82,6 @@ models:
                 pbi_tables:
                     +post-hook:
                         ["{{ store.stamp_model('dashboard_emp_actif') }}"]
-
-            prospectif_cdp:
-                +tags: ["prospectif_cdp"]
-                +schema: "dashboard_prospectif_cdp"
-                pbi_tables:
-                    +post-hook:
-                        ["{{ store.stamp_model('dashbaord_prospectif_cdp') }}"]
-
-            transport:
-                +tags: ["transport"]
-                +schema: "dashboard_transport"
-                pbi_tables:
-                    +post-hook:
-                        ["{{ store.stamp_model('dashboard_transport') }}"]
 
             res_epreuves:
                 +tags: ["res_epreuves"]
@@ -167,12 +150,9 @@ models:
 vars:
     is_context_core: true
     # The source database to pull the data for a css.
-    database_bi: "Replace me in the CSS repositery"
     database_paie: "Replace me in the CSS repositery"
     database_gpi: "Replace me in the CSS repositery"
     database_jade: "Replace me in the CSS repositery"
-    database_geobus: "Replace me in the CSS repositery" # contains routes, buses, contractors, student files, and related to db GPL.
-    database_piastre: "Replace me in the CSS repositery" # financial data on school transport. no connections to db Geobus.
     database_prodrome: "Replace me in the CSS repositery" # Modelling output from the Sciance's models.
     # res_epreuves's dashboard variables:
     res_epreuves:

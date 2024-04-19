@@ -1,7 +1,0 @@
-version: 2
-
-models:
-  - name: i_piastre
-    tags: ["interface"]
-    description: >
-      Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'pia_contrat' de la base de données source.
