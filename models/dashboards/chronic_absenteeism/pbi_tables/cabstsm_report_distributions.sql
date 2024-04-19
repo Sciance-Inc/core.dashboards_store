@@ -21,22 +21,28 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {{ config(alias="report_absences_distributions") }}
 
 -- Agregated absences at a student X school X year X sequence length level X
--- category_abs
+-- event_kind
 with
     absences_aggregated as (
         select
-            fiche,
-            eco,
-            school_year,
-            absences_sequence_length,
-            category_abs,
+            src.fiche,
+            eco.eco,
+            src.school_year,
+            src.events_sequence_length,
+            src.event_kind,
             count(*) as n_absences,
-            max(absences_sequence_length) over (
-                partition by fiche, eco, school_year, category_abs
+            max(src.events_sequence_length) over (
+                partition by src.fiche, eco.eco, src.school_year, src.event_kind
             ) as max_sequence_length
-        from {{ ref("fact_absences_sequence") }}
-        where school_year > {{ store.get_current_year() - 10 }}
-        group by fiche, eco, school_year, absences_sequence_length, category_abs
+        from {{ ref("fact_absences_retards_sequence") }} as src
+        left join {{ ref("dim_mapper_schools") }} as eco on src.id_eco = eco.id_eco
+        where src.school_year > {{ store.get_current_year() - 10 }}
+        group by
+            src.fiche,
+            eco.eco,
+            src.school_year,
+            src.events_sequence_length,
+            src.event_kind
 
     -- Get rid of the students dimension : only keep the most up to date school for
     -- each student
@@ -47,13 +53,13 @@ with
             spi.population,
             src.eco,
             src.school_year,
-            src.category_abs,
-            src.absences_sequence_length,
+            src.event_kind,
+            src.events_sequence_length,
             src.n_absences,
             count(src.fiche) as n_students,
             count(
                 case
-                    when src.absences_sequence_length = src.max_sequence_length
+                    when src.events_sequence_length = src.max_sequence_length
                     then src.fiche
                 end
             ) as n_students_with_max_sequence_length
@@ -68,19 +74,18 @@ with
             spi.population,
             src.eco,
             src.school_year,
-            src.category_abs,
-            src.absences_sequence_length,
+            src.event_kind,
+            src.events_sequence_length,
             src.n_absences
-
     )
 
 select
     {{
         dbt_utils.generate_surrogate_key(
-            ["eco", "school_year", "population", "category_abs"]
+            ["eco", "school_year", "population", "event_kind"]
         )
     }} as filter_key,
-    absences_sequence_length,
+    events_sequence_length as absences_sequence_length,
     n_absences,
     n_students,
     n_students_with_max_sequence_length

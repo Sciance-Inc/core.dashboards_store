@@ -15,5 +15,5 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select id_eco, org, annee, eco, cat_eco, eco_off, nom_eco, adr_eco
+select id_eco, org, annee, eco, cat_eco, eco_off, nom_eco, adr_eco, indic_eco_bidon
 from {{ var("database_gpi") }}.dbo.gpm_t_eco
