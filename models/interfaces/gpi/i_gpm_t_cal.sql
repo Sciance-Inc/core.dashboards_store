@@ -15,12 +15,14 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
+{% set max_periodes = var("interfaces")["gpi"]["max_periodes"] + 1 %}
+
 select
     id_eco,
     grille,
     date_evenement,
     jour_cycle,
-    {% for i in range(1, 21) %}
+    {% for i in range(1, max_periodes) %}
         per_{{ "%02d" % i }} {%- if not loop.last %},{% endif -%}
     {% endfor %}
 from {{ var("database_gpi") }}.dbo.gpm_t_cal

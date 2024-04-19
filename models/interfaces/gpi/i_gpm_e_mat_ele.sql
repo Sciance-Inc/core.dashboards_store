@@ -15,6 +15,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
+{% set max_etapes = var("interfaces")["gpi"]["max_etapes"] + 1 %}
+
 select
     id_mat_ele,
     id_mat_grp,
@@ -29,8 +31,14 @@ select
     res_som,
     res_pond_som,
     pond_som,
-    {% for i in range(1, 31) %} res_etape_{{ "%02d" % i }}, {% endfor %}
-    {% for i in range(1, 31) %} res_pond_etape_{{ "%02d" % i }}, {% endfor %}
+    {% for i in range(1, max_etapes) %}
+        cast(res_etape_{{ "%02d" % i }} as nvarchar) as res_etape_{{ "%02d" % i }},
+    {% endfor %}
+    {% for i in range(1, max_etapes) %}
+        cast(
+            res_pond_etape_{{ "%02d" % i }} as nvarchar
+        ) as res_pond_etape_{{ "%02d" % i }},
+    {% endfor %}
     type_form_mat,
     rem,
     res_som_etapes,

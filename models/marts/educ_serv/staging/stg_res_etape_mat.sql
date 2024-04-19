@@ -15,6 +15,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
+{% set max_etapes = var("interfaces")["gpi"]["max_etapes"] + 1 %}
+
 with
     res_mat_et as (
         select
@@ -27,19 +29,19 @@ with
             res_mat.id_mat_ele,
             res_etape = case
                 met1.seq_etape
-                {% for i in range(1, 31) %}
+                {% for i in range(1, max_etapes) %}
                     when {{ i }} then res_mat.res_etape_{{ "%02d" % i }}
                 {% endfor %}
             end,
             leg_etape = case
                 met1.seq_etape
-                {% for i in range(1, 31) %}
+                {% for i in range(1, max_etapes) %}
                     when {{ i }} then res_mat.leg_etape_{{ "%02d" % i }}
                 {% endfor %}
             end,
             eval_res_etape = case
                 met1.seq_etape
-                {% for i in range(1, 31) %}
+                {% for i in range(1, max_etapes) %}
                     when {{ i }} then res_mat.eval_res_etape_{{ "%02d" % i }}
                 {% endfor %}
             end,

@@ -15,6 +15,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
+{% set max_etapes = var("interfaces")["gpi"]["max_etapes"] + 1 %}
+
 with
     mat_ele as (
         select
@@ -26,13 +28,13 @@ with
             emgrp_yearly.etat,
             emgrp_yearly.id_mat_ele,
             emgrp_yearly.res_som,
-            {% for i in range(1, 31) %}
+            {% for i in range(1, max_etapes) %}
                 emgrp_yearly.res_etape_{{ "%02d" % i }},
             {% endfor %}
-            {% for i in range(1, 31) %}
+            {% for i in range(1, max_etapes) %}
                 emgrp_yearly.eval_res_etape_{{ "%02d" % i }},
             {% endfor %}
-            {% for i in range(1, 31) %} leg_etape_{{ "%02d" % i }}, {% endfor %}
+            {% for i in range(1, max_etapes) %} leg_etape_{{ "%02d" % i }}, {% endfor %}
             case
                 when left(emgrp_yearly.groupe_matiere, 1) not like '[%0-9]%'  -- grp starting with a letter = retake
                 then 1

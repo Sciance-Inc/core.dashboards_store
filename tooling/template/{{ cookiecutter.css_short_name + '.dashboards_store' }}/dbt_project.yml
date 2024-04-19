@@ -95,3 +95,7 @@ vars:
 
   res_epreuves:
     cod_css: <cssRegex>
+
+  interfaces:
+      gpi:
+          max_etapes: 30  # Must be set to the number of etapes, as found in gpm_t_obj_mat_grp

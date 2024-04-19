@@ -15,6 +15,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
+{% set max_etapes = var("interfaces")["gpi"]["max_etapes"] + 1 %}
+
 with
     comp as (
         select
@@ -36,7 +38,7 @@ with
             o.id_obj_mat,
             o.res_final_obj as res_comp,
             eval_res_comp,
-            {% for i in range(1, 31) %}
+            {% for i in range(1, max_etapes) %}
                 emgrp_yearly_comp.etape_eval_{{ "%02d" % i }},
                 o.res_obj_{{ "%02d" % i }},
             {% endfor %}
