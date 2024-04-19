@@ -21,6 +21,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     Each absence is mapped to the student's etape.
 
 #}
+{% set max_periodes = var("interfaces")["gpi"]["max_periodes"] + 1 %}
+
 with
     -- Extract all the qualified absences / retards
     src as (
@@ -65,7 +67,7 @@ with
             id_eco,
             date_evenement,
             grille,
-            {% for i in range(1, 21) %}
+            {% for i in range(1, max_periodes) %}
                 case when max(per_{{ "%02d" % i }}) is null then 0 else 1 end
                 {%- if not loop.last %} +{% endif -%}
             {% endfor %} as n_periods_expected
