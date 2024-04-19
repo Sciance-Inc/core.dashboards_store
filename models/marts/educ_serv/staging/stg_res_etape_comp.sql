@@ -15,6 +15,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
+{% set max_etapes = var("interfaces")["gpi"]["max_etapes"] + 1 %}
+
 with
     stg_yearly_comp as (
         select
@@ -38,14 +40,14 @@ with
             res_comp.id_obj_mat,
             res_comp_etape = case
                 met1.seq_etape
-                {% for i in range(1, 31) %}
+                {% for i in range(1, max_etapes) %}
                     when {{ i }} then res_comp.res_obj_{{ "%02d" % i }}
                 {% endfor %}
             end,
             legende = case
                 when
                     met1.seq_etape = coalesce(
-                        {% for i in range(1, 31) %}
+                        {% for i in range(1, max_etapes) %}
                             {% if not loop.last %}
                                 case
                                     when res_comp.etape_eval_{{ "%02d" % i }} = '1'
@@ -66,7 +68,7 @@ with
             end,
             etape_eval = case
                 met1.seq_etape
-                {% for i in range(1, 31) %}
+                {% for i in range(1, max_etapes) %}
                     when {{ i }} then res_comp.etape_eval_{{ "%02d" % i }}
                 {% endfor %}
             end,

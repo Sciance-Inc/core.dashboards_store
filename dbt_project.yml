@@ -182,3 +182,7 @@ vars:
         threshold: 70
     emp_actif:
         nbrs_sem_dern_paie: 1
+
+    interfaces:
+        gpi:
+            max_etapes: 30

@@ -15,9 +15,13 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
+{% set max_etapes = var("interfaces")["gpi"]["max_etapes"] + 1 %}
+
 select
     planif,
-    {% for i in range(1, 31) %} etape_eval_{{ "%02d" % i }}, {% endfor %}
+    {% for i in range(1, max_etapes) %}
+        cast(etape_eval_{{ "%02d" % i }} as nvarchar) as etape_eval_{{ "%02d" % i }},
+    {% endfor %}
     id_obj_mat,
     id_mat_grp
 from {{ var("database_gpi") }}.dbo.gpm_t_obj_mat_grp
