@@ -1,7 +1,0 @@
-version: 2
-
-models:
-  - name: i_dim_eleve
-    tags: ["interface"]
-    description: >
-      Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'dim_eleve' de la base de données source.

@@ -38,15 +38,11 @@ models:
         +enabled: False
       emp_actif:
         +enabled: False
-      prospectif_cdp:
-        +enabled: False
       res_epreuves:
         +enabled: False
       res_scolaires:
         +enabled: False
       suivi_resultats:
-        +enabled: False
-      transport:
         +enabled: False
       retirement:
         +enabled: False
@@ -62,15 +58,11 @@ models:
     interfaces:
       +tags: ["interfaces"]
       +materialized: ephemeral
-      bi_distribution:
-        +enabled: False
       paie:
         +enabled: False
       gpi:
         +enabled: False
       jade:
-        +enabled: False
-      geobus:
         +enabled: False
       prodrome:
         +enabled: False
@@ -84,13 +76,9 @@ vars:
   is_context_core: false
 
   # The source database to pull the data for a css.
-  database_bi: "[{{ cookiecutter.server_ip }}].[BI_DISTRIBUTION]"
   database_paie: "[{{ cookiecutter.server_ip }}].[PAIE]"
   database_gpi: "[{{ cookiecutter.server_ip }}].[GPIPRIM]"
-  database_cbm: "[{{ cookiecutter.server_ip }}].[JADEFGFPCVILLE]"
-  database_crif: "[{{ cookiecutter.server_ip }}].[JADECRIF]"
   database_jade: "[{{ cookiecutter.server_ip }}].[JADE]"
-  database_geobus: "[{{ cookiecutter.server_ip }}].[GEOBUS]"
   database_prodrome: "[{{ cookiecutter.server_ip }}].[PRODROME]"
 
   res_epreuves:
