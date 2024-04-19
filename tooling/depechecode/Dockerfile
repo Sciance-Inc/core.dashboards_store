@@ -44,7 +44,7 @@ RUN ln -s /usr/bin/python3 /usr/bin/python & \
 # Install Poetry use it to inject the project dependencies
 COPY pyproject.toml pyproject.toml
 RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/usr/local python3 - --version $POETRY_VERSION && \ 
-    poetry install --no-interaction --no-ansi --only main
+    poetry install --no-interaction --no-ansi --only main --no-root
 
 # Configure DBT to always use the profile file with interpolated values
 COPY tooling/depechecode/cdbt /usr/local/bin/cdbt

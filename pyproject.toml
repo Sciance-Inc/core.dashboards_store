@@ -10,6 +10,7 @@ dbt-core = "~1.6"
 dbt-fabric = {git = "https://github.com/Sciance-Inc/dbt-fabric.git", rev = "v0.16.0"}
 pyodbc = "~4.0"
 python-semantic-release = "^7.33.4"
+docutils = "0.20.1"
 
 
 [tool.poetry.dev-dependencies]
