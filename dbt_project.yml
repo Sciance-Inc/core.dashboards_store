@@ -186,3 +186,4 @@ vars:
     interfaces:
         gpi:
             max_etapes: 30
+            max_periodes: 20

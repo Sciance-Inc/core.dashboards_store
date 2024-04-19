@@ -99,3 +99,4 @@ vars:
   interfaces:
       gpi:
           max_etapes: 30  # Must be set to the number of etapes, as found in gpm_t_obj_mat_grp
+          max_periodes: 20 # Must be set to the number of periodes, as identified in gpm_t_cal
