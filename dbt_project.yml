@@ -2,7 +2,7 @@ name: "store"
 version: "0.9.0"
 config-version: 2
 
-profile: "replaceMeInLocals"
+profile: "Make sure you a runing DBT from the cssXX repository, not the core.dashboards_store repository."
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -13,157 +13,152 @@ snapshot-paths: ["snapshots"]
 
 target-path: "target"
 clean-targets:
-    - "target"
-    - "dbt_packages"
+  - "target"
+  - "dbt_packages"
 
 # Hooks : copy thoose hooks into your `cssXX.data.store/dbt_project.yml` file to enable the stamper collection
 on-run-start:
-    - "{{ store.init_metadata_table() }}"
+  - "{{ store.init_metadata_table() }}"
 on-run-end:
-    - "{{ store.purge_metadata_table() }}"
+  - "{{ store.purge_metadata_table() }}"
 
 seeds:
-    +tags: ["seeds"]
-    store:
-        common:
-            +schema: common_seeds
-        dashboards:
-            res_epreuves:
-                +tags: ["res_epreuves"]
-                +schema: "dashboard_res_epreuves"
-            suivi_resultats:
-                +tags: ["suivi_resultats"]
-                +schema: "dashboard_suivi_resultats"
-            res_scolaires:
-                +tags: ["res_scolaires"]
-                +schema: "dashboard_res_scolaires"
-            chronic_absenteeism:
-                +tags: ["chronic_absenteeism"]
-                +schema: "dashboard_chronic_absenteeism"
-            pevr:
-                +tags: ["pevr"]
-                +schema: "dashboard_pevr"
+  +tags: ["seeds"]
+  store:
+    common:
+      +schema: common_seeds
+    dashboards:
+      educ_serv:
+        res_epreuves:
+          +tags: ["res_epreuves"]
+          +schema: "dashboard_res_epreuves"
+        suivi_resultats:
+          +tags: ["suivi_resultats"]
+          +schema: "dashboard_suivi_resultats"
+        res_scolaires:
+          +tags: ["res_scolaires"]
+          +schema: "dashboard_res_scolaires"
+        chronic_absenteeism:
+          +tags: ["chronic_absenteeism"]
+          +schema: "dashboard_chronic_absenteeism"
+      other:
+        pevr:
+          +tags: ["pevr"]
+          +schema: "dashboard_pevr"
 models:
-    +materialized: table
-    store:
-        +enabled: False
-        marts:
-            human_resources:
-                +tags: ["human_resources"]
-                +schema: human_resources
-                features:
-                staging:
-                    +schema: human_resources_staging
-            educ_serv:
-                +tags: ["educ_serv"]
-                +schema: educ_serv
-                features:
-                staging:
-                    +schema: educ_serv_staging
+  +materialized: table
+  store:
+    +enabled: False
+    marts:
+      human_resources:
+        +tags: ["human_resources"]
+        +schema: human_resources
+        features:
+        staging:
+          +schema: human_resources_staging
+      educ_serv:
+        +tags: ["educ_serv"]
+        +schema: educ_serv
+        features:
+        staging:
+          +schema: educ_serv_staging
 
-        dashboards:
-            effectif_css:
-                +tags: ["effectif_css"]
-                +schema: dashboard_effectif_css
-                pbi_tables:
-                    +post-hook:
-                        ["{{ store.stamp_model('dashboard_effectif_css') }}"]
+    dashboards:
+      educ_serv:
+        effectif_css:
+          +tags: ["effectif_css"]
+          +schema: dashboard_effectif_css
+          pbi_tables:
+            +post-hook: ["{{ store.stamp_model('dashboard_effectif_css') }}"]
 
-            emp_conge:
-                +tags: ["emp_conge"]
-                +schema: dashboard_emp_conge
-                pbi_tables:
-                    +post-hook:
-                        ["{{ store.stamp_model('dashboard_emp_conge') }}"]
+        res_epreuves:
+          +tags: ["res_epreuves"]
+          +schema: "dashboard_res_epreuves"
+          pbi_tables:
+            +post-hook: ["{{ store.stamp_model('dashboard_res_epreuves') }}"]
 
-            emp_actif:
-                +tags: ["emp_actif"]
-                +schema: dashboard_emp_actif
-                pbi_tables:
-                    +post-hook:
-                        ["{{ store.stamp_model('dashboard_emp_actif') }}"]
+        suivi_resultats:
+          +tags: ["suivi_resultats"]
+          +schema: "dashboard_suivi_resultats"
+          pbi_tables:
+            +post-hook: ["{{ store.stamp_model('dashboard_suivi_resultats') }}"]
 
-            res_epreuves:
-                +tags: ["res_epreuves"]
-                +schema: "dashboard_res_epreuves"
-                pbi_tables:
-                    +post-hook:
-                        ["{{ store.stamp_model('dashboard_res_epreuves') }}"]
+        res_scolaires:
+          +tags: ["res_scolaires"]
+          +schema: "dashboard_res_scolaires"
+          pbi_tables:
+            +post-hook: ["{{ store.stamp_model('dashboard_res_scolaires') }}"]
 
-            suivi_resultats:
-                +tags: ["suivi_resultats"]
-                +schema: "dashboard_suivi_resultats"
-                pbi_tables:
-                    +post-hook:
-                        ["{{ store.stamp_model('dashboard_suivi_resultats') }}"]
+        absenteeism:
+          +tags: ["absenteeism"]
+          +schema: "dashboard_absenteeism"
+          pbi_tables:
+            +post-hook: ["{{ store.stamp_model('dashboard_absenteeism') }}"]
 
-            res_scolaires:
-                +tags: ["res_scolaires"]
-                +schema: "dashboard_res_scolaires"
-                pbi_tables:
-                    +post-hook:
-                        ["{{ store.stamp_model('dashboard_res_scolaires') }}"]
+        chronic_absenteeism:
+          +tags: ["chronic_absenteeism"]
+          +schema: "dashboard_chronic_absenteeism"
+          pbi_tables:
+            +post-hook:
+              ["{{ store.stamp_model('dashboard_chronic_absenteeism') }}"]
 
-            retirement:
-                +tags: ["retirement"]
-                +schema: "dashboard_retirement"
-                pbi_tables:
-                    +post-hook:
-                        ["{{ store.stamp_model('dashboard_retirement') }}"]
+        predictive_view_aggregated:
+          +tags: ["predictive_view_aggregated"]
+          +schema: "dashboard_predictive_view_aggregated"
+          pbi_tables:
+            +post-hook:
+              [
+                "{{ store.stamp_model('dashboard_predictive_view_aggregated') }}",
+              ]
 
-            absenteeism:
-                +tags: ["absenteeism"]
-                +schema: "dashboard_absenteeism"
-                pbi_tables:
-                    +post-hook:
-                        ["{{ store.stamp_model('dashboard_absenteeism') }}"]
+      human_resources:
+        emp_conge:
+          +tags: ["emp_conge"]
+          +schema: dashboard_emp_conge
+          pbi_tables:
+            +post-hook: ["{{ store.stamp_model('dashboard_emp_conge') }}"]
 
-            chronic_absenteeism:
-                +tags: ["chronic_absenteeism"]
-                +schema: "dashboard_chronic_absenteeism"
-                pbi_tables:
-                    +post-hook:
-                        [
-                            "{{ store.stamp_model('dashboard_chronic_absenteeism') }}",
-                        ]
+        emp_actif:
+          +tags: ["emp_actif"]
+          +schema: dashboard_emp_actif
+          pbi_tables:
+            +post-hook: ["{{ store.stamp_model('dashboard_emp_actif') }}"]
 
-            predictive_view_aggregated:
-                +tags: ["predictive_view_aggregated"]
-                +schema: "dashboard_predictive_view_aggregated"
-                pbi_tables:
-                    +post-hook:
-                        [
-                            "{{ store.stamp_model('dashboard_predictive_view_aggregated') }}",
-                        ]
+        retirement:
+          +tags: ["retirement"]
+          +schema: "dashboard_retirement"
+          pbi_tables:
+            +post-hook: ["{{ store.stamp_model('dashboard_retirement') }}"]
 
-            pevr:
-                +tags: ["pevr"]
-                +schema: "dashboard_pevr"
-                pbi_tables:
-                    +post-hook: ["{{ store.stamp_model('dashboard_pevr') }}"]
-
-        interfaces:
-            +tags: ["interfaces"]
-            +materialized: ephemeral
-        rls:
-            +schema: rls
-vars:
-    is_context_core: true
-    # The source database to pull the data for a css.
-    database_paie: "Replace me in the CSS repositery"
-    database_gpi: "Replace me in the CSS repositery"
-    database_jade: "Replace me in the CSS repositery"
-    database_prodrome: "Replace me in the CSS repositery" # Modelling output from the Sciance's models.
-    # res_epreuves's dashboard variables:
-    res_epreuves:
-        threshold: 70
-        cod_css: "Replace me in the CSS repositery"
-    res_scolaires:
-        threshold: 70
-    emp_actif:
-        nbrs_sem_dern_paie: 1
+      other:
+        pevr:
+          +tags: ["pevr"]
+          +schema: "dashboard_pevr"
+          pbi_tables:
+            +post-hook: ["{{ store.stamp_model('dashboard_pevr') }}"]
 
     interfaces:
-        gpi:
-            max_etapes: 30
-            max_periodes: 20
+      +tags: ["interfaces"]
+      +materialized: ephemeral
+    rls:
+      +schema: rls
+vars:
+  is_context_core: true
+  # The source database to pull the data for a css.
+  database_paie: "Replace me in the CSS repositery"
+  database_gpi: "Replace me in the CSS repositery"
+  database_jade: "Replace me in the CSS repositery"
+  database_prodrome: "Replace me in the CSS repositery" # Modelling output from the Sciance's models.
+  # res_epreuves's dashboard variables:
+  res_epreuves:
+    threshold: 70
+    cod_css: "Replace me in the CSS repositery"
+  res_scolaires:
+    threshold: 70
+  emp_actif:
+    nbrs_sem_dern_paie: 1
+
+  interfaces:
+    gpi:
+      max_etapes: 30
+      max_periodes: 20
