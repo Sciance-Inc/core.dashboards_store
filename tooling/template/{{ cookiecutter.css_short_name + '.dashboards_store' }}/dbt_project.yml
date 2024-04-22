@@ -24,6 +24,11 @@ on-run-end:
 {% endraw %}
 
 models:
+  {{ cookiecutter.css_short_name + '_dashboards_store' }}:
+    marts:
+      educ_serv:
+        +enabled: False # Must be set to true once your population are defined.
+  
   store:
     marts:
       human_resources:
@@ -32,28 +37,31 @@ models:
         +enabled: False
 
     dashboards:
-      effectif_css:
-        +enabled: False
-      emp_conge:
-        +enabled: False
-      emp_actif:
-        +enabled: False
-      res_epreuves:
-        +enabled: False
-      res_scolaires:
-        +enabled: False
-      suivi_resultats:
-        +enabled: False
-      retirement:
-        +enabled: False
-      chronic_absenteeism:
-        +enabled: False
-      absenteeism:
-        +enabled: False
-      predictive_view_aggregated:
-        +enabled: False
-      pevr:
-        +enabled: False        
+      human_resources:
+        emp_conge:
+          +enabled: False
+        emp_actif:
+          +enabled: False
+        retirement:
+          +enabled: False
+
+      educ_serv:
+        effectif_css:
+          +enabled: False
+        res_epreuves:
+          +enabled: False
+        res_scolaires:
+          +enabled: False
+        suivi_resultats:
+          +enabled: False
+        chronic_absenteeism:
+          +enabled: False
+        absenteeism:
+          +enabled: False
+        predictive_view_aggregated:
+          +enabled: False
+        pevr:
+          +enabled: False        
   
     interfaces:
       +tags: ["interfaces"]
