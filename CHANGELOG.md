@@ -2,6 +2,27 @@
 
 
 
+## v0.12.0+20240422 (2024-04-22)
+
+### Documentation
+
+* docs(website): splitting dashboards list by scope (human resources, educ serv) ([`f037364`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f0373642f7bdfae26972c9059d77b30825a1f915))
+
+* docs: expliciting how to run the integration pipeline in a local, non-dockerized environement ([`8961dbf`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8961dbfaebdc6b7f23a4596e53b0cfc430f5ba1d))
+
+### Feature
+
+* feat: adding the absenteeism dashboard. The dashboard compute various absenteeism rates accross school, and identify the list of long term absentees. (#48) ([`9c25963`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9c2596374838cd57f1b3b55087856b8ab32129cc))
+
+### Refactor
+
+* refactor: splitting dashboards by scope (educ_serv, human_resources, other) to increase consistency with the way marts are splitted ([`dd17cb8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dd17cb83795efc21ade9a58e31348b379a02a685))
+
+* refactor: the max number of periodes to be considered in the computation of absences is now configurable through a variable ([`0e5cdcd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0e5cdcd0e7e501bf90b39e500d07a0b55eeec357))
+
+* refactor: the number of etapes defined in GPI is now configurable and always casted as a varchar to avoid relaying on database inference ([`270d665`](https://github.com/Sciance-Inc/core.dashboards_store/commit/270d665d587c2b162237c4e7645e84da1cfb8be6))
+
+
 ## v0.11.1+20240327 (2024-03-27)
 
 ### Documentation
