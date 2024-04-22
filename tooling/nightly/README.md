@@ -24,7 +24,57 @@ To update the `nightly` project :
 * Populate any required seed data in `nightly/project/seeds/` and as per your documention.
     * Data outputed by the nightly build will never be looked at, providing the tests are passing. So you don't have to care about the business logic of your seed data. Just make sure it's plausible enough to leverage the tests suite.
 
-## How to build and the run the nightly project locally ?
+## I'am a fancy boïïï, how can I run the integration tests suite locally ?
+> Great idea, by doing so you can make sure your changes work well with the rest of the project before submitting your PR !
+
+1. Add the nightly profile to your `dbt_project.yml` :
+
+```yaml
+nightly_profile:
+  target: <target_name>
+  outputs:
+    # The target to be used by default, to work on the database without tampering with neither the production data, nor the others schemas
+    <target_name>:
+      type: fabric
+      driver: "ODBC Driver 17 for SQL Server"
+      server: <database ip> # The IP of the integration database
+      database: store_nightly
+      schema: <the database schema to use>
+      user: <database's user>
+      password: <user's password>
+      trust_cert: True
+      threads: 1
+```
+
+
+1. cd to the `nightly` project directory :
+
+```bash
+cd tooling/nightly/dbt
+```
+
+2. Manually (hum... I have got to work on that) the `packages.yml` file to include the LOCAL `core.dashboards_store` project :
+
+```yaml
+packages:
+  - local: <path to the folder containing the core>/core.dashboards_store
+```
+
+3. Recycle the dependencies, build the project and run the tests : 
+
+```bash
+dbt clean
+dbt deps
+dbt build
+```
+
+4. Revert / do not commit, the changes you have done to the packages file : 
+
+```bash
+git checkout -- packages.yml
+```
+
+## How to build and the run the dockerized nightly project locally ?
 > This is not required, but can be useful to debug the nightly project. You will need an ssh key with access to the `github/Sciance-Inc/core.data.store` repository. Docker must also be installed.
 
 ### How to build it ? 
