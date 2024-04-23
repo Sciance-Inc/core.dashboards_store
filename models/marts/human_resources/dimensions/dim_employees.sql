@@ -1,5 +1,5 @@
 {#
-Dashboards Store - Helping students, one dashboard at a time.
+Dashboards Store  Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
 
 This program is free software: you can redistribute it and/or modify
@@ -20,22 +20,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     Used as a base table for the dim_employees table
 #}
--- Select information from i_paie_dos
+
 with
     dos as (
         select
-            -- Personal information
             matr as matr,
             sexe,
             nom_legal as legal_name,
             date_nais as birth_date,
             nom as last_name,
             prnom as first_name,
-            -- Paie
             date_dern_paie as last_pay_date
         from {{ ref("i_pai_dos") }}
 
-    -- Select the email address
+
     ),
     dos2 as (
         select
@@ -48,7 +46,7 @@ with
         from {{ ref("i_pai_dos_2") }}
     )
 
--- Join the two tables
+
 select
     dos.matr as matr,
     dos.sexe as sex,
