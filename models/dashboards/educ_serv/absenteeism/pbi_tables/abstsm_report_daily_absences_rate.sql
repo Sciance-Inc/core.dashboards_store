@@ -68,6 +68,7 @@ with
             src.annee,
             src.school_friendly_name,
             src.date_evenement,
+            src.n_students_daily,
             src.event_kind,
             src.absence_rate,
             -- css
@@ -93,9 +94,10 @@ select
         dbt_utils.generate_surrogate_key(
             ["annee", "school_friendly_name", "event_kind"]
         )
-    }} as filker_key,
+    }} as filter_key,
     cast(date_evenement as date) as date_evenement,
     absence_rate,
+    n_students_daily,
     absence_rate_css,
     avg_absence_rate_school
 from aggregated
