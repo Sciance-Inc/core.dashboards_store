@@ -22,9 +22,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 with
     source as (
-        select annee, school_friendly_name, event_kind
+        select
+            annee,
+            coalesce(school_friendly_name, 'Tout le CSS') as school_friendly_name,
+            event_kind
         from {{ ref("abstsm_stg_daily_metrics") }}
-        group by annee, school_friendly_name, event_kind
+        group by annee, rollup (school_friendly_name), event_kind
     )
 
 select

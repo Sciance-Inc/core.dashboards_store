@@ -26,7 +26,7 @@ with
     source as (
         select
             annee,
-            school_friendly_name,
+            coalesce(school_friendly_name, 'Tout le CSS') as school_friendly_name,
             date_evenement,
             event_kind,
             -- The daily is rate is compute as the weighted average of the etapes rates.
@@ -34,7 +34,7 @@ with
             sum(n_students_daily) as n_students_daily,
             sum(absence_rate * n_students_daily) / sum(n_students_daily) as absence_rate
         from {{ ref("abstsm_stg_daily_metrics") }} as src
-        group by annee, school_friendly_name, date_evenement, event_kind
+        group by annee, rollup (school_friendly_name), date_evenement, event_kind
 
     -- Compute the absence_rate at the CSS level (use the weighted absence_rate to
     -- avoid having to re apply corrections on the raw metrics)
