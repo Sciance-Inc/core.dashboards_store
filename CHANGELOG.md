@@ -2,6 +2,21 @@
 
 
 
+## v0.13.0+20240426 (2024-04-26)
+
+### Feature
+
+* feat(absenteeism): adding a metric calculator, so that the absence rate can be aggregated for arbitrary period and at arbitrary level ([`778a386`](https://github.com/Sciance-Inc/core.dashboards_store/commit/778a386f1b0c81156854f8f8d4899fa90ce62f18))
+
+* feat(absenteeism): adding support for computing metrics at the CSS level ([`340e9ad`](https://github.com/Sciance-Inc/core.dashboards_store/commit/340e9ad1b343d796cf201671a9759f5257469cda))
+
+### Refactor
+
+* refactor(absenteeism): limitting computation to the last 5 years only ([`fe35bae`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fe35bae8b4e4c1bb095edb4daf0f83906cef20cb))
+
+* refactor(absenteeism): fixing typo ([`0ddb5f4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0ddb5f4da37a0352e1a328ed94d7b628b69530d0))
+
+
 ## v0.12.0+20240422 (2024-04-22)
 
 ### Documentation
