@@ -25,7 +25,7 @@ with
     source as (
         select
             annee,
-            school_friendly_name,
+            coalesce(school_friendly_name, 'Tout le CSS') as school_friendly_name,
             etape_friendly,
             event_kind,
             -- The per etape absence rate is computed as the weighted average of the
@@ -34,7 +34,7 @@ with
             / sum(n_students_daily) as avg_absence_rate_etape,
             avg(cast(n_students_daily as float)) as weight_etape
         from {{ ref("abstsm_stg_daily_metrics") }} as src
-        group by annee, school_friendly_name, etape_friendly, event_kind
+        group by annee, rollup (school_friendly_name), etape_friendly, event_kind
 
     -- Estimate the per etape average absence_rate at the CSS level as the weighted
     -- average of the school's etape absence rate
@@ -54,12 +54,12 @@ with
     school as (
         select
             annee,
-            school_friendly_name,
+            coalesce(school_friendly_name, 'Tout le CSS') as school_friendly_name,
             event_kind,
             sum(absence_rate * n_students_daily)
             / sum(n_students_daily) as avg_absence_rate_school
         from {{ ref("abstsm_stg_daily_metrics") }} as src
-        group by annee, school_friendly_name, event_kind
+        group by annee, rollup (school_friendly_name), event_kind
 
     -- add the css and school metrics to the table
     ),

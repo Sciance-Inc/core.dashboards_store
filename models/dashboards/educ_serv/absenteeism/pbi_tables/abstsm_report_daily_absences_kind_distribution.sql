@@ -73,23 +73,28 @@ with
     ),
     aggregated as (
         select
-            id_eco,
-            date_evenement,
-            event_kind,
-            event_description,
+            eco.annee,
+            coalesce(eco.school_friendly_name, 'Tout le CSS') as school_friendly_name,
+            aug.date_evenement,
+            aug.event_kind,
+            aug.event_description,
             sum(n_events) as n_events
         from augmented as aug
-        group by id_eco, date_evenement, event_kind, event_description
+        left join {{ ref("dim_mapper_schools") }} as eco on aug.id_eco = eco.id_eco
+        group by
+            eco.annee, rollup (eco.school_friendly_name),
+            aug.date_evenement,
+            aug.event_kind,
+            aug.event_description
     )
 
 select
     {{
         dbt_utils.generate_surrogate_key(
-            ["eco.annee", "eco.school_friendly_name", "event_kind"]
+            ["annee", "school_friendly_name", "event_kind"]
         )
     }} as filter_key,
     cast(date_evenement as date) as date_evenement,
     event_description,
     n_events
 from aggregated as agg
-left join {{ ref("dim_mapper_schools") }} as eco on agg.id_eco = eco.id_eco
