@@ -2,7 +2,7 @@ name: "store"
 version: "0.9.0"
 config-version: 2
 
-profile: "Make sure you a runing DBT from the cssXX repository, not the core.dashboards_store repository."
+profile: "nightly_profile" #"Make sure you a runing DBT from the cssXX repository, not the core.dashboards_store repository."
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
