@@ -94,7 +94,7 @@ select
         dbt_utils.generate_surrogate_key(
             ["annee", "school_friendly_name", "event_kind"]
         )
-    }} as filker_key,
+    }} as filter_key,
     etape_friendly,
     avg_absence_rate_etape,
     avg_absence_rate_etape_css,

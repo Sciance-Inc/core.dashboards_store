@@ -18,7 +18,7 @@ models:
     tests:
       - resolution:
           combination_of_columns:
-            - filker_key
+            - filter_key
             - date_evenement
             - event_description
 
@@ -29,7 +29,7 @@ models:
     tests:
       - resolution:
           combination_of_columns:
-            - filker_key
+            - filter_key
             - date_evenement
 
   - name: abstsm_report_etape_absences_rate
@@ -40,7 +40,7 @@ models:
     tests:
       - resolution:
           combination_of_columns:
-            - filker_key
+            - filter_key
             - etape_friendly
 
   - name: abstsm_report_filters

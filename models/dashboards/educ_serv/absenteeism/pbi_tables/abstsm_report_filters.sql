@@ -35,5 +35,5 @@ select
         dbt_utils.generate_surrogate_key(
             ["annee", "school_friendly_name", "event_kind"]
         )
-    }} as filker_key
+    }} as filter_key
 from source

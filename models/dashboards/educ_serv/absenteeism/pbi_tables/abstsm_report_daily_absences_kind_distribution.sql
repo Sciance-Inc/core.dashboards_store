@@ -87,7 +87,7 @@ select
         dbt_utils.generate_surrogate_key(
             ["eco.annee", "eco.school_friendly_name", "event_kind"]
         )
-    }} as filker_key,
+    }} as filter_key,
     cast(date_evenement as date) as date_evenement,
     event_description,
     n_events
