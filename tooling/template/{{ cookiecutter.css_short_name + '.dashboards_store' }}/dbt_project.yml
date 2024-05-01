@@ -25,6 +25,9 @@ on-run-end:
 
 models:
   {{ cookiecutter.css_short_name + '_dashboards_store' }}:
+    +materialized: table  # The default materialization for all models in this project
+    interfaces:
+      +materialized: ephemeral  # Interface's data schould not be duplicated
     marts:
       educ_serv:
         +enabled: False # Must be set to true once your population are defined.
@@ -64,7 +67,6 @@ models:
           +enabled: False        
   
     interfaces:
-      +tags: ["interfaces"]
       +materialized: ephemeral
       paie:
         +enabled: False
