@@ -2,6 +2,13 @@
 
 
 
+## v0.13.1+20240501 (2024-05-01)
+
+### Fix
+
+* fix(retirement): the retirement forecast is now calculated using the product limit of the hasard rate estimator, instead of the survival curve ([`e4e6f15`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e4e6f1514e1dcbf47a69118c054a41a776ccb14a))
+
+
 ## v0.13.0+20240426 (2024-04-26)
 
 ### Feature
