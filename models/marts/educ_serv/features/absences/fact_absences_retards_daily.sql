@@ -38,8 +38,6 @@ with
             {{ ref("stg_dim_absences_retards_inclusion") }} as dim
             on fct.id_eco = dim.id_eco
             and fct.motif_abs = dim.motif_abs
-        -- Only keep the last 10 years
-        where fct.date_abs >= dateadd(year, -10, getdate())
         group by fct.date_abs, fct.fiche, fct.id_eco, dim.is_absence
 
     -- Add the calendar grille the student follows from the DAN
@@ -120,6 +118,7 @@ with
             on src.id_eco = grid.id_eco
             and src.date_abs = grid.date_evenement
             and src.grille = grid.grille
+        where grid.n_periods_expected > 0  -- If no period is expected then we can't compute an absence rate.
 
     -- Add a 'tous types' category
     ),
