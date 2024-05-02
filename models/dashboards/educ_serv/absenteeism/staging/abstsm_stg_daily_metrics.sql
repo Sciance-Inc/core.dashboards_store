@@ -92,6 +92,7 @@ with
                 when n_students_daily = 0 then 0. else n_events * 1.0 / n_students_daily
             end as absence_rate
         from aggregated
+        where n_students_daily > 0  -- Avoid division by 0
 
     -- Handle the smôôôôl percentage of degenerates cases, and reformat the dimensions
     ),
