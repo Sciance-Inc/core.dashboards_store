@@ -2,6 +2,17 @@
 
 
 
+## v0.14.0+20240502 (2024-05-02)
+
+### Feature
+
+* feat(educ_serv): the number of years to fetch the data for is now configurable for absences and partially configurable for grades ([`a3a95ab`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a3a95ab6992f81bab9046b6d08cf189575841e7c))
+
+### Fix
+
+* fix(educ_serv): absences rate are no checked to avoid division by zero error. ([`2b7cbae`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2b7cbae67f3098db11652e08d1c59b35014e9d03))
+
+
 ## v0.13.1+20240501 (2024-05-01)
 
 ### Fix
