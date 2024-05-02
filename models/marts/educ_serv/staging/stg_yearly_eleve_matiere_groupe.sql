@@ -16,11 +16,22 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {% set max_etapes = var("interfaces")["gpi"]["max_etapes"] + 1 %}
+{% set years_of_data_grades = var("marts")["educ_serv"]["recency"][
+    "years_of_data_grades"
+] %}
+
+-- Extract the universe we want to compute the data for
+with
+    spine as (
+        select std.fiche, std.id_eco, std.annee
+        from {{ ref("fact_yearly_student") }} as std
+        where std.annee >= {{ store.get_current_year() }} - {{ years_of_data_grades }}
+    )
 
 select
-    std.fiche,
-    std.id_eco,
-    std.annee,
+    src.fiche,
+    src.id_eco,
+    src.annee,
     mat_ele.mat as code_matiere,
     mat_ele.grp as groupe_matiere,
     mat_ele.etat,
@@ -38,16 +49,13 @@ select
     mg.leg_obj_non_term,
     mg.eval_res_obj_final as eval_res_comp,
     mg.leg_obj_final
-from {{ ref("fact_yearly_student") }} as std
+from spine as src
 inner join
     {{ ref("i_gpm_e_mat_ele") }} as mat_ele
-    on std.fiche = mat_ele.fiche
-    and std.id_eco = mat_ele.id_eco
+    on src.fiche = mat_ele.fiche
+    and src.id_eco = mat_ele.id_eco
 inner join {{ ref("i_gpm_t_mat_grp") }} as mg on mat_ele.id_mat_grp = mg.id_mat_grp
-inner join
-    {{ ref("i_gpm_t_org_annee") }} as oa
-    on oa.annee = std.annee
-    and std.annee >= {{ store.get_current_year() }} - 10
+inner join {{ ref("i_gpm_t_org_annee") }} as oa on oa.annee = src.annee
 where
     mat_ele.res_som is not null  -- prendre en note le risque de perdre des données pour la compétence. a voir à le 2e itérations.
     and mat_ele.etat != 0  -- -- 0 = inactive, 1 = active, 5 = en continuation, 6 = equivalence, 8 = terminee

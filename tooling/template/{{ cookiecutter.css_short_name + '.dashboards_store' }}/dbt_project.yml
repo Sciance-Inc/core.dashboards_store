@@ -98,3 +98,9 @@ vars:
       gpi:
           max_etapes: 30  # Must be set to the number of etapes, as found in gpm_t_obj_mat_grp
           max_periodes: 20 # Must be set to the number of periodes, as identified in gpm_t_cal
+  
+  marts:
+    educ_serv:
+      recency:
+        years_of_data_absences: 10  # How many years of data to keep for the 'absences' centric dashboards.
+        years_of_data_grades: 10 # How many years of data to keep for the 'grades' centric dashboards.
