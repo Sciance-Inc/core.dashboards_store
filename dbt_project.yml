@@ -162,3 +162,9 @@ vars:
     gpi:
       max_etapes: 30
       max_periodes: 20
+
+  marts:
+    educ_serv:
+      recency:
+        years_of_data_absences: 10
+        years_of_data_grades: 10
