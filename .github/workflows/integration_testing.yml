@@ -2,8 +2,10 @@ name: Run the intgeration tests
 
 on:
   workflow_dispatch:
-    branches:
-      - develop
+    inputs:
+      target_branch:
+        description: the branch to run the integration tests against
+        required: true
 
 env:
   REGISTRY: ghcr.io
@@ -12,21 +14,12 @@ env:
 jobs:
   run_integration_tests:
     runs-on: [self-hosted, maas]
-    strategy:
-      fail-fast: false # if one matrix fails, continue with the others
-      max-parallel: 1
-      matrix:
-        configs:
-          - branch: develop
-            tag: dev
-            target: dev
-
     steps:
       # Clone the repo
       - name: Checkout the latest release
         uses: actions/checkout@v3
         with:
-          ref: ${{ matrix.configs.branch }}
+          ref: ${{ github.event.inputs.target_branch  }}
           token: ${{ secrets.CICD_PAT_TOKEN }}
 
       # Log into the Github container registry
@@ -52,7 +45,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}
-          tags: nightly-${{ matrix.configs.tag }}
+          tags: integration-${{ github.event.inputs.target_branch }}
 
       # Build the nightly version
       - name: Build and push
@@ -64,8 +57,8 @@ jobs:
           file: tooling/nightly/docker/Dockerfile
           pull: true
           build-args: |
-            CORE_VERSION=${{ matrix.configs.branch }}
-            TARGET=${{ matrix.configs.target }}
+            CORE_VERSION=${{ github.event.inputs.target_branch }}
+            TARGET=dev
           ssh: |
             default=${{ env.SSH_AUTH_SOCK }}
 
