@@ -18,6 +18,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {# 
     Compute a yearly version of the employment history restricted to only active status
 #}
+{{
+    config(
+        materialized="table",
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["matr", "school_year", "ref_empl"]
+            ),
+        ],
+    )
+}}
+
+
 -- Fetch the ACTIVE employment history
 with
     histo as (

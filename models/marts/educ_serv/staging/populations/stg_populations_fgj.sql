@@ -15,7 +15,19 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{{ config(alias="stg_populations_fgj") }}
+{{
+    config(
+        alias="stg_populations_fgj",
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["id_eco", "population", "code_perm"], unique=True
+            ),
+            store.create_nonclustered_index(
+                "{{ this }}", ["id_eco", "code_perm", "annee"]
+            ),
+        ],
+    )
+}}
 
 select code_perm, id_eco, annee, 'Prescolaire' as population
 from {{ source_or_ref("populations", "stg_ele_prescolaire") }}

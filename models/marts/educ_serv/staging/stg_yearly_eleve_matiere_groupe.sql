@@ -15,6 +15,16 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["fiche", "id_eco", "annee", "code_matiere"]
+            ),
+        ]
+    )
+}}
+
 {% set max_etapes = var("interfaces")["gpi"]["max_etapes"] + 1 %}
 {% set years_of_data_grades = var("marts")["educ_serv"]["recency"][
     "years_of_data_grades"

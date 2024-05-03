@@ -16,6 +16,14 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {# Extrat the starting and ending dates of etapes #}
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index("{{ this }}", ["id_eco", "fiche"]),
+        ]
+    )
+}}
+
 -- Treat the school with a defined 'model_etape'
 with
     with_model as (

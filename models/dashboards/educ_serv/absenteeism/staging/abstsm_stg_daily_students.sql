@@ -27,7 +27,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     The alternative would be to use a fan-out then aggregate pattern, through a cross join on the seq_int_0_to_1000 table. This would have had something like a O(360*N) complexity. 
 
 #}
-{{ config(alias="stg_daily_students") }}
+{{
+    config(
+        alias="stg_daily_students",
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["id_eco", "grille", "date_evenement"]
+            ),
+            store.create_nonclustered_index("{{ this }}", ["date_evenement"]),
+        ],
+    )
+}}
 
 -- Extract the DAN
 with

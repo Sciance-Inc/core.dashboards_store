@@ -25,7 +25,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     To minimize computation, and to avoid having to expose unnecessarary rows to the downstream tables, backfilling the number of students is done in it's table too.
     backfilled and padded version of the daily number of students.    
 #}
-{{ config(alias="stg_padding") }}
+{{
+    config(
+        alias="stg_padding",
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["id_eco", "grille", "date_evenement"]
+            ),
+            store.create_nonclustered_index("{{ this }}", ["date_evenement"]),
+        ],
+    )
+}}
 
 
 -- Extract all the dates and grid to padd the data with

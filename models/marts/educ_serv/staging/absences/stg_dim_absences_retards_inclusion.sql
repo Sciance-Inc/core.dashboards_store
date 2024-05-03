@@ -28,6 +28,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     # retard -> cpt_abs = 3
 
 #}
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index("{{ this }}", ["id_eco", "motif_abs"]),
+        ]
+    )
+}}
+
 select
     id_eco,
     motif_abs,
