@@ -20,6 +20,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
   Feel free to override me to get your own custom litle mapping.
 #}
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index("{{ this }}", ["job_group"]),
+        ]
+    )
+}}
+
 select
     corp_empl as job_group,
     descr as job_group_description,

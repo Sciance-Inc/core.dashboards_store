@@ -17,6 +17,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {% set max_etapes = var("interfaces")["gpi"]["max_etapes"] + 1 %}
 
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["fiche", "id_eco", "annee", "code_matiere"]
+            ),
+        ]
+    )
+}}
+
 with
     comp as (
         select

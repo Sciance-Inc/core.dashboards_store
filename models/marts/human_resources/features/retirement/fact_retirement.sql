@@ -18,6 +18,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {# 
     Extract the first retirement date for all of the employees.
 #}
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["matr", "corp_empl", "lieu_trav", "stat_eng"]
+            )
+        ]
+    )
+}}
+
 -- Extract all the valid retirement etat as well as the the corps_empl, lieu_trav and
 -- stat_eng at the time of retirement
 with

@@ -20,6 +20,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     Used as a base table for the dim_employees table
 #}
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index("{{ this }}", ["matr"]),
+        ]
+    )
+}}
+
+
 -- Select information from i_paie_dos
 with
     dos as (

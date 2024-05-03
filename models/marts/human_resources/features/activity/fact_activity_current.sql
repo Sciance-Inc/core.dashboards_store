@@ -23,6 +23,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     This table first pull the yearly active employees from the activity table.
     Employees list is then filter down using the last_pay_date to remove any employee having left in the current school year.
  #}
+{{
+    config(
+        materialized="table",
+        post_hook=[
+            store.create_clustered_index("{{ this }}", ["matr"]),
+        ],
+    )
+}}
+
 -- Fetch the current active employees from the yearly table
 with
     actives_etat_empl as (

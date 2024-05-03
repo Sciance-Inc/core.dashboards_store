@@ -20,6 +20,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     The table parse the XML transaction data to get the main job transitions.
 #}
+{{
+    config(
+        materialized="table",
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["matr", "school_year"], unique=True
+            ),
+            store.create_nonclustered_index(
+                "{{ this }}", ["matr", "school_year", "main_job"]
+            ),
+        ],
+    )
+}}
+
 -- First step : yearly expand the stg_main_job_history table
 with
     expanded as (
