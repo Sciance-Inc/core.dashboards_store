@@ -20,6 +20,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     The table parse the XML transaction data to get the main job transitions.
 #}
+{{
+    config(
+        materialized="table",
+        post_hook=[
+            store.create_clustered_index("{{ this }}", ["matr", "school_year"]),
+        ],
+    )
+}}
+
 -- First step : extract the main job from the transactions log
 with
     -- Flagg the switchs of main job

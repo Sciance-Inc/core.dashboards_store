@@ -21,6 +21,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     Each absence is mapped to the student's etape.
 
 #}
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["fiche", "id_eco", "school_year"]
+            ),
+            store.create_nonclustered_index("{{ this }}", ["fiche"]),
+        ]
+    )
+}}
+
 {% set max_periodes = var("interfaces")["gpi"]["max_periodes"] + 1 %}
 
 with

@@ -15,5 +15,14 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index("{{ this }}", ["workplace"]),
+        ]
+    )
+}}
+
+
 select lieu_trav as workplace, concat(descr, ' - (', lieu_trav, ')') as workplace_name
 from {{ ref("i_pai_tab_lieu_trav") }}

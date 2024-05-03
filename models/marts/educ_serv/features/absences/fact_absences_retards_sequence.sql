@@ -18,6 +18,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {#
     Compute the sequence of days with at least one periode of absence.
 #}
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["id_eco", "school_year", "fiche"]
+            ),
+            store.create_nonclustered_index("{{ this }}", ["fiche"]),
+        ]
+    )
+}}
+
 -- Extract all the days a student is expected to be there 
 with
     expected_cal as (

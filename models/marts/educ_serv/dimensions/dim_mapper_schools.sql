@@ -20,5 +20,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
   Feel free to override me to get your own custom litle mapping.
 #}
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index("{{ this }}", ["id_eco", "annee"]),
+            store.create_nonclustered_index("{{ this }}", ["school_friendly_name"]),
+        ]
+    )
+}}
+
+
 select id_eco, annee, eco, concat('(', eco, ') - ', nom_eco) as school_friendly_name
 from {{ ref("i_gpm_t_eco") }}

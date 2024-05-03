@@ -20,6 +20,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     The yearlied dimension expand the time validity
  #}
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["school_year", "etat_empl"], unique=True
+            ),
+        ]
+    )
+}}
+
 -- Padding the validity of the dimension : adding either the valid_from or the valid_end
 with
     padded as (

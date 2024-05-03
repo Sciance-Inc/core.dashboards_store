@@ -15,6 +15,17 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["mat", "obj_01"], unique=True
+            ),
+        ]
+    )
+}}
+
+
 with
     row_num as (
         select

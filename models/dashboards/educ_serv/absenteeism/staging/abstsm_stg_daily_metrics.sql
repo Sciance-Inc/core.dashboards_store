@@ -21,7 +21,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     Padding is needed to properly aggregate absences rate : if no absences has been recorded for a given day, the absences rate should be 0.
     Padding is done by / etape, / grille, / id_eco, / date_evenement, / event_kind to accound for various grid per school and allow number of aggregation leves
 #}
-{{ config(alias="stg_daily_absences_rate") }}
+{{
+    config(
+        alias="stg_daily_absences_rate",
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["annee", "school_friendly_name", "date_evenement"]
+            ),
+            store.create_nonclustered_index("{{ this }}", ["date_evenement"]),
+        ],
+    )
+}}
+
 
 -- Aggregate the number of absences / retards so it can be joined with the daily metrics
 with

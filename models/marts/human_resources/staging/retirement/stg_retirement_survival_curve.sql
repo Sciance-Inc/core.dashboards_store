@@ -31,6 +31,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     * Some employees will work AFTER they have retired (what a frightening world we live in). 
     Since I can't know their status for sure, employees first employed after they have reached the honorable age of 60 years old (or about 6 time the average live span of a duck) are removed from the dataset and aren't not considered survivors.
 #}
+{{
+    config(
+        post_hook=[
+            store.create_clustered_index("{{ this }}", ["age"]),
+        ]
+    )
+}}
+
 -- Remove the employees assumed (see `about the univers`) to have take their
 -- retirement in an other CSS : thoose who start working in the CSS after they have
 -- reached 60 years old.

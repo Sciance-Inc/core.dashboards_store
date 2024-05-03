@@ -23,7 +23,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     Rows with the same set of attributes are merged together
 
  #}
-{{ config(materialized="table") }}
+{{
+    config(
+        materialized="table",
+        post_hook=[
+            store.create_clustered_index(
+                "{{ this }}", ["matr", "school_year", "ref_empl"]
+            ),
+        ],
+    )
+}}
+
 
 with
     -- Extract the raw data and compute a partition id to downstream further processing
