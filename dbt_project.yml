@@ -29,6 +29,7 @@ seeds:
       +schema: common_seeds
     dashboards:
       educ_serv:
+        +tags: ["educ_serv"]
         res_epreuves:
           +tags: ["res_epreuves"]
           +schema: "dashboard_res_epreuves"
@@ -65,6 +66,7 @@ models:
 
     dashboards:
       educ_serv:
+        +tags: ["educ_serv"]
         effectif_css:
           +tags: ["effectif_css"]
           +schema: dashboard_effectif_css
@@ -112,6 +114,7 @@ models:
               ]
 
       human_resources:
+        +tags: ["human_resources"]
         emp_conge:
           +tags: ["emp_conge"]
           +schema: dashboard_emp_conge
