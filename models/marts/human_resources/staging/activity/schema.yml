@@ -36,7 +36,7 @@ models:
       - name: school_year
         description: The school year (from september the first to august the 31 of the following year) for which the status mapping is valid.
       - name: matr
-        description: The unique identifier of an employee.
+        description: A flag indicating if the job schould be treated as the main job for this employee
       - name: main_job
         description: The main job of the employee for the given school year. Can be joined on a ref_empl
       - name: valid_from
