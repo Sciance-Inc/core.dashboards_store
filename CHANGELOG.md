@@ -2,6 +2,23 @@
 
 
 
+## v0.15.0+20240504 (2024-05-04)
+
+### Documentation
+
+* docs(absenteeism): updating deprecated description ([`e28cb69`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e28cb69702c742f40c0b98ba10604e114958f6de))
+
+### Feature
+
+* feat: connecting dashboards to databases is now done through a GUI (#52) ([`5a3150f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5a3150f0e18d862882008605cab069fc46c7efc6))
+
+* feat: adding two new tags (educ_serv, human_ressources) to control all ressources (marts, dashboards, seeds) at once. ([`aa3e88b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/aa3e88b1261e72533aa6dd2cec84947217018ce5))
+
+### Performance
+
+* perf: adding indexes to the mart tables ([`25a61f5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/25a61f5ecce7492f1d217e87ad6ac3c994c758d0))
+
+
 ## v0.14.0+20240502 (2024-05-02)
 
 ### Feature
