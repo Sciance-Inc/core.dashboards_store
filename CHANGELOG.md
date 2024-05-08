@@ -2,6 +2,21 @@
 
 
 
+## v0.15.1+20240508 (2024-05-08)
+
+### Documentation
+
+* docs(rls): adding the RLS documentation ([`3768f1f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3768f1f52c3f910c2bb581c1212f38616d4ffe75))
+
+### Fix
+
+* fix(retirement): fixing the current_year_retiring_employees pannel ([`ee028d6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ee028d6421b37fb9e925c2f7bc1243823afacf6b))
+
+### Refactor
+
+* refactor(suivi_resultats): removing RLS from the dashboard ([`6124e20`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6124e203bfdf19b9cfb13471ae4f535cfd1fb1e4))
+
+
 ## v0.15.0+20240504 (2024-05-04)
 
 ### Documentation
