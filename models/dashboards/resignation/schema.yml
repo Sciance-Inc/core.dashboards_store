@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: resignation_report
+    description: > 
+      la liste des employés ayant démissionnés
+    columns: 
+      - name: sexe
+        tests: 
+            - not_null
+      - name: etat
+      - name: job_group_category
+      - name: lieu_trav
+      - name: stat_eng
+      - name: school_year
+      - name: is_current_year
+      - name: demission_age
+      - name: n_demission
+      - name: filter_key
+    tests:
+      - resolution:
+          combination_of_columns:
+            - sexe
+            - etat
+            - job_group_category
+            - lieu_trav
+            - stat_eng
+            - age
+            - school_year
+
+  - name: resignation_report_active_employees_age
+    description: > 
+      The number of active employees by age group.
+      Drill-down by engagement status, worplace, job category, and employment status.
+     
+    tests:
+      - resolution:
+          combination_of_columns:
+            - sexe
+            - etat
+            - job_group_category
+            - lieu_trav
+            - stat_eng
+            - age
+
+  - name: resignation_report_filters
+    description: >
+      The set of filters to be applied on the report.
+      This table exists because of a double granularity difference between the report_retirement_age and the report_active_employees_age tables.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - sexe
+            - employment_status_name
+            - engagement_status_name
+            - workplace_name
+            - job_group_category
+            - filter_key

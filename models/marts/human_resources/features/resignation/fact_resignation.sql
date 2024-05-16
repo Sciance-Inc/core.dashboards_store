@@ -28,27 +28,19 @@ with
             corp_empl,
             lieu_trav,
             stat_eng,
-            date_eff as demission_date,
-            row_number() over (partition by matr order by date_eff desc) as seqid
+            date_eff as demission_date
+            --row_number() over (partition by matr order by date_eff desc) as seqid
         from {{ ref("stg_activity_history") }} as empl
         inner join
             (
                 select etat_empl, school_year
                 from {{ ref("dim_employment_status_yearly") }}
-                where empl_demi = 1
+                where empl_resi = 1
             ) as dim
             on empl.etat_empl = dim.etat_empl
             and empl.school_year = dim.school_year
-
-    -- Remove any duplicates
-    --),
-    --first_retirement as (
-    --   select matr, etat, corp_empl, lieu_trav, stat_eng, retirement_date
-     --   from demission
-    --    where seqid = 1
-
-    -- Compute the retirement age and add some metadata
     ),
+
     demission_age as (
         select
             frst.matr,

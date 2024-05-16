@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     Because of the double-granularity difference (age and school_year) with the rtmrt_report_active_employees_age table, a surrogate key is generated to allow the user to filter on both dimensions at the same time
 #}
-{{ config(alias="report_demission") }}
+--{{ config(alias="report_resignation") }}
 
 -- Add some metadata : the school year and the job group
 with
@@ -29,7 +29,7 @@ with
             case
                 when month(src.demission_date) < 7
                 then year(src.demission_date) - 1
-                else year(src.demissino_date)
+                else year(src.demission_date)
             end as school_year,
             src.matr as matricule,
             dos.sexe,
@@ -80,9 +80,10 @@ select
     end as is_current_year,
     demission_age,
     n_demission,
-    {{
+   {{
         dbt_utils.generate_surrogate_key(
             ["sexe", "job_group_category", "lieu_trav", "stat_eng", "etat"]
         )
     }} as filter_key
-from aggregated
+
+ from aggregated

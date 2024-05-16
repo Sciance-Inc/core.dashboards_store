@@ -128,6 +128,13 @@ models:
                     +post-hook:
                         ["{{ store.stamp_model('dashboard_retirement') }}"]
 
+            resignation:
+                +tags: ["resignation"]
+                +schema: "dashboard_resignation"
+                pbi_tables:
+                    +post-hook:
+                        ["{{ store.stamp_model('dashboard_resignation') }}"]
+
             chronic_absenteeism:
                 +tags: ["chronic_absenteeism"]
                 +schema: "dashboard_chronic_absenteeism"
