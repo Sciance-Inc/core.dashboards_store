@@ -114,20 +114,31 @@ def _notify_sciance(context):
     Send a funny message to the Sciance Teams when the DAG fails.
     """
 
+    css_name = config.get("css_name", "Unknow CSS")
+    execution_date = config.get("execution_date", "Unknow date")
+
+    try:
+        dag_id = context["dag_run"].dag_id
+    except BaseException:
+        dag_id = "UnknownDagID"
+
     payload = {
         "@type": "MessageCard",
         "@context": "http://schema.org/extensions",
         "themeColor": "0076D7",
-        "summary": f"DAG execution failed for '{config['css_name']}' on '{TARGET}'",
+        "summary": f"DAG execution failed for '{css_name}' on '{TARGET}'",
         "sections": [
             {
-                "activityTitle": f"DAG execution failed for '{config['css_name']}' on '{TARGET}'",
+                "activityTitle": f"DAG execution failed for '{css_name}' on '{TARGET}'",
                 "activitySubtitle": "Dashboards store",
                 "activityImage": "https://m.media-amazon.com/images/I/51trRVcd7gL._AC_UF1000,1000_QL80_.jpg",
                 "facts": [
-                    {"name": "CSS", "value": config["css_name"]},
+                    {"name": "CSS", "value": css_name},
                     {"name": "Environnement", "value": TARGET},
-                    {"name": "Execution date", "value": context["execution_date"]},
+                    {
+                        "name": "Execution date",
+                        "value": execution_date,
+                    },
                 ],
                 "markdown": True,
             }
@@ -139,7 +150,7 @@ def _notify_sciance(context):
                 "targets": [
                     {
                         "os": "default",
-                        "uri": f"https://airflow.maas.sciance.ca/dags/{context['dag_run'].dag_id}/grid",
+                        "uri": f"https://airflow.maas.sciance.ca/dags/{dag_id}/grid",
                     }
                 ],
             }
@@ -150,12 +161,18 @@ def _notify_sciance(context):
         uri = config["teams_webhook"]["sciance"]
         out = requests.post(uri, data=json.dumps(payload))
         logging.info(f"Message sent to the client Teams. Payload : {out}")
+
+        if out.status_code != 200:
+            raise BaseException(f"Failed to send the message to the Teams. {out.text}")
+
     except KeyError:
         raise ValueError(
             "Missing the 'teams_webhook' key in the config.yml file. Please add it to send a message to Microsoft Teams."
         )
 
-    requests.post(uri, data=json.dumps(payload))
+    except BaseException as e:
+        logging.error(e)
+        print(e)
 
 
 def _notify_client(context):
@@ -198,7 +215,7 @@ def dag_failure_callback(context):
     """
 
     _notify_sciance(context)
-    _notify_client(context)
+    # _notify_client(context)
 
 
 # Open the JSON manifest
