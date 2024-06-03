@@ -115,7 +115,7 @@ def _notify_sciance(context):
     """
 
     css_name = config.get("css_name", "Unknow CSS")
-    execution_date = config.get("execution_date", "Unknow date")
+    execution_date = context.get("execution_date", "Unknow date")
 
     try:
         dag_id = context["dag_run"].dag_id
@@ -171,6 +171,7 @@ def _notify_sciance(context):
         )
 
     except BaseException as e:
+        # Because of the way Airflow works, I am not sure about the logger
         logging.error(e)
         print(e)
 
@@ -180,6 +181,8 @@ def _notify_client(context):
     Send a serious message to the Client Teams when the DAG fails, cause we ain't playin'
     """
 
+    execution_date = context.get("execution_date", "Unknow date")
+
     payload = {
         "@type": "MessageCard",
         "@context": "http://schema.org/extensions",
@@ -188,11 +191,11 @@ def _notify_client(context):
         "sections": [
             {
                 "activityTitle": f"Erreur dans l'environnement : '{TARGET}'",
-                "activitySubtitle": "Dashboards store",
+                "activitySubtitle": "Comptoir de tableaux de bord",
                 "activityImage": "https://ih1.redbubble.net/image.2514217471.5676/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg",
                 "facts": [
                     {"name": "Environnement", "value": TARGET},
-                    {"name": "Date d'éxécution", "value": context["execution_date"]},
+                    {"name": "Date d'éxécution", "value": execution_date},
                 ],
                 "markdown": True,
             }
@@ -203,10 +206,21 @@ def _notify_client(context):
         uri = config["teams_webhook"]["client"]
         out = requests.post(uri, data=json.dumps(payload))
         logging.info(f"Message sent to the client Teams. Payload : {out}")
+
+        if out.status_code != 200:
+            raise BaseException(
+                f"Failed to send the Client message to their Teams. {out.text}"
+            )
+
     except KeyError:
-        logging.info(
+        raise ValueError(
             "Missing the 'client_webhook' key in the config.yml file. Please add it to send a message to Microsoft Teams."
         )
+
+    except BaseException as e:
+        # Because of the way Airflow works, I am not sure about the logger
+        logging.error(e)
+        print(e)
 
 
 def dag_failure_callback(context):
@@ -215,7 +229,7 @@ def dag_failure_callback(context):
     """
 
     _notify_sciance(context)
-    # _notify_client(context)
+    _notify_client(context)
 
 
 # Open the JSON manifest
