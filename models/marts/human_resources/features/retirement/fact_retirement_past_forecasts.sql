@@ -41,13 +41,18 @@ with
                 left join
                     {{ ref("dim_mapper_job_group") }} as job
                     on src.corp_empl = job.job_group
-                -- where src.matr not in (select matr from {{ ref("fact_retirement") }})  -- Take all the employees.
+            -- where src.matr not in (select matr from {{ ref("fact_retirement") }})
+            -- -- Take all the employees.
             ) as src
         -- Add the current_year date to compute the age at semptember the first of the
         -- current scholar year
         cross join
             (
-                select concat({{ store.get_current_year() -10}}, (select date_ref from {{ ref("date_ref") }}) ) as current_year
+                select
+                    concat(
+                        {{ store.get_current_year() - 10 }},
+                        (select date_ref from {{ ref("date_ref") }})
+                    ) as current_year
             ) as crt
 
     -- Group together active employes by cohorts
@@ -130,7 +135,10 @@ with
             job.job_group_category,
             convert(
                 date,
-                concat({{ store.get_current_year() -10 }} + hrz.horizon, (select date_ref from {{ ref("date_ref") }}) ),
+                concat(
+                    {{ store.get_current_year() - 10 }} + hrz.horizon,
+                    (select date_ref from {{ ref("date_ref") }})
+                ),
                 102
             ) as school_year,
             hrz.horizon as forecast_horizon

@@ -20,7 +20,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     Used as a base table for the dim_employees table
 #}
-
 with
     dos as (
         select
@@ -33,7 +32,6 @@ with
             date_dern_paie as last_pay_date
         from {{ ref("i_pai_dos") }}
 
-
     ),
     dos2 as (
         select
@@ -45,7 +43,6 @@ with
             end as email_address
         from {{ ref("i_pai_dos_2") }}
     )
-
 
 select
     dos.matr as matr,
