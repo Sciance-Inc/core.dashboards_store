@@ -28,8 +28,9 @@ with
             corp_empl,
             lieu_trav,
             stat_eng,
-            date_eff as demission_date
-            --row_number() over (partition by matr order by date_eff desc) as seqid
+            date_fin as demission_date
+
+            --row_number() over (partition by matr order by date_eff desc) as seq
         from {{ ref("stg_activity_history") }} as empl
         inner join
             (
