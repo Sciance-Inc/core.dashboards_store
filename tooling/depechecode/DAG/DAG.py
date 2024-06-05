@@ -117,6 +117,12 @@ def _notify_sciance(context):
     css_name = config.get("css_name", "Unknow CSS")
     execution_date = context.get("execution_date", "Unknow date")
 
+    # Try converting the execution date to a string
+    try:
+        execution_date = execution_date.strftime("%Y-%m-%d %H:%M:%S")
+    except BaseException:
+        execution_date = "Unknow date"
+
     try:
         dag_id = context["dag_run"].dag_id
     except BaseException:
@@ -182,6 +188,12 @@ def _notify_client(context):
     """
 
     execution_date = context.get("execution_date", "Unknow date")
+
+    # Try converting the execution date to a string
+    try:
+        execution_date = execution_date.strftime("%Y-%m-%d %H:%M:%S")
+    except BaseException:
+        execution_date = "Unknow date"
 
     payload = {
         "@type": "MessageCard",
