@@ -93,7 +93,7 @@ select
     job_group_category,
     lieu_trav,
     stat_eng,
-    age,
+    demission_age,
     n_employees,
     {{
         dbt_utils.generate_surrogate_key(

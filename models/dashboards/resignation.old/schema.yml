@@ -25,13 +25,25 @@ models:
             - job_group_category
             - lieu_trav
             - stat_eng
-            - age
+            - demission_age
             - school_year
 
   - name: resignation_report_active_employees_age
     description: > 
       The number of active employees by age group.
       Drill-down by engagement status, worplace, job category, and employment status.
+    columns: 
+      - name: sexe
+        tests: 
+            - not_null
+      - name: etat
+      - name: job_group_category
+      - name: lieu_trav
+      - name: stat_eng
+
+      - name: demission_age
+      - name: n_employees
+      - name: filter_key
      
     tests:
       - resolution:
@@ -41,7 +53,7 @@ models:
             - job_group_category
             - lieu_trav
             - stat_eng
-            - age
+            - demission_age
 
   - name: resignation_report_filters
     description: >

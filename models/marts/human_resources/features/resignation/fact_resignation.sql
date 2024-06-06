@@ -26,9 +26,10 @@ with
             matr,
             empl.etat_empl as etat,
             corp_empl,
+            ref_empl,
             lieu_trav,
             stat_eng,
-            date_fin as demission_date
+            date_eff as demission_date
 
             --row_number() over (partition by matr order by date_eff desc) as seq
         from {{ ref("stg_activity_history") }} as empl
@@ -47,6 +48,7 @@ with
             frst.matr,
             frst.etat,
             frst.corp_empl,
+            frst.ref_empl,
             frst.lieu_trav,
             frst.stat_eng,
             frst.demission_date,
