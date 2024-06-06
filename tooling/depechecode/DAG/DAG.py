@@ -123,6 +123,22 @@ def _notify_sciance(context):
     except BaseException:
         execution_date = "Unknow date"
 
+    # Try extracting the name of the failed task
+    try:
+        task_id = context["task_instance"].task_id
+        task_cmd = None
+        if task_id == "test":
+            task_cmd = "dbt test"
+        elif task_id == "seed":
+            task_cmd = "dbt seed"
+        else:
+            task_cmd = (
+                f"dbt run --select {task_id.split('.')[-1]}"  # Remove the "task_group"
+            )
+
+    except BaseException:
+        task_cmd = "UnknwownCommand"
+
     try:
         dag_id = context["dag_run"].dag_id
     except BaseException:
@@ -145,6 +161,7 @@ def _notify_sciance(context):
                         "name": "Execution date",
                         "value": execution_date,
                     },
+                    {"name": "Source of the error:", "value": task_cmd},
                 ],
                 "markdown": True,
             }
@@ -195,6 +212,22 @@ def _notify_client(context):
     except BaseException:
         execution_date = "Unknow date"
 
+    # Try extracting the name of the failed task
+    try:
+        task_id = context["task_instance"].task_id
+        task_cmd = None
+        if task_id == "test":
+            task_cmd = "dbt test"
+        elif task_id == "seed":
+            task_cmd = "dbt seed"
+        else:
+            task_cmd = (
+                f"dbt run --select {task_id.split('.')[-1]}"  # Remove the "task_group"
+            )
+
+    except BaseException:
+        task_cmd = "UnknwownCommand"
+
     payload = {
         "@type": "MessageCard",
         "@context": "http://schema.org/extensions",
@@ -208,6 +241,7 @@ def _notify_client(context):
                 "facts": [
                     {"name": "Environnement", "value": TARGET},
                     {"name": "Date d'éxécution", "value": execution_date},
+                    {"name": "Source of the error:", "value": task_cmd},
                 ],
                 "markdown": True,
             }
@@ -267,7 +301,7 @@ with DAG(
     )
 
     tests = DBTDockerFactory(
-        task_id="tests",
+        task_id="test",
         command=f"cdbt test --target {TARGET}",
         dag=dag,
     )
