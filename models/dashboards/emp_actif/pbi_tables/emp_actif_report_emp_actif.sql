@@ -15,5 +15,20 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select id_eco, mat, descr, descr_abreg, unites
-from {{ var("database_gpi") }}.dbo.gpm_t_mat
+{{ config(alias="emp_actif_report_emp_actif") }}
+
+select
+    *,
+    {{
+        dbt_utils.generate_surrogate_key(
+            [
+                "job_department",
+                "workplace_name",
+                "job_class",
+                "type",
+                "sex_friendly_name",
+                "is_current",
+            ]
+        )
+    }} as filter_key
+from {{ ref("emp_actif_fact_emp_actif") }}
