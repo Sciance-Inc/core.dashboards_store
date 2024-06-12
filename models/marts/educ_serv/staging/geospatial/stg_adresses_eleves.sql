@@ -162,19 +162,19 @@ with
     )
 
 select
-    t1.fiche, 
-    t1.annee, 
-    t1.no_civ as last_no_civ, 
-    t1.orient_rue as last_orient_rue,  
-    t1.genre_rue as last_genre_rue,  
-    t1.rue as last_rue, 
-    t1.ville as last_ville,  
+    t1.fiche,
+    t1.annee,
+    t1.no_civ as last_no_civ,
+    t1.orient_rue as last_orient_rue,
+    t1.genre_rue as last_genre_rue,
+    t1.rue as last_rue,
+    t1.ville as last_ville,
     t1.code_post as last_code_post,
-    t2.no_civ as no_civ_30sept, 
-    t2.orient_rue as orient_rue_30sept,  
-    t2.genre_rue as genre_rue_30sept,  
-    t2.rue as rue_30sept, 
-    t2.ville as ville__30sept,   
+    t2.no_civ as no_civ_30sept,
+    t2.orient_rue as orient_rue_30sept,
+    t2.genre_rue as genre_rue_30sept,
+    t2.rue as rue_30sept,
+    t2.ville as ville__30sept,
     t2.code_post as code_post_30sept
 from last_cp as t1
 left join
