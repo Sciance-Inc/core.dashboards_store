@@ -13,6 +13,20 @@ This file contains some configuration you fill need to tune to you usecase. We a
 You will minimally have to enable some dashbaords and their corresponding interfaces. 
 You also might need to replace the IP from the `databases` variables, to match your linked servers (if any.)
 
+### What schould I update  ? 
+> Updates must take place in the `{{ cookiecutter.css_short_name + '.dashboards_store' }}` project .
+
+
+### The `dbt_project.yml` file
+
+1. Link the GPI / GRH database 
+2. Enable the GPI / GRH databases
+3. Populate the population (the default, dummy definition must be overriden)
+4. Make sur the `vars` section make sens : check each variable against the database to make sure it's properly set. You can use the hints / comments.
+
+### The `packages.yml`  file
+1. Bump the version from within `packages.yml` to the latest version of the `core.dashboard_store` package (refer to the `core.dashboard_store` releases to find the latest version)
+
 ## 2. Add the content from `{{ cookiecutter.css_short_name + '.dashboards_store' }}/profiles-sample.yml` into your `~/.dbt/profiles.yml` file
 
 We have already generated the profile to use to run the store for your (your are welcome :) ). But maybe you could add it to your other profiles ?
