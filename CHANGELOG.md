@@ -2,6 +2,23 @@
 
 
 
+## v0.16.0+20240620 (2024-06-20)
+
+### Feature
+
+* feat(template): adding pre-populated analysis to help with generation of RH seeds ([`a03e55e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a03e55eb90b40ef410cb7967339547ac120a359a))
+
+* feat: the name of the failed task will now be outputed ([`10c5653`](https://github.com/Sciance-Inc/core.dashboards_store/commit/10c565309e951de9a8c76bea5bd0913d70a872ad))
+
+* feat(DAG): updating client on-error callback ([`7c8c176`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7c8c17643e74503e43a1e1db4fea6c53ca4a3ae4))
+
+* feat: improving robustness of the hook system ([`de70483`](https://github.com/Sciance-Inc/core.dashboards_store/commit/de7048300f343a7d86825d47d52cd95ddc2cbace))
+
+### Fix
+
+* fix(DAG): casting execution_date as a string to make it serializable ([`727895d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/727895dda5b9c05efb60fe04905ef5a2fb35fe6e))
+
+
 ## v0.15.1+20240508 (2024-05-08)
 
 ### Documentation
