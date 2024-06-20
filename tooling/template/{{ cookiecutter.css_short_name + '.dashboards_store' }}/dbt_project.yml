@@ -28,9 +28,6 @@ models:
     +materialized: table  # The default materialization for all models in this project
     interfaces:
       +materialized: ephemeral  # Interface's data schould not be duplicated
-    marts:
-      educ_serv:
-        +enabled: False # Must be set to true once your population are defined.
   
   store:
     marts:
