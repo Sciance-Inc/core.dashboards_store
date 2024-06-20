@@ -19,11 +19,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     UPDATE THIS FILE TO MATCH YOUR CSS REALITY.
 #}
 {% raw %}
-select distinct ele.code_perm, eco.id_eco, eco.annee
+select top 0 ele.code_perm, eco.id_eco, eco.annee
 from {{ ref("i_gpm_e_dan") }} as eledan
 left join {{ ref("i_gpm_t_eco") }} as eco on eledan.id_eco = eco.id_eco
-left join
-    {{ ref("i_gpm_e_ele") }} as ele on eledan.fiche = ele.fiche
+left join {{ ref("i_gpm_e_ele") }} as ele on eledan.fiche = ele.fiche
+where
+    eledan.statut_don_an = 'A' and eledan.ordre_ens = '4'
     /*
 WHERE
     eledan.statut_don_an = 'A'
