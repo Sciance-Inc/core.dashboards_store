@@ -1,7 +1,6 @@
 version: 2
 
 models:
-
   - name: srslt_dim_matieres_suivi
     description: >
       Table de dimensions listant les codes_matières et leur description.
@@ -18,7 +17,7 @@ models:
             - fiche
             - eco
             - niveau_res
-  
+
   - name: srslt_report_suivi_resultats
     description: >
       Cette table permet d'avoir les résultats historique des 5 dernières années pour les élèves actuels avec la possibilité de filtré les élèves en dificulté, en maitrise ou en échec.
@@ -28,5 +27,6 @@ models:
             - id_eco
             - fiche
             - code_matiere
+            - groupe_matiere
             - annee
             - no_comp
