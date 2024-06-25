@@ -2,6 +2,15 @@
 
 
 
+## v0.16.1+20240625 (2024-06-25)
+
+### Fix
+
+* fix(suivi_resultats): the dashboard is not dependant of the RLS table anymore. ([`d628f34`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d628f340394b92ec3720f2255f97727a584d4a4a))
+
+* fix(retirement): locing school_year filter ([`3d0aced`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3d0acedb09ee2b0256c430b3ce0cf039112938b5))
+
+
 ## v0.16.0+20240620 (2024-06-20)
 
 ### Feature
