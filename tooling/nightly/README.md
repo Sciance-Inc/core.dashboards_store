@@ -1,20 +1,20 @@
 
 # Core.store : nightly
-> Intgegration testing of dev and release-candidate branches.
+> Integration testing of dev and release-candidate branches.
 
 ## Why ?
 * Code submitted through pull-requests is only tested in isolation from other PR. 
 * Two, isolated PR which are working fine on their own, may not work well together.
 * We need to test the integration of all PRs, before releasing a new version.
 
-This sub-directory hold a smôôôl `dbt project`, named `nightly.data.store`, behaving like a regular `cssXX.data.store` project, but with all models and tests enabled. This project is run nightly (hence the name) to test the integration of all PRs against a real database.
+This sub-directory holds a smôôôl `dbt project`, named `nightly.data.store`, behaving like a regular `cssXX.data.store` project, but with all models and tests enabled. This project is run nightly (hence the name) to test the integration of all PRs against a real database.
 
 Only the last tagged `dev` and `rc` versions of the day are tested.
 
 If the tests / compilations / runs fail, we get the next day to fix the build ;).
 
 ## How ?
-* The `nightly` run is triggered by a GitHub Action and runs againts the CSSVDC databases.
+* The `nightly` run is triggered by a GitHub Action.
 
 ## What schould I do ?
 * Every developer adding a dashboard / models to the `core.data.store` project should ensure that the `nightly` project has the new mart/dashboard/model/tests/seed enabled.
