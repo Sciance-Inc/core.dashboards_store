@@ -1,4 +1,4 @@
-nightly_profile:
+etl_profile:
   target: "{{ env_var('DBT_TARGET') }}"
   outputs:
     dev:

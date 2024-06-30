@@ -1,2 +1,0 @@
-#!/bin/sh
-poetry run dbt  $@ --profile nightly_profile 
