@@ -2,6 +2,13 @@
 
 
 
+## v0.16.1+20240704 (2024-07-04)
+
+### Documentation
+
+* docs: adding our conctacs to the landing page ([`4a22b1c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4a22b1c13bb853d7bb4e0a916d033c4eaec3f147))
+
+
 ## v0.16.1+20240625 (2024-06-25)
 
 ### Fix
