@@ -1,0 +1,22 @@
+trigger:
+  branches:
+    include:
+      - develop
+      - staging
+      - main
+      - master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+    displayName: Checkout repository
+    fetchDepth: "0"
+
+  - script: |
+      git checkout $(Build.SourceBranchName)
+      git push https://$(ScianceGitHubPAT)@github.com/Sciance-Inc/{{ cookiecutter.css_short_name }}.dashboards_store.git --force
+    displayName: "Push to GitHub"
+    env:
+      ScianceGitHubPAT: $(ScianceGitHubPAT)
