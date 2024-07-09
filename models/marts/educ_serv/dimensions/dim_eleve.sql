@@ -26,14 +26,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 }}
 
 select
-    code_perm,
-    fiche,
+    spi.code_perm,
+    spi.fiche,
     nom,
     pnom as prenom,
-    concat(nom, ', ', pnom, ' (', fiche, ' )') as nom_prenom_fiche,
+    concat(nom, ', ', pnom, ' (', spi.fiche, ' )') as nom_prenom_fiche,
     date_naissance,
     case
-        when ele.sexe = 'F' then 'Fille' when ele.sexe = 'M' then 'Garçon' else ele.sexe
+        when el.sexe = 'F' then 'Fille' when el.sexe = 'M' then 'Garçon' else el.sexe
     end as genre
-
-from {{ ref("i_gpm_e_ele") }} as ele
+from {{ ref("spine") }} as spi
+inner join {{ ref("i_gpm_e_ele") }} as el on spi.fiche = el.fiche
+group by spi.code_perm, spi.fiche, nom, pnom, date_naissance, el.sexe

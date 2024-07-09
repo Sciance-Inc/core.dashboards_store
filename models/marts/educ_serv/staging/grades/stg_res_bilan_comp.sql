@@ -66,4 +66,3 @@ with
     )
 select *
 from comp
-where res_comp is not null

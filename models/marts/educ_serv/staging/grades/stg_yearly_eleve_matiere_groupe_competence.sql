@@ -45,6 +45,7 @@ with
             emgrp_yearly.leg_obj_term,
             emgrp_yearly.leg_obj_non_term,
             emgrp_yearly.leg_obj_final,
+            planif,
             om.id_obj_mat,
             eval_res_comp,
             {% for i in range(1, max_etapes) %}
@@ -63,6 +64,7 @@ with
             {{ ref("i_gpm_t_obj_mat_grp") }} as omg
             on omg.id_obj_mat = om.id_obj_mat
             and omg.id_mat_grp = emgrp_yearly.id_mat_grp
+        where planif = 'reg'
     )
 
 select *
