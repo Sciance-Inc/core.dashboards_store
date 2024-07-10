@@ -18,6 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- Extract a rough version of the etat_empl table seed.
 -- Of course, this is not the final version of the seed, but it is a good starting
 -- point you will need to manually adjust.
+{% raw %}
 select
     etat_empl,
     descr,
@@ -28,4 +29,4 @@ select
     rel_empl_comm,
     null as valid_from,
     null as valid_until
-from {{ var("database_paie") }}.dbo.pai_tab_etat_empl
+from {{ var("database_paie") }}.dbo.pai_tab_etat_empl {% endraw %}
