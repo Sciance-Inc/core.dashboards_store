@@ -18,10 +18,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- Extract a rough version of the stat_eng table seed.
 -- Of course, this is not the final version of the seed, but it is a good starting
 -- point you will need to manually adjust.
+{% raw %}
 select
     [stat_eng],
     [descr],
     case when descr like '%Rég%' then 1 else 0 end as is_reg,
     null as valid_from,
     null as valid_until
-from {{ var("database_paie") }}.dbo.pai_tab_stat_eng
+from {{ var("database_paie") }}.dbo.pai_tab_stat_eng {% endraw %}
