@@ -21,7 +21,6 @@ env:
   # Shared
   REGISTRY: ghcr.io
   REPOSITORY_NAME: ${{ github.repository }}
-  WORKER_PRIVATE_IP: 192.168.26.100
 
 jobs:
   extract_metadata:
@@ -113,7 +112,7 @@ jobs:
       # Continuous Integration  # Mouting volumes does not work anymore with GH actions (DinD is not supported) so i have to manually push the data to S3 and fetch it back later -_-
       - name: Compile the manifest file and export it to mamazon
         run: |
-          docker run --env-file env --pull always ${{ steps.docker-tag.outputs.tags }} cicd
+          docker run --env-file env --network host --pull always ${{ steps.docker-tag.outputs.tags }} cicd
 
       - name: Microsoft Teams Notification
         uses: skitionek/notify-microsoft-teams@master

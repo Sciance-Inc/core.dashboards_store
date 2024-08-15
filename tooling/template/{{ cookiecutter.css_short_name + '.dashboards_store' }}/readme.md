@@ -34,7 +34,9 @@ We have already generated the profile to use to run the store for your (your are
 If this sentence does not make any sense at all, you schould go read the awsome ```dbt``` documentation [here](https://docs.getdbt.com/docs/profile).
 
 
-
+## 2. Implement the Educational services adapters and populate the Human Ressources seeds.
+* You will propbably want to enable both the `educational_services` and `human_ressources` marts.
+* To do so, you will need to implements the corresponding adapters and seeds. To help you started wit the seeds, please refer to the `analyses` folder. You will fin pre-built queries that will give you a good starting point.
 
 
 
