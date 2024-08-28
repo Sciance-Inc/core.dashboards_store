@@ -19,30 +19,88 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     Extract all the resignation date for all of the employees.
 #}
 -- Extract all the valid resignations etat as well as the the corps_empl, lieu_trav and
--- 
+--
 with
     demission as (
         select
-            matr,
-            empl.etat_empl as etat,
+            stg.matr,
+            stg.etat_empl as etat,
             corp_empl,
             ref_empl,
             lieu_trav,
             stat_eng,
-            date_eff as demission_date
+            date_eff as date_demission,
+            case
+                when month(date_eff) between 9 and 12
+                then year(date_eff)
+                else year(date_eff) - 1
+            end as school_year
 
-            --row_number() over (partition by matr order by date_eff desc) as seq
-        from {{ ref("stg_activity_history") }} as empl
+        from {{ ref("stg_activity_history") }} as stg
+
         inner join
             (
                 select etat_empl, school_year
                 from {{ ref("dim_employment_status_yearly") }}
                 where empl_resi = 1
             ) as dim
-            on empl.etat_empl = dim.etat_empl
-            and empl.school_year = dim.school_year
+            on stg.etat_empl = dim.etat_empl
+            and stg.school_year = dim.school_year
+
     ),
 
+    -- Il se peut qu'il y ait plusieurs dates pour le même emploi, on va chercher la
+    -- première date_eff de démission.
+    first_demission as (
+        select
+            dem_min.matr,
+            dem_min.etat,
+            dem_min.corp_empl,
+            dem_min.ref_empl,
+            dem_min.lieu_trav,
+            dem_min.stat_eng,
+            min(dem_min.date_demission) as demission_date,
+            dem_min.school_year
+        from demission as dem_min
+        group by
+            dem_min.matr,
+            dem_min.etat,
+            dem_min.corp_empl,
+            dem_min.ref_empl,
+            dem_min.lieu_trav,
+            dem_min.stat_eng,
+            school_year
+
+    ),
+
+    add_first_date as (
+        select
+            dem.matr,
+            dem.etat,
+            dem.corp_empl,
+            dem.ref_empl,
+            dem.lieu_trav,
+            dem.stat_eng,
+            dem.school_year,
+            dem.demission_date,
+            (
+                select top 1 (stg_first.date_eff)
+                from {{ ref("stg_activity_history") }} stg_first
+
+                where
+                    stg_first.matr = dem.matr
+                    and stg_first.ref_empl = dem.ref_empl
+                    and stg_first.corp_empl = dem.corp_empl
+                    and stg_first.lieu_trav = dem.lieu_trav
+                order by
+                    stg_first.corp_empl,
+                    stg_first.lieu_trav,
+                    stg_first.ref_empl,
+                    stg_first.date_eff
+            ) as date_entree
+        from first_demission dem
+
+    ),
     demission_age as (
         select
             frst.matr,
@@ -52,9 +110,15 @@ with
             frst.lieu_trav,
             frst.stat_eng,
             frst.demission_date,
-            datediff(year, dos.birth_date, frst.demission_date) as demission_age
-        from demission as frst
+            frst.date_entree,
+            datediff(year, dos.birth_date, frst.demission_date) as demission_age,
+            school_year,
+            dos.sex as sexe,
+            datediff(day, frst.date_entree, frst.demission_date) as days_employment
+
+        from add_first_date as frst
         left join {{ ref("dim_employees") }} as dos on frst.matr = dos.matr
+    -- where school_year >= {{ store.get_current_year() }} - 10
     )
 
 select *

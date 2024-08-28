@@ -23,65 +23,76 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     
     That's gross.
 #}
-{{ config(alias="report_resignation_filters") }}
+{{ config(alias="resignation_report_filters") }}
 
 
 with
     one_for_all as (
         select
-            src.sexe,
+            -- src.etat_empl,
+            src.corp_empl,
             src.lieu_trav,
+            src.sexe,
             src.stat_eng,
-            src.etat,
+            src.school_year,
             src.job_group_category,
             src.filter_key,
             max(src.filter_source) as filter_source
+
         from
             (
                 select
-                    sexe,
+                    -- etat_empl,
+                    corp_empl,
                     lieu_trav,
+                    sexe,
                     stat_eng,
-                    etat,
+                    school_year,
                     job_group_category,
-                    'active' as filter_source,
+                    'age' as filter_source,
                     filter_key
-                from {{ ref("resignation_report_active_employees_age") }}
+                from {{ ref("resignation_report_age") }}
                 union all
                 select
-                    sexe,
+                    -- etat_empl,
+                    corp_empl,
                     lieu_trav,
+                    sexe,
                     stat_eng,
-                    etat,
+                    school_year,
                     job_group_category,
-                    'Retraité' as filter_source,
+                    'rate' as filter_source,
                     filter_key
-                from {{ ref("resignation_report") }}
+                from {{ ref("resignation_report_rate") }}
             ) as src
         group by
-            src.sexe,
-            src.lieu_trav,
-            src.stat_eng,
-            src.etat,
-            src.job_group_category,
-            src.filter_key
+            -- etat_empl,
+            corp_empl,
+            lieu_trav,
+            sexe,
+            stat_eng,
+            school_year,
+            job_group_category,
+            filter_key
 
     )
 
 -- Join the friendly name
 select
+    -- src.etat_empl,
+    src.corp_empl,
+    src.lieu_trav,
     src.sexe,
-    empl.etat_empl as employment_status_name,
-    eng.stat_eng as engagement_status_name,
-    work.workplace_name,
+    src.stat_eng,
+    src.school_year,
     src.job_group_category,
     src.filter_key,
+    eng.stat_eng as engagement_status_name,
+    work.workplace_name,
     src.filter_source
+
 from one_for_all as src
-left join
-    {{ ref("dim_employment_status_yearly") }} as empl
-    on src.etat = empl.etat_empl
-    and empl.is_current = 1  -- Only keep the active valid data
+
 left join
     {{ ref("dim_engagement_status_yearly") }} as eng
     on src.stat_eng = eng.stat_eng
