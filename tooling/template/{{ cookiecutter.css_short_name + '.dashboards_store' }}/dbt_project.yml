@@ -50,6 +50,8 @@ models:
         +enabled: False
       retirement:
         +enabled: False
+      resignation:
+        +enabled: False
       chronic_absenteeism:
         +enabled: False
       predictive_view_aggregated:
