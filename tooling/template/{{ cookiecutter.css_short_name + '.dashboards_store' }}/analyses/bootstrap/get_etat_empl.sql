@@ -26,7 +26,7 @@ select
     case when descr like '%congé%' then 1 else 0 end as empl_cong,
     0 as cong_lt,
     1 as etat_actif,
-    rel_empl_comm, # REMOVE THE COLUMN FROM THE FINAL SEED FILE AS IT'S JUST A HELPER FOR YOU TO UNDERSTAND THE NATURE OF THE FILED
+    rel_empl_comm,  # REMOVE THE COLUMN FROM THE FINAL SEED FILE AS IT'S JUST A HELPER FOR YOU TO UNDERSTAND THE NATURE OF THE FILED
     null as valid_from,
     null as valid_until
 from {{ var("database_paie") }}.dbo.pai_tab_etat_empl {% endraw %}
