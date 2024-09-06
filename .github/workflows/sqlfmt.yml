@@ -16,13 +16,13 @@ jobs:
       - name: Check out Repo
         uses: actions/checkout@v3
 
-      - name: Set up Python 3.10
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.8"
 
       - name: Install sqlfmt
-        run: pip install shandy-sqlfmt[jinjafmt]
+        run: pip install shandy-sqlfmt[jinjafmt]==0.19.2
 
       # # only get the changes files as the other files are not the responsibility of the PR author
       # - name: Get Changed Files
@@ -31,7 +31,7 @@ jobs:
 
       # Run the formatter
       - name: Run sqlfmt
-        run: sqlfmt . --exclude ./tooling/**/* --exclude ./target/**/* --exclude ./dbt_packages/**/* --check
+        run: sqlfmt . --exclude ./tooling/**/* --exclude ./target/**/* --exclude ./dbt_packages/**/* --check --diff
 
       # Disable, many things can goes wrong
       # Auto commit the changes (iiiiiiiiihhhhhh)
