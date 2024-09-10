@@ -53,7 +53,6 @@ with
             empl.sex as sexe
         from extraction ext
         left join {{ ref("dim_employees") }} empl on empl.matr = ext.matr
-    -- where ext.school_year >= {{ store.get_current_year() }} - 10
     )
 
 select
@@ -61,7 +60,6 @@ select
     corp_empl,
     lieu_trav,
     school_year,
-    -- nbrEmploi,
     nbrdemission,
     sexe
 from ajout_sex

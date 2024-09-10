@@ -15,11 +15,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{#
-    Select the employees currently working and compute their age at the start of the year
 
-    Because of the double-granularity difference (age and school_year) with the rtmrt_report_retirement_age table, a surrogate key is generated to allow the user to filter on both dimensions at the same time
-#}
 {{ config(alias="resignation_report_age") }}
 
 with

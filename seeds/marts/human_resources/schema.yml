@@ -40,8 +40,7 @@ seeds:
           If not populated, the status is valid until the current year + 1 .
                 - name: valid_until
       - name: empl_resi
-        description: >
-          Is the code identifiing a currently resignation employee ?
+        description: Is the code identifiing a currently resignation employee ?
 
     config:
       tags:

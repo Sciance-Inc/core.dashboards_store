@@ -31,7 +31,7 @@ with
             stat_eng,
             date_eff as date_demission,
             case
-                when month(date_eff) between 9 and 12
+                when month(date_eff) between 7 and 12
                 then year(date_eff)
                 else year(date_eff) - 1
             end as school_year
@@ -118,7 +118,6 @@ with
 
         from add_first_date as frst
         left join {{ ref("dim_employees") }} as dos on frst.matr = dos.matr
-    -- where school_year >= {{ store.get_current_year() }} - 10
     )
 
 select *
