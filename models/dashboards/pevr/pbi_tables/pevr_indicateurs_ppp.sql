@@ -19,82 +19,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 with
     src as (
-        select
-            sch.annee_scolaire,
-            sch.annee,
-            sch.school_friendly_name,
-            y_stud.fiche,
-            ele.genre,
-            y_stud.plan_interv_ehdaa,
-            y_stud.population,
-            case
-                when y_stud.class is null then '-' else y_stud.class
-            end as classification,
-            case when y_stud.is_ppp = 1 then 1. else 0. end as is_ppp
-        from {{ ref("fact_yearly_student") }} y_stud
-        inner join {{ ref("dim_eleve") }} as ele on y_stud.fiche = ele.fiche
-        inner join {{ ref("dim_mapper_schools") }} as sch on y_stud.id_eco = sch.id_eco
+        select annee, fiche, eco, case when is_ppp = 1 then 1. else 0. end as is_ppp
+        from {{ ref("fact_yearly_student") }}
         where
             ordre_ens = 4
-            and sch.annee
+            and annee
             between {{ store.get_current_year() }}
-            - 3 and {{ store.get_current_year() }}
+            - 2 and {{ store.get_current_year() }}
     ),
     ppp as (
         select
             '1.3.4.11' as id_indicateur,
-            annee_scolaire,
-            school_friendly_name,
-            genre,
-            plan_interv_ehdaa,
-            population,
-            classification,
+            annee,
+            eco,
             sum(is_ppp) as nb_ppp,
-            avg(is_ppp) as taux_ppp
+            avg(is_ppp) as tx_ppp
         from src
-        group by
-            annee_scolaire, cube (
-                school_friendly_name,
-                genre,
-                plan_interv_ehdaa,
-                population,
-                classification
-            )
-    ),
-
-    _coalesce as (
-        select
-            ind.id_indicateur,
-            ind.description_indicateur,
-            ppp.annee_scolaire,
-            coalesce(ppp.school_friendly_name, 'CSS') as ecole,
-            coalesce(ppp.genre, 'Tout') as genre,
-            coalesce(ppp.plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
-            coalesce(ppp.population, 'Tout') as population,
-            coalesce(ppp.classification, 'Tout') as classification,
-            nb_ppp,
-            taux_ppp
-        from ppp
-        inner join
-            {{ ref("pevr_dim_indicateurs") }} as ind
-            on ppp.id_indicateur = ind.id_indicateur
+        group by annee, cube (eco)
     )
-
 select
-    id_indicateur,
-    description_indicateur,
-    annee_scolaire,
+    ind.id_indicateur,
+    ind.description_indicateur,
+    ppp.annee,
+    coalesce(ppp.eco, 'CSS') as eco,
+    coalesce(school_friendly_name, 'CSS') as nom_ecole,
     nb_ppp,
-    taux_ppp,
-    {{
-        dbt_utils.generate_surrogate_key(
-            [
-                "ecole",
-                "plan_interv_ehdaa",
-                "genre",
-                "population",
-                "classification",
-            ]
-        )
-    }} as id_filtre
-from _coalesce
+    tx_ppp
+from ppp
+left join
+    {{ ref("dim_mapper_schools") }} as sch
+    on ppp.annee = sch.annee
+    and ppp.eco = sch.eco
+inner join
+    {{ ref("pevr_dim_indicateurs") }} as ind on ppp.id_indicateur = ind.id_indicateur
