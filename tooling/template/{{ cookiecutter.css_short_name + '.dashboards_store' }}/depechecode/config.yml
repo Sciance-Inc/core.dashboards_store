@@ -1,9 +1,12 @@
 css_name: "{{ cookiecutter.css_short_name }}"
 schedule:
   staging: "0 7 * * 1-5" # Every weekday at 7am
-  master: "0 10 * * 5" # Every Friday at 10am
-timeout: 120
+  main: "0 10 * * 5" # Every Friday at 10am
+timeout: 600
 concurrency: 2
-teams_webhook:
-  sciance: "https://stratemia.webhook.office.com/webhookb2/41a12230-17f1-4d6b-96f5-9ffc01c622d5@72f3ee62-86b1-46d4-928d-0a988f5aad48/IncomingWebhook/be3899ea57954ec3948938716e6d9cea/9dff948c-89f6-4006-ab74-d337fe7b3c21"
-  #client: MaybeMaybeMaybe
+notifications:
+  teams_webhook:
+    - "https://stratemia.webhook.office.com/webhookb2/41a12230-17f1-4d6b-96f5-9ffc01c622d5@72f3ee62-86b1-46d4-928d-0a988f5aad48/IncomingWebhook/be3899ea57954ec3948938716e6d9cea/9dff948c-89f6-4006-ab74-d337fe7b3c21" # sciance
+    #- maybemaybemaybe  # client
+  email_address:
+    - "juhel.hugo@sciance.ca"
