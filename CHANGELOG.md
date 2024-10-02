@@ -2,6 +2,21 @@
 
 
 
+## v0.17.0+20241002 (2024-10-02)
+
+### Documentation
+
+* docs(seeds): improving the seed pre-populated queries discoverability ([`8619f9a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8619f9a094b9c554d36c2c783057ee08d96bb817))
+
+### Feature
+
+* feat: adding population bootstrap script ([`d5c31f0`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d5c31f08ad3d9d695eb409a497fe29134f5aa13d))
+
+### Fix
+
+* fix(template): properly escaping placeholder ([`1ee3324`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1ee33248ac9735241450762397286194c3d09830))
+
+
 ## v0.16.2+20240711 (2024-07-11)
 
 ### Documentation
