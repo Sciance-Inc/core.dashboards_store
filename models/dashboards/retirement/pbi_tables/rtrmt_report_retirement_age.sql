@@ -27,7 +27,7 @@ with
     source as (
         select
             case
-                when month(src.retirement_date) < 7
+                when month(src.retirement_date) < {{ var("mois_reference")}}
                 then year(src.retirement_date) - 1
                 else year(src.retirement_date)
             end as school_year,
@@ -75,8 +75,8 @@ select
     lieu_trav,
     stat_eng,
     convert(
-        date, concat(school_year, (select date_ref from {{ ref("date_ref") }})), 102
-    ) as school_year,
+        date, concat(school_year, '-', {{ var("mois_reference")}}, '-01')
+        , 102) as school_year,
     case
         when {{ store.get_current_year() }} = school_year then 1 else 0
     end as is_current_year,

@@ -49,7 +49,7 @@ with
                 select
                     concat(
                         {{ store.get_current_year() }},
-                        (select date_ref from {{ ref("date_ref") }})
+                        '-', {{ var("mois_reference")}}, '-01'
                     ) as current_year
             ) as crt
 
@@ -145,7 +145,7 @@ with
                 date,
                 concat(
                     {{ store.get_current_year() }} + hrz.horizon,
-                    (select date_ref from {{ ref("date_ref") }})
+                    '-', {{ var("mois_reference")}}, '-01'
                 ),
                 102
             ) as school_year,
