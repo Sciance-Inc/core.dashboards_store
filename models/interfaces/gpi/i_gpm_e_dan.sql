@@ -35,5 +35,6 @@ select
     type_prog_part,
     date_deb as date_debut,
     date_depart,
-    grille
+    grille,
+    regrp_ehdaa
 from {{ var("database_gpi") }}.dbo.gpm_e_dan
