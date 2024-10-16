@@ -66,7 +66,9 @@ with
             res_mat.is_reussite as ind_reussite,
             agg_volet.ind_reus_volet_fra_5,
             res_mat.res_som as resultat,
-            '1' as 'En_cours',  -- Est considéré comme 'En cours'
+            case
+                when annee = {{ store.get_current_year() }} then 1 else 0
+            end as 'En_cours',  -- Est considéré comme 'En cours'
             res_mat.unites
         from perim as ele
         left join
@@ -83,7 +85,7 @@ with
             and (
                 res_mat.code_matiere
                 not in (select code_matiere from {{ ref("matiere_evalue") }})  -- ne prendre que les résultats de l'année en cours pour les matière avec des épreuve unique 
-                or res_mat.annee = {{ get_current_year() }}
+                or res_mat.annee = {{ store.get_current_year() }}
                 and month(getdate()) < 7
             )  -- pour l'année antérieur nous allons récupérer les résultats ministériels   
     ),
@@ -104,7 +106,7 @@ with
             ri_res.ind_reus_charl as ind_reussite,
             agg_volet.ind_reus_volet_fra_5,
             ri_res.nb_unite_charl as unites,
-            '0' as 'En_cours',  -- Ne contient pas les résultats de l'année courante avant la fin de l'année.
+            case when annee = {{ get_current_year() }} then 1 else 0 end as 'En_cours',  -- Ne contient pas les résultats de l'année courante avant la fin de l'année.
             row_number() over (
                 partition by ele.fiche, ri_res.matiere
                 order by ri_res.date_resultat desc, date_heure_recup desc
@@ -353,7 +355,10 @@ with
             ) as ind_sanct_complementaire_5,  -- L'indicateur d'une note de passage dans un cours complémentaire 5
             sum(
                 case
-                    when is_g4 = 1 and ind_reussite = 'RE'
+                    when
+                        is_g4 = 1
+                        and en_cours = '0'
+                        and (ind_reussite = 'RE' or ind_reussite = 'R')
                     then convert(int, unites)
                     else 0
                 end
@@ -365,7 +370,10 @@ with
             ) as nb_unites_g4_en_cours,  -- La somme des unités en cours en secondaire 4. Contient toutes les matières.
             sum(
                 case
-                    when is_g5 = 1 and ind_reussite = 'RE'
+                    when
+                        is_g5 = 1
+                        and en_cours = '0'
+                        and (ind_reussite = 'RE' or ind_reussite = 'R')
                     then convert(int, unites)
                     else 0
                 end
@@ -377,14 +385,14 @@ with
             ) as nb_unites_g5_en_cours,  -- La somme des unités en cours en secondaire 5. Contient toutes les matières.
             sum(
                 case
-                    when (is_g4 = 1 and convert(nvarchar, resultat) >= '60')
+                    when (is_g4 = 1 and isnumeric(resultat) = 1 and resultat >= 60)
                     then convert(int, unites)
                     else 0
                 end
             ) as nb_unites_previsionnel_4,  -- La somme des unités prévisionnel en cours ou non en secondaire 4. Contient toutes les matières.
             sum(
                 case
-                    when (is_g5 = 1 and convert(nvarchar, resultat) >= '60')
+                    when (is_g5 = 1 and isnumeric(resultat) = 1 and resultat >= 60)
                     then convert(int, unites)
                     else 0
                 end
@@ -393,8 +401,10 @@ with
                 case
                     when
                         (
-                            (is_g4 = 1 and convert(nvarchar, resultat) >= '60')
-                            or (is_g5 = 1 and convert(nvarchar, resultat) >= '60')
+                            (is_g4 = 1 and isnumeric(resultat) = 1 and resultat >= 60)
+                            or (
+                                is_g5 = 1 and isnumeric(resultat) = 1 and resultat >= 60
+                            )
                         )
                     then convert(int, unites)
                     else 0
