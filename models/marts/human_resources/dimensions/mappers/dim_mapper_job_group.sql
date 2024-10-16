@@ -31,6 +31,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 select
     corp_empl as job_group,
     descr as job_group_description,
+    concat(corp_empl, ' - (', descr, ')') as code_job_name,
     case
         when corp_empl like ('1%')
         then 'Direction'
