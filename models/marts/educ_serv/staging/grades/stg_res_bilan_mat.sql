@@ -39,6 +39,8 @@ with
             emgrp_yearly.etat,
             emgrp_yearly.id_mat_ele,
             emgrp_yearly.res_som,
+            emgrp_yearly.res_meq,
+            mat.unites,
             {% for i in range(1, max_etapes) %}
                 emgrp_yearly.res_etape_{{ "%02d" % i }},
             {% endfor %}
@@ -63,4 +65,3 @@ with
     )
 select *
 from mat_ele
-where res_som is not null

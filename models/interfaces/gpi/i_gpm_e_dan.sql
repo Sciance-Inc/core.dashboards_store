@@ -36,5 +36,6 @@ select
     date_deb as date_debut,
     date_depart,
     grille,
-    regrp_ehdaa
+    regrp_ehdaa,
+    motif_depart
 from {{ var("database_gpi") }}.dbo.gpm_e_dan

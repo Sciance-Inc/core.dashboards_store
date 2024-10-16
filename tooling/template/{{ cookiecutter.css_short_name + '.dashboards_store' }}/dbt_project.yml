@@ -62,6 +62,8 @@ models:
           +enabled: False
         pevr:
           +enabled: False        
+        diplome:
+          +enabled: False
   
     interfaces:
       +materialized: ephemeral

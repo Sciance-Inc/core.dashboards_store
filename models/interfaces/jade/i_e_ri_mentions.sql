@@ -15,30 +15,12 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{#
-  Map each school to it's friendly name.
-
-  Feel free to override me to get your own custom litle mapping.
-#}
-{{
-    config(
-        post_hook=[
-            core_dashboards_store.create_clustered_index(
-                "{{ this }}", ["id_eco", "annee"]
-            ),
-            core_dashboards_store.create_nonclustered_index(
-                "{{ this }}", ["school_friendly_name"]
-            ),
-        ]
-    )
-}}
-
-
 select
-    id_eco,
-    annee,
-    eco,
-    cat_eco,
-    concat('(', eco, ') - ', nom_eco) as school_friendly_name,
-    concat(annee, ' - ', annee + 1) as annee_scolaire
-from {{ ref("i_gpm_t_eco") }}
+    codeperm as code_perm,
+    fiche,
+    ecocenoff as eco_cen_off,
+    progcharl as prog_charl,
+    typediplomecharl as type_diplome_charl,
+    regimesanctcharl as regime_sanct_charl,
+    indreussanctcharl as ind_reus_sanct_charl
+from {{ var("database_jade") }}.dbo.e_ri_mentions
