@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {{
     config(
-        alias="stg_resultat_minstere",
+        alias="stg_resultat_ministere",
     )
 }}
 
