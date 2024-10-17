@@ -112,9 +112,10 @@ with
         where
             type_form_charl = 'FG'
             and secteur_enseign_freq = 'JE'
-            and ecole like ('{{ var("res_epreuves")["cod_css"] }}')
+            and ecole like ('{{ cod_css }}')
             and res.annee >= {{ store.get_current_year() }} - 5
     )
+
 select
     fiche,
     annee,
