@@ -99,3 +99,7 @@ vars:
       recency:
         years_of_data_absences: 10  # How many years of data to keep for the 'absences' centric dashboards.
         years_of_data_grades: 10 # How many years of data to keep for the 'grades' centric dashboards.
+
+  dashboards:
+    res_epreuves:
+      cod_css: <cssRegex>
