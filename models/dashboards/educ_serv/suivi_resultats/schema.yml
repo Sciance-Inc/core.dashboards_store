@@ -30,4 +30,3 @@ models:
             - groupe_matiere
             - annee
             - no_comp
-            - groupe_matiere
