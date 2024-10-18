@@ -19,10 +19,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     config(
         alias="stg_populations_fgj",
         post_hook=[
-            store.create_clustered_index(
+            core_dashboards_store.create_clustered_index(
                 "{{ this }}", ["id_eco", "population", "code_perm"], unique=True
             ),
-            store.create_nonclustered_index(
+            core_dashboards_store.create_nonclustered_index(
                 "{{ this }}", ["id_eco", "code_perm", "annee"]
             ),
         ],

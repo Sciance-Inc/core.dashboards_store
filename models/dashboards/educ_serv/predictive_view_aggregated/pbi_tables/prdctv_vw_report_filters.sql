@@ -39,7 +39,7 @@ with
                 select distinct fiche
                 from {{ ref("i_core_models_reporting_probabilities") }}
             )  -- Only keep the schools we have at least one student with a valid prediction
-            and annee = {{ store.get_current_year() }}
+            and annee = {{ core_dashboards_store.get_current_year() }}
             and seqid = 1
 
         group by cube (population, eco)
@@ -57,7 +57,7 @@ with
         left join
             {{ ref("dim_mapper_schools") }} as ecl
             on pop.eco = ecl.eco
-            and ecl.annee = {{ store.get_current_year() }}
+            and ecl.annee = {{ core_dashboards_store.get_current_year() }}
     )
 
 -- Compute the filter key by hashing up the model, target, population and school

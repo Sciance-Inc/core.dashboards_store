@@ -31,10 +31,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     config(
         alias="stg_daily_students",
         post_hook=[
-            store.create_clustered_index(
+            core_dashboards_store.create_clustered_index(
                 "{{ this }}", ["id_eco", "grille", "date_evenement"]
             ),
-            store.create_nonclustered_index("{{ this }}", ["date_evenement"]),
+            core_dashboards_store.create_nonclustered_index(
+                "{{ this }}", ["date_evenement"]
+            ),
         ],
     )
 }}

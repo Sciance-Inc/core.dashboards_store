@@ -34,8 +34,8 @@ with
         from {{ ref("empcong_fact_emp_conge") }}
         where
             annee
-            between {{ store.get_current_year() }}
-            - 10 and {{ store.get_current_year() }}
+            between {{ core_dashboards_store.get_current_year() }}
+            - 10 and {{ core_dashboards_store.get_current_year() }}
         group by
             annee,
             lieu_trav,

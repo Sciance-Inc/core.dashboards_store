@@ -68,8 +68,11 @@ with
             sum(
                 case
                     when
-                        {{ store.weekdays_between("previous_date_fin", "valid_from") }}
-                        <= 1
+                        {{
+                            core_dashboards_store.weekdays_between(
+                                "previous_date_fin", "valid_from"
+                            )
+                        }} <= 1
                     then 0
                     else 1
                 end

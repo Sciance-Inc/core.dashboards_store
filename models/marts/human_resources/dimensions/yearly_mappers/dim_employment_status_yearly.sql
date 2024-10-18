@@ -23,7 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {{
     config(
         post_hook=[
-            store.create_clustered_index(
+            core_dashboards_store.create_clustered_index(
                 "{{ this }}", ["school_year", "etat_empl"], unique=True
             ),
         ]
@@ -41,7 +41,9 @@ with
             src.cong_lt,
             src.etat_actif,
             coalesce(src.valid_from, 1950) as valid_from,
-            coalesce(src.valid_until, {{ store.get_current_year() }} + 1) as valid_until
+            coalesce(
+                src.valid_until, {{ core_dashboards_store.get_current_year() }} + 1
+            ) as valid_until
         from {{ ref("etat_empl") }} as src
 
     -- Repeat each code for each years codes are valid.

@@ -27,7 +27,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     config(
         materialized="table",
         post_hook=[
-            store.create_clustered_index(
+            core_dashboards_store.create_clustered_index(
                 "{{ this }}", ["matr", "school_year", "ref_empl"]
             ),
         ],
@@ -76,7 +76,12 @@ with
             date_fin,
             sequence_id,
             case
-                when {{ store.weekdays_between("previous_date_fin", "date_eff") }} <= 1
+                when
+                    {{
+                        core_dashboards_store.weekdays_between(
+                            "previous_date_fin", "date_eff"
+                        )
+                    }} <= 1
                 then 0
                 else 1
             end as is_rupture

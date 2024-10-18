@@ -21,7 +21,7 @@ with
     perim as (
         select fiche, id_eco, ordre_ens
         from {{ ref("fact_yearly_student") }}
-        where annee = {{ store.get_current_year() }}
+        where annee = {{ core_dashboards_store.get_current_year() }}
     ),
     src as (
         select
@@ -56,8 +56,8 @@ with
             {{ ref("fact_resultat_bilan_matiere") }} as mat
             on mat.fiche = el.fiche
             and mat.annee
-            between {{ store.get_current_year() }}
-            - 4 and {{ store.get_current_year() }}
+            between {{ core_dashboards_store.get_current_year() }}
+            - 4 and {{ core_dashboards_store.get_current_year() }}
         left join
             {{ ref("fact_resultat_bilan_competence") }} as comp
             on mat.fiche = comp.fiche
@@ -104,7 +104,7 @@ with
             null as is_reussite_comp,
             niveau_res
         from src
-        where annee = {{ store.get_current_year() }}
+        where annee = {{ core_dashboards_store.get_current_year() }}
     ),
     merg as (
         select *

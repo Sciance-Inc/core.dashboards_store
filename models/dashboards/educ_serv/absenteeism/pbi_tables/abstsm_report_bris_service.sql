@@ -34,7 +34,7 @@ with
         where
             event_kind = 'absence (journée complete)'  -- bris de service
             and events_sequence_length > 8
-            and school_year = {{ store.get_current_year() }}  -- Only consider the current school year
+            and school_year = {{ core_dashboards_store.get_current_year() }}  -- Only consider the current school year
 
     -- Add some metadata to better identify the sutdent
     ),

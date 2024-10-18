@@ -34,7 +34,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {{
     config(
         post_hook=[
-            store.create_clustered_index("{{ this }}", ["age"]),
+            core_dashboards_store.create_clustered_index("{{ this }}", ["age"]),
         ]
     )
 }}

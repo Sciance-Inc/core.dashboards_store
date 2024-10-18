@@ -24,7 +24,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     config(
         materialized="table",
         post_hook=[
-            store.create_clustered_index("{{ this }}", ["matr", "school_year"]),
+            core_dashboards_store.create_clustered_index(
+                "{{ this }}", ["matr", "school_year"]
+            ),
         ],
     )
 }}

@@ -32,7 +32,7 @@ with
             count(fiche) as n_events
         from {{ ref("fact_absences_retards_daily") }}
         where
-            school_year >= {{ store.get_current_year() }} - 1  -- Only consider the last 2 years
+            school_year >= {{ core_dashboards_store.get_current_year() }} - 1  -- Only consider the last 2 years
             and is_aggregate_kind = 0  -- Do not consider the aggregated type
         group by
             date_abs,

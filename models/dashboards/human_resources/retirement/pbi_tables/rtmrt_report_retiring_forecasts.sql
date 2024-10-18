@@ -41,7 +41,7 @@ with
                     {{ ref("dim_mapper_job_group") }} as job
                     on src.corp_empl = job.job_group  -- Add the job group category here as I want to aggreagte by job group categories and not by job group.
             ) as src
-        where src.school_year >= {{ store.get_current_year() }} - 10
+        where src.school_year >= {{ core_dashboards_store.get_current_year() }} - 10
         group by src.job_group_category, src.school_year
     )
 

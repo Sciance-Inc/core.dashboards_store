@@ -18,9 +18,9 @@ clean-targets:
 
 {% raw %}
 on-run-start:
-  - "{{ store.init_metadata_table() }}"
+  - "{{ core_dashboards_store.init_metadata_table() }}"
 on-run-end:
-  - "{{ store.purge_metadata_table() }}"
+  - "{{ core_dashboards_store.purge_metadata_table() }}"
 {% endraw %}
 
 models:
@@ -29,7 +29,7 @@ models:
     interfaces:
       +materialized: ephemeral  # Interface's data schould not be duplicated
   
-  store:
+  core_dashboards_store:
     marts:
       human_resources:
         +enabled: False
@@ -79,8 +79,7 @@ models:
     +materialized: table
 
 vars:
-  # As the code is excuted from the inherited repo, sources schould behave as if there were refs.
-  is_context_core: false
+  is_context_core: false # A smôll piece of magic ! Do not change it.
 
   # The source database to pull the data for a css.
   database_paie: "[{{ cookiecutter.server_ip }}].[PAIE]"
@@ -89,7 +88,7 @@ vars:
   database_prodrome: "[{{ cookiecutter.server_ip }}].[PRODROME]"
 
   res_epreuves:
-    cod_css: <cssRegex>
+    cod_css: <cssRegex> # Must be set to the CSS code. Something in the like of '%866'
 
   interfaces:
       gpi:

@@ -25,10 +25,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     config(
         alias="stg_daily_absences_rate",
         post_hook=[
-            store.create_clustered_index(
+            core_dashboards_store.create_clustered_index(
                 "{{ this }}", ["annee", "school_friendly_name", "date_evenement"]
             ),
-            store.create_nonclustered_index("{{ this }}", ["date_evenement"]),
+            core_dashboards_store.create_nonclustered_index(
+                "{{ this }}", ["date_evenement"]
+            ),
         ],
     )
 }}
