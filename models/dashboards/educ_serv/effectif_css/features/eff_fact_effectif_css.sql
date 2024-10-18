@@ -22,7 +22,11 @@ with
     src as (
         select *
         from {{ ref("fact_yearly_student") }}
-        where annee between {{ get_current_year() }} -4 and {{ get_current_year() }} + 1
+        where
+            annee
+            between {{ core_dashboards_store.get_current_year() }} -4
+            and {{ core_dashboards_store.get_current_year() }}
+            + 1
     ),
 
     el as (

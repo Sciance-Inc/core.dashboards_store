@@ -43,7 +43,8 @@ with
             on dim.cod_matiere = res_bilan.code_matiere  -- Only keep the tracked courses
         where
             res_bilan.annee
-            between {{ get_current_year() }} - 4 and {{ get_current_year() }}
+            between {{ core_dashboards_store.get_current_year() }}
+            - 4 and {{ core_dashboards_store.get_current_year() }}
             and res_bilan.res_num_som is not null
             and el.genre != 'X'  -- Non binaire
             and res_bilan.is_reprise = 0

@@ -23,7 +23,7 @@ with
         inner join
             {{ ref("dim_mapper_schools") }} as eco
             on ele.id_eco = eco.id_eco
-            and annee = {{ get_current_year() }}
+            and annee = {{ core_dashboards_store.get_current_year() }}
 
     ),
     -- Prend les résultats au volet de la matière Français 5. Le volet est un critère
@@ -67,7 +67,9 @@ with
             agg_volet.ind_reus_volet_fra_5,
             res_mat.res_som as resultat,
             case
-                when annee = {{ store.get_current_year() }} then 1 else 0
+                when annee = {{ core_dashboards_store.get_current_year() }}
+                then 1
+                else 0
             end as 'En_cours',  -- Est considéré comme 'En cours'
             res_mat.unites
         from perim as ele
@@ -85,7 +87,7 @@ with
             and (
                 res_mat.code_matiere
                 not in (select code_matiere from {{ ref("matiere_evalue") }})  -- ne prendre que les résultats de l'année en cours pour les matière avec des épreuve unique 
-                or res_mat.annee = {{ store.get_current_year() }}
+                or res_mat.annee = {{ core_dashboards_store.get_current_year() }}
                 and month(getdate()) < 7
             )  -- pour l'année antérieur nous allons récupérer les résultats ministériels   
     ),
@@ -106,7 +108,11 @@ with
             ri_res.ind_reus_charl as ind_reussite,
             agg_volet.ind_reus_volet_fra_5,
             ri_res.nb_unite_charl as unites,
-            case when annee = {{ get_current_year() }} then 1 else 0 end as 'En_cours',  -- Ne contient pas les résultats de l'année courante avant la fin de l'année.
+            case
+                when annee = {{ core_dashboards_store.get_current_year() }}
+                then 1
+                else 0
+            end as 'En_cours',  -- Ne contient pas les résultats de l'année courante avant la fin de l'année.
             row_number() over (
                 partition by ele.fiche, ri_res.matiere
                 order by ri_res.date_resultat desc, date_heure_recup desc
@@ -476,7 +482,7 @@ with
         inner join
             {{ ref("fact_yearly_student") }} as y_stud
             on _diplomable.fiche = y_stud.fiche
-            and y_stud.annee = {{ get_current_year() }}
+            and y_stud.annee = {{ core_dashboards_store.get_current_year() }}
         inner join {{ ref("dim_eleve") }} as ele on y_stud.fiche = ele.fiche
 
     )

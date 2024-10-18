@@ -113,7 +113,7 @@ with
             type_form_charl = 'FG'
             and secteur_enseign_freq = 'JE'
             and ecole like ('{{ cod_css }}')
-            and res.annee >= {{ store.get_current_year() }} - 5
+            and res.annee >= {{ core_dashboards_store.get_current_year() }} - 5
     )
 
 select

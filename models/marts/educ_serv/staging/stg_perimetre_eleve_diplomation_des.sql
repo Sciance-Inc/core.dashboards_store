@@ -22,7 +22,7 @@ with
         where
             y_stud.ordre_ens = '4'  -- Secondaire
             and y_stud.niveau_scolaire = 'Sec 5'  -- L'élève est en sec 5
-            and y_stud.annee < {{ get_current_year() }} + 1  -- Enlève l'année prévisionnelle de GPI
+            and y_stud.annee < {{ core_dashboards_store.get_current_year() }} + 1  -- Enlève l'année prévisionnelle de GPI
     )
 
 select *
