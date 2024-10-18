@@ -149,15 +149,15 @@ with
                     [
                         "annee_scolaire",
                         "ecole",
-                        "mois_resultat",
-                        "code_matiere",
+                        "a.mois_resultat",
+                        "a.code_matiere",
                         "groupe",
                     ]
                 )
             }} as id_epreuve,
             annee_scolaire,
-            mois_resultat,
-            code_matiere,
+            a.mois_resultat,
+            a.code_matiere,
             description_matiere,
             ecole,
             population,
@@ -202,42 +202,36 @@ with
             nb_difficulte_final,
             nb_maitrise_final,
             nb_echec_final
-        from
-            src as a
-            cross apply(
+        from src as a
+        left join
+            (
                 select
-                    taux_reussite_ecole_brute as taux_reussite_ecole_brute_css,
-                    moyenne_ecole_brute as moyenne_ecole_brute_css,
-                    taux_reussite_ecole_modere as taux_reussite_ecole_modere_css,
-                    moyenne_ecole_modere as moyenne_ecole_modere_css,
+                    annee,
+                    code_matiere,
+                    mois_resultat,
                     taux_reussite_epreuve as taux_reussite_epreuve_css,
                     moyenne_epreuve as moyenne_epreuve_css,
                     taux_reussite_final as taux_reussite_final_css,
-                    moyenne_final as moyenne_final_css,
-                    ecart_type_ecole_brute as ecart_type_ecole_css,
-                    ecart_type_epreuve as ecart_type_final_css,
-                    moyenne_moderation as moyenne_moderation_css,
-                    moyenne_ecart_res_ecole_finale
-                    as moyenne_ecart_res_ecole_finale_css,
-                    moyenne_ecart_res_epreuve as moyenne_ecart_res_epreuve_css
-                from src as b
+                    moyenne_final as moyenne_final_css
+                from src
                 where
-                    b.annee = a.annee
-                    and b.code_matiere = a.code_matiere
-                    and b.mois_resultat = a.mois_resultat
-                    and b.ecole = 'CSS'
-                    and b.genre = 'tout'
-                    and b.population = 'tout'
-                    and b.plan_interv_ehdaa = 'tout'
-                    and b.groupe = 'Tout'
+                    ecole = 'CSS'
+                    and genre = 'tout'
+                    and population = 'tout'
+                    and plan_interv_ehdaa = 'tout'
+                    and groupe = 'Tout'
             ) c
+            on c.annee = a.annee
+            and c.code_matiere = a.code_matiere
+            and c.mois_resultat = a.mois_resultat
+
     ),
     provincial as (
         select
             id_epreuve,
-            annee_scolaire,
-            mois_resultat,
-            code_matiere,
+            a.annee_scolaire,
+            a.mois_resultat,
+            a.code_matiere,
             description_matiere,
             ecole,
             population,
@@ -293,38 +287,32 @@ with
             nb_maitrise_final,
             nb_echec_final,
             moyenne_moderation_provincial
-        from
-            css as a
-            cross apply(
+        from css as a
+        left join
+            (
                 select
-                    taux_reussite_ecole_brute as taux_reussite_ecole_brute_provincial,
-                    moyenne_ecole_brute as moyenne_ecole_brute_provincial,
-                    taux_reussite_ecole_modere as taux_reussite_ecole_modere_provincial,
-                    moyenne_ecole_modere as moyenne_ecole_modere_provincial,
+                    annee_scolaire,
+                    code_matiere,
+                    mois_resultat,
                     taux_reussite_epreuve as taux_reussite_epreuve_provincial,
                     moyenne_epreuve as moyenne_epreuve_provincial,
                     taux_reussite_final as taux_reussite_final_provincial,
                     moyenne_final as moyenne_final_provincial,
-                    moderation as moyenne_moderation_provincial,
-                    moyenne_ecart_res_ecole_finale
-                    as moyenne_ecart_res_ecole_finale_provincial,
-                    moyenne_ecart_res_epreuve as moyenne_ecart_res_epreuve_provincial
-                from {{ ref("rstep_stg_resultats_ministere") }} as b
-                where
-                    b.annee_scolaire = a.annee_scolaire
-                    and b.code_matiere = a.code_matiere
-                    and b.mois_resultat = a.mois_resultat
-                    and ecole = 'Provincial'
-
+                    moderation as moyenne_moderation_provincial
+                from {{ ref("rstep_stg_resultats_ministere") }}
+                where ecole = 'Provincial'
             ) c
-
+            on a.annee_scolaire = c.annee_scolaire
+            and a.code_matiere = c.code_matiere
+            and a.mois_resultat = c.mois_resultat
     ),
+
     regional as (
         select
             id_epreuve,
-            annee_scolaire,
-            mois_resultat,
-            code_matiere,
+            a.annee_scolaire,
+            a.mois_resultat,
+            a.code_matiere,
             description_matiere,
             ecole,
             population,
@@ -389,30 +377,24 @@ with
             nb_echec_final,
             moyenne_moderation_provincial,
             moyenne_moderation_régional
-        from
-            provincial as a
-            cross apply(
+        from provincial as a
+        left join
+            (
                 select
-                    taux_reussite_ecole_brute as taux_reussite_ecole_brute_régional,
-                    moyenne_ecole_brute as moyenne_ecole_brute_régional,
-                    taux_reussite_ecole_modere as taux_reussite_ecole_modere_régional,
-                    moyenne_ecole_modere as moyenne_ecole_modere_régional,
+                    annee_scolaire,
+                    code_matiere,
+                    mois_resultat,
                     taux_reussite_epreuve as taux_reussite_epreuve_régional,
                     moyenne_epreuve as moyenne_epreuve_régional,
                     taux_reussite_final as taux_reussite_final_régional,
                     moyenne_final as moyenne_final_régional,
-                    moderation as moyenne_moderation_régional,
-                    moyenne_ecart_res_ecole_finale
-                    as moyenne_ecart_res_ecole_finale_régional,
-                    moyenne_ecart_res_epreuve as moyenne_ecart_res_epreuve_régional
-                from {{ ref("rstep_stg_resultats_ministere") }} as b
-                where
-                    b.annee_scolaire = a.annee_scolaire
-                    and b.code_matiere = a.code_matiere
-                    and b.mois_resultat = a.mois_resultat
-                    and ecole = 'Régional'
-
+                    moderation as moyenne_moderation_régional
+                from {{ ref("rstep_stg_resultats_ministere") }}
+                where ecole = 'Régional'
             ) c
+            on a.annee_scolaire = c.annee_scolaire
+            and a.code_matiere = c.code_matiere
+            and a.mois_resultat = c.mois_resultat
 
     )
 select *
