@@ -51,12 +51,12 @@ with
             pct_reust_nmc / 100 as taux_reussite_epreuve,
             moyen_rf as moyenne_final,
             pct_reust_rf / 100 as taux_reussite_final
-        from {{ ref("rstep_stg_fichier_consolide_epreuves_ministerielles") }} res -- If not populated through the AWSOME Excel file, this will be empty ! 
+        from {{ ref("rstep_stg_fichier_consolide_epreuves_ministerielles") }} res  -- If not populated through the AWSOME Excel file, this will be empty ! 
         inner join
             {{ ref("rstep_liste_matiere_epr_unique") }} as dim
             on dim.code_matiere = res.cd_cours
     ),
-    row_number as (
+    with_row_number as (
         select
             annee,
             mois_resultat,
@@ -99,7 +99,7 @@ select
     moyenne_ecole_modere - moyenne_ecole_brute as moderation,
     moyenne_epreuve - moyenne_ecole_brute as moyenne_ecart_res_epreuve,
     moyenne_final - moyenne_ecole_brute as moyenne_ecart_res_ecole_finale
-from row_number res
+from with_row_number res
 inner join
     (select distinct annee, annee_scolaire from {{ ref("dim_mapper_schools") }}) sch
     on res.annee - 1 = sch.annee
