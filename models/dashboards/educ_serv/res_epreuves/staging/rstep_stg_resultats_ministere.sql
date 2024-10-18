@@ -16,7 +16,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {#
-    Aggreagtes and compute the metric per year, schools and evaluation
+    Aggreagtes and compute the metric per year, schools and evaluation.
+    This table requires the data from the ministery to be manually extracted through the Excel file.
 #}
 {{
     config(
@@ -50,7 +51,7 @@ with
             pct_reust_nmc / 100 as taux_reussite_epreuve,
             moyen_rf as moyenne_final,
             pct_reust_rf / 100 as taux_reussite_final
-        from {{ ref("fichier_consolide_epreuves_ministerielles") }} res
+        from {{ ref("rstep_stg_fichier_consolide_epreuves_ministerielles") }} res -- If not populated through the AWSOME Excel file, this will be empty ! 
         inner join
             {{ ref("rstep_liste_matiere_epr_unique") }} as dim
             on dim.code_matiere = res.cd_cours
