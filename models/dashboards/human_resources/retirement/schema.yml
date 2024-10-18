@@ -8,7 +8,7 @@ models:
     tests:
       - resolution:
           combination_of_columns:
-            - sexe
+            - genre
             - school_year
             - etat
             - job_group_category
@@ -17,13 +17,13 @@ models:
             - retirement_age
 
   - name: rtmrt_report_active_employees_age
-    description: > 
+    description: >
       The number of active employees by age group.
       Drill-down by engagement status, worplace, job category, and employment status.
     tests:
       - resolution:
           combination_of_columns:
-            - sexe
+            - genre
             - etat
             - job_group_category
             - lieu_trav
@@ -31,7 +31,7 @@ models:
             - age
 
   - name: rtmrt_report_survival_curve
-    description: > 
+    description: >
       Shadow the stg_retirement_survival_curve table.
       Please refer to the stg_retirement_survival_curve table for more information.
 
@@ -42,7 +42,7 @@ models:
     tests:
       - resolution:
           combination_of_columns:
-            - sexe
+            - sex
             - employment_status_name
             - engagement_status_name
             - workplace_name
