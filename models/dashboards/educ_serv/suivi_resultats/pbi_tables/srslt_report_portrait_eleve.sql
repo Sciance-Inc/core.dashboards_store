@@ -40,7 +40,7 @@ with
         from {{ ref("srslt_report_suivi_resultats") }} as res
 
         where
-            annee = {{ store.get_current_year() }}
+            annee = {{ core_dashboards_store.get_current_year() }}
             and (
                 description_matiere like 'ANG%'
                 or description_matiere like 'FRA%'

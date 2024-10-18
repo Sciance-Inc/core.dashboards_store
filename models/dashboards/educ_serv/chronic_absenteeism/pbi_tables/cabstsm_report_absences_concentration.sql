@@ -50,7 +50,7 @@ with
             {{ ref("repartition_brackets") }} as bra
             on src.events_sequence_length >= bra.lower_bound
             and src.events_sequence_length < bra.upper_bound
-        where school_year > {{ store.get_current_year() - 10 }}
+        where school_year > {{ core_dashboards_store.get_current_year() - 10 }}
         group by
             src.fiche,
             spi.population,

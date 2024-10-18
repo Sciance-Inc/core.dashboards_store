@@ -18,9 +18,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {{
     config(
         post_hook=[
-            store.create_clustered_index("{{ this }}", ["annee", "fiche", "id_eco"]),
-            store.create_nonclustered_index("{{ this }}", ["code_matiere"]),
-            store.create_nonclustered_index("{{ this }}", ["id_obj_mat"]),
+            core_dashboards_store.create_clustered_index(
+                "{{ this }}", ["annee", "fiche", "id_eco"]
+            ),
+            core_dashboards_store.create_nonclustered_index(
+                "{{ this }}", ["code_matiere"]
+            ),
+            core_dashboards_store.create_nonclustered_index(
+                "{{ this }}", ["id_obj_mat"]
+            ),
         ]
     )
 }}
@@ -89,10 +95,14 @@ with
             end as is_reussite,
             is_reprise,
             case
-                when annee = {{ store.get_current_year() }} then 1 else 0
+                when annee = {{ core_dashboards_store.get_current_year() }}
+                then 1
+                else 0
             end as is_current_year,
             case
-                when annee = {{ store.get_current_year() }} - 1 then 1 else 0
+                when annee = {{ core_dashboards_store.get_current_year() }} - 1
+                then 1
+                else 0
             end as is_previous_year
         from res_mat
     )

@@ -17,15 +17,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {# Macros declarations#}
 {% macro init_metadata_table() %}
-    {{ return(adapter.dispatch("init_metadata_table", "store")()) }}
+    {{ return(adapter.dispatch("init_metadata_table", "core_dashboards_store")()) }}
 {% endmacro %}
 
 {% macro purge_metadata_table() %}
-    {{ return(adapter.dispatch("purge_metadata_table", "store")()) }}
+    {{ return(adapter.dispatch("purge_metadata_table", "core_dashboards_store")()) }}
 {% endmacro %}
 
 {% macro stamp_model(dashboard_name) %}
-    {{ return(adapter.dispatch("stamp_model", "store")(dashboard_name)) }}
+    {{
+        return(
+            adapter.dispatch("stamp_model", "core_dashboards_store")(dashboard_name)
+        )
+    }}
 {% endmacro %}
 
 

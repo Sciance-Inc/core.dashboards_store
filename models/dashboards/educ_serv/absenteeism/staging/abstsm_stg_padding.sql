@@ -29,10 +29,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     config(
         alias="stg_padding",
         post_hook=[
-            store.create_clustered_index(
+            core_dashboards_store.create_clustered_index(
                 "{{ this }}", ["id_eco", "grille", "date_evenement"]
             ),
-            store.create_nonclustered_index("{{ this }}", ["date_evenement"]),
+            core_dashboards_store.create_nonclustered_index(
+                "{{ this }}", ["date_evenement"]
+            ),
         ],
     )
 }}
@@ -49,7 +51,8 @@ with
         from {{ ref("i_gpm_t_cal") }} as cal
         where
             date_evenement <= getdate()
-            and year(date_evenement) >= {{ store.get_current_year() }} - 5  -- Limit the dashboards to the last 5 years
+            and year(date_evenement)
+            >= {{ core_dashboards_store.get_current_year() }} - 5  -- Limit the dashboards to the last 5 years
         group by id_eco, date_evenement, grille
 
     -- Extract all the absences / retards event kind 

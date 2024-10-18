@@ -28,8 +28,8 @@ with
         from {{ ref("dim_mapper_schools") }}
         where
             annee
-            between {{ store.get_current_year() - 10 }}
-            and {{ store.get_current_year() }}
+            between {{ core_dashboards_store.get_current_year() - 10 }}
+            and {{ core_dashboards_store.get_current_year() }}
 
     -- Select all the distinct population we have data for
     ),

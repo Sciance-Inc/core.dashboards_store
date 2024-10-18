@@ -55,7 +55,8 @@ with
     metadata as (
         select spi.fiche, spi.eco, spi.population
         from {{ ref("spine") }} as spi
-        where spi.seqid = 1 and spi.annee = {{ store.get_current_year() }}
+        where
+            spi.seqid = 1 and spi.annee = {{ core_dashboards_store.get_current_year() }}
 
     -- Compute the un-normazlided score
     ),
@@ -124,7 +125,7 @@ with
         left join
             {{ ref("dim_mapper_schools") }} as ecl
             on nrm.eco = ecl.eco
-            and ecl.annee = {{ store.get_current_year() }}
+            and ecl.annee = {{ core_dashboards_store.get_current_year() }}
         where rank_distance = 1
     )
 

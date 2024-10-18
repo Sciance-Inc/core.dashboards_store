@@ -1,4 +1,4 @@
-name: "store"
+name: "core_dashboards_store"
 version: "0.9.0"
 config-version: 2
 
@@ -18,13 +18,13 @@ clean-targets:
 
 # Hooks : copy thoose hooks into your `cssXX.data.store/dbt_project.yml` file to enable the stamper collection
 on-run-start:
-  - "{{ store.init_metadata_table() }}"
+  - "{{ core_dashboards_store.init_metadata_table() }}"
 on-run-end:
-  - "{{ store.purge_metadata_table() }}"
+  - "{{ core_dashboards_store.purge_metadata_table() }}"
 
 seeds:
   +tags: ["seeds"]
-  store:
+  core_dashboards_store:
     common:
       +schema: common_seeds
     dashboards:
@@ -48,7 +48,7 @@ seeds:
           +schema: "dashboard_pevr"
 models:
   +materialized: table
-  store:
+  core_dashboards_store:
     +enabled: False
     marts:
       human_resources:
@@ -71,38 +71,55 @@ models:
           +tags: ["effectif_css"]
           +schema: dashboard_effectif_css
           pbi_tables:
-            +post-hook: ["{{ store.stamp_model('dashboard_effectif_css') }}"]
+            +post-hook:
+              [
+                "{{ core_dashboards_store.stamp_model('dashboard_effectif_css') }}",
+              ]
 
         res_epreuves:
           +tags: ["res_epreuves"]
           +schema: "dashboard_res_epreuves"
           pbi_tables:
-            +post-hook: ["{{ store.stamp_model('dashboard_res_epreuves') }}"]
+            +post-hook:
+              [
+                "{{ core_dashboards_store.stamp_model('dashboard_res_epreuves') }}",
+              ]
 
         suivi_resultats:
           +tags: ["suivi_resultats"]
           +schema: "dashboard_suivi_resultats"
           pbi_tables:
-            +post-hook: ["{{ store.stamp_model('dashboard_suivi_resultats') }}"]
+            +post-hook:
+              [
+                "{{ core_dashboards_store.stamp_model('dashboard_suivi_resultats') }}",
+              ]
 
         res_scolaires:
           +tags: ["res_scolaires"]
           +schema: "dashboard_res_scolaires"
           pbi_tables:
-            +post-hook: ["{{ store.stamp_model('dashboard_res_scolaires') }}"]
+            +post-hook:
+              [
+                "{{ core_dashboards_store.stamp_model('dashboard_res_scolaires') }}",
+              ]
 
         absenteeism:
           +tags: ["absenteeism"]
           +schema: "dashboard_absenteeism"
           pbi_tables:
-            +post-hook: ["{{ store.stamp_model('dashboard_absenteeism') }}"]
+            +post-hook:
+              [
+                "{{ core_dashboards_store.stamp_model('dashboard_absenteeism') }}",
+              ]
 
         chronic_absenteeism:
           +tags: ["chronic_absenteeism"]
           +schema: "dashboard_chronic_absenteeism"
           pbi_tables:
             +post-hook:
-              ["{{ store.stamp_model('dashboard_chronic_absenteeism') }}"]
+              [
+                "{{ core_dashboards_store.stamp_model('dashboard_chronic_absenteeism') }}",
+              ]
 
         predictive_view_aggregated:
           +tags: ["predictive_view_aggregated"]
@@ -110,7 +127,7 @@ models:
           pbi_tables:
             +post-hook:
               [
-                "{{ store.stamp_model('dashboard_predictive_view_aggregated') }}",
+                "{{ core_dashboards_store.stamp_model('dashboard_predictive_view_aggregated') }}",
               ]
 
       human_resources:
@@ -119,26 +136,32 @@ models:
           +tags: ["emp_conge"]
           +schema: dashboard_emp_conge
           pbi_tables:
-            +post-hook: ["{{ store.stamp_model('dashboard_emp_conge') }}"]
+            +post-hook:
+              ["{{ core_dashboards_store.stamp_model('dashboard_emp_conge') }}"]
 
         emp_actif:
           +tags: ["emp_actif"]
           +schema: dashboard_emp_actif
           pbi_tables:
-            +post-hook: ["{{ store.stamp_model('dashboard_emp_actif') }}"]
+            +post-hook:
+              ["{{ core_dashboards_store.stamp_model('dashboard_emp_actif') }}"]
 
         retirement:
           +tags: ["retirement"]
           +schema: "dashboard_retirement"
           pbi_tables:
-            +post-hook: ["{{ store.stamp_model('dashboard_retirement') }}"]
+            +post-hook:
+              [
+                "{{ core_dashboards_store.stamp_model('dashboard_retirement') }}",
+              ]
 
       other:
         pevr:
           +tags: ["pevr"]
           +schema: "dashboard_pevr"
           pbi_tables:
-            +post-hook: ["{{ store.stamp_model('dashboard_pevr') }}"]
+            +post-hook:
+              ["{{ core_dashboards_store.stamp_model('dashboard_pevr') }}"]
 
     interfaces:
       +tags: ["interfaces"]

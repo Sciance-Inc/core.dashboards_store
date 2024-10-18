@@ -45,8 +45,8 @@ with
             and res.no_comp = mat.no_competence
         where
             res.annee
-            between {{ store.get_current_year() }}
-            - 2 and {{ store.get_current_year() }}
+            between {{ core_dashboards_store.get_current_year() }}
+            - 2 and {{ core_dashboards_store.get_current_year() }}
     ),
     agg as (
         select

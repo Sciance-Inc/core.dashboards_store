@@ -46,4 +46,5 @@ inner join
     and src.events_sequence_length < bra.upper_bound
 where
     src.school_year
-    between {{ store.get_current_year() }} - 1 and {{ store.get_current_year() }}  -- Fetch the last two years
+    between {{ core_dashboards_store.get_current_year() }}
+    - 1 and {{ core_dashboards_store.get_current_year() }}  -- Fetch the last two years

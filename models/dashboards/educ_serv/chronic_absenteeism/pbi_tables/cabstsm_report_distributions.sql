@@ -36,7 +36,7 @@ with
             ) as max_sequence_length
         from {{ ref("fact_absences_retards_sequence") }} as src
         left join {{ ref("dim_mapper_schools") }} as eco on src.id_eco = eco.id_eco
-        where src.school_year > {{ store.get_current_year() - 10 }}
+        where src.school_year > {{ core_dashboards_store.get_current_year() - 10 }}
         group by
             src.fiche,
             eco.eco,

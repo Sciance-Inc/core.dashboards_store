@@ -27,7 +27,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     config(
         materialized="table",
         post_hook=[
-            store.create_clustered_index("{{ this }}", ["matr"]),
+            core_dashboards_store.create_clustered_index("{{ this }}", ["matr"]),
         ],
     )
 }}
@@ -37,7 +37,9 @@ with
     actives_etat_empl as (
         select matr, corp_empl, etat_empl, lieu_trav, stat_eng
         from {{ ref("fact_activity_yearly") }}
-        where school_year = {{ store.get_current_year() }} and is_main_job = 1  -- Retain metadata for the main job only
+        where
+            school_year = {{ core_dashboards_store.get_current_year() }}
+            and is_main_job = 1  -- Retain metadata for the main job only
     )
 
 select src.matr, src.corp_empl, src.etat_empl, src.lieu_trav, src.stat_eng

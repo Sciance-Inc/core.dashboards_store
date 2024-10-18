@@ -56,7 +56,7 @@ with
             retirement_age,
             count(*) as n_retirees
         from source
-        where school_year >= {{ store.get_current_year() }} - 10
+        where school_year >= {{ core_dashboards_store.get_current_year() }} - 10
         group by
             sexe,
             etat,
@@ -76,7 +76,7 @@ select
     stat_eng,
     convert(date, concat(school_year, '-09-30'), 102) as school_year,
     case
-        when {{ store.get_current_year() }} = school_year then 1 else 0
+        when {{ core_dashboards_store.get_current_year() }} = school_year then 1 else 0
     end as is_current_year,
     retirement_age,
     n_retirees,

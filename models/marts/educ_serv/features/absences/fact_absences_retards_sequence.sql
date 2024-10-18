@@ -21,10 +21,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {{
     config(
         post_hook=[
-            store.create_clustered_index(
+            core_dashboards_store.create_clustered_index(
                 "{{ this }}", ["id_eco", "school_year", "fiche"]
             ),
-            store.create_nonclustered_index("{{ this }}", ["fiche"]),
+            core_dashboards_store.create_nonclustered_index("{{ this }}", ["fiche"]),
         ]
     )
 }}
