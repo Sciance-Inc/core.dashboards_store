@@ -26,14 +26,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 }}
 
 select
-    code_perm,
-    fiche,
-    nom,
-    pnom as prenom,
-    concat(nom, ', ', pnom, ' (', fiche, ' )') as nom_prenom_fiche,
-    date_naissance,
-    case
-        when ele.sexe = 'F' then 'Fille' when ele.sexe = 'M' then 'Garçon' else ele.sexe
-    end as genre
-
-from {{ ref("i_gpm_e_ele") }} as ele
+    spi.code_perm,
+    spi.fiche,
+    max(nom) as nom,  -- dummy aggregation
+    max(pnom) as prenom,  -- dummy aggregation
+    concat(max(nom), ', ', max(pnom), ' (', spi.fiche, ' )') as nom_prenom_fiche,  -- dummy aggregation
+    max(date_naissance) as date_naissance,  -- dummy aggregation
+    max(
+        case
+            when el.sexe = 'F'
+            then 'Fille'
+            when el.sexe = 'M'
+            then 'Garçon'
+            else el.sexe
+        end
+    ) as genre  -- dummy aggregation
+from {{ ref("spine") }} as spi
+inner join {{ ref("i_gpm_e_ele") }} as el on spi.fiche = el.fiche
+group by spi.code_perm, spi.fiche
