@@ -190,3 +190,7 @@ vars:
       recency:
         years_of_data_absences: 10
         years_of_data_grades: 10
+
+  dashboards:
+    res_epreuves:
+      cod_css: replacemeplease

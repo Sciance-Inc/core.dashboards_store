@@ -70,6 +70,7 @@ with
             etat,
             etape,
             is_reprise,
+            res_comp_etape,
             case
                 when cote is not null
                 then note_equiv
@@ -103,6 +104,7 @@ select
     etat,
     etape,
     is_reprise,
+    res_comp_etape,
     res_etape_num,
     is_reussite,
     case when res_etape_num < 60 then 1 else 0 end as is_echec,
