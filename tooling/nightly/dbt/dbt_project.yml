@@ -41,6 +41,11 @@ vars:
 
   is_context_core: false
 
-  res_epreuves:
-    cod_css: 866%
-    threshold: 70
+  interfaces:
+    gpi:
+      max_etapes: 30
+      max_periodes: 20
+
+  dashboards:
+    res_epreuves:
+      cod_css: 866%
