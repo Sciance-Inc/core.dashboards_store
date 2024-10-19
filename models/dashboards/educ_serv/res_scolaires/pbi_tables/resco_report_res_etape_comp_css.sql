@@ -44,7 +44,8 @@ with
             on dim.cod_matiere = eta_comp.code_matiere  -- Only keep the tracked courses
         where
             y_stud.annee
-            between {{ get_current_year() }} - 4 and {{ get_current_year() }}
+            between {{ core_dashboards_store.get_current_year() }}
+            - 4 and {{ core_dashboards_store.get_current_year() }}
             and eta_comp.res_etape_num is not null
             and eta_comp.etape != 'EX'
             and el.genre != 'X'  -- Non binaire
