@@ -52,13 +52,17 @@ models:
     +enabled: False
     marts:
       human_resources:
-        +tags: ["human_resources"]
+        +tags:
+          - "human_resources"
+          - "mart_human_resources"
         +schema: human_resources
         features:
         staging:
           +schema: human_resources_staging
       educ_serv:
-        +tags: ["educ_serv"]
+        +tags:
+          - "educ_serv"
+          - "mart_educ_serv"
         +schema: educ_serv
         features:
         staging:
