@@ -81,6 +81,7 @@ select
     empl_cong,
     cong_lt,
     etat_actif,
-    concat(descr, ' - (', etat_empl, ')') as employment_status_name,
+    concat(descr, ' - (', etat_empl, ')') as employment_status_name,  -- Name first, then code
+    concat(etat_empl, ' - (', descr, ')') as employment_status_code,  -- Code first, then description
     case when seq_id = 1 then 1 else 0 end as is_current
 from crossed
