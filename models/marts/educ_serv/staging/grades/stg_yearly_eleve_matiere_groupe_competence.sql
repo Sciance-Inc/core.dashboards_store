@@ -27,43 +27,37 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 {% set max_etapes = var("interfaces")["gpi"]["max_etapes"] + 1 %}
 
-with
-    stg_yearly as (
-        select
-            emgrp_yearly.fiche,
-            emgrp_yearly.id_eco,
-            emgrp_yearly.annee,
-            emgrp_yearly.code_matiere,
-            emgrp_yearly.groupe_matiere,
-            emgrp_yearly.etat,
-            emgrp_yearly.id_mat_ele,
-            emgrp_yearly.res_som,
-            emgrp_yearly.modele_etape,
-            emgrp_yearly.id_mat_grp,
-            emgrp_yearly.date_deb,
-            emgrp_yearly.date_fin,
-            emgrp_yearly.leg_obj_term,
-            emgrp_yearly.leg_obj_non_term,
-            emgrp_yearly.leg_obj_final,
-            om.id_obj_mat,
-            eval_res_comp,
-            {% for i in range(1, max_etapes) %}
-                omg.etape_eval_{{ "%02d" % i }},
-            {% endfor %}
-            om.obj_01 as no_comp
-        from {{ ref("stg_yearly_eleve_matiere_groupe") }} as emgrp_yearly
-        inner join
-            {{ ref("i_gpm_t_obj_mat") }} as om
-            on om.id_eco = emgrp_yearly.id_eco
-            and om.mat = emgrp_yearly.code_matiere
-            and om.obj_02 is null
-            and om.obj_03 is null
-            and om.obj_04 is null
-        inner join
-            {{ ref("i_gpm_t_obj_mat_grp") }} as omg
-            on omg.id_obj_mat = om.id_obj_mat
-            and omg.id_mat_grp = emgrp_yearly.id_mat_grp
-    )
 
-select *
-from stg_yearly
+select
+    emgrp_yearly.fiche,
+    emgrp_yearly.id_eco,
+    emgrp_yearly.annee,
+    emgrp_yearly.code_matiere,
+    emgrp_yearly.groupe_matiere,
+    emgrp_yearly.etat,
+    emgrp_yearly.id_mat_ele,
+    emgrp_yearly.res_som,
+    emgrp_yearly.modele_etape,
+    emgrp_yearly.id_mat_grp,
+    emgrp_yearly.date_deb,
+    emgrp_yearly.date_fin,
+    emgrp_yearly.leg_obj_term,
+    emgrp_yearly.leg_obj_non_term,
+    emgrp_yearly.leg_obj_final,
+    om.id_obj_mat,
+    eval_res_comp,
+    {% for i in range(1, max_etapes) %} omg.etape_eval_{{ "%02d" % i }}, {% endfor %}
+    om.obj_01 as no_comp
+from {{ ref("stg_yearly_eleve_matiere_groupe") }} as emgrp_yearly
+inner join
+    {{ ref("i_gpm_t_obj_mat") }} as om
+    on om.id_eco = emgrp_yearly.id_eco
+    and om.mat = emgrp_yearly.code_matiere
+    and om.obj_02 is null
+    and om.obj_03 is null
+    and om.obj_04 is null
+inner join
+    {{ ref("i_gpm_t_obj_mat_grp") }} as omg
+    on omg.id_obj_mat = om.id_obj_mat
+    and omg.id_mat_grp = emgrp_yearly.id_mat_grp
+where planif = 'reg'

@@ -169,13 +169,6 @@ vars:
   database_jade: "Replace me in the CSS repositery"
   database_prodrome: "Replace me in the CSS repositery" # Modelling output from the Sciance's models.
   # res_epreuves's dashboard variables:
-  res_epreuves:
-    threshold: 70
-    cod_css: "Replace me in the CSS repositery"
-  res_scolaires:
-    threshold: 70
-  emp_actif:
-    nbrs_sem_dern_paie: 1
 
   interfaces:
     gpi:
