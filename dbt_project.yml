@@ -30,6 +30,9 @@ seeds:
     dashboards:
       educ_serv:
         +tags: ["educ_serv"]
+        diplome:
+          +tags: ["diplome"]
+          +schema: "dashboard_diplome"
         res_epreuves:
           +tags: ["res_epreuves"]
           +schema: "dashboard_res_epreuves"
@@ -130,6 +133,13 @@ models:
               [
                 "{{ core_dashboards_store.stamp_model('dashboard_predictive_view_aggregated') }}",
               ]
+
+        diplome:
+          +tags: ["diplome"]
+          +schema: dashboard_diplome
+          pbi_tables:
+            +post-hook:
+              ["{{ core_dashboards_store.stamp_model('dashboard_diplome') }}"]
 
       human_resources:
         +tags: ["human_resources"]
