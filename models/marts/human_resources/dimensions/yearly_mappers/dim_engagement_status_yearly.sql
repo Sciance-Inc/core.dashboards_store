@@ -72,6 +72,7 @@ select
     stat_eng,
     is_reg,
     descr,
-    concat(descr, ' - (', stat_eng, ')') as engagement_status_name,
+    concat(descr, ' - (', stat_eng, ')') as engagement_status_name,  -- Code first then description / name
+    concat(stat_eng, ' - (', descr, ')') as engagement_status_code,  -- Code first then description / name
     case when seq_id = 1 then 1 else 0 end as is_current
 from crossed
