@@ -30,7 +30,7 @@ with
                 {{ core_dashboards_store.get_current_year() }}, '-09-01'
             ) as current_year
 
-    -- Add the birth date and the sex to the active employes table
+    -- Add the birth date and the genre to the active employes table
     ),
     with_metadata as (
         select
@@ -40,7 +40,7 @@ with
             src.corp_empl,
             src.stat_eng,
             dos.birth_date,
-            dos.sex
+            dos.genre
         from {{ ref("fact_activity_current") }} as src
         left join {{ ref("dim_employees") }} as dos on src.matr = dos.matr
         where src.matr not in (select matr from {{ ref("fact_retirement") }})  -- Remove the already retired employes
@@ -54,7 +54,7 @@ with
             act.lieu_trav,
             act.corp_empl,
             act.stat_eng,
-            act.sex,
+            act.genre,
             datediff(year, birth_date, current_year) as age  -- Age at september the first of the current year
         from with_metadata as act
         cross join current_year
@@ -64,7 +64,7 @@ with
     friendly_name as (
         select
             src.matr,
-            src.sex,
+            src.genre,
             src.age,
             coalesce(job.job_group_category, 'Inconnu') as job_group_category,
             coalesce(src.lieu_trav, 'Inconnu') as lieu_trav,
@@ -78,7 +78,7 @@ with
     ),
     aggregated as (
         select
-            sex,
+            genre,
             lieu_trav,
             stat_eng,
             etat,
@@ -86,12 +86,12 @@ with
             age,
             count(*) as n_employees
         from friendly_name
-        group by sex, lieu_trav, stat_eng, etat, job_group_category, age
+        group by genre, lieu_trav, stat_eng, etat, job_group_category, age
 
     -- Add the filter surrogate key
     )
 select
-    sex as sexe,
+    genre,
     etat,
     job_group_category,
     lieu_trav,
@@ -101,7 +101,7 @@ select
     {{
         dbt_utils.generate_surrogate_key(
             [
-                "sex",
+                "genre",
                 "job_group_category",
                 "lieu_trav",
                 "stat_eng",
