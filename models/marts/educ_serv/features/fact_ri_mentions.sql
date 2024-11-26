@@ -1,6 +1,6 @@
 {#
-CDPVD Dashboards store
-Copyright (C) 2024 CDPVD.
+Dashboards Store - Helping students, one dashboard at a time.
+Copyright (C) 2023  Sciance Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
@@ -55,9 +55,11 @@ with
     ),
 
     _row_num as (
-        Select
+        select
             *,
-            row_number() over ( partition by code_perm, fiche, annee order by annee asc) as seqid
+            row_number() over (
+                partition by code_perm, fiche, annee order by annee asc
+            ) as seqid
         from mentions_annee
     )
 

@@ -1,6 +1,6 @@
 {#
-CDPVD Dashboards store
-Copyright (C) 2024 CDPVD.
+Dashboards Store - Helping students, one dashboard at a time.
+Copyright (C) 2023  Sciance Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
@@ -80,8 +80,7 @@ with
             {{ ref("fact_yearly_student") }} as y_stud
             on perim.fiche = y_stud.fiche
             and perim.annee = y_stud.annee
-        inner join
-            {{ ref("dim_eleve") }} as ele on perim.fiche = ele.fiche
+        inner join {{ ref("dim_eleve") }} as ele on perim.fiche = ele.fiche
         inner join
             {{ ref("pevr_dim_indicateurs") }} as ind
             on perim.id_indicateur = ind.id_indicateur_cdpvd

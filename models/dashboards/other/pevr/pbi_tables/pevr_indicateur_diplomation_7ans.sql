@@ -1,6 +1,6 @@
 {#
-CDPVD Dashboards store
-Copyright (C) 2024 CDPVD.
+Dashboards Store - Helping students, one dashboard at a time.
+Copyright (C) 2023  Sciance Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
@@ -33,7 +33,7 @@ with
         inner join
             {{ ref("indicateur_pevr_charl") }} as pevr_charl
             on ind.id_indicateur_cdpvd = pevr_charl.id_indicateur_cdpvd
-        where ind.id_indicateur_cdpvd IN ('1','2','3')  -- 1 - Indicateur du taux d'obtention, 2 - Indicateur du taux des garçons, 3 - Indicateur du taux des EHDAA.
+        where ind.id_indicateur_cdpvd in ('1', '2', '3')  -- 1 - Indicateur du taux d'obtention, 2 - Indicateur du taux des garçons, 3 - Indicateur du taux des EHDAA.
     )
 
 select *
