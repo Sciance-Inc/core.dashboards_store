@@ -60,6 +60,9 @@ models:
           +enabled: False
         predictive_view_aggregated:
           +enabled: False
+      other:
+        pevr:
+          +enabled: False
   
     interfaces:
       +materialized: ephemeral
