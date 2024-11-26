@@ -200,3 +200,39 @@ models:
             - id_eco
             - annee
             - population
+
+  - name: fact_ri_mentions
+    config:
+      tags:
+        - pevr
+    description: >
+      Table contenant les informations des qualification et des diplômes obtenus.
+    columns:
+      - name: code_perm
+        description: Le code permanent de l'élève.
+      - name: fiche
+        description: Le numéro de fiche de l'élève.
+      - name: prog_charl
+        description: Le programme charlemagne.
+      - name: annee
+        description: L'année de l'obtention d'un diplôme, d'une qualification ou d'une formation.
+      - name: ind_obtention
+        description: Indicateur de l'obtention du diplôme.
+      - name: regime_sanct_charl
+        description: Le code de la sanction des études de charlemagne.
+      - name: date_exec_sanct
+        description: La date dont le diplôme, la qualification ou la formation a été obtenu.
+      - name: indice_des
+        description: Indicateur de l'obtention d'un diplôme type DES.
+      - name: indice_cfpt
+        description: Indicateur de l'obtention d'un diplôme type CFPT.
+      - name: indice_cfms
+        description: Indicateur de l'obtention d'un diplôme type CFMS.
+    column_types:
+        annee: nvarchar(max)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - code_perm
+            - fiche
+            - annee
