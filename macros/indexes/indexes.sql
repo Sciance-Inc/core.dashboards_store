@@ -22,7 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {% macro create_clustered_index(table_name, columns, unique=False) %}
     {{
         return(
-            adapter.dispatch("create_clustered_index", "store")(
+            adapter.dispatch("create_clustered_index", "core_dashboards_store")(
                 table_name, columns, unique
             )
         )
@@ -32,7 +32,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {% macro create_nonclustered_index(table_name, columns, unique=False) %}
     {{
         return(
-            adapter.dispatch("create_nonclustered_index", "store")(
+            adapter.dispatch("create_nonclustered_index", "core_dashboards_store")(
                 table_name, columns, unique
             )
         )
@@ -43,9 +43,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {% macro create_clustered_columnstore_index(table_name, columns) %}
     {{
         return(
-            adapter.dispatch("create_clustered_columnstore_index", "store")(
-                table_name, columns
-            )
+            adapter.dispatch(
+                "create_clustered_columnstore_index", "core_dashboards_store"
+            )(table_name, columns)
         )
     }}
 {% endmacro %}
@@ -53,9 +53,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {% macro create_nonclustered_columnstore_index(table_name, columns) %}
     {{
         return(
-            adapter.dispatch("create_nonclustered_columnstore_index", "store")(
-                table_name, columns
-            )
+            adapter.dispatch(
+                "create_nonclustered_columnstore_index", "core_dashboards_store"
+            )(table_name, columns)
         )
     }}
 {% endmacro %}
