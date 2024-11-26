@@ -32,3 +32,9 @@ models:
       - prospectif_cdp
     description: >
       Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'E_RI_Resultats' de la base de données source.
+  
+  - name: i_e_ri_mentions
+    tags:
+      - pevr
+    description: >
+      Table d'interface. Utilisée uniquement pour pallier à une enventuelle absence (complète ou partielle) de la table 'E_RI_Mentions' de la base de données source.
