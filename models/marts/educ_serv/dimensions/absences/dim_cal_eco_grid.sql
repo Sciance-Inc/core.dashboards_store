@@ -32,7 +32,7 @@ select
     id_eco,
     date_evenement,
     grille,
-    jour_cycle,
+    max(jour_cycle) as jour_cycle,
     {% for i in range(1, max_periodes) %}
         case when max(per_{{ "%02d" % i }}) is null then 0 else 1 end
         {%- if not loop.last %} +{% endif -%}

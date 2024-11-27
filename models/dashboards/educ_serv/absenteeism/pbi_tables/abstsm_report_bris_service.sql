@@ -41,6 +41,8 @@ with
     named as (
         select
             eco.school_friendly_name,
+            eco.id_eco,
+            eco.eco,
             ele.code_perm as code_permanent,
             concat(ele.nom, ' ', ele.pnom) as full_name,
             etape_description,
@@ -61,5 +63,8 @@ select
     cast(event_start_date as date) as event_start_date,
     cast(event_end_date as date) as event_end_date,
     events_sequence_length,
-    last_event_description
+    last_event_description,
+    -- RLS hooks 
+    id_eco,
+    eco
 from named
