@@ -32,8 +32,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     )
 }}
 
-{% set max_periodes = var("interfaces")["gpi"]["max_periodes"] + 1 %}
-
 with
     -- Extract all the qualified absences / retards
     src as (
@@ -71,18 +69,11 @@ with
     -- Pre compute the expected daily number of periods per grid : later used to split
     -- days between the day of complete absence, and day of partial absence
     ),
+    -- OVERRIDE THE dim_absences_grid TABLE TO MANUALLY CONTROL THE NUMBER OF PERIODES
+    -- PER GRID AND
+    -- SCHOOL, OR TO EXCLUDE SOME SCHOOLS / YEAR FROM THE COMPUTATION
     grid as (
-        select
-            id_eco,
-            date_evenement,
-            grille,
-            {% for i in range(1, max_periodes) %}
-                case when max(per_{{ "%02d" % i }}) is null then 0 else 1 end
-                {%- if not loop.last %} +{% endif -%}
-            {% endfor %} as n_periods_expected
-        from {{ ref("i_gpm_t_cal") }}
-        where jour_cycle is not null  -- Only keep working days
-        group by id_eco, date_evenement, grille
+        select * from {{ ref("dim_cal_eco_grid") }} where jour_cycle is not null  -- Only keep working days
 
     -- Add the expected number of periods to the observed events
     ),
