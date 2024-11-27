@@ -49,3 +49,9 @@ vars:
   dashboards:
     res_epreuves:
       cod_css: 866%
+
+  marts:
+    educ_serv:
+      recency:
+        years_of_data_absences: 3
+        years_of_data_grades: 3

@@ -23,7 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {{
     config(
-        alias="stg_daily_absences_rate",
+        alias="stg_daily_metrics",
         post_hook=[
             core_dashboards_store.create_clustered_index(
                 "{{ this }}", ["annee", "school_friendly_name", "date_evenement"]
