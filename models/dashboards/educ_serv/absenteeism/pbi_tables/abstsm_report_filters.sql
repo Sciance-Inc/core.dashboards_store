@@ -25,7 +25,10 @@ with
         select
             annee,
             coalesce(school_friendly_name, 'Tout le CSS') as school_friendly_name,
-            event_kind
+            event_kind,
+            -- RLS hooks : 
+            max(id_eco) as id_eco,
+            max(eco) as eco
         from {{ ref("abstsm_stg_daily_metrics") }}
         group by annee, rollup (school_friendly_name), event_kind
     )
@@ -38,5 +41,8 @@ select
         dbt_utils.generate_surrogate_key(
             ["annee", "school_friendly_name", "event_kind"]
         )
-    }} as filter_key
+    }} as filter_key,
+    -- RLS hooks :
+    id_eco,
+    eco
 from source

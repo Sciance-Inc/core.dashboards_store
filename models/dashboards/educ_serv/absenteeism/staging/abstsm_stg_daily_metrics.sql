@@ -131,6 +131,9 @@ select
     event_kind,
     n_events,
     n_students_daily,
-    absence_rate
+    absence_rate,
+    -- RLS hooks:
+    src.id_eco,
+    eco.eco
 from corrected as src
 left join {{ ref("dim_mapper_schools") }} as eco on src.id_eco = eco.id_eco
