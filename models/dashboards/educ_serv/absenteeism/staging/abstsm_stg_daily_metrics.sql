@@ -23,7 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {{
     config(
-        alias="stg_daily_absences_rate",
+        alias="stg_daily_metrics",
         post_hook=[
             core_dashboards_store.create_clustered_index(
                 "{{ this }}", ["annee", "school_friendly_name", "date_evenement"]
@@ -131,6 +131,9 @@ select
     event_kind,
     n_events,
     n_students_daily,
-    absence_rate
+    absence_rate,
+    -- RLS hooks:
+    src.id_eco,
+    eco.eco
 from corrected as src
 left join {{ ref("dim_mapper_schools") }} as eco on src.id_eco = eco.id_eco

@@ -15,34 +15,27 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{#
-    Gather all the filters into one table to allow for between-pages corss filtering.
-#}
-{{ config(alias="report_filters") }}
-
-with
-    source as (
-        select
-            annee,
-            coalesce(school_friendly_name, 'Tout le CSS') as school_friendly_name,
-            event_kind,
-            -- RLS hooks : 
-            max(id_eco) as id_eco,
-            max(eco) as eco
-        from {{ ref("abstsm_stg_daily_metrics") }}
-        group by annee, rollup (school_friendly_name), event_kind
+-- This table is to be overwridden to manually control the number of periodes per grid
+-- and school.
+-- This table can also be used to EXLUDE some schools / year from the computation.
+{{
+    config(
+        post_hook=[
+            core_dashboards_store.create_clustered_index("{{ this }}", ["id_eco"]),
+        ]
     )
+}}
+
+{% set max_periodes = var("interfaces")["gpi"]["max_periodes"] + 1 %}
 
 select
-    annee,
-    school_friendly_name,
-    event_kind,
-    {{
-        dbt_utils.generate_surrogate_key(
-            ["annee", "school_friendly_name", "event_kind"]
-        )
-    }} as filter_key,
-    -- RLS hooks :
     id_eco,
-    eco
-from source
+    date_evenement,
+    grille,
+    max(jour_cycle) as jour_cycle,
+    {% for i in range(1, max_periodes) %}
+        case when max(per_{{ "%02d" % i }}) is null then 0 else 1 end
+        {%- if not loop.last %} +{% endif -%}
+    {% endfor %} as n_periods_expected
+from {{ ref("i_gpm_t_cal") }}
+group by id_eco, date_evenement, grille

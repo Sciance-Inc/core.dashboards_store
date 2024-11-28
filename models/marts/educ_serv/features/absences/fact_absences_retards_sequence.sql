@@ -41,9 +41,8 @@ with
             id_eco,
             grille,
             date_evenement
-        from {{ ref("i_gpm_t_cal") }} as cal
-        where jour_cycle is not null
-
+        from {{ ref("dim_cal_eco_grid") }} as cal
+        where jour_cycle is not null  -- Only keep working days
     -- Add a sequence id : day_id to later identify the break between two sequences of
     -- absences
     ),

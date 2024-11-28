@@ -48,7 +48,7 @@ with
             date_evenement,
             grille,
             max(case when jour_cycle is null then 0 else 1 end) as is_school_day
-        from {{ ref("i_gpm_t_cal") }} as cal
+        from {{ ref("dim_cal_eco_grid") }} as cal
         where
             date_evenement <= getdate()
             and year(date_evenement)

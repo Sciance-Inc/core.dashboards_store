@@ -24,7 +24,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- frame.
 with
     eco as (
-        select eco, annee as school_year, school_friendly_name
+        select eco, id_eco, annee as school_year, school_friendly_name
         from {{ ref("dim_mapper_schools") }}
         where
             annee
@@ -48,7 +48,10 @@ select
         dbt_utils.generate_surrogate_key(
             ["eco.eco", "eco.school_year", "popu.population", "cat.event_kind"]
         )
-    }} as filter_key
+    }} as filter_key,
+    -- RLS hook
+    eco.id_eco,
+    eco.eco
 from eco as eco
 cross join popu as popu
 cross join cat as cat

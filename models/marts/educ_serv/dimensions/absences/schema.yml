@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: dim_absences_grid
+    description: >
+      Compute the number of periods per grid.
+      Can be overriden by the user to either adjust the grid or the number of periods for a given school, or to exclude some school from the computation.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - id_eco
+            - date_evenement
+            - grille
