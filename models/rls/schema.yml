@@ -17,3 +17,57 @@ models:
       - name: Ecole
         tests: 
             - not_null            
+  - name: enseignants_secondaire
+    tags: ["rls"]
+    description: >
+      Table utilisée uniquement pour avoir les enseignants du secondaire, leurs écoles et les coursgroupes.
+    tests: 
+      - resolution: 
+          combination_of_columns: 
+            - CompteAuthentification
+            - code_ecole
+            - coursgroupe
+    columns:
+      - name: CompteAuthentification
+        tests: 
+            - not_null
+      - name: code_ecole
+        tests: 
+            - not_null            
+      - name: coursgroupe
+        tests: 
+            - not_null            
+  - name: enseignants_primaire_tuteurs
+    tags: ["rls"]
+    description: >
+      Table utilisée uniquement pour avoir les enseignants du primaire et les tuteurs, leurs écoles et les groupes les liant aux élèves.
+    tests: 
+      - resolution: 
+          combination_of_columns: 
+            - adr_electr
+            - code_ecole
+            - grp_rep
+    columns:
+      - name: adr_electr
+        tests: 
+            - not_null
+      - name: code_ecole
+        tests: 
+            - not_null    
+      - name: grp_rep
+        tests: 
+            - not_null   
+  - name: eleve_groupes
+    tags: ["rls"]
+    description: >
+      Table utilisée uniquement pour avoir les élèves et les groupes les liant aux enseignants.
+    tests: 
+      - resolution: 
+          combination_of_columns: 
+            - fiche
+            - coursgroupe
+    columns:
+      - name: fiche
+        tests: 
+            - not_null
+
