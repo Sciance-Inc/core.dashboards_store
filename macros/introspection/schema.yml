@@ -6,6 +6,12 @@ macros:
       The macro is usefull when you want to drop all the tables in "your" database start from a clean slate.
       The macro is designed to be called with the following command : `dbt run-operation drop_schema`
 
+  - name: drop_one_schema
+    description: >
+      The macro will drop one schema as well as all the tables and views in that schema.
+      The macro is designed to be called with the following command : `dbt run-operation drop_one_schema --args '{schema: <foobar>}'`
+      Where <foobar> is the name of the schema you want to drop.
+
   - name: init_metadata_table
     description: >
       The macro prepare the database and create the metadata tables allowing some monitoring of ETLs.
