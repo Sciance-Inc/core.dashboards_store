@@ -1,15 +1,17 @@
 {#
-    Trouver des élèves financès qui étaient financées deux fois par l'année
-    Trouver des élèves fréquents qui étaient fréquents plus qu'une fois par l'année
+    Trouver des élèves financès qui étaient financées deux fois par l''année
+    Trouver des élèves fréquents qui étaient fréquents plus qu''une fois par l''année
 #}
 {{ config(alias="report_eleves_doublons_fin_fre") }}
 
 with
+
+
     eleves as (
         select
             freq.fiche,
             freq.annee,
-            school_friendly_name,
+			school_friendly_name,
             date_deb_as_date,
             date_fin_as_date,
             type_freq
@@ -18,11 +20,10 @@ with
             {{ ref("dim_mapper_schools") }} as eco
             on eco.annee = freq.annee
             and eco.eco = freq.eco_cen
-            and eco.id_eco in (
-                select popl.id_eco
-                from {{ ref("anml_stg_population") }} as popl
-                group by popl.id_eco
-            )
+		and eco.id_eco in (select popl.id_eco from {{ ref("anml_stg_population") }} as popl
+            group by popl.id_eco)
+       
+    
     ),
     -- Élèves Financés
     eleves_fin as (
@@ -69,10 +70,12 @@ with
             type_freq,
             -- Prendre la valeur précédente de la date fin pour comparer et trouver
             -- des conflits
+
             -- DEBUG
             {#lag(date_fin_as_date) over (
                 partition by fiche, annee order by date_deb_as_date
             ) as valeur_precdnt,#}
+
             -- Trouver le conflit entre les dates
             case
                 when
