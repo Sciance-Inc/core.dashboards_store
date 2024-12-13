@@ -1,5 +1,5 @@
 {#
-    Trouver des élèves actives qui étaient actives deux fois par l`année
+    Trouver des élèves actives qui étaient actives deux fois par l'année
 #}
 {{ config(alias="report_eleves_doublons_actifs") }}
 
