@@ -5,18 +5,19 @@
 {{ config(alias="report_classe_ordre_enseignement") }}
 
 with
-    -- Prendre tous les élèves actives
+    -- Prendre tous les élèves de la population
     eleves_actives as (
-        select fiche, id_eco, statut_don_an, ordre_ens, classe
+        select popl.fiche, popl.id_eco, statut_don_an, ordre_ens, classe
         from {{ ref("i_gpm_e_dan") }} as dan
-        where statut_don_an = 'A'  -- Prendre des élèves actifs
+        inner join {{ ref("anml_stg_population") }} as popl on popl.id_eco = dan.id_eco and popl.fiche = dan.fiche
+      
     ),
     -- Prendre les nom d'école avce l'année
     eleves_actives_avec_ecoles as (
         select fiche, annee, eco.school_friendly_name, elv_act.id_eco, ordre_ens, classe
         from eleves_actives as elv_act
         inner join {{ ref("dim_mapper_schools") }} as eco on elv_act.id_eco = eco.id_eco
-        where annee > 2009 and eco.eco < '099'  -- Prendre des écoles de CSSPI
+
     ),
     -- Trouver les élèves qui sont mal placés dans les classes selon l`ordre enseignement
     eleves_classe_conflit as (

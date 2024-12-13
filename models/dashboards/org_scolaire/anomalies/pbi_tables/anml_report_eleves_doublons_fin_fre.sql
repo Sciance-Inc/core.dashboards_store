@@ -2,13 +2,16 @@
     Trouver des élèves financès qui étaient financées deux fois par l`année
     Trouver des élèves fréquents qui étaient fréquents plus qu`une fois par l`année
 #}
-{{ config(alias="report_fin_fre") }}
+{{ config(alias="report_eleves_doublons_fin_fre") }}
 
 with
+
+
     eleves as (
         select
-            fiche,
+            freq.fiche,
             freq.annee,
+			--popl.id_eco,
             school_friendly_name,
             date_deb_as_date,
             date_fin_as_date,
@@ -18,8 +21,10 @@ with
             {{ ref("dim_mapper_schools") }} as eco
             on eco.annee = freq.annee
             and eco.eco = freq.eco_cen
-        where freq.annee > 2009 and freq.eco_cen < '099'
-
+		and eco.id_eco in (select popl.id_eco from {{ ref("anml_stg_population") }} as popl
+            group by popl.id_eco)
+       
+    
     ),
     -- Élèves Financés
     eleves_fin as (
