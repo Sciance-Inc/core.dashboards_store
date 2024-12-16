@@ -17,32 +17,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {# lier les intervenant (tuteurs) à leurs grp_rep afin de controler l'affichage des données des TdB #}
 with
-    intv1 as (
+    intv as (
         select eco.eco as code_ecole, grp.grp_rep, intv.adr_electr
         from {{ ref("i_gpm_t_grp_rep") }} as grp
         left join
             {{ ref("i_gpm_t_interv") }} as intv
             on intv.id_eco = grp.id_eco
-            and intv.interv = grp.interv_1
-        left join {{ ref("i_gpm_t_eco") }} as eco on grp.id_eco = eco.id_eco
-        where
-            intv.adr_electr is not null
-            and eco.annee = {{ core_dashboards_store.get_current_year() }}
-    ),
-    intv2 as (
-        select eco.eco as code_ecole, grp.grp_rep, intv.adr_electr
-        from {{ ref("i_gpm_t_grp_rep") }} as grp
-        left join
-            {{ ref("i_gpm_t_interv") }} as intv
-            on intv.id_eco = grp.id_eco
-            and intv.interv = grp.interv_2
+            and (intv.interv = grp.interv_1 or intv.interv = grp.interv_2)
         left join {{ ref("i_gpm_t_eco") }} as eco on grp.id_eco = eco.id_eco
         where
             intv.adr_electr is not null
             and eco.annee = {{ core_dashboards_store.get_current_year() }}
     )
 select code_ecole, grp_rep, adr_electr
-from intv1
-union
-select code_ecole, grp_rep, adr_electr
-from intv2
+from intv
