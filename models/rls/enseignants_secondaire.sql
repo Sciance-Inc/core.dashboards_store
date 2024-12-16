@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {# lier les enseignants à leurs groupes-matières afin de controler l'affichage des données des TdB #}
 select ens.ecole as code_ecole, ens.coursgroupe, id.compteauthentification
-from {{ ref("i_CoursGroupesEnseignants") }} as ens
+from {{ ref("i_coursgroupesenseignants") }} as ens
 join
     {{ var("database_paie") }}.gi.identite as id
     on ens.matr_paie = id.cleorganisationnelle

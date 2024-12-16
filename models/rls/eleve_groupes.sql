@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 select stud.fiche, grp_rep, coursgroupe
 from {{ ref("fact_yearly_student") }} stud
 left join
-    {{ ref("i_CoursGroupesEleves") }} as el
+    {{ ref("i_coursgroupeseleves") }} as el
     on stud.eco = el.eco
     and stud.annee = el.annee
     and stud.fiche = el.fiche
