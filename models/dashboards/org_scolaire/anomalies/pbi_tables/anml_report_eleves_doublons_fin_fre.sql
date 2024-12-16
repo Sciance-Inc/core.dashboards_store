@@ -1,4 +1,21 @@
 {#
+Dashboards Store - Helping students, one dashboard at a time.
+Copyright (C) 2023  Sciance Inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#}
+{#
     Trouver des élèves financès qui étaient financées deux fois par l''année
     Trouver des élèves fréquents qui étaient fréquents plus qu''une fois par l''année
 #}
@@ -6,12 +23,11 @@
 
 with
 
-
     eleves as (
         select
             freq.fiche,
             freq.annee,
-			school_friendly_name,
+            school_friendly_name,
             date_deb_as_date,
             date_fin_as_date,
             type_freq
@@ -20,10 +36,12 @@ with
             {{ ref("dim_mapper_schools") }} as eco
             on eco.annee = freq.annee
             and eco.eco = freq.eco_cen
-		and eco.id_eco in (select popl.id_eco from {{ ref("anml_stg_population") }} as popl
-            group by popl.id_eco)
-       
-    
+            and eco.id_eco in (
+                select popl.id_eco
+                from {{ ref("anml_stg_population") }} as popl
+                group by popl.id_eco
+            )
+
     ),
     -- Élèves Financés
     eleves_fin as (
@@ -70,12 +88,10 @@ with
             type_freq,
             -- Prendre la valeur précédente de la date fin pour comparer et trouver
             -- des conflits
-
             -- DEBUG
             {#lag(date_fin_as_date) over (
                 partition by fiche, annee order by date_deb_as_date
             ) as valeur_precdnt,#}
-
             -- Trouver le conflit entre les dates
             case
                 when
