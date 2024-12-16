@@ -16,7 +16,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {#
-    Trouver des élèves financès qui étaient financées deux fois par l''année
+    Trouver des élèves financés qui étaient financés deux fois par l''année
     Trouver des élèves fréquents qui étaient fréquents plus qu''une fois par l''année
 #}
 {{ config(alias="report_eleves_doublons_fin_fre") }}
@@ -88,10 +88,6 @@ with
             type_freq,
             -- Prendre la valeur précédente de la date fin pour comparer et trouver
             -- des conflits
-            -- DEBUG
-            {#lag(date_fin_as_date) over (
-                partition by fiche, annee order by date_deb_as_date
-            ) as valeur_precdnt,#}
             -- Trouver le conflit entre les dates
             case
                 when
