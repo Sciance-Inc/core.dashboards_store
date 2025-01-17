@@ -24,11 +24,11 @@ models:
     tests: 
       - resolution: 
           combination_of_columns: 
-            - CompteAuthentification
+            - compteauthentification
             - code_ecole
             - coursgroupe
     columns:
-      - name: CompteAuthentification
+      - name: compteauthentification
         tests: 
             - not_null
       - name: code_ecole
