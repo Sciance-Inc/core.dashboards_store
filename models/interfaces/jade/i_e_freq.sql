@@ -23,7 +23,7 @@ select
     -- Date fin
     datefin as date_fin,
     case
-        when (datefin = '' and annee = {{ get_current_year() }})
+        when (datefin = '' and annee = {{ core_dashboards_store.get_current_year() }})
         then getdate()  -- Prendre la date actuelle si l'année scolaire est en cours et la date est vide
         when datefin = ''
         then convert(date, concat(annee + 1, '-06-30'), 102)  -- Prendre le 30 juin de l'année scolaire si la date est vide
