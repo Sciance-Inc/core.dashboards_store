@@ -20,14 +20,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     Prendre les écoles qui sont définies dans les populations commes les écoles régulieres
 #}
 {% raw %}
-with eleves_actifs as (
-        select id_eco,fiche
+with eleves_actives as (
+        select id_eco,fiche, ordre_ens, classe
         from {{ ref("i_gpm_e_dan") }} as dan
         where statut_don_an = 'A'
     )
 
 select elv_act.id_eco, fiche
-from eleves_actifs as elv_act
+from eleves_actives as elv_act
 inner join {{ ref('i_gpm_t_eco') }} as eco on elv_act.id_eco = eco.id_eco
 /*
 where eco < '099'     -- Prendre les écoles qui sont définies dans les populations commes les écoles régulieres
