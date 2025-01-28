@@ -21,57 +21,54 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {{ config(alias="report_classe_ordre_enseignement") }}
 
 with
-    -- Prendre tous les élèves de la population
-    eleves_actives as (
-        select popl.fiche, popl.id_eco, statut_don_an, ordre_ens, classe
+    eleves_actifs as (
+        select fiche, dan.id_eco, annee, classe, ordre_ens
         from {{ ref("i_gpm_e_dan") }} as dan
-        inner join
-            {{ ref("anml_stg_population") }} as popl
-            on popl.id_eco = dan.id_eco
-            and popl.fiche = dan.fiche
+        inner join gpi.gpi.dbo.gpm_t_eco as eco on eco.id_eco = dan.id_eco
+        where
+            statut_don_an = 'A'
+            and dan.id_eco
+            in (select id_eco from {{ ref("i_gpm_e_dan") }} group by id_eco)
+    ),
+
+    popl_anomalies as (
+        select id_eco, fiche, 0 as is_conflict from {{ ref("anml_stg_population") }}
 
     ),
-    -- Prendre les nom d'école avce l'année
-    eleves_actives_avec_ecoles as (
-        select fiche, annee, eco.school_friendly_name, elv_act.id_eco, ordre_ens, classe
-        from eleves_actives as elv_act
+
+    eleves_actifs_avec_ecoles as (
+        select
+            elv_act.fiche,
+            elv_act.id_eco,
+            elv_act.annee,
+            school_friendly_name,
+            classe,
+            elv_act.ordre_ens,
+            desc_ordre_ens,
+            is_conflict
+        from popl_anomalies as popl
+        right join
+            eleves_actifs as elv_act
+            on elv_act.fiche = popl.fiche
+            and elv_act.id_eco = popl.id_eco
         inner join {{ ref("dim_mapper_schools") }} as eco on elv_act.id_eco = eco.id_eco
-
+        inner join
+            {{ ref("anml_dim_ordre_enseignement") }} as dim
+            on dim.ordre_ens = elv_act.ordre_ens
     ),
-    -- Trouver les élèves qui sont mal placés dans les classes selon l''ordre
-    -- enseignement
+
     eleves_classe_conflit as (
         select
             fiche,
+            id_eco,
             annee,
             school_friendly_name,
-            id_eco,
-            elv_act_ecl.ordre_ens,
-            desc_ordre_ens,
-            classe
-        from eleves_actives_avec_ecoles as elv_act_ecl
-        inner join
-            {{ ref("anml_dim_ordre_enseignement") }} as dim
-            on dim.ordre_ens = elv_act_ecl.ordre_ens  -- Prendre la description de l''ordre d`enseignement 
-        where
-            (elv_act_ecl.ordre_ens in (1, 2) and classe is not null)
-            or (
-                elv_act_ecl.ordre_ens = 3
-                and classe not in ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I')
-            )
-            or (
-                elv_act_ecl.ordre_ens = 4
-                and classe not in ('1', '2', '3', '4', '5', '6', '7', '8')
-            )
+            classe,
+            ordre_ens,
+            coalesce(is_conflict, 1) as is_conflict
+        from eleves_actifs_avec_ecoles
     )
 
-select
-    fiche,
-    annee,
-    school_friendly_name,
-    ordre_ens,
-    desc_ordre_ens,
-    classe,
-    {{ dbt_utils.generate_surrogate_key(["annee", "school_friendly_name"]) }}
-    as filter_key
+select fiche, id_eco, annee, school_friendly_name, classe, ordre_ens, is_conflict
 from eleves_classe_conflit
+where is_conflict = 1

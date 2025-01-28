@@ -14,11 +14,11 @@ models:
         tests:
           - not_null
       - name: premiere_ecole
-        description: La premère école d'élève qui est un doublon
+        description: La premère école d'élève qui est un élève actif doublon
         tests:
           - not_null
       - name: deuxieme_ecole
-        description: La deuxième école d'élève qui est un 
+        description: La deuxième école d'élève qui est un élève actif doublon
         tests:
           - not_null
       - name: filter_key
@@ -83,8 +83,6 @@ models:
           - not_null
       - name: classe
         description: La classe
-        tests:
-          - not_null
       - name: filter_key
         description: La colonne annexe qui permet de synchroniser les filtres entre les différents rapports d'anomalies
     tests:

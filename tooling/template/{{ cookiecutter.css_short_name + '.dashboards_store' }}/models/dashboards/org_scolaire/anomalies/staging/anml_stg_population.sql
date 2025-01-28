@@ -20,19 +20,31 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     Prendre les écoles qui sont définies dans les populations commes les écoles régulieres
 #}
 {% raw %}
-with eleves_actives as (
+with eleves_actifs as (
         select id_eco,fiche
         from {{ ref("i_gpm_e_dan") }} as dan
         where statut_don_an = 'A'
     )
 
 select elv_act.id_eco, fiche
-from eleves_actives as elv_act
+from eleves_actifs as elv_act
 inner join {{ ref('i_gpm_t_eco') }} as eco on elv_act.id_eco = eco.id_eco
 /*
 where eco < '099'     -- Prendre les écoles qui sont définies dans les populations commes les écoles régulieres
     and annee > 2009  -- De quelle année le rapport prend les données
-    and eco != '072'  -- enlever l'école d'été
-    and fiche not in ('12345','54321') --Enlever les élèves qui figurent comme des doublons mais qui ne sont pas des doublons
+    
+   -- and eco != '072'  -- enlever l'école d'été
+   -- Associer les classes avec l'ordre d'enseignement
+    and ((elv_act.ordre_ens in (1, 2) and classe is null)
+            or (
+                elv_act.ordre_ens = 3
+                and classe in ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I')
+            )
+            or (
+                elv_act.ordre_ens = 4
+                and classe  in ('1', '2', '3', '4', '5', '6', '7', '8')
+            )
+    )
+
 */
 {% endraw %}
