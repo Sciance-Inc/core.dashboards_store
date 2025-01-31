@@ -21,6 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {{ config(alias="report_classe_ordre_enseignement") }}
 
 with
+    -- Predre tous les élèves actifs à partir de l'année qui est définie dans adapter
     eleves_actifs as (
         select fiche, dan.id_eco, annee, classe, ordre_ens
         from {{ ref("i_gpm_e_dan") }} as dan
@@ -31,11 +32,13 @@ with
             in (select id_eco from {{ ref("i_gpm_e_dan") }} group by id_eco)
     ),
 
+    -- Ajouter une colonne pour iniquer que élèves d'adapter sont bien
     popl_anomalies as (
         select id_eco, fiche, 0 as is_conflict from {{ ref("anml_stg_population") }}
 
     ),
 
+    -- Mapper les élèves avec les écoles et la description de l'ordre d'enseignement
     eleves_actifs_avec_ecoles as (
         select
             elv_act.fiche,
@@ -57,6 +60,7 @@ with
             on dim.ordre_ens = elv_act.ordre_ens
     ),
 
+    -- Diviser les élèves selon la présence du conflit.
     eleves_classe_conflit as (
         select
             fiche,
@@ -68,7 +72,7 @@ with
             coalesce(is_conflict, 1) as is_conflict
         from eleves_actifs_avec_ecoles
     )
-
+-- Les élèves qui ont un conflit de la classe selon l'ordre d'enseignement
 select fiche, id_eco, annee, school_friendly_name, classe, ordre_ens, is_conflict
 from eleves_classe_conflit
 where is_conflict = 1

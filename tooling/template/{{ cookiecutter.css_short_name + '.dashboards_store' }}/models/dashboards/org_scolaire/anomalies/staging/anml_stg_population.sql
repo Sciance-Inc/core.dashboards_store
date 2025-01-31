@@ -18,8 +18,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {# 
     UPDATE THIS FILE TO MATCH YOUR CSS REALITY.
     Prendre les écoles qui sont définies dans les populations commes les écoles régulieres
+    Prendre des élèves qui sont bien associés avec la classe selon l'ordre d'enseignment
 #}
 {% raw %}
+{# 
+    Prendre les écoles qui sont définies dans les populations commes les écoles régulieres
+    Prendre des élèves qui sont bien associés avec la classe selon l'ordre d'enseignment
+#}
 with eleves_actives as (
         select id_eco,fiche, ordre_ens, classe
         from {{ ref("i_gpm_e_dan") }} as dan
@@ -34,7 +39,7 @@ where eco < '099'     -- Prendre les écoles qui sont définies dans les populat
     and annee > 2009  -- De quelle année le rapport prend les données
     
    -- and eco != '072'  -- enlever l'école d'été
-   -- Associer les classes avec l'ordre d'enseignement
+   -- Associer les classes selon l'ordre d'enseignement
     and ((elv_act.ordre_ens in (1, 2) and classe is null)
             or (
                 elv_act.ordre_ens = 3
