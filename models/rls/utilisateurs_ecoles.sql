@@ -19,14 +19,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 with
     users as (
         select
-            cleorganisationnelle,
-            compte_authentification,
+            cleorganisationnelle as cle_organisationnelle,
+            compteauthentification as compte_authentification,
             nom,
             prenom,
             ecoles,
-            right(lieutravailprincipal, 4) as corpsemploi,
+            right(lieutravailprincipal, 4) as corps_emploi,
             left(lieutravailprincipal, 3) as ecole_principale,
-            descriptioncorpsemploiprincipal
+            descriptioncorpsemploiprincipal as description_corps_emploi_principal
         from {{ var("database_paie") }}.gi.identite
 
         where
@@ -54,13 +54,13 @@ with
     )
 {# Mettre au format usager/ecole #}
 select
-    cleorganisationnelle,
+    cle_organisationnelle,
     compte_authentification,
     nom,
     prenom,
     ecoles,
-    corpsemploi,
+    corps_emploi,
     ecole_principale,
-    descriptioncorpsemploiprincipal,
+    description_corps_emploi_principal,
     value as ecole
 from users cross apply string_split(ecoles, ',')
