@@ -20,7 +20,7 @@ with
     users as (
         select
             cleorganisationnelle,
-            compte_authentification,
+            compteauthentification,
             nom,
             prenom,
             ecoles,
@@ -55,7 +55,7 @@ with
 {# Mettre au format usager/ecole #}
 select
     cleorganisationnelle,
-    compte_authentification,
+    compteauthentification,
     nom,
     prenom,
     ecoles,
