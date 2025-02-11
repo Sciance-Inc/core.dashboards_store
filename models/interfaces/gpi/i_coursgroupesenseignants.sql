@@ -15,5 +15,5 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select etablissement as ecole, annee, matr_paie, coursgroupe, matieresgroupes
-from {{ var("database_gpi") }}.gi.coursgroupesenseignants
+select etablissement as ecole, annee, matr_paie, cours_groupe, matieres_groupes
+from {{ var("database_gpi") }}.gi.cours_groupesenseignants

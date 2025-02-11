@@ -15,10 +15,10 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select stud.fiche, grp_rep, coursgroupe
+select stud.fiche, grp_rep, cours_groupe
 from {{ ref("fact_yearly_student") }} stud
 left join
-    {{ ref("i_coursgroupeseleves") }} as el
+    {{ ref("i_cours_groupeseleves") }} as el
     on stud.eco = el.eco
     and stud.annee = el.annee
     and stud.fiche = el.fiche
