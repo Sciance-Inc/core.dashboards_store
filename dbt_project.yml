@@ -170,7 +170,6 @@ models:
       +tags: ["interfaces"]
       +materialized: ephemeral
     rls:
-      +tags: ["rls"]    
       +schema: rls
 vars:
   is_context_core: true
