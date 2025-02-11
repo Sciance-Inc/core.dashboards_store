@@ -8,10 +8,10 @@ models:
     tests: 
       - resolution: 
           combination_of_columns: 
-            - CompteAuthentification
+            - compte_authentification
             - Ecole
     columns:
-      - name: CompteAuthentification
+      - name: compte_authentification
         tests: 
             - not_null
       - name: Ecole
@@ -20,21 +20,21 @@ models:
   - name: enseignants_secondaire
     tags: ["rls"]
     description: >
-      Table utilisée uniquement pour avoir les enseignants du secondaire, leurs écoles et les coursgroupes.
+      Table utilisée uniquement pour avoir les enseignants du secondaire, leurs écoles et les cours_groupes.
     tests: 
       - resolution: 
           combination_of_columns: 
-            - compteauthentification
+            - compte_authentification
             - code_ecole
-            - coursgroupe
+            - cours_groupe
     columns:
-      - name: compteauthentification
+      - name: compte_authentification
         tests: 
             - not_null
       - name: code_ecole
         tests: 
             - not_null            
-      - name: coursgroupe
+      - name: cours_groupe
         tests: 
             - not_null            
   - name: enseignants_primaire_tuteurs
@@ -65,7 +65,7 @@ models:
       - resolution: 
           combination_of_columns: 
             - fiche
-            - coursgroupe
+            - cours_groupe
     columns:
       - name: fiche
         tests: 
