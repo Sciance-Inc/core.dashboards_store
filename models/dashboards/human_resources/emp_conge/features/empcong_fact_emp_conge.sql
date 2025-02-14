@@ -34,7 +34,7 @@ with
             emp.etat as etat,
             etat.descr as etat_description,
             empl_status.cong_lt
-        from {{ ref("i_paie_hemp") }} as emp
+        from {{ ref("i_pai_hemp") }} as emp
         inner join {{ ref("i_pai_tab_etat_empl") }} as etat on emp.etat = etat.etat_empl
         inner join
             {{ ref("i_pai_tab_corp_empl") }} as corp on emp.corp_empl = corp.corp_empl

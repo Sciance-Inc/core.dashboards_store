@@ -60,7 +60,7 @@ with
                 partition by matr, ref_empl, corp_empl, etat, lieu_trav, stat_eng
                 order by date_eff
             ) as previous_date_fin
-        from {{ ref("i_paie_hemp") }} as hmp
+        from {{ ref("i_pai_hemp") }} as hmp
 
     -- Add a flag for every rupture of continuity
     ),
