@@ -1,0 +1,5 @@
+﻿id_indicateur_cdpvd,id_indicateur_css,description_indicateur,cible,code_matiere,no_competence
+4,,"Proportion d’élèves qui obtiennent entre 70 % et 100 % à l’épreuve  obligatoire de lecture en français, langue d’enseignement,  4e année du primaire",0.70,"FRA400","1"
+5,,"Proportion d’élèves qui obtiennent entre 70 % et 100 % à l’épreuve  obligatoire de mathématique (compétence Résoudre),  6e année du primaire",0.70,"MAT600","1"
+6,,"Proportion d’élèves qui obtiennent entre 70 % et 100 % à l’épreuve  obligatoire d’écriture en français, langue d’enseignement,  2e année du secondaire",0.70,"132208","2"
+11,,"Taux de participation des élèves du secondaire du réseau public à un projet pédagogique particulier",0.70,,
