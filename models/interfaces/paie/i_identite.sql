@@ -15,7 +15,13 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{# lier les enseignants à leurs groupes-matières afin de controler l'affichage des données des TdB #}
-select ens.ecole as code_ecole, ens.cours_groupe, id.compte_authentification
-from {{ ref("i_coursgroupesenseignants") }} as ens
-join {{ ref("i_identite") }} as id on ens.matr_paie = id.cle_organisationnelle
+select
+    cleorganisationnelle as cle_organisationnelle,
+    compteauthentification as compte_authentification,
+    nom,
+    prenom,
+    ecoles,
+    right(lieutravailprincipal, 4) as corps_emploi,
+    left(lieutravailprincipal, 3) as ecole_principale,
+    descriptioncorpsemploiprincipal as description_corps_emploi_principal
+from {{ var("database_paie") }}.gi.identite
