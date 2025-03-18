@@ -55,10 +55,13 @@ with
 select
     agg.annee,
     school_friendly_name as code_ecole,
+    agg.eco,
     agg.ordre_ens,
     case
-        when niveau_scolaire = 'mat 4'
+        when niveau_scolaire = 'mat 4' and population != 'Passe Partout'
         then 'Maternelle 4'
+        when niveau_scolaire = 'mat 4' and population = 'Passe Partout'
+        then 'Passe Partout'
         when niveau_scolaire = 'mat 5'
         then 'Maternelle 5'
         when niveau_scolaire = 'Prim 1'
