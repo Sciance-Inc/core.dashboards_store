@@ -17,24 +17,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {# 
     UPDATE THIS FILE TO MATCH YOUR CSS REALITY.
-    Prendre les écoles qui sont définies dans les populations commes les écoles régulieres
-    Prendre des élèves qui sont bien associés avec la classe selon l'ordre d'enseignment
 #}
 {% raw %}
 {# 
     Prendre les écoles qui sont définies dans les populations commes les écoles régulieres
     Prendre des élèves qui sont bien associés avec la classe selon l'ordre d'enseignment
 #}
-with eleves_actives as (
-        select id_eco,fiche, ordre_ens, classe
+{{ config(alias="stg_population") }}
+
+with
+    eleves_actives as (
+        select id_eco, fiche, ordre_ens, classe
         from {{ ref("i_gpm_e_dan") }} as dan
         where statut_don_an = 'A'
     )
 
 select elv_act.id_eco, fiche
 from eleves_actives as elv_act
-inner join {{ ref('i_gpm_t_eco') }} as eco on elv_act.id_eco = eco.id_eco
-/*
+inner join
+    {{ ref("i_gpm_t_eco") }} as eco on elv_act.id_eco = eco.id_eco
+    /*
 where eco < '099'     -- Prendre les écoles qui sont définies dans les populations commes les écoles régulieres
     and annee > 2009  -- De quelle année le rapport prend les données
     
@@ -52,4 +54,4 @@ where eco < '099'     -- Prendre les écoles qui sont définies dans les populat
     )
 
 */
-{% endraw %}
+    {% endraw %}

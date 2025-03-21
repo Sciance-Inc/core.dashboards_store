@@ -15,6 +15,11 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
+{#
+    La description de l'ordre d'enseignement
+#}
+{{ config(alias="dim_ordre_enseignement") }}
+
 select
     code as ordre_ens,
     cf_descr as desc_ordre_ens,
