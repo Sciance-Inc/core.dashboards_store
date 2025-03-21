@@ -25,14 +25,14 @@ with
     eleves_actifs as (
         select fiche, dan.id_eco, annee, classe, ordre_ens
         from {{ ref("i_gpm_e_dan") }} as dan
-        inner join gpi.gpi.dbo.gpm_t_eco as eco on eco.id_eco = dan.id_eco
+        inner join {{ ref("i_gpm_t_eco") }} as eco on eco.id_eco = dan.id_eco
         where
             statut_don_an = 'A'
             and dan.id_eco
-            in (select id_eco from {{ ref("i_gpm_e_dan") }} group by id_eco)
+            in (select id_eco from {{ ref("anml_stg_population") }} group by id_eco)
     ),
 
-    -- Ajouter une colonne pour iniquer que élèves d'adapter sont bien
+    -- Ajouter une colonne pour iniquer que les élèves d'adapter n'ont pas de conflit
     popl_anomalies as (
         select id_eco, fiche, 0 as is_conflict from {{ ref("anml_stg_population") }}
 
@@ -73,6 +73,6 @@ with
         from eleves_actifs_avec_ecoles
     )
 -- Les élèves qui ont un conflit de la classe selon l'ordre d'enseignement
-select fiche, id_eco, annee, school_friendly_name, classe, ordre_ens, is_conflict
+select fiche, id_eco, annee, school_friendly_name, classe, ordre_ens
 from eleves_classe_conflit
 where is_conflict = 1

@@ -63,7 +63,7 @@ with
     eleves_fin_duplicats as (
         select fiche, annee, school_friendly_name, type_freq
         from eleves_fin
-        where duplicat = 2  -- Prendre des eleves qui sont doublons 
+        where duplicat = 2  -- Prendre des élèves qui sont doublons 
     ),
 
     -- Élèves Fréquents
@@ -101,11 +101,11 @@ with
         from eleves_fre
     ),
 
-    -- Eleves Fréquents Doublon
+    -- Eleves Fréquents Doublons
     eleves_fre_duplicats as (
         select fiche, annee, school_friendly_name, type_freq
         from eleves_fre_conflit
-        where conflit_date = 1  -- Prendre des eleves qui ont un confit de date pour s'assurer que c'est un doublon
+        where conflit_date = 1  -- Prendre des élèves qui ont un confit de date pour s'assurer que c'est un doublon
     ),
     -- Élèves Financés Doublons et Eleves Fréquents Doublons
     eleves_duplicat_tous as (

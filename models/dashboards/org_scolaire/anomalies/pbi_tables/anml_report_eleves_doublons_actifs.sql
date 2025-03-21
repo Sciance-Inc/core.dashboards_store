@@ -16,7 +16,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {#
-    Trouver des élèves actives qui étaient actives deux fois par l''année
+    Trouver des élèves actifs qui étaient actifs deux fois par l''année
 #}
 {{ config(alias="report_eleves_doublons_actifs") }}
 
