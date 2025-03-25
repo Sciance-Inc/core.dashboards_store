@@ -73,6 +73,13 @@ with
         from eleves_actifs_avec_ecoles
     )
 -- Les élèves qui ont un conflit de la classe selon l'ordre d'enseignement
-select fiche, id_eco, annee, school_friendly_name, classe, ordre_ens
+select
+    fiche,
+    id_eco,
+    annee,
+    school_friendly_name,
+    -- Afficher NULL si la classe est NULL dans Power BI
+    coalesce(classe, 'NULL') as classe,
+    ordre_ens
 from eleves_classe_conflit
 where is_conflict = 1
