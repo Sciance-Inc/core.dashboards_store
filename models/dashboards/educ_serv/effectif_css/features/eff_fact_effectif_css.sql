@@ -32,8 +32,8 @@ with
     el as (
         select
             src.code_perm,
-            annee,
-            population,
+            src.annee,
+            src.population,
             ele.genre,
             eco,
             -- eco.nom_eco,
@@ -42,7 +42,10 @@ with
             ordre_ens,
             plan_interv_ehdaa,
             difficulte,
-            niveau_scolaire,
+            CASE
+                WHEN is_passepartout = 1 then 'Passe-Partout'
+                ELSE niveau_scolaire
+            END as niveau_scolaire,
             dist,
             is_doubleur,
             is_francisation,
@@ -50,6 +53,8 @@ with
             grp_rep
         from src
         left join {{ ref("dim_eleve") }} as ele on src.fiche = ele.fiche
+        left join {{ ref("stg_check_passepartout") }} as passp
+            on passp.code_perm = src.code_perm and passp.id_eco = src.id_eco
     )
 
 select *
