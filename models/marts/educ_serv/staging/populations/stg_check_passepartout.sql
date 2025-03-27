@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Créer une table factice sans lignes. Il est en fait nécessaire de sélectionner 0 ligne, car DBT ne prend pas en charge les matérialisations sans données.
 Le motif adapter.get_relation ne peut être utilisé qu’avec des seeds et non avec une table.
 
-Cette table agit comme point d’entrée pour la population personnalisée "Passe-Partout" et doit être surchargée à partir de cssXX.dashboards_store
+Cette table agit comme point d’entrée pour identifier les élèves qui sont dans le programme "Passe-Partout" et doit être surchargée à partir de cssXX.dashboards_store
 #}
 {% if execute %}
     {{
