@@ -26,9 +26,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 }}
 
 {% set max_etapes = var("interfaces")["gpi"]["max_etapes"] + 1 %}
-{% set years_of_data_grades = var("marts")["educ_serv"]["recency"][
-    "years_of_data_grades"
-] %}
+{% set years_of_data_grades = var("marts")["educ_serv"]["recency"]["years_of_data_grades"] %}
 
 -- Extract the universe we want to compute the data for
 with
@@ -51,9 +49,9 @@ select
     mat_ele.id_mat_ele,
     mat_ele.res_som,
     mat_ele.res_meq,
-    {% for i in range(1, 31) %} mat_ele.res_etape_{{ "%02d" % i }}, {% endfor %}
-    {% for i in range(1, 31) %} mg.eval_res_etape_{{ "%02d" % i }}, {% endfor %}
-    {% for i in range(1, 31) %} mg.leg_etape_{{ "%02d" % i }}, {% endfor %}
+    {% for i in range(1, max_etapes) %} mat_ele.res_etape_{{ "%02d" % i }}, {% endfor %}
+    {% for i in range(1, max_etapes) %} mg.eval_res_etape_{{ "%02d" % i }}, {% endfor %}
+    {% for i in range(1, max_etapes) %} mg.leg_etape_{{ "%02d" % i }}, {% endfor %}
     mat_ele.modele_etape,
     mat_ele.id_mat_grp,
     oa.date_deb,

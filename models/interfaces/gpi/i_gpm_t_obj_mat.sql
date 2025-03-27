@@ -23,7 +23,10 @@ select
     src.id_obj_mat,
     src.id_eco,
     src.mat,
-    src.obj_01,
+    case 
+    when src.obj_02 is null then src.obj_01
+    else TRY_CAST(concat(src.obj_01, '.', src.obj_02) AS FLOAT)
+    end as obj_01,
     src.obj_02,
     src.obj_03,
     src.obj_04,
