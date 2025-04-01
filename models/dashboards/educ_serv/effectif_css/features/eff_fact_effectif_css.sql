@@ -32,7 +32,7 @@ with
     el as (
         select
             src.code_perm,
-            src.annee,
+            annee,
             src.population,
             ele.genre,
             eco,

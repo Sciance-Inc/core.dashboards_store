@@ -45,8 +45,6 @@ models:
           combination_of_columns:
             - code_perm
             - id_eco
-            - annee
-            - population
 
   - name: spine
     config:

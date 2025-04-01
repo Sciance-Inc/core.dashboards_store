@@ -24,14 +24,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     }}
 {% endif %}
 
-with
-    dummy as (
-        select
-            'FOOBAR' as code_perm,
-            1234 as id_eco,
-            2025 as annee,
-            'custom_1' as population
-    )
+with dummy as (select 'FOOBAR' as code_perm, 1234 as id_eco)
 
 select top 0 *
 from dummy
