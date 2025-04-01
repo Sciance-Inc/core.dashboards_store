@@ -32,6 +32,22 @@ models:
             - annee
             - population
 
+  - name: stg_check_passepartout
+    config:
+      tags:
+        - population
+        - educ_serv
+        - effectif_css
+    description: >
+      Cette table agit comme point d’entrée pour identifier les élèves qui sont dans le programme "Passe-Partout" et doit être surchargée à partir de cssXX.dashboards_store
+    tests:
+      - resolution:
+          combination_of_columns:
+            - code_perm
+            - id_eco
+            - annee
+            - population
+
   - name: spine
     config:
       tags:
