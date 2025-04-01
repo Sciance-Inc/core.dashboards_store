@@ -26,7 +26,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 }}
 
 {% set max_etapes = var("interfaces")["gpi"]["max_etapes"] + 1 %}
-{% set years_of_data_grades = var("marts")["educ_serv"]["recency"]["years_of_data_grades"] %}
+{% set years_of_data_grades = var("marts")["educ_serv"]["recency"][
+    "years_of_data_grades"
+] %}
 
 -- Extract the universe we want to compute the data for
 with
