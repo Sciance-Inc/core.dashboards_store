@@ -43,7 +43,7 @@ with
             plan_interv_ehdaa,
             difficulte,
             niveau_scolaire,
-            coalesce(passp.code_perm,null) as is_passepartout,
+            coalesce(passp.code_perm, null) as is_passepartout,
             dist,
             is_doubleur,
             is_francisation,
@@ -70,7 +70,9 @@ with
             plan_interv_ehdaa,
             difficulte,
             case
-                when is_passepartout is not null then 'Passe-Partout' else niveau_scolaire
+                when is_passepartout is not null
+                then 'Passe-Partout'
+                else niveau_scolaire
             end as niveau_scolaire,
             dist,
             is_doubleur,
