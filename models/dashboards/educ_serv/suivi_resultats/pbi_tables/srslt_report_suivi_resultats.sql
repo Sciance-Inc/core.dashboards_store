@@ -1,6 +1,6 @@
 {#
 Dashboards Store - Helping students, one dashboard at a time.
-Copyright (C) 2023  Sciance Inc.
+Copyright (C) 2024  Sciance Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
@@ -223,22 +223,22 @@ with
             is_reussite_comp,
 
             max(is_echec_current_y) over (
-                partition by fiche, description_matiere
+                partition by fiche, no_comp, annee, code_matiere
             ) as is_echec_course_current,
             max(is_diff_current_y) over (
-                partition by fiche, description_matiere
+                partition by fiche, no_comp, annee, code_matiere
             ) as is_diff_course_current,
             max(is_echec_previous_y) over (
-                partition by fiche, description_matiere
+                partition by fiche, no_comp, annee, code_matiere
             ) as is_echec_course_previous,
             max(is_diff_previous_y) over (
-                partition by fiche, description_matiere
+                partition by fiche, no_comp, annee, code_matiere
             ) as is_diff_course_previous,
             max(is_maitrise_current_y) over (
-                partition by fiche, description_matiere
+                partition by fiche, no_comp, annee, code_matiere
             ) as is_maitrise_course_current,
             max(is_maitrise_previous_y) over (
-                partition by fiche, description_matiere
+                partition by fiche, no_comp, annee, code_matiere
             ) as is_maitrise_course_previous
         from dif
     )
@@ -259,6 +259,7 @@ select
     step1.res_num_som,
     niveau_scolaire,
     grp_rep,
+    class,
     dist,
     niveau_res,
     step1.no_comp,
