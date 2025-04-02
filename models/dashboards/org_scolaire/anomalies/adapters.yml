@@ -1,0 +1,23 @@
+version: 2
+
+x-common-tags: &x-common-tags
+  tags:
+    - anomalies
+models:
+  - name: anml_stg_population
+    description: >
+      Prendre les écoles qui sont définies dans les populations commes les écoles régulieres 
+      Prendre des élèves qui sont bien associés avec la classe selon l'ordre d'enseignment
+    config:
+      schema: "dashboard_anomalies"
+      <<: *x-common-tags
+   
+    columns:
+      - name: fiche
+        description: The specific unique identifier for a student
+        tests:
+          - not_null
+      - name: id_eco
+        description: The specific unique identifier for a school by year
+        tests:
+          - not_null

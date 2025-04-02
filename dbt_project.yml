@@ -166,6 +166,16 @@ models:
                 "{{ core_dashboards_store.stamp_model('dashboard_retirement') }}",
               ]
 
+      org_scolaire:
+        anomalies:
+          +tags: ["anomalies"]
+          +schema: "dashboard_anomalies"
+          pbi_tables:
+            +post-hook:
+              [
+                "{{ core_dashboards_store.stamp_model('dashboard_anomalies') }}",
+              ]
+              
     interfaces:
       +tags: ["interfaces"]
       +materialized: ephemeral
