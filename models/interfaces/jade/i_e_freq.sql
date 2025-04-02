@@ -19,7 +19,16 @@ select
     fiche,
     annee,
     datedeb as date_deb,
+    convert(date, datedeb, 112) as date_deb_as_date,
+    -- Date fin
     datefin as date_fin,
+    case
+        when (datefin = '' and annee = {{ core_dashboards_store.get_current_year() }})
+        then getdate()  -- Prendre la date actuelle si l'année scolaire est en cours et la date est vide
+        when datefin = ''
+        then convert(date, concat(annee + 1, '-06-30'), 102)  -- Prendre le 30 juin de l'année scolaire si la date est vide
+        else convert(date, datefin, 112)  -- Convertir la date_fin
+    end as date_fin_as_date,
     statut,
     org,
     ecocen as eco_cen,
@@ -27,5 +36,6 @@ select
     client,
     freq,
     prog,
-    serviceenseign as service_enseign
+    serviceenseign as service_enseign,
+    typefreq as type_freq
 from {{ var("database_jade") }}.dbo.e_freq

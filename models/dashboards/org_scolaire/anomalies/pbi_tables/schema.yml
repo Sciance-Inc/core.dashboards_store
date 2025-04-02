@@ -1,0 +1,102 @@
+version: 2
+
+models:
+  - name: anml_report_eleves_doublons_actifs
+    description: > 
+      La table qui prend des élèves actifs qui étaient actifs deux fois pendant l`année
+    columns:
+      - name: fiche
+        description: Le numéro du fiche d'élève.
+        tests:
+          - not_null
+      - name: annee
+        description: L'année scolaire
+        tests:
+          - not_null
+      - name: premiere_ecole
+        description: La premère école d'élève qui est un élève actif doublon
+        tests:
+          - not_null
+      - name: deuxieme_ecole
+        description: La deuxième école d'élève qui est un élève actif doublon
+        tests:
+          - not_null
+      - name: filter_key
+        description: La colonne annexe qui permet de synchroniser les filtres entre les différents rapports d'élèves doublons
+
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - annee
+
+  - name: anml_report_eleves_doublons_fin_fre
+    description: >
+      La table qui prend élèves financès qui étaient financées deux fois par l`année
+      avec des élèves fréquents qui étaient fréquents plus qu`une fois par l`année
+
+    columns:
+      - name: fiche
+        description: Le numéro du fiche d'élève.
+        tests:
+          - not_null
+      - name: annee
+        description: L'année scolaire
+        tests:
+          - not_null
+      - name: school_friendly_name
+        description: Le nom d'école avec son numéro 
+        tests:
+          - not_null
+      - name: type_freq
+        description: Le type de fréquentation (FIN ou FRE)
+        tests:
+          - not_null
+      - name: filter_key
+        description: La colonne annexe qui permet de synchroniser les filtres entre les différents rapports d'élèves doublons
+
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - annee
+
+  - name: anml_report_classe_ordre_enseignement
+    description: > 
+      La table qui prend des élèves qui sont mal placés dans les classes selon l'ordre enseignement
+    columns:
+      - name: fiche
+        description: Le numéro du fiche d'élève.
+        tests:
+          - not_null
+      - name: annee
+        description: L'année scolaire
+        tests:
+          - not_null
+      - name: school_friendly_name
+        description: Le nom d'école avec son numéro 
+        tests:
+          - not_null
+      - name: ordre_ens
+        description: L'ordre d'enseignement
+        tests:
+          - not_null
+      - name: classe
+        description: La classe
+      - name: filter_key
+        description: La colonne annexe qui permet de synchroniser les filtres entre les différents rapports d'anomalies
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - annee
+            - school_friendly_name
+
+  - name: anml_report_filters
+    description: > 
+      Table annexe permettant de synchroniser les filtres entre les différents rapports d'anomalies
+    tests:
+      - resolution:
+          combination_of_columns:
+            - annee
+            - school_friendly_name
