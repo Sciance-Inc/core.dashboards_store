@@ -60,6 +60,11 @@ models:
           +enabled: False
         predictive_view_aggregated:
           +enabled: False
+      
+      org_scolaire:
+        anomalies:
+          # Needs adapter : Make sure to create / populate the anml_stg_population table
+          +enabled: False
   
     interfaces:
       +materialized: ephemeral
