@@ -176,7 +176,8 @@ models:
           pbi_tables:
               +post-hook:
                 [
-                  "{{ core_dashboards_store.stamp_model('dashboard_pevr') }}"
+                  "{{ core_dashboards_store.stamp_model('dashboard_pevr') }}",
+                  "{{ core_dashboards_store.seeds_validator('dashboard_pevr_seeds','custom','3') }}"
                 ]
       org_scolaire:
         anomalies:

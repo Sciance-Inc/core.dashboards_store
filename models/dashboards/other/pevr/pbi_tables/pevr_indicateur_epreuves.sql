@@ -21,13 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 with
     src as (
         select
-            case
-                when ind.id_indicateur_css is null
-                then ind.id_indicateur_cdpvd  -- Permet d'utiliser l'indicateur défaut de la CDPVD
-                else ind.id_indicateur_css
-            end as id_indicateur,
-            ind.description_indicateur,
-            ind.cible,
+            id_indicateur_meq,
             res.annee,
             sch.annee_scolaire,
             res.fiche,
@@ -69,14 +63,12 @@ with
             between {{ core_dashboards_store.get_current_year() }}
             - 3 and {{ core_dashboards_store.get_current_year() }}
             and etape = 'EX'
-            and id_indicateur_cdpvd in ('4','5','6')  -- Au cas-où qu'on utilise le champs code_matière pour d'autre indicateur
+            and id_indicateur_meq in ('1.1.1.4','1.1.1.5','1.1.1.6')  -- Au cas-où qu'on utilise le champs code_matière pour d'autre indicateur
     ),
 
     agg as (
         select
-            id_indicateur,
-            description_indicateur,
-            cible,
+            id_indicateur_meq,
             annee_scolaire,
             school_friendly_name,
             genre,
@@ -86,15 +78,13 @@ with
             distribution,
             code_matiere,
             count(fiche) nb_resultat,
-            cast(avg(is_maitrise) as decimal(5, 3)) as taux_maitrise,
-            cast(((avg(is_maitrise)) - cible) as decimal(5, 3)) as ecart_cible
+            cast(avg(is_maitrise) as decimal(5, 3)) as taux_maitrise
         from src
         group by
-            id_indicateur,
-            description_indicateur,
+            id_indicateur_meq,
             annee_scolaire,
             code_matiere,
-            cible, cube (
+            cube (
                 school_friendly_name,
                 genre,
                 plan_interv_ehdaa,
@@ -106,8 +96,7 @@ with
 
     _coalesce as (
         select
-            id_indicateur,
-            description_indicateur,
+            id_indicateur_meq,
             annee_scolaire,
             coalesce(school_friendly_name, 'CSS') as ecole,
             coalesce(genre, 'Tout') as genre,
@@ -116,19 +105,17 @@ with
             coalesce(classification, 'Tout') as classification,
             coalesce(distribution, 'Tout') as distribution,
             nb_resultat,
-            taux_maitrise,
-            ecart_cible,
-            cible
+            taux_maitrise
         from agg
     ),id_filtre as (
         select
-            objectif,
-            cib.id_indicateur,
+            ind.objectif,
+            ind.id_indicateur_meq,
+            ind.id_indicateur_css,
             ind.description_indicateur,
             cib.annee_scolaire,
             id.nb_resultat,
             id.taux_maitrise,  -- Possibilité d'avoir un null à cause du res_etape_num peut être nulle. A voir.
-            id.ecart_cible,  -- Même affaire.
             cib.cible,
             {{
                 dbt_utils.generate_surrogate_key(
@@ -145,22 +132,34 @@ with
             }} as id_filtre
         from  {{ ref("pevr_dim_cibles_annuelles") }} cib 
         left join  {{ ref("pevr_dim_indicateurs") }}  as ind
-            on ind.id_indicateur_css = cib.id_indicateur
+            on ind.id_indicateur_meq = cib.id_indicateur_meq
         left join _coalesce as id
-            on id.id_indicateur = cib.id_indicateur and  id.annee_scolaire = cib.annee_scolaire
+            on id.id_indicateur_meq = cib.id_indicateur_meq and  id.annee_scolaire = cib.annee_scolaire
 
+    ), val_depart as (
+        select 
+            objectif,
+            coalesce(id_indicateur_css, id_indicateur_meq) id_indicateur,
+            description_indicateur,
+            case when annee_scolaire = '2022 - 2023' then 'Valeur de départ' else annee_scolaire end as annee_scolaire,
+            nb_resultat,
+            taux_maitrise,  -- Possibilité d'avoir un null à cause du res_etape_num peut être nulle. A voir.
+            cible,
+            case 
+                when taux_maitrise is null then concat('(',cast(cible *100 as decimal (5,1)),'%)')
+                else concat(cast(taux_maitrise *100 as decimal (5,1)), '% (',cast(cible *100 as decimal (5,1)),'%)') end as taux_cible,        
+            id_filtre
+        from  id_filtre as id
     )
 
 select 
-	objectif,
+    objectif,
     id_indicateur,
     description_indicateur,
-    case when annee_scolaire = '2022 - 2023' then 'Valeur de départ' else annee_scolaire end as annee_scolaire,
+    annee_scolaire,
     nb_resultat,
     taux_maitrise,  -- Possibilité d'avoir un null à cause du res_etape_num peut être nulle. A voir.
-    ecart_cible,  -- Même affaire.
     cible,
+    case when annee_scolaire = 'Valeur de départ' then concat(cast(taux_maitrise *100 as decimal (5,1)), '%') else taux_cible end as taux_cible,
     id_filtre
-from  id_filtre as id
-
-
+from  val_depart

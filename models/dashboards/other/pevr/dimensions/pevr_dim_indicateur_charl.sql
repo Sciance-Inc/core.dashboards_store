@@ -22,16 +22,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     The code check for the custom table existence and adds it to the default table
     For the CUSTOM table to be detected, the table must be :
-        * named 'custom_cibles_indicateurs_annuelles_pevr_cdpvd'
+        * named 'custom_indicateurs_pevr_charl'
         * located in the schema 'dashboard_pevr_seeds'
 #}
 
-{{ config(alias="dim_cibles_annuelles") }}
+{{ config(alias="dim_indicateur_charl") }}
 
 {%- set source_relation = adapter.get_relation(
     database=target.database,
     schema=target.schema + "_dashboard_pevr_seeds",
-    identifier="custom_cibles_indicateurs_annuelles_pevr",
+    identifier="custom_indicateurs_pevr_charl",
 ) -%}
 
 {% set table_exists = source_relation is not none %}
@@ -40,7 +40,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     {% if execute %}
         {{
             log(
-                "The seed '*_dashboard_pevr_seeds.custom_cibles_indicateurs_annuelles_pevr' DOES EXIST and will replace the default 'commun_cibles_indicateurs_annuelles_pevr'",
+                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_charl' DOES EXIST and will replace the default 'commun_indicateurs_pevr_charl'",
                 true,
             )
         }}
@@ -50,6 +50,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 		id_indicateur_meq,
         id_indicateur_css,
         annee_scolaire,
+        taux,
         cible
     from {{ source_relation }}
 
@@ -57,7 +58,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     {% if execute %}
         {{
             log(
-                "The seed '*_dashboard_pevr_seeds.custom_cibles_indicateurs_annuelles_pevr' DOES NOT exists. The 'pevr_dim_cibles_annuelles' table will be defaulted to 'commun_cibles_indicateurs_annuelles_pevr'.",
+                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_charl' DOES NOT exists. The 'pevr_dim_indicateur_charl' table will be defaulted to 'commun_indicateurs_pevr_charl'.",
                 true,
             )
         }}
@@ -67,6 +68,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 		id_indicateur_meq,
         id_indicateur_css,
         annee_scolaire,
+        taux,
         cible
-    from {{ ref("commun_cibles_indicateurs_annuelles_pevr") }}
+    from {{ ref("commun_indicateurs_pevr_charl") }}
 {% endif %}

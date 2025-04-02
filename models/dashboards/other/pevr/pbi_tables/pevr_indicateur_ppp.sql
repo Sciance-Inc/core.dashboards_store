@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 with
     src as (
         select
-            '11' as id_indicateur,
+            '1.3.4.11' as id_indicateur_meq,
             sch.annee_scolaire,
             sch.annee,
             case
@@ -50,17 +50,12 @@ with
             and sch.annee
             between {{ core_dashboards_store.get_current_year() }}
             - 3 and {{ core_dashboards_store.get_current_year() }}
+
     ),
 
     ind_pevr as (
         select
-            case
-                when ind.id_indicateur_css is null
-                then ind.id_indicateur_cdpvd  -- Permet d'utiliser l'indicateur défaut de la CDPVD
-                else ind.id_indicateur_css
-            end as id_indicateur,
-            ind.description_indicateur,
-            ind.cible,
+            id_indicateur_meq,
             is_ppp,
             annee_scolaire,
             school_friendly_name,
@@ -70,9 +65,6 @@ with
             classification,
             distribution
         from src
-        inner join
-            {{ ref("pevr_dim_indicateurs") }} as ind
-            on src.id_indicateur = ind.id_indicateur_cdpvd
     ),
 
     ppp as (
@@ -84,18 +76,14 @@ with
             population,
             classification,
             distribution,
-            id_indicateur,
-            description_indicateur,
+            id_indicateur_meq,
             sum(is_ppp) as nb_ppp,
-            avg(is_ppp) as taux_ppp,
-            cast(((avg(is_ppp)) - cible) as decimal(5, 3)) as ecart_cible,
-            cible
+            avg(is_ppp) as taux_ppp
         from ind_pevr
         group by
             annee_scolaire,
-            id_indicateur,
-            description_indicateur,
-            cible, cube (
+            id_indicateur_meq,
+            cube (
                 school_friendly_name,
                 genre,
                 plan_interv_ehdaa,
@@ -107,8 +95,7 @@ with
 
     _coalesce as (
         select
-            id_indicateur,
-            description_indicateur,
+            id_indicateur_meq,
             annee_scolaire,
             coalesce(school_friendly_name, 'CSS') as ecole,
             coalesce(genre, 'Tout') as genre,
@@ -117,21 +104,19 @@ with
             coalesce(classification, 'Tout') as classification,
             coalesce(distribution, 'Tout') as distribution,
             nb_ppp,
-            taux_ppp,
-            ecart_cible,
-            cible
+            taux_ppp
         from ppp
     ),
 
     id_filtre as (
         select
-            objectif,
-            cib.id_indicateur,
+            ind.objectif,
+            ind.id_indicateur_meq,
+            ind.id_indicateur_css,
             ind.description_indicateur,
             cib.annee_scolaire,
             nb_ppp,
             taux_ppp,
-            ecart_cible,
             cib.cible,
             {{
                 dbt_utils.generate_surrogate_key(
@@ -148,20 +133,34 @@ with
             }} as id_filtre
         from  {{ ref("pevr_dim_cibles_annuelles") }} cib 
         left join  {{ ref("pevr_dim_indicateurs") }}  as ind
-            on ind.id_indicateur_css = cib.id_indicateur
+            on ind.id_indicateur_meq = cib.id_indicateur_meq
         left join _coalesce as id
-            on id.id_indicateur = cib.id_indicateur and  id.annee_scolaire = cib.annee_scolaire
+            on id.id_indicateur_meq = cib.id_indicateur_meq and  id.annee_scolaire = cib.annee_scolaire
         
+    ), val_depart as (
+        select
+            objectif,
+            coalesce(id_indicateur_css, id_indicateur_meq) id_indicateur,
+            description_indicateur,
+            case when annee_scolaire = '2022 - 2023' then 'Valeur de départ' else annee_scolaire end as annee_scolaire,
+            taux_ppp,
+            nb_ppp,
+            cible,
+            case 
+                when taux_ppp is null then concat('(',cast(cible *100 as decimal (5,1)),'%)')
+                else concat(cast(taux_ppp *100 as decimal (5,1)), '% (',cast(cible *100 as decimal (5,1)),'%)') end as taux_cible,             
+            id_filtre
+        from id_filtre 
     )
+    
 select
-	objectif,
-    id.id_indicateur,
+    objectif,
+    id_indicateur,
     description_indicateur,
-    case when annee_scolaire = '2022 - 2023' then 'Valeur de départ' else annee_scolaire end as annee_scolaire,
+    annee_scolaire,
     taux_ppp,
     nb_ppp,
-    ecart_cible,
     cible,
+    case when annee_scolaire = 'Valeur de départ' then concat(cast(taux_ppp *100 as decimal (5,1)), '%') else taux_cible end as taux_cible,
     id_filtre
-from id_filtre as id
-
+from val_depart

@@ -64,6 +64,9 @@ models:
           +enabled: False
         predictive_view_aggregated:
           +enabled: False
+      other:
+        pevr:
+          +enabled: False
       
       org_scolaire:
         anomalies:

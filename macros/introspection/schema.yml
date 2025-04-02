@@ -27,3 +27,7 @@ macros:
       The macro will stamp the model with the current timestamp, in the medata table.
       This allow to track the last time the model was executed. 
       The timestamp can then be displayed in the dashboard, to add some data porn about model freshness !
+
+  - name: seeds_validator
+    description: >
+      The macro will verify whether the current model meets the seed prerequisites for the dashboard.
