@@ -33,7 +33,7 @@ with
         select
             src.code_perm,
             annee,
-            population,
+            src.population,
             ele.genre,
             eco,
             -- eco.nom_eco,
@@ -43,6 +43,7 @@ with
             plan_interv_ehdaa,
             difficulte,
             niveau_scolaire,
+            coalesce(passp.code_perm, null) as is_passepartout,
             dist,
             is_doubleur,
             is_francisation,
@@ -50,7 +51,35 @@ with
             grp_rep
         from src
         left join {{ ref("dim_eleve") }} as ele on src.fiche = ele.fiche
+        left join
+            {{ ref("stg_check_passepartout") }} as passp
+            on passp.code_perm = src.code_perm
+            and passp.id_eco = src.id_eco
+    ),
+    elfiltre as (
+        select
+            code_perm,
+            annee,
+            population,
+            genre,
+            eco,
+            -- eco.nom_eco,
+            classe,
+            class,
+            ordre_ens,
+            plan_interv_ehdaa,
+            difficulte,
+            case
+                when is_passepartout is not null
+                then 'Passe-Partout'
+                else niveau_scolaire
+            end as niveau_scolaire,
+            dist,
+            is_doubleur,
+            is_francisation,
+            type_mesure,
+            grp_rep
+        from el
     )
-
 select *
-from el
+from elfiltre
