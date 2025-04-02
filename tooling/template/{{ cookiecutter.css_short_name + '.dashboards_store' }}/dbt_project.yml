@@ -60,6 +60,10 @@ models:
           +enabled: False
         predictive_view_aggregated:
           +enabled: False
+      
+      org_scolaire:
+        anomalies:
+          +enabled: False
   
     interfaces:
       +materialized: ephemeral
