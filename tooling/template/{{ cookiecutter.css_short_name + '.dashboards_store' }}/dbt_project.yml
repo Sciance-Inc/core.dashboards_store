@@ -47,6 +47,10 @@ models:
 
       educ_serv:
         effectif_css:
+          # Uncomment this section to enable the split between the passepartourt / non-passepartout preschoolers.
+          #staging:
+          #  stg_check_passepartout:
+          #    +enabled: False
           +enabled: False
         res_epreuves:
           +enabled: False
