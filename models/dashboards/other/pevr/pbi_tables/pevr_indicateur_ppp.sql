@@ -82,8 +82,7 @@ with
         from ind_pevr
         group by
             annee_scolaire,
-            id_indicateur_meq,
-            cube (
+            id_indicateur_meq, cube (
                 school_friendly_name,
                 genre,
                 plan_interv_ehdaa,
@@ -131,28 +130,44 @@ with
                     ]
                 )
             }} as id_filtre
-        from  {{ ref("pevr_dim_cibles_annuelles") }} cib 
-        left join  {{ ref("pevr_dim_indicateurs") }}  as ind
+        from {{ ref("pevr_dim_cibles_annuelles") }} cib
+        left join
+            {{ ref("pevr_dim_indicateurs") }} as ind
             on ind.id_indicateur_meq = cib.id_indicateur_meq
-        left join _coalesce as id
-            on id.id_indicateur_meq = cib.id_indicateur_meq and  id.annee_scolaire = cib.annee_scolaire
-        
-    ), val_depart as (
+        left join
+            _coalesce as id
+            on id.id_indicateur_meq = cib.id_indicateur_meq
+            and id.annee_scolaire = cib.annee_scolaire
+
+    ),
+    val_depart as (
         select
             objectif,
             coalesce(id_indicateur_css, id_indicateur_meq) id_indicateur,
             description_indicateur,
-            case when annee_scolaire = '2022 - 2023' then 'Valeur de départ' else annee_scolaire end as annee_scolaire,
+            case
+                when annee_scolaire = '2022 - 2023'
+                then 'Valeur de départ'
+                else annee_scolaire
+            end as annee_scolaire,
             taux_ppp,
             nb_ppp,
             cible,
-            case 
-                when taux_ppp is null then concat('(',cast(cible *100 as decimal (5,1)),'%)')
-                else concat(cast(taux_ppp *100 as decimal (5,1)), '% (',cast(cible *100 as decimal (5,1)),'%)') end as taux_cible,             
+            case
+                when taux_ppp is null
+                then concat('(', cast(cible * 100 as decimal(5, 1)), '%)')
+                else
+                    concat(
+                        cast(taux_ppp * 100 as decimal(5, 1)),
+                        '% (',
+                        cast(cible * 100 as decimal(5, 1)),
+                        '%)'
+                    )
+            end as taux_cible,
             id_filtre
-        from id_filtre 
+        from id_filtre
     )
-    
+
 select
     objectif,
     id_indicateur,
@@ -161,6 +176,10 @@ select
     taux_ppp,
     nb_ppp,
     cible,
-    case when annee_scolaire = 'Valeur de départ' then concat(cast(taux_ppp *100 as decimal (5,1)), '%') else taux_cible end as taux_cible,
+    case
+        when annee_scolaire = 'Valeur de départ'
+        then concat(cast(taux_ppp * 100 as decimal(5, 1)), '%')
+        else taux_cible
+    end as taux_cible,
     id_filtre
 from val_depart

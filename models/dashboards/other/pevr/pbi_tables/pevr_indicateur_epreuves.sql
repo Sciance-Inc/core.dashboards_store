@@ -63,7 +63,7 @@ with
             between {{ core_dashboards_store.get_current_year() }}
             - 3 and {{ core_dashboards_store.get_current_year() }}
             and etape = 'EX'
-            and id_indicateur_meq in ('1.1.1.4','1.1.1.5','1.1.1.6')  -- Au cas-où qu'on utilise le champs code_matière pour d'autre indicateur
+            and id_indicateur_meq in ('1.1.1.4', '1.1.1.5', '1.1.1.6')  -- Au cas-où qu'on utilise le champs code_matière pour d'autre indicateur
     ),
 
     agg as (
@@ -83,8 +83,7 @@ with
         group by
             id_indicateur_meq,
             annee_scolaire,
-            code_matiere,
-            cube (
+            code_matiere, cube (
                 school_friendly_name,
                 genre,
                 plan_interv_ehdaa,
@@ -107,7 +106,8 @@ with
             nb_resultat,
             taux_maitrise
         from agg
-    ),id_filtre as (
+    ),
+    id_filtre as (
         select
             ind.objectif,
             ind.id_indicateur_meq,
@@ -130,29 +130,45 @@ with
                     ]
                 )
             }} as id_filtre
-        from  {{ ref("pevr_dim_cibles_annuelles") }} cib 
-        left join  {{ ref("pevr_dim_indicateurs") }}  as ind
+        from {{ ref("pevr_dim_cibles_annuelles") }} cib
+        left join
+            {{ ref("pevr_dim_indicateurs") }} as ind
             on ind.id_indicateur_meq = cib.id_indicateur_meq
-        left join _coalesce as id
-            on id.id_indicateur_meq = cib.id_indicateur_meq and  id.annee_scolaire = cib.annee_scolaire
+        left join
+            _coalesce as id
+            on id.id_indicateur_meq = cib.id_indicateur_meq
+            and id.annee_scolaire = cib.annee_scolaire
 
-    ), val_depart as (
-        select 
+    ),
+    val_depart as (
+        select
             objectif,
             coalesce(id_indicateur_css, id_indicateur_meq) id_indicateur,
             description_indicateur,
-            case when annee_scolaire = '2022 - 2023' then 'Valeur de départ' else annee_scolaire end as annee_scolaire,
+            case
+                when annee_scolaire = '2022 - 2023'
+                then 'Valeur de départ'
+                else annee_scolaire
+            end as annee_scolaire,
             nb_resultat,
             taux_maitrise,  -- Possibilité d'avoir un null à cause du res_etape_num peut être nulle. A voir.
             cible,
-            case 
-                when taux_maitrise is null then concat('(',cast(cible *100 as decimal (5,1)),'%)')
-                else concat(cast(taux_maitrise *100 as decimal (5,1)), '% (',cast(cible *100 as decimal (5,1)),'%)') end as taux_cible,        
+            case
+                when taux_maitrise is null
+                then concat('(', cast(cible * 100 as decimal(5, 1)), '%)')
+                else
+                    concat(
+                        cast(taux_maitrise * 100 as decimal(5, 1)),
+                        '% (',
+                        cast(cible * 100 as decimal(5, 1)),
+                        '%)'
+                    )
+            end as taux_cible,
             id_filtre
-        from  id_filtre as id
+        from id_filtre as id
     )
 
-select 
+select
     objectif,
     id_indicateur,
     description_indicateur,
@@ -160,6 +176,10 @@ select
     nb_resultat,
     taux_maitrise,  -- Possibilité d'avoir un null à cause du res_etape_num peut être nulle. A voir.
     cible,
-    case when annee_scolaire = 'Valeur de départ' then concat(cast(taux_maitrise *100 as decimal (5,1)), '%') else taux_cible end as taux_cible,
+    case
+        when annee_scolaire = 'Valeur de départ'
+        then concat(cast(taux_maitrise * 100 as decimal(5, 1)), '%')
+        else taux_cible
+    end as taux_cible,
     id_filtre
-from  val_depart
+from val_depart

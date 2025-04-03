@@ -15,15 +15,14 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-
 {% macro seeds_validator(schema_name, seeds_pattern, expected_row_count) %}
-        {% if execute %}
+    {% if execute %}
 
-            {% set metadata_schema = target.schema + "_seeds_metadata" %}
-            {% set metadata_table = metadata_schema + ".validator" %}
+        {% set metadata_schema = target.schema + "_seeds_metadata" %}
+        {% set metadata_table = metadata_schema + ".validator" %}
 
-            {# Create the metadata schema and table if they dont exist #}
-            {% set create_query %}
+        {# Create the metadata schema and table if they dont exist #}
+        {% set create_query %}
             IF (NOT EXISTS (SELECT * FROM sys.schemas WHERE name = '{{ metadata_schema }}'))
             BEGIN
                 EXEC ('CREATE SCHEMA {{ metadata_schema }}')
@@ -44,26 +43,35 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                     CONSTRAINT PK_validator PRIMARY KEY (table_name)  
                 );
             END
-            {% endset %}
+        {% endset %}
 
-            {% do run_query(create_query) %}
+        {% do run_query(create_query) %}
 
-            {# Get actual row count from sys.tables #}
-            {% set query %}
+        {# Get actual row count from sys.tables #}
+        {% set query %}
             SELECT COUNT(*) AS row_count
             FROM sys.tables t
             JOIN sys.schemas s ON t.schema_id = s.schema_id
             WHERE s.name LIKE '%{{ schema_name }}%'
                 AND t.name LIKE '%{{ seeds_pattern }}%' 
-            {% endset %}
+        {% endset %}
 
-            {% set result = run_query(query) %}
-            {% set actual_row_count = result.columns[0].values()[0] %}
+        {% set result = run_query(query) %}
+        {% set actual_row_count = result.columns[0].values()[0] %}
 
-            {# Insert or update success result if row count matches expected #}
-            {% if actual_row_count|int == expected_row_count|int %}
-                {{ log("✅ Le nombre attendu de seeds pour le schéma " ~ schema_name ~ " est: " ~ expected_row_count ~ " ✅", info=True) }}
-                {% set upsert_query %}
+        {# Insert or update success result if row count matches expected #}
+        {% if actual_row_count | int == expected_row_count | int %}
+            {{
+                log(
+                    "✅ Le nombre attendu de seeds pour le schéma "
+                    ~ schema_name
+                    ~ " est: "
+                    ~ expected_row_count
+                    ~ " ✅",
+                    info=True,
+                )
+            }}
+            {% set upsert_query %}
                 MERGE INTO {{ metadata_table }} AS target
                 USING (SELECT '{{ schema_name }}' AS table_name, 1 AS result) AS source
                 ON target.table_name = source.table_name
@@ -72,12 +80,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                 WHEN NOT MATCHED THEN
                     INSERT (table_name, result, run_ended_at)
                     VALUES (source.table_name, source.result, {{ dbt.current_timestamp() }});
-                {% endset %}
+            {% endset %}
 
-                {% do run_query(upsert_query) %}
-            {% else %}
-                {{ log("❌ Le nombre attendu de seeds pour le schéma " ~ schema_name ~ " est inférieur à " ~ expected_row_count ~ ". Nombre de seed trouvé: " ~ actual_row_count ~ " ❌", info=True) }}
-                {% set upsert_query %}
+            {% do run_query(upsert_query) %}
+        {% else %}
+            {{
+                log(
+                    "❌ Le nombre attendu de seeds pour le schéma "
+                    ~ schema_name
+                    ~ " est inférieur à "
+                    ~ expected_row_count
+                    ~ ". Nombre de seed trouvé: "
+                    ~ actual_row_count
+                    ~ " ❌",
+                    info=True,
+                )
+            }}
+            {% set upsert_query %}
                 MERGE INTO {{ metadata_table }} AS target
                 USING (SELECT '{{ schema_name }}' AS table_name, 0 AS result) AS source
                 ON target.table_name = source.table_name
@@ -86,10 +105,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                 WHEN NOT MATCHED THEN
                     INSERT (table_name, result, run_ended_at)
                     VALUES (source.table_name, source.result, {{ dbt.current_timestamp() }});
-                {% endset %}
+            {% endset %}
 
-                {% do run_query(upsert_query) %}
-            {% endif %}
-
+            {% do run_query(upsert_query) %}
         {% endif %}
+
+    {% endif %}
 {% endmacro %}

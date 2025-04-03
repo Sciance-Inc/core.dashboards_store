@@ -52,7 +52,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                 description_indicateur,
                 code_matiere,
                 no_competence,
-                ROW_NUMBER() over (
+                row_number() over (
                     partition by id_indicateur_meq order by id_indicateur_css desc
                 ) as ind_indicateur_custom  -- choisir id_indicateur_css s'il existe.
             from
@@ -79,7 +79,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     select
         objectif,
         id_indicateur_meq,
-		id_indicateur_css,
+        id_indicateur_css,
         description_indicateur,
         code_matiere,
         no_competence
@@ -99,7 +99,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     select
         objectif,
         id_indicateur_meq,
-		id_indicateur_css,
+        id_indicateur_css,
         description_indicateur,
         code_matiere,
         no_competence

@@ -15,7 +15,6 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-
 {#
     This table unionize the always-present DEFAULT table and maybe-present CUSTOM table.
     The default table is defined in the core repo while the custom table, as all the CSS''s specifics table is created in the repo css.
@@ -25,7 +24,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         * named 'custom_indicateurs_pevr_charl'
         * located in the schema 'dashboard_pevr_seeds'
 #}
-
 {{ config(alias="dim_indicateur_charl") }}
 
 {%- set source_relation = adapter.get_relation(
@@ -46,12 +44,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         }}
     {% endif %}
 
-    select
-		id_indicateur_meq,
-        id_indicateur_css,
-        annee_scolaire,
-        taux,
-        cible
+    select id_indicateur_meq, id_indicateur_css, annee_scolaire, taux, cible
     from {{ source_relation }}
 
 {% else %}
@@ -64,11 +57,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         }}
     {% endif %}
 
-    select
-		id_indicateur_meq,
-        id_indicateur_css,
-        annee_scolaire,
-        taux,
-        cible
+    select id_indicateur_meq, id_indicateur_css, annee_scolaire, taux, cible
     from {{ ref("commun_indicateurs_pevr_charl") }}
 {% endif %}

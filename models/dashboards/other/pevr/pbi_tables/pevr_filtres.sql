@@ -169,10 +169,11 @@ with
                 from eco
             ) as tab
     ),
-	annee_sco as (
-	select distinct annee_scolaire from {{ ref("pevr_dim_cibles_annuelles") }} 
-    union
-    select  '2022 - 2023' as annee_scolaire
+    annee_sco as (
+        select distinct annee_scolaire
+        from {{ ref("pevr_dim_cibles_annuelles") }}
+        union
+        select '2022 - 2023' as annee_scolaire
     ),
     id_filtre as (
         select
@@ -197,8 +198,9 @@ with
             and class.population = pop.population
             and distr.eco = eco.eco
             and distr.population = pop.population
-    ), _union as (
-        select 
+    ),
+    _union as (
+        select
             ecole,
             annee_scolaire,
             plan_interv_ehdaa,
@@ -207,11 +209,25 @@ with
             classification,
             distribution
         from id_filtre
-        union 
-        select null as ecole,  '2025 - 2026' as annee_scolaire, null as plan_interv_ehdaa, null as genre, null as population, null as classification, null as distribution
-        union 
-        select null as ecole,  '2026 - 2027' as annee_scolaire, null as plan_interv_ehdaa, null as genre, null as population, null as classification, null as distribution
-    )        
+        union
+        select
+            null as ecole,
+            '2025 - 2026' as annee_scolaire,
+            null as plan_interv_ehdaa,
+            null as genre,
+            null as population,
+            null as classification,
+            null as distribution
+        union
+        select
+            null as ecole,
+            '2026 - 2027' as annee_scolaire,
+            null as plan_interv_ehdaa,
+            null as genre,
+            null as population,
+            null as classification,
+            null as distribution
+    )
 select
     ecole,
     annee_scolaire,
@@ -234,4 +250,3 @@ select
         )
     }} as id_filtre
 from _union
-
