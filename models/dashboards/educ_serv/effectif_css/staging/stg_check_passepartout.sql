@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {% if execute %}
     {{
         log(
-            "WARN : stg_check_passepartout n'est pas surchargé.Il sera pas ajouté dans les populations personnalisées",
+            "INFO : stg_check_passepartout n'est pas surchargé. Les données du préscolaire et du programme passe-partout seront fusionnées.",
             true,
         )
     }}
