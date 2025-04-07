@@ -338,6 +338,19 @@ with
             string_agg(
                 case
                     when
+                        regroupement_matière = 'Complémentaire 5 (CCQ)'
+                        and en_cours = '0'
+                    then convert(nvarchar, resultat)
+                    when
+                        regroupement_matière = 'Complémentaire 5 (CCQ)'
+                        and en_cours = '1'
+                    then concat(convert(nvarchar, resultat), ' (En cours)')
+                end,
+                ', '
+            ) as res_compl_5_ccq,  -- Le résultat en Complémentaire 5 (CCQ)
+            string_agg(
+                case
+                    when
                         regroupement_matière = 'Complémentaire 5 (Éduc)'
                         and en_cours = '0'
                     then convert(nvarchar, resultat)
@@ -353,6 +366,8 @@ with
                     when
                         (
                             regroupement_matière = 'Complémentaire 5 (Eth)'
+                            and (ind_reussite = 'RE' or ind_reussite = 'R')
+                            or regroupement_matière = 'Complémentaire 5 (CCQ)'
                             and (ind_reussite = 'RE' or ind_reussite = 'R')
                             or regroupement_matière = 'Complémentaire 5 (Éduc)'
                             and (ind_reussite = 'RE' or ind_reussite = 'R')
@@ -512,6 +527,7 @@ select
     res_compl_4_art_d,
     res_compl_4_danse,
     res_compl_5_eth,
+    res_compl_5_ccq,
     res_compl_5_éduc,
     nb_unites_acquis_g4,
     nb_unites_g4_en_cours,
