@@ -52,6 +52,8 @@ models:
         description: Le résultat de la matière complémentaire Danse du 4e secondaire (172402)
       - name: res_compl_5_eth
         description: Le résultat de la matière complémentaire Ethique et culture religieuse du 5e secondaire (069502)
+      - name: res_compl_5_ccq
+        description: Le résultat de la matière complémentaire Culture et citoyenneté québécoise du 5e secondaire (080502)
       - name: res_compl_5_éduc
         description: Le résultat de la matière complémentaire Éducation physique du 5e secondaire (043502)
       - name: nb_unites_acquis_g4
