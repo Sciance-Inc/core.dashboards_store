@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: anml_stg_population
+    description: >
+      Prendre les écoles qui sont définies dans les populations commes les écoles régulieres 
+      Prendre des élèves qui sont bien associés avec la classe selon l'ordre d'enseignment.
+      Cette table doit être overridée / implémentée par le CSS.
+    config:
+      schema: "dashboard_anomalies"
+      tags:
+        - anomalies
+
+    columns:
+      - name: fiche
+        description: The specific unique identifier for a student
+        tests:
+          - not_null
+      - name: id_eco
+        description: The specific unique identifier for a school by year
+        tests:
+          - not_null

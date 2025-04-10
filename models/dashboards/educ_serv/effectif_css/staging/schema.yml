@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: stg_check_passepartout
+    config:
+      tags:
+        - population
+        - educ_serv
+        - effectif_css
+    description: >
+      Cette table agit comme point d’entrée pour identifier les élèves qui sont dans le programme "Passe-Partout" et doit être surchargée à partir de cssXX.dashboards_store
+    columns:
+      - name: code_perm
+        description: code permanent de l'élève
+        tests:
+          - not_null
+      - name: id_eco
+        description: L'identifiant unique spécifique pour une école par année
+        tests:
+          - not_null
+    tests:
+      - resolution:
+          combination_of_columns:
+            - code_perm
+            - id_eco

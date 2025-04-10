@@ -15,29 +15,11 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{% set years_of_data_grades = var("marts")["educ_serv"]["recency"][
-    "years_of_data_grades"
-] %}
-
-select
-    src.id_obj_mat,
-    src.id_eco,
-    src.mat,
-    case
-        when src.obj_02 is null
-        then src.obj_01
-        else try_cast(concat(src.obj_01, '.', src.obj_02) as float)
-    end as obj_01,
-    src.obj_02,
-    src.obj_03,
-    src.obj_04,
-    src.descr,
-    src.descr_abreg,
-    src.descr_det,
-    src.pond_obj
-from {{ var("database_gpi") }}.dbo.gpm_t_obj_mat as src
-inner join
-    {{ ref("i_gpm_t_eco") }} as eco
-    on eco.id_eco = src.id_eco
-    and eco.annee
-    >= {{ core_dashboards_store.get_current_year() }} - {{ years_of_data_grades }}
+select stud.fiche, grp_rep, cours_groupe
+from {{ ref("fact_yearly_student") }} stud
+left join
+    {{ ref("i_coursgroupeseleves") }} as el
+    on stud.eco = el.eco
+    and stud.annee = el.annee
+    and stud.fiche = el.fiche
+where stud.annee = {{ core_dashboards_store.get_current_year() }}
