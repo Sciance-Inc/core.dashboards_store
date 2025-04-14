@@ -365,11 +365,11 @@ with
                 case
                     when
                         (
-                            regroupement_matière = 'Complémentaire 5 (Eth)'
+                            regroupement_matière = 'Complémentaire 5 (ECR)'
                             and (ind_reussite = 'RE' or ind_reussite = 'R')
                             or regroupement_matière = 'Complémentaire 5 (CCQ)'
                             and (ind_reussite = 'RE' or ind_reussite = 'R')
-                            or regroupement_matière = 'Complémentaire 5 (Éduc)'
+                            or regroupement_matière = 'Complémentaire 5 (EPS)'
                             and (ind_reussite = 'RE' or ind_reussite = 'R')
                         )
                     then 1
