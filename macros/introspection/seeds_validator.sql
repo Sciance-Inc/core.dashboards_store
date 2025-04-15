@@ -15,13 +15,15 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{% macro seeds_validator(schema_name, seeds_pattern, expected_row_count) %}
+{% macro seeds_validator(seed_schema_name, seeds_pattern, expected_row_count) %}
     {% if execute %}
 
+        --Le schema du dashboard.
         {% set metadata_schema = target.schema + "_seeds_metadata" %}
+        --Le nom de la table qui contient seeds_validator.
         {% set metadata_table = metadata_schema + ".validator" %}
 
-        {# Create the metadata schema and table if they dont exist #}
+        --Create the metadata schema and table if they dont exist
         {% set create_query %}
             IF (NOT EXISTS (SELECT * FROM sys.schemas WHERE name = '{{ metadata_schema }}'))
             BEGIN
@@ -45,26 +47,28 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             END
         {% endset %}
 
+        -- Éxécute la query ci-dessus pour créer la table
         {% do run_query(create_query) %}
 
-        {# Get actual row count from sys.tables #}
+        -- Retourne le nombre de seeds selon le schema et le pattern --
         {% set query %}
             SELECT COUNT(*) AS row_count
             FROM sys.tables t
             JOIN sys.schemas s ON t.schema_id = s.schema_id
-            WHERE s.name LIKE '%{{ schema_name }}%'
+            WHERE s.name LIKE '%{{ seed_schema_name }}%'
                 AND t.name LIKE '%{{ seeds_pattern }}%' 
         {% endset %}
-
+        -- Le nombre de seed détecter seleon le schema et le pattern
         {% set result = run_query(query) %}
+        -- Le résultat du count
         {% set actual_row_count = result.columns[0].values()[0] %}
 
-        {# Insert or update success result if row count matches expected #}
+        -- Vérifie si on respect le nombre de seeds requis et on met donc à jour en conséquence, si le seed_schema_name existe --
         {% if actual_row_count | int == expected_row_count | int %}
             {{
                 log(
                     "✅ Le nombre attendu de seeds pour le schéma "
-                    ~ schema_name
+                    ~ seed_schema_name
                     ~ " est: "
                     ~ expected_row_count
                     ~ " ✅",
@@ -73,7 +77,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             }}
             {% set upsert_query %}
                 MERGE INTO {{ metadata_table }} AS target
-                USING (SELECT '{{ schema_name }}' AS table_name, 1 AS result) AS source
+                USING (SELECT '{{ seed_schema_name }}' AS table_name, 1 AS result) AS source
                 ON target.table_name = source.table_name
                 WHEN MATCHED THEN
                     UPDATE SET result = 1, run_ended_at = {{ dbt.current_timestamp() }}
@@ -83,11 +87,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             {% endset %}
 
             {% do run_query(upsert_query) %}
+            -- Si on respect, pas on change la colonne result à 0 (false)
         {% else %}
             {{
                 log(
                     "❌ Le nombre attendu de seeds pour le schéma "
-                    ~ schema_name
+                    ~ seed_schema_name
                     ~ " est inférieur à "
                     ~ expected_row_count
                     ~ ". Nombre de seed trouvé: "
@@ -98,7 +103,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             }}
             {% set upsert_query %}
                 MERGE INTO {{ metadata_table }} AS target
-                USING (SELECT '{{ schema_name }}' AS table_name, 0 AS result) AS source
+                USING (SELECT '{{ seed_schema_name }}' AS table_name, 0 AS result) AS source
                 ON target.table_name = source.table_name
                 WHEN MATCHED THEN
                     UPDATE SET result = 0, run_ended_at = {{ dbt.current_timestamp() }}

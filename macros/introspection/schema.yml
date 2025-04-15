@@ -31,3 +31,7 @@ macros:
   - name: seeds_validator
     description: >
       The macro will verify whether the current model meets the seed prerequisites for the dashboard.
+      The macro needs 3 variables :
+      1 - seed_schema_name -> The name of the dashboard`s schema seed. ex: dashboard_pevr_seeds
+      2 - seeds_pattern -> The keyword of your custom seeds (Its should be custom for every dashboard.). ex: custom
+      3 - expected_row_count -> The number of seeds your dashboard currently have.
