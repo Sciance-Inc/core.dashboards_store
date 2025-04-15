@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     The code check for the custom table existence and adds it to the default table
     For the CUSTOM table to be detected, the table must be :
-        * named 'custom_indicateurs_pevr_cdpvd'
+        * named 'custom_indicateurs_pevr_css'
         * located in the schema 'dashboard_pevr_seeds'
 #}
 {{ config(alias="dim_indicateurs_pevr") }}
@@ -29,7 +29,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {%- set source_relation = adapter.get_relation(
     database=target.database,
     schema=target.schema + "_dashboard_pevr_seeds",
-    identifier="custom_indicateurs_pevr_cdpvd",
+    identifier="custom_indicateurs_pevr_css",
 ) -%}
 {% set table_exists = source_relation is not none %}
 
@@ -37,7 +37,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     {% if execute %}
         {{
             log(
-                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_cdpvd' DOES EXIST and will replace the default 'commun_indicateurs_pevr_cdpvd'",
+                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_css' DOES EXIST and will replace the default 'commun_indicateurs_pevr_css'",
                 true,
             )
         }}
@@ -73,7 +73,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                         description_indicateur,
                         code_matiere,
                         no_competence
-                    from {{ ref("commun_indicateurs_pevr_cdpvd") }}
+                    from {{ ref("commun_indicateurs_pevr_css") }}
                 ) as results
         )
     select
@@ -90,7 +90,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     {% if execute %}
         {{
             log(
-                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_cdpvd' DOES NOT exists. The 'pevr_dim_indicateurs' table will be defaulted to 'commun_indicateurs_pevr_cdpvd'.",
+                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_css' DOES NOT exists. The 'pevr_dim_indicateurs' table will be defaulted to 'commun_indicateurs_pevr_css'.",
                 true,
             )
         }}
@@ -103,5 +103,5 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         description_indicateur,
         code_matiere,
         no_competence
-    from {{ ref("commun_indicateurs_pevr_cdpvd") }}
+    from {{ ref("commun_indicateurs_pevr_css") }}
 {% endif %}

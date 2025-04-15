@@ -24,7 +24,7 @@ seeds:
         annee_scolaire: nvarchar(max)
         cible: float
 
-  - name: commun_indicateurs_pevr_cdpvd
+  - name: commun_indicateurs_pevr_css
     description: Mapping des indicateurs communs avec leur description.
     columns:
       - name: objectif
@@ -89,7 +89,7 @@ seeds:
         taux: float
         cible: float
 
-  - name: custom_indicateurs_pevr_cdpvd
+  - name: custom_indicateurs_pevr_css
     description: mapping optionnel des indicateurs personalisés des css.
     columns:
       - name: objectif
