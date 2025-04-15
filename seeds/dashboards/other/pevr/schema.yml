@@ -15,8 +15,6 @@ seeds:
       - name: cible
         description: Pourcentage ciblé
     config:
-      tags:
-        - pevr
       schema: dashboard_pevr_seeds
       column_types:
         id_indicateur_meq: nvarchar(max)
@@ -49,8 +47,6 @@ seeds:
       - name: no_competence
         description: Le numéro de compétence du code matière.
     config:
-      tags:
-        - pevr
       schema: dashboard_pevr_seeds
       column_types:
         objectif: nvarchar(max)
@@ -79,8 +75,6 @@ seeds:
       - name: cible
         description: Pourcentage ciblé
     config:
-      tags:
-        - pevr
       schema: dashboard_pevr_seeds
       column_types:
         id_indicateur_meq: nvarchar(max)
@@ -116,8 +110,6 @@ seeds:
       - name: no_competence
         description: Le numéro de compétence du code matière.
     config:
-      tags:
-        - pevr
       schema: dashboard_pevr_seeds
       column_types:
         id_indicateur_css: nvarchar(max)
@@ -143,8 +135,6 @@ seeds:
       - name: cible
         description: Pourcentage ciblé
     config:
-      tags:
-        - pevr
       schema: dashboard_pevr_seeds
       column_types:
         id_indicateur_meq: nvarchar(max)
@@ -167,8 +157,6 @@ seeds:
       - name: cible
         description: Pourcentage ciblé
     config:
-      tags:
-        - pevr
       schema: dashboard_pevr_seeds
       column_types:
         id_indicateur: nvarchar(max)
