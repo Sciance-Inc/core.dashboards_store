@@ -15,29 +15,16 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{% set years_of_data_grades = var("marts")["educ_serv"]["recency"][
-    "years_of_data_grades"
-] %}
+{% if execute %}
+    {{
+        log(
+            "INFO : stg_check_passepartout n'est pas surchargé. Les données du préscolaire et du programme passe-partout seront fusionnées.",
+            true,
+        )
+    }}
+{% endif %}
 
-select
-    src.id_obj_mat,
-    src.id_eco,
-    src.mat,
-    case
-        when src.obj_02 is null
-        then src.obj_01
-        else try_cast(concat(src.obj_01, '.', src.obj_02) as float)
-    end as obj_01,
-    src.obj_02,
-    src.obj_03,
-    src.obj_04,
-    src.descr,
-    src.descr_abreg,
-    src.descr_det,
-    src.pond_obj
-from {{ var("database_gpi") }}.dbo.gpm_t_obj_mat as src
-inner join
-    {{ ref("i_gpm_t_eco") }} as eco
-    on eco.id_eco = src.id_eco
-    and eco.annee
-    >= {{ core_dashboards_store.get_current_year() }} - {{ years_of_data_grades }}
+with dummy as (select 'FOOBAR' as code_perm, 1234 as id_eco)
+
+select top 0 *
+from dummy

@@ -15,29 +15,19 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{% set years_of_data_grades = var("marts")["educ_serv"]["recency"][
-    "years_of_data_grades"
-] %}
-
-select
-    src.id_obj_mat,
-    src.id_eco,
-    src.mat,
-    case
-        when src.obj_02 is null
-        then src.obj_01
-        else try_cast(concat(src.obj_01, '.', src.obj_02) as float)
-    end as obj_01,
-    src.obj_02,
-    src.obj_03,
-    src.obj_04,
-    src.descr,
-    src.descr_abreg,
-    src.descr_det,
-    src.pond_obj
-from {{ var("database_gpi") }}.dbo.gpm_t_obj_mat as src
-inner join
-    {{ ref("i_gpm_t_eco") }} as eco
-    on eco.id_eco = src.id_eco
-    and eco.annee
-    >= {{ core_dashboards_store.get_current_year() }} - {{ years_of_data_grades }}
+{# lier les intervenant (tuteurs) à leurs grp_rep afin de controler l'affichage des données des TdB #}
+with
+    intv as (
+        select eco.eco as code_ecole, grp.grp_rep, intv.adr_electr
+        from {{ ref("i_gpm_t_grp_rep") }} as grp
+        left join
+            {{ ref("i_gpm_t_interv") }} as intv
+            on intv.id_eco = grp.id_eco
+            and (intv.interv = grp.interv_1 or intv.interv = grp.interv_2)
+        left join {{ ref("i_gpm_t_eco") }} as eco on grp.id_eco = eco.id_eco
+        where
+            intv.adr_electr is not null
+            and eco.annee = {{ core_dashboards_store.get_current_year() }}
+    )
+select code_ecole, grp_rep, adr_electr
+from intv

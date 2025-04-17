@@ -53,7 +53,6 @@ inner join
     {{ ref("i_gpm_t_obj_mat") }} as om
     on om.id_eco = emgrp_yearly.id_eco
     and om.mat = emgrp_yearly.code_matiere
-    and om.obj_02 is null
     and om.obj_03 is null
     and om.obj_04 is null
 inner join
