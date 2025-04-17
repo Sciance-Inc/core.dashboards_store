@@ -14,6 +14,8 @@ models:
         description: L'année scolaire en cours
       - name: fiche
         description: Le numéro de fiche de l'élève
+      - name: code_perm
+        description: Le code permanent de l'élève
       - name: population
         description: Le type de population de l'élève
       - name: genre
@@ -50,12 +52,12 @@ models:
         description: Le résultat de la matière complémentaire Art Dramatique du 4e secondaire (170402)
       - name: res_compl_4_danse
         description: Le résultat de la matière complémentaire Danse du 4e secondaire (172402)
-      - name: res_compl_5_eth
-        description: Le résultat de la matière complémentaire Ethique et culture religieuse du 5e secondaire (069502)
+      - name: res_compl_5_ecr
+        description: Le résultat de la matière complémentaire Éthique et culture religieuse du 5e secondaire (069502)
       - name: res_compl_5_ccq
         description: Le résultat de la matière complémentaire Culture et citoyenneté québécoise du 5e secondaire (080502)
-      - name: res_compl_5_éduc
-        description: Le résultat de la matière complémentaire Éducation physique du 5e secondaire (043502)
+      - name: res_compl_5_eps
+        description: Le résultat de la matière complémentaire Éducation physique et à la santé du 5e secondaire (043502)
       - name: nb_unites_acquis_g4
         description: Le nombre d'unités du 4e secondaire dont l'élève à eu une mention réussi à la matière.
       - name: nb_unites_g4_en_cours
