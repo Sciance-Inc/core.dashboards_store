@@ -325,36 +325,51 @@ with
             string_agg(
                 case
                     when
-                        regroupement_matière = 'Complémentaire 5 (Eth)'
+                        regroupement_matière = 'Complémentaire 5 (ECR)'
                         and en_cours = '0'
                     then convert(nvarchar, resultat)
                     when
-                        regroupement_matière = 'Complémentaire 5 (Eth)'
+                        regroupement_matière = 'Complémentaire 5 (ECR)'
                         and en_cours = '1'
                     then concat(convert(nvarchar, resultat), ' (En cours)')
                 end,
                 ', '
-            ) as res_compl_5_eth,  -- Le résultat en Complémentaire 5 (Eth)
+            ) as res_compl_5_ecr,  -- Le résultat en Complémentaire 5 (ECR)
             string_agg(
                 case
                     when
-                        regroupement_matière = 'Complémentaire 5 (Éduc)'
+                        regroupement_matière = 'Complémentaire 5 (CCQ)'
                         and en_cours = '0'
                     then convert(nvarchar, resultat)
                     when
-                        regroupement_matière = 'Complémentaire 5 (Éduc)'
+                        regroupement_matière = 'Complémentaire 5 (CCQ)'
                         and en_cours = '1'
                     then concat(convert(nvarchar, resultat), ' (En cours)')
                 end,
                 ', '
-            ) as res_compl_5_éduc,  -- Le résultat en Complémentaire 5 (Éduc)
+            ) as res_compl_5_ccq,  -- Le résultat en Complémentaire 5 (CCQ)
+            string_agg(
+                case
+                    when
+                        regroupement_matière = 'Complémentaire 5 (EPS)'
+                        and en_cours = '0'
+                    then convert(nvarchar, resultat)
+                    when
+                        regroupement_matière = 'Complémentaire 5 (EPS)'
+                        and en_cours = '1'
+                    then concat(convert(nvarchar, resultat), ' (En cours)')
+                end,
+                ', '
+            ) as res_compl_5_eps,  -- Le résultat en Complémentaire 5 (EPS)
             max(
                 case
                     when
                         (
-                            regroupement_matière = 'Complémentaire 5 (Eth)'
+                            regroupement_matière = 'Complémentaire 5 (ECR)'
                             and (ind_reussite = 'RE' or ind_reussite = 'R')
-                            or regroupement_matière = 'Complémentaire 5 (Éduc)'
+                            or regroupement_matière = 'Complémentaire 5 (CCQ)'
+                            and (ind_reussite = 'RE' or ind_reussite = 'R')
+                            or regroupement_matière = 'Complémentaire 5 (EPS)'
                             and (ind_reussite = 'RE' or ind_reussite = 'R')
                         )
                     then 1
@@ -493,6 +508,7 @@ select
     fiche,
     el.annee,
     nom_prenom_fiche,
+    code_perm,
     school_friendly_name as ecole,
     population,
     genre,
@@ -511,8 +527,9 @@ select
     res_compl_4_mus,
     res_compl_4_art_d,
     res_compl_4_danse,
-    res_compl_5_eth,
-    res_compl_5_éduc,
+    res_compl_5_ecr,
+    res_compl_5_ccq,
+    res_compl_5_eps,
     nb_unites_acquis_g4,
     nb_unites_g4_en_cours,
     nb_unites_acquis_g5,
