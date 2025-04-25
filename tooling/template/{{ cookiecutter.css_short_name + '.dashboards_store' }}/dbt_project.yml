@@ -64,7 +64,7 @@ models:
           +enabled: False
         predictive_view_aggregated:
           +enabled: False
-      other:
+      direction_generale:
         pevr:
           +enabled: False
       

@@ -45,7 +45,7 @@ seeds:
         chronic_absenteeism:
           +tags: ["chronic_absenteeism"]
           +schema: "dashboard_chronic_absenteeism"
-      other:
+      direction_generale:
         pevr:
           +tags: ["pevr"]
           +schema: "dashboard_pevr"          
@@ -169,7 +169,7 @@ models:
               [
                 "{{ core_dashboards_store.stamp_model('dashboard_retirement') }}",
               ]
-      other:
+      direction_generale:
         pevr:
           +tags: ["pevr"]
           +schema: "dashboard_pevr"

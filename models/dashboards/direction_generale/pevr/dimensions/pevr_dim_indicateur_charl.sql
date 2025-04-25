@@ -38,7 +38,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     {% if execute %}
         {{
             log(
-                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_charl' DOES EXIST and will replace the default 'commun_indicateurs_pevr_charl'",
+                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_charl' DOES EXIST and will replace the default 'indicateurs_pevr_charl'",
                 true,
             )
         }}
@@ -51,12 +51,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     {% if execute %}
         {{
             log(
-                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_charl' DOES NOT exists. The 'pevr_dim_indicateur_charl' table will be defaulted to 'commun_indicateurs_pevr_charl'.",
+                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_charl' DOES NOT exists. The 'pevr_dim_indicateur_charl' table will be defaulted to 'indicateurs_pevr_charl'.",
                 true,
             )
         }}
     {% endif %}
 
     select id_indicateur_meq, id_indicateur_css, annee_scolaire, taux, cible
-    from {{ ref("commun_indicateurs_pevr_charl") }}
+    from {{ ref("indicateurs_pevr_charl") }}
 {% endif %}

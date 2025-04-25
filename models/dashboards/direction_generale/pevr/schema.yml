@@ -25,7 +25,7 @@ models:
   - name: pevr_dim_indicateur_charl
     description: >
       Table de dimension qui mappe les indicateurs des données de charlemagne communs avec les indicateurs des données de charlemagne personnalisés.
-      La table est constuite en unionant la dimension commune (core/seeds/pevr/commun_indicateurs_pevr_charl.csv) et la dimension personalisée (cssss/seeds/pevr/custom_commun_indicateurs_pevr_charl.csv).
+      La table est constuite en unionant la dimension commune (core/seeds/pevr/indicateurs_pevr_charl.csv) et la dimension personalisée (cssxx/seeds/pevr/custom_indicateurs_pevr_charl.csv).
     columns:
       - name: id_indicateur_meq
         description: Identifiant meq unique de l'indicateur.
@@ -48,7 +48,7 @@ models:
   - name: pevr_dim_indicateurs
     description: >
       Table de dimension qui mappe les indicateurs des données de charlemagne communs avec les indicateurs des données de charlemagne personnalisés.
-      La table est constuite en unionant la dimension commune (core/seeds/pevr/commun_indicateurs_pevr_charl.csv) et la dimension personalisée (cssss/seeds/pevr/custom_commun_indicateurs_pevr_charl.csv).
+      La table est constuite en unionant la dimension commune (core/seeds/pevr/indicateurs_pevr_charl.csv) et la dimension personalisée (cssxx/seeds/pevr/custom_indicateurs_pevr_charl.csv).
     columns:
       - name: objectif
         description: Identifiant meq unique de l'indicateur.
