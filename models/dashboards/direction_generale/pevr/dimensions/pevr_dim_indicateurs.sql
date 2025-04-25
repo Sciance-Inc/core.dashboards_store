@@ -37,7 +37,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     {% if execute %}
         {{
             log(
-                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_css' DOES EXIST and will replace the default 'commun_indicateurs_pevr_css'",
+                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_css' DOES EXIST and will replace the default 'indicateurs_pevr_css'",
                 true,
             )
         }}
@@ -73,7 +73,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                         description_indicateur,
                         code_matiere,
                         no_competence
-                    from {{ ref("commun_indicateurs_pevr_css") }}
+                    from {{ ref("indicateurs_pevr_css") }}
                 ) as results
         )
     select
@@ -90,7 +90,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     {% if execute %}
         {{
             log(
-                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_css' DOES NOT exists. The 'pevr_dim_indicateurs' table will be defaulted to 'commun_indicateurs_pevr_css'.",
+                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_css' DOES NOT exists. The 'pevr_dim_indicateurs' table will be defaulted to 'indicateurs_pevr_css'.",
                 true,
             )
         }}
@@ -103,5 +103,5 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         description_indicateur,
         code_matiere,
         no_competence
-    from {{ ref("commun_indicateurs_pevr_css") }}
+    from {{ ref("indicateurs_pevr_css") }}
 {% endif %}
