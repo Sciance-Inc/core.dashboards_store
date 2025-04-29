@@ -1,19 +1,21 @@
 [tool.poetry]
 name = "core.data.store"
-version = "0.9.0"
-description = ""
+version = "0.18.0"
+description = "core data store for dbt"
 authors = ["hugo juhel <juhel.hugo@sciance.ca>"]
+package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.8"
-dbt-core = "~1.6"
-dbt-fabric = {git = "https://github.com/Sciance-Inc/dbt-fabric.git", rev = "v0.16.0"}
-pyodbc = "~4.0"
+python = "^3.10"
+dbt-core = "~1.9"
+
+pyodbc = ">=5.2.0"
 python-semantic-release = "^7.33.4"
 docutils = "0.20.1"
+dbt-fabric = {git = "https://git@github.com/Sciance-Inc/dbt-fabric.git", rev = "v0.19.5"}
 
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 cookiecutter = "^2.3.0"
 shandy-sqlfmt = {extras = ["jinjafmt"], version = "^0.19.2"}
 pre-commit = "^3.3.3"
