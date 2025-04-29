@@ -5,10 +5,14 @@ on:
     branches:
       - master
       - develop
+    tags:
+      - "*" # Trigger on any tag
   workflow_dispatch:
-    branches:
-      - master
-      - develop
+    inputs:
+      ref:
+        description: 'Git ref to build from (e.g. "master", "develop", or a tag like "v1.2.3")'
+        required: true
+        type: string
 
 concurrency:
   group: ${{ github.ref }}-build-docker
@@ -16,59 +20,55 @@ concurrency:
 
 env:
   REGISTRY: ghcr.io
-  REPOSITORY_NAME: ${{ github.repository }}
+  RAW_REPOSITORY_NAME: ${{ github.repository }}
 
 jobs:
   deploy_ETL:
     runs-on: ubuntu-latest
+
     steps:
-      # Extract the metadata
-      - name: Extract the branch name to tag the docker.
-        id: branch-name
-        uses: tj-actions/branch-names@v6
-
-      - name: Replace the / with - in the branch's name
-        id: branch-name-parsed
+      - name: Normalize repository name to lowercase
         run: |
-          ref="${github_ref////-}"
-          echo $ref
-          echo "target_branch=$ref" >> $GITHUB_OUTPUT
-        env:
-          github_ref: ${{ steps.branch-name.outputs.current_branch }}
+          echo "REPOSITORY_NAME=$(echo '${{ env.RAW_REPOSITORY_NAME }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
-      - name: Log into the Github container registry
+      - name: Set effective ref and sanitize tag
+        id: ref
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            REF="${{ github.event.inputs.ref }}"
+          else
+            REF="${{ github.ref_name }}"
+          fi
+          # Replace '/' with '-' and remove '+...' suffix
+          SANITIZED_TAG=$(echo "$REF" | sed 's|/|-|g' | sed 's/+.*//')
+          echo "TAG=$SANITIZED_TAG" >> $GITHUB_ENV
+
+      - name: Checkout the specified ref
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref_name }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log into GitHub Container Registry
         uses: docker/login-action@v2
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.CICD_PAT_TOKEN }}
 
-      - name: Build the docker image's tag
-        id: docker-tag
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}
-          tags: ${{ steps.branch-name-parsed.outputs.target_branch }}
-
-      # Build the docker
-
-      - name: Check out repository
-        uses: actions/checkout@v3
-
-      - name: Configure the Builder
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build and push
+      - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          push: true
-          tags: ${{ steps.docker-tag.outputs.tags }}
           context: .
           file: tooling/depechecode/Dockerfile
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ env.TAG }}
 
-      - name: Microsoft Teams Notification
-        uses: skitionek/notify-microsoft-teams@master
+      - name: Microsoft Teams Notification on Failure
         if: failure()
+        uses: skitionek/notify-microsoft-teams@master
         with:
           webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
           needs: ${{ toJson(needs) }}

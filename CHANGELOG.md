@@ -452,7 +452,7 @@ Permanence will be rebuilt upon the new activity table. For now, the table is fl
 ```bash
 cd core.data.store
 git checkout feature/rh_dim_empl
-poetry shell &amp;&amp; poetry install
+poetry env activate &amp;&amp; poetry install
 git pull
 cd ../cssvt.data.store
 git checkout feature/rh_dim_empl
@@ -642,7 +642,7 @@ cd core.data.store
 git checkout feature/maj_tplt_effectf
 git pull
 # Might be required if you update either the poetry file or the lock file
-# poetry shell &amp;&amp; poetry lock &amp;&amp; poetry install
+# poetry env activate &amp;&amp; poetry lock &amp;&amp; poetry install
 cd ../cssvdc.data.store
 git checkout develop
 git pull
@@ -866,7 +866,7 @@ cd core.data.store
 git checkout feature/cookiecutter
 git pull
 
-poetry shell &amp;&amp; poetry lock &amp;&amp; poetry install
+poetry env activate &amp;&amp; poetry lock &amp;&amp; poetry install
 cd ../
 
 cookiecutter core.data.store/template/

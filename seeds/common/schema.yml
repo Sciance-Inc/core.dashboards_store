@@ -4,7 +4,7 @@ seeds:
   - name: int_sequence_0_to_1000
     description: >
       A sequence of integer between 0 and 1000.
-      Used to do some cross-joins magic ;) 
+      Used to do some cross-joins magic ;)
     columns:
       - name: seq_value
         description: The sequential integer
@@ -13,4 +13,4 @@ seeds:
           - unique
     config:
       column_types:
-        value: int
+        seq_value: int
