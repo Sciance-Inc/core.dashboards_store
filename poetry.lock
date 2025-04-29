@@ -692,7 +692,7 @@ pyodbc = ">=5.2.0"
 type = "git"
 url = "ssh://git@github.com/Sciance-Inc/dbt-fabric.git"
 reference = "v0.19.5"
-resolved_reference = "c8bb03f2bcdf6edf9c2958377f2e2deb7ef578c9"
+resolved_reference = "c07e3a54effb03adf9e61d8c8e92a846dbeda0ff"
 
 [[package]]
 name = "dbt-semantic-interfaces"
