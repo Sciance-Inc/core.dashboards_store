@@ -24,6 +24,10 @@ on-run-end:
 {% endraw %}
 
 models:
+{% raw %}
+  +pre-hook: 
+    - "{{ core_dashboards_store.drop_tmp_table_for_current_model(model_name=this.name) }}" # Cleanup all temps table related to the model being run before actually running the model.
+{% endraw %}
   {{ cookiecutter.css_short_name + '_dashboards_store' }}:
     +materialized: table  # The default materialization for all models in this project
     interfaces:

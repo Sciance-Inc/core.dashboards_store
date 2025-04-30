@@ -45,3 +45,18 @@ macros:
       - name: expected_row_count
         type: string
         description: The number of seeds your dashboard currently have
+
+  - name: drop_tmp_table_for_current_model
+    description: >
+      The macro will drop the temporary table for the current model.
+      The macro is designed to be called with the following command : `dbt run-operation drop_tmp_table_for_current_model`
+      The macro will drop the temporary table for the current model, if it exists.
+      The macro is designed to be used in a post-hook, to clean up the temporary table after the model has been executed.
+    arguments:
+      - name: model_name
+        description: The name of the model to drop the temporary table for.
+
+  - name: drop_tmp_tables
+    description: >
+      The macro remove the temporary tables that are created by DBT and are specific to the user schema.
+      This macro is to be used through run-operation when DBT is in a bugged state and the temporary tables are not removed.
