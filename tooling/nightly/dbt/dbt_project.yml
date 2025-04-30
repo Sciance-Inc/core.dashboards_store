@@ -22,8 +22,6 @@ on-run-end:
   - "{{ core_dashboards_store.purge_metadata_table() }}"
 
 tests:
-  +pre-hook:
-    - "{{ core_dashboards_store.drop_tmp_table_for_current_model(model_name=this.name) }}" # Cleanup all temps table related to the model being run before actually running the model.
   core_dashboards_store:
     marts:
       educ_serv:
