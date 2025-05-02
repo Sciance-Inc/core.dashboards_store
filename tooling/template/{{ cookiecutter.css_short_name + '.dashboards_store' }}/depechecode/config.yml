@@ -6,7 +6,7 @@ timeout: 600
 concurrency: 2
 notifications:
   teams_webhook:
-    - "https://stratemia.webhook.office.com/webhookb2/41a12230-17f1-4d6b-96f5-9ffc01c622d5@72f3ee62-86b1-46d4-928d-0a988f5aad48/IncomingWebhook/be3899ea57954ec3948938716e6d9cea/9dff948c-89f6-4006-ab74-d337fe7b3c21" # sciance
+    - "https://stratemia.webhook.office.com/webhookb2/41a12230-17f1-4d6b-96f5-9ffc01c622d5@72f3ee62-86b1-46d4-928d-0a988f5aad48/IncomingWebhook/be3899ea57954ec3948938716e6d9cea/9dff948c-89f6-4006-ab74-d337fe7b3c21/V2Rp-GX0c16WOPxEA9pvGcFg_Yhvbgu0f7GIgDLQ8h7Xs1" # sciance
     #- maybemaybemaybe  # client
   email_address:
     - "juhel.hugo@sciance.ca"
