@@ -29,60 +29,62 @@ with
             y_stud.dist,
             y_stud.grp_rep
         from {{ ref("fact_yearly_student") }} y_stud
-        inner join {{ ref("dim_eleve") }} el ON y_stud.fiche = el.fiche
-        inner join {{ ref("dim_mapper_schools") }} m_school ON y_stud.id_eco = m_school.id_eco
+        inner join {{ ref("dim_eleve") }} el on y_stud.fiche = el.fiche
+        inner join
+            {{ ref("dim_mapper_schools") }} m_school on y_stud.id_eco = m_school.id_eco
     ),
 
-_coalesce as (
-    select
-        school_friendly_name,
-        annee_scolaire,
-        plan_interv_ehdaa,
-        genre,
-        population,
-        coalesce(class, '-') as class,
-        coalesce(dist, '-') as dist,
-        coalesce(grp_rep, '-') as grp_rep
-    from src
-),
+    _coalesce as (
+        select
+            school_friendly_name,
+            annee_scolaire,
+            plan_interv_ehdaa,
+            genre,
+            population,
+            coalesce(class, '-') as class,
+            coalesce(dist, '-') as dist,
+            coalesce(grp_rep, '-') as grp_rep
+        from src
+    ),
 
-_cube as (
-    select
-        school_friendly_name,
-        annee_scolaire,
-        plan_interv_ehdaa,
-        genre,
-        population,
-        class,
-        dist,
-        grp_rep
-    from _coalesce
-    group by cube (
-        school_friendly_name,
-        annee_scolaire,
-        plan_interv_ehdaa,
-        genre,
-        population,
-        class,
-        dist,
-        grp_rep
-    )
-),
+    _cube as (
+        select
+            school_friendly_name,
+            annee_scolaire,
+            plan_interv_ehdaa,
+            genre,
+            population,
+            class,
+            dist,
+            grp_rep
+        from _coalesce
+        group by
+            cube (
+                school_friendly_name,
+                annee_scolaire,
+                plan_interv_ehdaa,
+                genre,
+                population,
+                class,
+                dist,
+                grp_rep
+            )
+    ),
 
-_coalesce_2 as (
-    select
-        coalesce(school_friendly_name, 'CSS') as ecole,
-        coalesce(annee_scolaire, 'Tout') as annee_scolaire,
-        coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
-        coalesce(genre, 'Tout') as genre,
-        coalesce(population, 'Tout') as population,
-        coalesce(class, 'Tout') as classification,
-        coalesce(dist, 'Tout') as distribution,
-        coalesce(grp_rep, 'Tout') as groupe_repere
-    from _cube
-),
+    _coalesce_2 as (
+        select
+            coalesce(school_friendly_name, 'CSS') as ecole,
+            coalesce(annee_scolaire, 'Tout') as annee_scolaire,
+            coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
+            coalesce(genre, 'Tout') as genre,
+            coalesce(population, 'Tout') as population,
+            coalesce(class, 'Tout') as classification,
+            coalesce(dist, 'Tout') as distribution,
+            coalesce(grp_rep, 'Tout') as groupe_repere
+        from _cube
+    ),
 
-annee_prev as (
+    annee_prev as (
         select
             ecole,
             annee_scolaire,
@@ -115,7 +117,7 @@ annee_prev as (
             null as groupe_repere
     )
 
-select 
+select
     ecole,
     annee_scolaire,
     plan_interv_ehdaa,

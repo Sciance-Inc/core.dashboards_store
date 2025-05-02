@@ -18,12 +18,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {% macro seeds_validator(seed_schema_name, seeds_pattern, expected_row_count) %}
     {% if execute %}
 
-        --Le schema du dashboard.
+        -- Le schema du dashboard.
         {% set metadata_schema = target.schema + "_seeds_metadata" %}
-        --Le nom de la table qui contient seeds_validator.
+        -- Le nom de la table qui contient seeds_validator.
         {% set metadata_table = metadata_schema + ".validator" %}
 
-        --Create the metadata schema and table if they dont exist
+        -- Create the metadata schema and table if they dont exist
         {% set create_query %}
             IF (NOT EXISTS (SELECT * FROM sys.schemas WHERE name = '{{ metadata_schema }}'))
             BEGIN
@@ -63,7 +63,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         -- Le résultat du count
         {% set actual_row_count = result.columns[0].values()[0] %}
 
-        -- Vérifie si on respect le nombre de seeds requis et on met donc à jour en conséquence, si le seed_schema_name existe --
+        -- Vérifie si on respect le nombre de seeds requis et on met donc à jour en
+        -- conséquence, si le seed_schema_name existe --
         {% if actual_row_count | int == expected_row_count | int %}
             {{
                 log(
@@ -87,7 +88,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             {% endset %}
 
             {% do run_query(upsert_query) %}
-            -- Si on respect, pas on change la colonne result à 0 (false)
+        -- Si on respect, pas on change la colonne result à 0 (false)
         {% else %}
             {{
                 log(

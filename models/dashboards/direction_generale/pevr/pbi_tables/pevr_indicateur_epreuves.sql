@@ -43,7 +43,9 @@ with
                 when y_stud.class is null then '-' else y_stud.class
             end as classification,
             case when y_stud.dist is null then '-' else y_stud.dist end as distribution,
-            case when y_stud.grp_rep is null then '-' else y_stud.grp_rep end as groupe_repere,
+            case
+                when y_stud.grp_rep is null then '-' else y_stud.grp_rep
+            end as groupe_repere,
             ind.code_matiere,
             ind.no_competence,
             etape,
