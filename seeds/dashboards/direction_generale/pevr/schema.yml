@@ -40,7 +40,7 @@ seeds:
         tests:
           - not_null
       - name: id_indicateur_css
-        description: champ vide pour permettre au css d'ajouter leur prorpes identification
+        description: champ vide pour permettre au css d'ajouter leur propres identification
       - name: annee_scolaire
         description: L'année scolaire
         tests:
@@ -163,7 +163,7 @@ seeds:
       - name: id_indicateur_meq
         description: L'identification unique du PEVR
       - name: id_indicateur_css
-        description: champ vide pour permettre au css d'ajouter leur prorpes identification
+        description: champ vide pour permettre au css d'ajouter leur propres identification
       - name: annee_scolaire
         description: L'année scolaire
         tests:

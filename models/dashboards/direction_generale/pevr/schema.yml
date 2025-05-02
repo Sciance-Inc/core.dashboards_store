@@ -57,7 +57,7 @@ models:
       - name: id_indicateur_css
         description: Identifiant css unique de l'indicateur si l'id est différent du meq.
       - name: description_indicateur
-        description: L'année scolaire
+        description: Description text of the indicator
       - name: code_matiere
         description: Le résultat.
       - name: no_competence
