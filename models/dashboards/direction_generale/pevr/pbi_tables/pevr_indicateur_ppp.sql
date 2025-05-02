@@ -41,6 +41,7 @@ with
                 when y_stud.class is null then '-' else y_stud.class
             end as classification,
             case when y_stud.dist is null then '-' else y_stud.dist end as distribution,
+            case when y_stud.grp_rep is null then '-' else y_stud.grp_rep end as groupe_repere,
             case when y_stud.is_ppp = 1 then 1. else 0. end as is_ppp
         from {{ ref("fact_yearly_student") }} y_stud
         inner join {{ ref("dim_eleve") }} as ele on y_stud.fiche = ele.fiche
@@ -63,7 +64,8 @@ with
             plan_interv_ehdaa,
             population,
             classification,
-            distribution
+            distribution,
+            groupe_repere
         from src
     ),
 
@@ -76,6 +78,7 @@ with
             population,
             classification,
             distribution,
+            groupe_repere,
             id_indicateur_meq,
             sum(is_ppp) as nb_ppp,
             avg(is_ppp) as taux_ppp
@@ -88,7 +91,8 @@ with
                 plan_interv_ehdaa,
                 population,
                 classification,
-                distribution
+                distribution,
+                groupe_repere
             )
     ),
 
@@ -102,6 +106,7 @@ with
             coalesce(population, 'Tout') as population,
             coalesce(classification, 'Tout') as classification,
             coalesce(distribution, 'Tout') as distribution,
+            coalesce(groupe_repere, 'Tout') as groupe_repere,
             nb_ppp,
             taux_ppp
         from ppp
@@ -127,6 +132,7 @@ with
                         "population",
                         "classification",
                         "distribution",
+                        "groupe_repere",
                     ]
                 )
             }} as id_filtre

@@ -18,188 +18,71 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {{ config(alias="filtres") }}
 
 with
-    eco_unique as (
+    src as (
         select
-            eco,
-            school_friendly_name,
-            cat_eco,
-            row_number() over (partition by eco order by annee desc) as seqid
-        from {{ ref("dim_mapper_schools") }}
-        where cat_eco in ('PRI', 'SEC', 'PS')
+            m_school.school_friendly_name,
+            m_school.annee_scolaire,
+            y_stud.plan_interv_ehdaa,
+            el.genre,
+            y_stud.population,
+            y_stud.class,
+            y_stud.dist,
+            y_stud.grp_rep
+        from {{ ref("fact_yearly_student") }} y_stud
+        inner join {{ ref("dim_eleve") }} el ON y_stud.fiche = el.fiche
+        inner join {{ ref("dim_mapper_schools") }} m_school ON y_stud.id_eco = m_school.id_eco
     ),
-    eco as (
-        select eco, school_friendly_name as ecole
-        from eco_unique
-        where seqid = 1
-        union
-        select 'CSS' as eco, 'CSS' as ecole
-    ),
-    ehdaa as (
-        select distinct plan_interv_ehdaa, eco
-        from {{ ref("fact_yearly_student") }}
-        union
-        select 'Tout' as plan_interv_ehdaa, eco
-        from eco
-        union all
-        select distinct plan_interv_ehdaa, 'CSS' as eco
-        from {{ ref("fact_yearly_student") }}
-    ),
-    genre as (
-        select distinct genre
-        from {{ ref("dim_eleve") }}
-        where genre != 'X'
-        union
-        select 'Tout' as genre
-    ),
-    pop as (
-        select distinct population, eco
-        from {{ ref("fact_yearly_student") }}
-        union all
-        select 'Tout' as population, eco
-        from eco
-        union all
-        select distinct population, 'CSS' as eco
-        from {{ ref("fact_yearly_student") }}
-    ),
-    class as (
-        select classification, eco, population
-        from
-            (
-                select distinct
-                    case
-                        when (cat_eco in ('PRI', 'SEC', 'PS') and el.class is null)
-                        then '-'
-                        else el.class
-                    end as classification,
-                    el.eco,
-                    population
-                from {{ ref("fact_yearly_student") }} el
-                left join {{ ref("dim_mapper_schools") }} eco on el.id_eco = eco.id_eco
-                union
-                select distinct 'Tout' as classification, eco, population
-                from {{ ref("fact_yearly_student") }}
-                union all
-                select distinct
-                    case
-                        when (cat_eco in ('PRI', 'SEC', 'PS') and el.class is null)
-                        then '-'
-                        else el.class
-                    end as classification,
-                    'CSS' as eco,
-                    population
-                from {{ ref("fact_yearly_student") }} el
-                left join {{ ref("dim_mapper_schools") }} eco on el.id_eco = eco.id_eco
-                union all
-                select distinct
-                    case
-                        when (cat_eco in ('PRI', 'SEC', 'PS') and el.class is null)
-                        then '-'
-                        else el.class
-                    end as classification,
-                    el.eco,
-                    'Tout' as population
-                from {{ ref("fact_yearly_student") }} el
-                left join {{ ref("dim_mapper_schools") }} eco on el.id_eco = eco.id_eco
-                union all
-                select distinct 'Tout' as classification, 'CSS' as eco, population
-                from {{ ref("fact_yearly_student") }}
-                union all
-                select distinct
-                    case
-                        when (cat_eco in ('PRI', 'SEC', 'PS') and el.class is null)
-                        then '-'
-                        else el.class
-                    end as classification,
-                    'CSS' as eco,
-                    'Tout' as population
-                from {{ ref("fact_yearly_student") }} el
-                left join {{ ref("dim_mapper_schools") }} eco on el.id_eco = eco.id_eco
-                union all
-                select distinct 'Tout' as classification, eco, 'Tout' as population
-                from eco
-            ) as tab
-    ),
-    distr as (
-        select distribution, eco, population
-        from
-            (
-                select distinct
-                    case
-                        when (cat_eco in ('PRI', 'SEC', 'PS') and el.dist is null)
-                        then '-'
-                        else el.dist
-                    end as distribution,
-                    el.eco,
-                    population
-                from {{ ref("fact_yearly_student") }} el
-                left join {{ ref("dim_mapper_schools") }} eco on el.id_eco = eco.id_eco
-                union
-                select distinct 'Tout' as distribution, eco, population
-                from {{ ref("fact_yearly_student") }}
-                union all
-                select distinct
-                    case when el.dist is null then '-' else el.dist end as distribution,
-                    'CSS' as eco,
-                    population
-                from {{ ref("fact_yearly_student") }} el
-                left join {{ ref("dim_mapper_schools") }} eco on el.id_eco = eco.id_eco
-                union all
-                select distinct
-                    case
-                        when (cat_eco in ('PRI', 'SEC', 'PS') and el.dist is null)
-                        then '-'
-                        else el.dist
-                    end as distribution,
-                    el.eco,
-                    'Tout' as population
-                from {{ ref("fact_yearly_student") }} el
-                left join {{ ref("dim_mapper_schools") }} eco on el.id_eco = eco.id_eco
-                union all
-                select distinct 'Tout' as distribution, 'CSS' as eco, population
-                from {{ ref("fact_yearly_student") }}
-                union all
-                select distinct
-                    case when el.dist is null then '-' else el.dist end as distribution,
-                    'CSS' as eco,
-                    'Tout' as population
-                from {{ ref("fact_yearly_student") }} el
-                left join {{ ref("dim_mapper_schools") }} eco on el.id_eco = eco.id_eco
-                union all
-                select distinct 'Tout' as distribution, eco, 'Tout' as population
-                from eco
-            ) as tab
-    ),
-    annee_sco as (
-        select distinct annee_scolaire
-        from {{ ref("pevr_dim_cibles_annuelles") }}
-        union
-        select '2022 - 2023' as annee_scolaire
-    ),
-    id_filtre as (
-        select
-            eco.ecole,
-            annee_sco.annee_scolaire,
-            ehdaa.plan_interv_ehdaa,
-            genre.genre,
-            pop.population,
-            class.classification,
-            distr.distribution
-        from eco
-        cross join ehdaa
-        cross join genre
-        cross join pop
-        cross join class
-        cross join distr
-        cross join annee_sco
-        where
-            ehdaa.eco = eco.eco
-            and pop.eco = eco.eco
-            and class.eco = eco.eco
-            and class.population = pop.population
-            and distr.eco = eco.eco
-            and distr.population = pop.population
-    ),
-    _union as (
+
+_coalesce as (
+    select
+        school_friendly_name,
+        annee_scolaire,
+        plan_interv_ehdaa,
+        genre,
+        population,
+        coalesce(class, '-') as class,
+        coalesce(dist, '-') as dist,
+        coalesce(grp_rep, '-') as grp_rep
+    from src
+),
+
+_cube as (
+    select
+        school_friendly_name,
+        annee_scolaire,
+        plan_interv_ehdaa,
+        genre,
+        population,
+        class,
+        dist,
+        grp_rep
+    from _coalesce
+    group by cube (
+        school_friendly_name,
+        annee_scolaire,
+        plan_interv_ehdaa,
+        genre,
+        population,
+        class,
+        dist,
+        grp_rep
+    )
+),
+
+_coalesce_2 as (
+    select
+        coalesce(school_friendly_name, 'CSS') as ecole,
+        coalesce(annee_scolaire, 'Tout') as annee_scolaire,
+        coalesce(plan_interv_ehdaa, 'Tout') as plan_interv_ehdaa,
+        coalesce(genre, 'Tout') as genre,
+        coalesce(population, 'Tout') as population,
+        coalesce(class, 'Tout') as classification,
+        coalesce(dist, 'Tout') as distribution,
+        coalesce(grp_rep, 'Tout') as groupe_repere
+    from _cube
+),
+
+annee_prev as (
         select
             ecole,
             annee_scolaire,
@@ -207,8 +90,9 @@ with
             genre,
             population,
             classification,
-            distribution
-        from id_filtre
+            distribution,
+            groupe_repere
+        from _coalesce_2
         union
         select
             null as ecole,
@@ -217,7 +101,8 @@ with
             null as genre,
             null as population,
             null as classification,
-            null as distribution
+            null as distribution,
+            null as groupe_repere
         union
         select
             null as ecole,
@@ -226,9 +111,11 @@ with
             null as genre,
             null as population,
             null as classification,
-            null as distribution
+            null as distribution,
+            null as groupe_repere
     )
-select
+
+select 
     ecole,
     annee_scolaire,
     plan_interv_ehdaa,
@@ -236,6 +123,7 @@ select
     population,
     classification,
     distribution,
+    groupe_repere,
     {{
         dbt_utils.generate_surrogate_key(
             [
@@ -246,7 +134,8 @@ select
                 "population",
                 "classification",
                 "distribution",
+                "groupe_repere",
             ]
         )
     }} as id_filtre
-from _union
+from annee_prev

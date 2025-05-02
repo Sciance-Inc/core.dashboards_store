@@ -64,7 +64,6 @@ seeds:
       - core_dashboards_store.resolution:
           combination_of_columns:
             - id_indicateur_meq
-            - annee_scolaire
     columns:
       - name: objectif
         description: L'objectif de l'indicateur, en référence au PEVR

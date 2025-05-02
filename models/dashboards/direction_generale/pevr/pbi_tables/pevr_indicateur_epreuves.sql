@@ -43,6 +43,7 @@ with
                 when y_stud.class is null then '-' else y_stud.class
             end as classification,
             case when y_stud.dist is null then '-' else y_stud.dist end as distribution,
+            case when y_stud.grp_rep is null then '-' else y_stud.grp_rep end as groupe_repere,
             ind.code_matiere,
             ind.no_competence,
             etape,
@@ -76,6 +77,7 @@ with
             population,
             classification,
             distribution,
+            groupe_repere,
             code_matiere,
             count(fiche) nb_resultat,
             cast(avg(is_maitrise) as decimal(5, 3)) as taux_maitrise
@@ -89,7 +91,8 @@ with
                 plan_interv_ehdaa,
                 population,
                 classification,
-                distribution
+                distribution,
+                groupe_repere
             )
     ),
 
@@ -103,6 +106,7 @@ with
             coalesce(population, 'Tout') as population,
             coalesce(classification, 'Tout') as classification,
             coalesce(distribution, 'Tout') as distribution,
+            coalesce(groupe_repere, 'Tout') as groupe_repere,
             nb_resultat,
             taux_maitrise
         from agg
@@ -127,6 +131,7 @@ with
                         "population",
                         "classification",
                         "distribution",
+                        "groupe_repere",
                     ]
                 )
             }} as id_filtre
