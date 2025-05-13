@@ -47,8 +47,8 @@ with
             {{ ref("fact_yearly_student") }} as el_y
             on res.fiche = el_y.fiche
             and res.annee = el_y.annee
-
         left join {{ ref("dim_eleve") }} as el on res.fiche = el.fiche and genre != 'x'
+        where res_etape_num is not null  -- Enlève les NE sur res_comp_etape
     ),
     agg as (
         select
