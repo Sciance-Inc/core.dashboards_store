@@ -14,7 +14,7 @@ cd core.dashboards_store
 git checkout feature/<feature_name>
 git pull
 # Might be required if you update either the poetry file or the lock file
-# poetry shell && poetry lock && poetry install 
+# poetry env activate && poetry lock && poetry install 
 cd ../<cssXX>.dashboards_store
 git checkout feature/<feature_name>
 git pull  
