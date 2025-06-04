@@ -37,3 +37,4 @@ select
     date_depart,
     grille
 from {{ var("database_gpi") }}.dbo.gpm_e_dan
+with (nolock)

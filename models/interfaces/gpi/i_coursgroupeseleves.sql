@@ -22,3 +22,4 @@ select
     coursgroupe as cours_groupe,
     matieresgroupes as matieres_groupes
 from {{ var("database_gpi") }}.gi.coursgroupeseleves
+with (nolock)

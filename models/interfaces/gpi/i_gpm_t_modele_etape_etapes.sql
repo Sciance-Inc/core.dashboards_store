@@ -18,3 +18,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 select
     id_eco, modele_etape, seq_etape, etape, date_deb, date_fin, nb_jours_classe, descr
 from {{ var("database_gpi") }}.dbo.gpm_t_modele_etape_etapes
+with (nolock)

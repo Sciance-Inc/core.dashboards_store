@@ -29,3 +29,4 @@ select
     etat_doss,
     date_dern_paie
 from {{ var("database_paie") }}.dbo.pai_dos
+with (nolock)

@@ -26,3 +26,4 @@ select
     {% endfor %}
     res_final_obj
 from {{ var("database_gpi") }}.dbo.gpm_e_obj
+with (nolock)
