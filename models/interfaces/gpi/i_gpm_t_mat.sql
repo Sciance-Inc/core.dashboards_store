@@ -17,3 +17,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select id_eco, mat, descr, descr_abreg, unites
 from {{ var("database_gpi") }}.dbo.gpm_t_mat
+with (nolock)

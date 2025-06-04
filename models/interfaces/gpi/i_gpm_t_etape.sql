@@ -17,3 +17,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select id_eco, descr, seq_etape, date_deb, date_fin, nb_jours_classe, etape
 from {{ var("database_gpi") }}.dbo.gpm_t_etape
+with (nolock)

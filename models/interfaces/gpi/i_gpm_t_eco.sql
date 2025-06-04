@@ -17,3 +17,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select id_eco, org, annee, eco, cat_eco, eco_off, nom_eco, adr_eco, indic_eco_bidon
 from {{ var("database_gpi") }}.dbo.gpm_t_eco
+with (nolock)

@@ -36,3 +36,4 @@ select
     leg_som,
     leg_obj_final
 from {{ var("database_gpi") }}.dbo.gpm_t_mat_grp
+with (nolock)

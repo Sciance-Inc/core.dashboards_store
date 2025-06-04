@@ -17,3 +17,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select fiche, nom, pnom, code_perm, sexe, date_naiss as date_naissance
 from {{ var("database_gpi") }}.dbo.gpm_e_ele
+with (nolock)

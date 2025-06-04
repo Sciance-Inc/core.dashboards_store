@@ -39,3 +39,4 @@ select
     serviceenseign as service_enseign,
     typefreq as type_freq
 from {{ var("database_jade") }}.dbo.e_freq
+with (nolock)
