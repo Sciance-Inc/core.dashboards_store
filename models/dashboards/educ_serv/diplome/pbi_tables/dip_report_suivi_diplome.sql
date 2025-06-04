@@ -334,7 +334,7 @@ with
                     then concat(convert(nvarchar, resultat), ' (En cours)')
                 end,
                 ', '
-            ) as res_compl_5_eth,  -- Le résultat en Complémentaire 5 (ECR)
+            ) as res_compl_5_ecr,  -- Le résultat en Complémentaire 5 (ECR)
             string_agg(
                 case
                     when
@@ -360,7 +360,7 @@ with
                     then concat(convert(nvarchar, resultat), ' (En cours)')
                 end,
                 ', '
-            ) as res_compl_5_éduc,  -- Le résultat en Complémentaire 5 (EPS)
+            ) as res_compl_5_eps,  -- Le résultat en Complémentaire 5 (EPS)
             max(
                 case
                     when
@@ -508,6 +508,7 @@ select
     fiche,
     el.annee,
     nom_prenom_fiche,
+    code_perm,
     school_friendly_name as ecole,
     population,
     genre,
@@ -526,9 +527,9 @@ select
     res_compl_4_mus,
     res_compl_4_art_d,
     res_compl_4_danse,
-    res_compl_5_eth,
+    res_compl_5_ecr,
     res_compl_5_ccq,
-    res_compl_5_éduc,
+    res_compl_5_eps,
     nb_unites_acquis_g4,
     nb_unites_g4_en_cours,
     nb_unites_acquis_g5,

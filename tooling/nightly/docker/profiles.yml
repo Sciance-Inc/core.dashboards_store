@@ -10,6 +10,7 @@ etl_profile:
       schema: dev
       user: "{{ env_var('DBT_USERNAME') }}"
       password: "{{ env_var('DBT_PASSWORD') }}"
+      authentication: sql
       trust_cert: True
     rc:
       type: fabric
@@ -20,6 +21,7 @@ etl_profile:
       schema: rc
       user: "{{ env_var('DBT_USERNAME') }}"
       password: "{{ env_var('DBT_PASSWORD') }}"
+      authentication: sql
       trust_cert: True
     stable:
       type: fabric
@@ -30,4 +32,5 @@ etl_profile:
       schema: stable
       user: "{{ env_var('DBT_USERNAME') }}"
       password: "{{ env_var('DBT_PASSWORD') }}"
+      authentication: sql
       trust_cert: True

@@ -15,4 +15,6 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select fiche, codeperm as code_perm from {{ var("database_jade") }}.dbo.e_ele
+select fiche, codeperm as code_perm
+from {{ var("database_jade") }}.dbo.e_ele
+with (nolock)

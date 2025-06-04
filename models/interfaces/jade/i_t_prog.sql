@@ -17,3 +17,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select prog, progmeq as prog_meq, descrprog as descr_prog
 from {{ var("database_jade") }}.dbo.t_prog
+with (nolock)

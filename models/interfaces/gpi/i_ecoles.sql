@@ -17,3 +17,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select annee, ecole, nomecole as nom_ecole, rid
 from {{ var("database_gpi") }}.edo.ecoles
+with (nolock)

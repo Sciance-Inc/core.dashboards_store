@@ -17,3 +17,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select id_eco, interv, nom, pnom, util, adr_electr, matr_paie
 from {{ var("database_gpi") }}.dbo.gpm_t_interv
+with (nolock)

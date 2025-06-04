@@ -74,9 +74,7 @@ with
             case
                 when cote is not null
                 then note_equiv
-                when isnumeric(res_comp_etape) = 1
-                then convert(int, res_comp_etape)
-                else null
+                else try_cast(res_comp_etape as int)
             end as res_etape_num,
             case
                 when cote is not null and indic_reus_echec = '1'
@@ -103,9 +101,9 @@ select
     no_comp,
     etat,
     etape,
-    is_reprise,
     res_comp_etape,
     res_etape_num,
+    is_reprise,
     is_reussite,
     case
         when res_etape_num is null then null when res_etape_num < 60 then 1.0 else 0.0

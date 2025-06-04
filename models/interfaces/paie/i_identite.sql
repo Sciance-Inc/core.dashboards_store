@@ -25,3 +25,4 @@ select
     left(lieutravailprincipal, 3) as ecole_principale,
     descriptioncorpsemploiprincipal as description_corps_emploi_principal
 from {{ var("database_paie") }}.gi.identite
+with (nolock)

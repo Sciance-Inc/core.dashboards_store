@@ -15,4 +15,6 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select matr, adr_electrnq_portail from {{ var("database_paie") }}.dbo.pai_dos_2
+select matr, adr_electrnq_portail
+from {{ var("database_paie") }}.dbo.pai_dos_2
+with (nolock)
