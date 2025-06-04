@@ -1,7 +1,7 @@
 version: 2
 
 seeds:
-  - name: default_subject_evaluation
+  - name: rstep_epreuves_communes
     description: Mapping des épreuves obligatoires avec leur code_matiere.
     config:
       tags:
@@ -40,3 +40,43 @@ seeds:
       tags:
         - res_epreuves
       schema: res_epreuves_seeds
+    columns:
+      - name: annee
+        description: Année de l'épreuve.
+      - name: sesn
+        description: session de l'épreuve.
+      - name: cd_cours
+        description: code de la matière de l'épreuve. 
+      - name: reg_adm
+        description: colonne du ministère qui ne sert qu'à identifier à qui appartient le résultat (régional, CSS, écoles, ...etc).
+      - name: res_ens
+        description: colonne du ministère qui ne sert qu'à identifier si le résultat appartient à un organisme privé ou publique.
+      - name: cd_orgns_resp
+        description: icode de l'organisme (CSS).
+      - name: cd_orgns2
+        description: code de l'école.
+      - name: no_group_eleve
+        description: Numéro de groupe de l'épreuve (correspond).
+      - name: eleve_note
+        description: Nombre d'élèves notés.
+      - name: moyen_neb
+        description: Moyenne de la note école brute.
+      - name: pct_reust_neb
+        description: Taux de réussite de la note école brute.                                                                       
+      - name: moyen_nem
+        description: Moyenne de la note école modérée.  
+      - name: pct_reust_nem
+        description: Taux de réussite de la note école brute.  
+      - name: moyen_nmb
+        description: Moyenne de la note ministère brute (épreuve). 
+      - name: pct_reust_nmb
+        description: Taux de réussite de la note ministère brute (épreuve).  
+      - name: moyen_nmc
+        description: Moyenne de la note ministère convertie (épreuve).  
+      - name: pct_reust_nmc
+        description: Taux de réussite de la note ministère convertie (épreuve).  
+      - name: moyen_rf
+        description: Moyenne de la note finale de la compétence.  
+      - name: pct_reust_rf
+        description: Taux de réussite de la note finale de la compétence.                                                           
+
