@@ -39,3 +39,4 @@ select
     secteurenseignfreq as secteur_enseign_freq,
     datehrerecup as date_heure_recup
 from {{ var("database_jade") }}.dbo.e_ri_resultats
+with (nolock)

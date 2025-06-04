@@ -25,3 +25,4 @@ select
     statut,
     date_modif
 from {{ var("database_gpi") }}.dbo.wl_descr
+with (nolock)

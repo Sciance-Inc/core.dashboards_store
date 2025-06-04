@@ -25,3 +25,4 @@ select
     id_obj_mat,
     id_mat_grp
 from {{ var("database_gpi") }}.dbo.gpm_t_obj_mat_grp
+with (nolock)

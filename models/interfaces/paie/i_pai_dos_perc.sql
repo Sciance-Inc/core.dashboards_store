@@ -15,4 +15,4 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select matr, code_perm from {{ var("database_paie") }}.dbo.pai_dos_perc
+select matr, code_perm from {{ var("database_paie") }}.dbo.pai_dos_perc with (nolock)

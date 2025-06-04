@@ -27,3 +27,4 @@ select
     codereussite as code_reussite,
     rid
 from {{ var("database_gpi") }}.edo.matiereseleve
+with (nolock)

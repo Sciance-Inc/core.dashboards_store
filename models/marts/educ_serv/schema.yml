@@ -9,7 +9,7 @@ models:
     description: >
       Table auxilaire de resolution fiche, id_eco et contenant l'assignement d'une fiche à une population pour le calcul de métriques inter-populationelles.
     tests:
-      - resolution:
+      - core_dashboards_store.resolution:
           combination_of_columns:
             - code_perm
             - annee
@@ -25,7 +25,7 @@ models:
       This table is a placeholder to be overrded to add custom population definitions.
       Every populations defined here will be added to the stg_populations_fgj table.
     tests:
-      - resolution:
+      - core_dashboards_store.resolution:
           combination_of_columns:
             - code_perm
             - id_eco
@@ -41,7 +41,7 @@ models:
       La table de spine de résolution code_perm, annee, population, eco qui contient l'ensemble des numéros de fiches par année scolaire et population.
       Elle permet la construction des tables de faits via l'utilisation de left joins.
     tests:
-      - resolution:
+      - core_dashboards_store.resolution:
           combination_of_columns:
             - code_perm
             - id_eco
@@ -56,7 +56,7 @@ models:
     description: >
       Table de staging qui lie chaque matières à sa description selon l'école.
     tests:
-      - resolution:
+      - core_dashboards_store.resolution:
           combination_of_columns:
             - id_eco
             - mat
@@ -68,7 +68,7 @@ models:
     description: >
       Table de staging qui lie chaque compétence à sa description par matière.
     tests:
-      - resolution:
+      - core_dashboards_store.resolution:
           combination_of_columns:
             - mat
             - obj_01
@@ -80,7 +80,7 @@ models:
     description: >
       Table de staging qui liste les résultats des matière par élève par année.
     tests:
-      - resolution:
+      - core_dashboards_store.resolution:
           combination_of_columns:
             - fiche
             - id_eco
@@ -94,7 +94,7 @@ models:
     description: >
       Table de staging qui liste les résultats des compétences par élève par année.
     tests:
-      - resolution:
+      - core_dashboards_store.resolution:
           combination_of_columns:
             - fiche
             - id_eco
@@ -109,7 +109,7 @@ models:
     description: >
       Table de staging qui liste les résultats au bilan des compétences par élève par année.
     tests:
-      - resolution:
+      - core_dashboards_store.resolution:
           combination_of_columns:
             - fiche
             - id_eco
@@ -124,7 +124,7 @@ models:
     description: >
       Table de staging qui liste les résultats au bilan des matières par élève par année.
     tests:
-      - resolution:
+      - core_dashboards_store.resolution:
           combination_of_columns:
             - fiche
             - id_eco
@@ -138,7 +138,7 @@ models:
     description: >
       Table de staging qui liste les résultats aux étapes des compétences par élève par année.
     tests:
-      - resolution:
+      - core_dashboards_store.resolution:
           combination_of_columns:
             - fiche
             - id_eco
@@ -154,7 +154,7 @@ models:
     description: >
       Table de staging qui liste les résultats aux étapes des matières par élève par année.
     tests:
-      - resolution:
+      - core_dashboards_store.resolution:
           combination_of_columns:
             - fiche
             - id_eco
@@ -169,9 +169,7 @@ models:
     description: >
       Table de staging qui liste des élèves qui ont des types de mesure (frnacisation etc) par année.
     tests:
-      - resolution:
+      - core_dashboards_store.resolution:
           combination_of_columns:
             - fiche
             - id_eco
-
-

@@ -26,3 +26,4 @@ select
     classification,
     rid
 from {{ var("database_gpi") }}.edo.dossiers
+with (nolock)

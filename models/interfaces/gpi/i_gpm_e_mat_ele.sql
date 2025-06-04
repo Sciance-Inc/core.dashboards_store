@@ -53,8 +53,10 @@ select
     ele.modele_etape,
     ele.mois_sanction
 from {{ var("database_gpi") }}.dbo.gpm_e_mat_ele as ele
-inner join
-    {{ ref("i_gpm_t_eco") }} as eco
+with (nolock)
+inner join {{ ref("i_gpm_t_eco") }} as eco
+with
+    (nolock)
     on eco.id_eco = ele.id_eco
     and eco.annee
     >= {{ core_dashboards_store.get_current_year() }} - {{ years_of_data_grades }}
