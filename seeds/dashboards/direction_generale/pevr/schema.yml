@@ -1,0 +1,172 @@
+version: 2
+
+seeds:
+  - name: cibles_indicateurs_annuelles_pevr
+    description: mapping obligatoire des données de départs et des données prévionnelles.
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - id_indicateur_meq
+            - annee_scolaire
+    columns:
+      - name: id_indicateur_meq
+        description: L'identification unique du PEVR
+      - name: id_indicateur_css
+        description: champ vide pour permettre au css d'ajouter leur propres identification
+      - name: annee_scolaire
+        description: L'année scolaire
+        tests:
+          - not_null
+      - name: cible
+        description: Pourcentage ciblé
+    config:
+      schema: dashboard_pevr_seeds
+      column_types:
+        id_indicateur_meq: nvarchar(max)
+        id_indicateur_css: nvarchar(max)
+        annee_scolaire: nvarchar(max)
+        cible: float
+  
+  - name: indicateurs_pevr_charl
+    description: mapping obligatoire des données tirées de charlemagne.
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - id_indicateur_meq
+            - annee_scolaire
+    columns:
+      - name: id_indicateur_meq
+        description: L'identification unique du PEVR
+        tests:
+          - not_null
+      - name: id_indicateur_css
+        description: champ vide pour permettre au css d'ajouter leur propres identification
+      - name: annee_scolaire
+        description: L'année scolaire
+        tests:
+          - not_null
+      - name: taux
+        description: Le pourcentage lié à l'indicateur et l'année scolaire
+      - name: cible
+        description: Pourcentage ciblé
+    config:
+      schema: dashboard_pevr_seeds
+      column_types:
+        id_indicateur_meq: nvarchar(max)
+        id_indicateur_css: nvarchar(max)
+        annee_scolaire: nvarchar(max)
+        taux: float
+        cible: float
+
+  - name: indicateurs_pevr_css
+    description: Mapping des indicateurs communs avec leur description.
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - id_indicateur_meq
+    columns:
+      - name: objectif
+        description: L'objectif de l'indicateur, en référence au PEVR
+        tests:
+          - not_null    
+      - name: id_indicateur_meq
+        description: Identifiant de l'indicateur de la cdpvd
+        tests:
+          - not_null
+          - unique
+      - name: id_indicateur_css
+        description: Mapping optionnel des indicateurs personalisés des css.
+      - name: description_indicateur
+        description: Description de l'indicateur
+        tests:
+          - unique
+      - name: Code_matière
+        description: Code matière optionnel. Ex -> 132508
+      - name: no_competence
+        description: Le numéro de compétence du code matière.
+    config:
+      schema: dashboard_pevr_seeds
+      column_types:
+        objectif: nvarchar(max)
+        id_indicateur_meq: nvarchar(max)
+        id_indicateur_css: nvarchar(max)
+        description_indicateur: nvarchar(max)
+        code_matiere: nvarchar(max)
+        no_competence: nvarchar(max)
+
+  - name: custom_indicateurs_pevr_css
+    description: mapping optionnel des indicateurs personalisés des css.
+    columns:
+      - name: objectif
+        description: L'objectif de l'indicateur, en référence au PEVR
+        tests:
+          - not_null        
+      - name: id_indicateur_meq
+        description: Identifiant de l'indicateur de la cdpvd 
+        tests:
+          - unique
+      - name: id_indicateur_css
+        description: Mapping optionnel des indicateurs personalisés des css.
+        tests:
+          - unique
+      - name: description_indicateur
+        description: Description de l'indicateur
+        tests:
+          - not_null
+          - unique
+      - name: Code_matière
+        description: Code matière optionnel. Ex -> 132508
+      - name: no_competence
+        description: Le numéro de compétence du code matière.
+    config:
+      schema: dashboard_pevr_seeds
+      column_types:
+        id_indicateur_css: nvarchar(max)
+        id_indicateur_meq: nvarchar(max)
+        description_indicateur: nvarchar(max)
+        code_matiere: nvarchar(max)
+        no_competence: nvarchar(max)
+
+  - name: custom_indicateurs_pevr_charl
+    description: mapping optionnel des données tirées de charlemagne.
+    columns:
+      - name: id_indicateur_meq
+        description: L'identification unique du PEVR
+      - name: id_indicateur_css
+        description: champ vide pour permettre au css d'ajouter leur prorpes identification
+      - name: annee_scolaire
+        description: L'année scolaire
+        tests:
+          - not_null
+      - name: taux
+        description: Le pourcentage lié à l'indicateur et l'année scolaire
+      - name: cible
+        description: Pourcentage ciblé
+    config:
+      schema: dashboard_pevr_seeds
+      column_types:
+        id_indicateur_meq: nvarchar(max)
+        id_indicateur_css: nvarchar(max)
+        annee_scolaire: nvarchar(max)
+        taux: float
+        cible: float
+
+  - name: custom_cibles_indicateurs_annuelles_pevr
+    description: mapping optionnel pour permettre la saisie des cibles annuelles si différentdu MEQ.
+    columns:
+      - name: id_indicateur_meq
+        description: L'identification unique du PEVR
+      - name: id_indicateur_css
+        description: champ vide pour permettre au css d'ajouter leur propres identification
+      - name: annee_scolaire
+        description: L'année scolaire
+        tests:
+          - not_null
+      - name: cible
+        description: Pourcentage ciblé
+    config:
+      schema: dashboard_pevr_seeds
+      column_types:
+        id_indicateur: nvarchar(max)
+        annee_scolaire: nvarchar(max)
+        cible: float
