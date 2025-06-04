@@ -42,7 +42,7 @@ models:
     tests:
       - resolution:
           combination_of_columns:
-            - sex
+            - genre
             - employment_status_name
             - engagement_status_name
             - workplace_name
