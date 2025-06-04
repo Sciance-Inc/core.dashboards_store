@@ -28,6 +28,24 @@ macros:
       This allow to track the last time the model was executed. 
       The timestamp can then be displayed in the dashboard, to add some data porn about model freshness !
 
+  - name: seeds_validator
+    description: >
+      The macro will verify whether the current model meets the seed prerequisites for the dashboard.
+      The macro needs 3 variables :
+      1 - seed_schema_name -> The name of the dashboard`s schema seed. ex: dashboard_pevr_seeds
+      2 - seeds_pattern -> The keyword of your custom seeds (Its should be custom for every dashboard.). ex: custom
+      3 - expected_row_count -> The number of seeds your dashboard currently have.
+    arguments:
+      - name: seed_schema_name
+        type: string
+        description: The name of the dashboards schema seed
+      - name: seeds_pattern
+        type: string
+        description: The keyword of your custom seeds
+      - name: expected_row_count
+        type: string
+        description: The number of seeds your dashboard currently have
+
   - name: drop_tmp_table_for_current_model
     description: >
       The macro will drop the temporary table for the current model.
