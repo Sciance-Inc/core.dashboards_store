@@ -26,3 +26,4 @@ select
         per_{{ "%02d" % i }} {%- if not loop.last %},{% endif -%}
     {% endfor %}
 from {{ var("database_gpi") }}.dbo.gpm_t_cal
+with (nolock)

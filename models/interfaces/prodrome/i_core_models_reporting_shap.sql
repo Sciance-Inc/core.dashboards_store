@@ -17,7 +17,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select src.fiche, src.category, src.model, src.target, src.shap_value
 from {{ var("database_prodrome") }}.reporting.core_models_reporting_shap as src
-join
-    {{ ref("predictive_models_to_include") }} as trg  -- Student level output of non-valid models schould never be queried
+with (nolock)
+join {{ ref("predictive_models_to_include") }} as trg
+with
+    (nolock)  -- Student level output of non-valid models schould never be queried
     on src.model = trg.model
     and src.target = trg.target

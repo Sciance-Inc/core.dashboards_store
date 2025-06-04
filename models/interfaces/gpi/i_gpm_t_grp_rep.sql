@@ -17,3 +17,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select id_eco, grp_rep, interv_1, interv_2
 from {{ var("database_gpi") }}.dbo.gpm_t_grp_rep
+with (nolock)

@@ -30,3 +30,4 @@ select
     type,
     gr_paie
 from {{ var("database_paie") }}.dbo.pai_dos_empl
+with (nolock)

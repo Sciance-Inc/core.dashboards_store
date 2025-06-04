@@ -36,8 +36,10 @@ select
     src.descr_det,
     src.pond_obj
 from {{ var("database_gpi") }}.dbo.gpm_t_obj_mat as src
-inner join
-    {{ ref("i_gpm_t_eco") }} as eco
+with (nolock)
+inner join {{ ref("i_gpm_t_eco") }} as eco
+with
+    (nolock)
     on eco.id_eco = src.id_eco
     and eco.annee
     >= {{ core_dashboards_store.get_current_year() }} - {{ years_of_data_grades }}

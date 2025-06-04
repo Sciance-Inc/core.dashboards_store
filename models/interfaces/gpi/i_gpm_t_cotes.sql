@@ -17,3 +17,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select id_eco, id_cote, cote, leg, note_equiv, indic_reus_echec
 from {{ var("database_gpi") }}.dbo.gpm_t_cotes
+with (nolock)

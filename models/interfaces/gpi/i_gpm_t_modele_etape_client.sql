@@ -17,3 +17,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select id_eco, modele_etape, ordre_ens, classe, grp_rep, class, dist
 from {{ var("database_gpi") }}.dbo.gpm_t_modele_etape_client
+with (nolock)

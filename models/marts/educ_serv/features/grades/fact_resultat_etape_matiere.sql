@@ -68,11 +68,7 @@ select
     is_reprise,
     etape,
     case
-        when cote is not null
-        then note_equiv
-        when isnumeric(res_etape) = 1
-        then convert(int, res_etape)
-        else null
+        when cote is not null then note_equiv else try_cast(res_etape as int)
     end as res_etape_num,
     case
         when cote is not null and indic_reus_echec = '1'

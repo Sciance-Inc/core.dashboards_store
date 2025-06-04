@@ -21,9 +21,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 select src.date_abs, src.fiche, src.id_eco, src.motif_abs
 from {{ var("database_gpi") }}.dbo.gpm_e_abs as src
+with (nolock)
 -- Filter on the last n years of data through a join on the school year table, to get
 -- 'school year like' year.
-inner join {{ ref("i_gpm_t_eco") }} as eco on eco.id_eco = src.id_eco
+inner join {{ ref("i_gpm_t_eco") }} as eco
+with (nolock) on eco.id_eco = src.id_eco
 where
     eco.annee
     >= {{ core_dashboards_store.get_current_year() }} - {{ years_of_data_absences }}

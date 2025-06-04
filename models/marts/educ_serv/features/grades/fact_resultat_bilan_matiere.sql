@@ -45,11 +45,7 @@ with
             mat_ele.res_meq,
             mat_ele.unites,
             case
-                when cote is not null
-                then note_equiv
-                when isnumeric(res_som) = 1
-                then convert(int, res_som)
-                else null
+                when cote is not null then note_equiv else try_cast(res_som as int)
             end as res_num_som,
             case
                 when cote is not null and indic_reus_echec = '1'
@@ -64,8 +60,8 @@ with
                 then 'E'
                 else 'N/A'
             end as is_reussite,
-            is_reprise,
-            case
+            is_reprise
+        {# ,case
                 when annee = {{ core_dashboards_store.get_current_year() }}
                 then 1
                 else 0
@@ -74,7 +70,7 @@ with
                 when annee = {{ core_dashboards_store.get_current_year() }} - 1
                 then 1
                 else 0
-            end as is_previous_year
+            end as is_previous_year #}
         from {{ ref("stg_res_bilan_mat") }} as mat_ele
         left join
             {{ ref("i_gpm_t_leg") }} as leg
@@ -94,7 +90,6 @@ select
     code_matiere,
     groupe_matiere,
     etat,
-    is_reussite,
     case
         when annee = 2019 and res_som in ('NR')
         then 0
@@ -105,8 +100,13 @@ select
     res_som,
     res_meq,
     unites,
+    -- Attributs
     is_reprise,
-    case
+    is_reussite,
+    case when res_num_som < 60 then 1 else 0 end as is_echec,
+    case when (res_num_som between 60 and 69) then 1 else 0 end as is_difficulte,
+    case when res_num_som >= 70 then 1 else 0 end as is_maitrise
+{# , case
         when res_num_som < 60 and is_current_year = 1 then 1 else 0
     end as is_current_echec,
     case
@@ -123,5 +123,5 @@ select
     end as is_previous_difficulte,
     case
         when res_num_som >= 70 and is_previous_year = 1 then 1 else 0
-    end as is_previous_maitrise
+    end as is_previous_maitrise #}
 from res_num

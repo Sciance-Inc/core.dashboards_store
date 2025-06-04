@@ -49,7 +49,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 			matr,
 			data_inserted.value(''(/root/row/@DATE_EFF)[1]'', ''datetime'') AS date_eff,
 			data_inserted.value(''(/root/row/@REF_EMPL)[1]'', ''NVARCHAR(1)'') AS ref_empl
-		FROM {{ database_name }}.hcha.hcha_pai_dos_empl
+		FROM {{ database_name }}.hcha.hcha_pai_dos_empl with (nolock)
 		WHERE data_inserted.value(''(/root/row/@IND_EMPL_PRINC)[1]'', ''NVARCHAR(1)'') = 1
 		')
             ) as payload

@@ -26,3 +26,4 @@ select
     resultatnumerique as resultat_numerique,
     codereussite as code_reussite
 from {{ var("database_gpi") }}.edo.resultatscompetenceetape
+with (nolock)
