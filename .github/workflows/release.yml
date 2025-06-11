@@ -36,14 +36,8 @@ jobs:
         uses: python-semantic-release/python-semantic-release@master
         with:
           github_token: ${{ secrets.CICD_PAT_TOKEN }}
+          args: publish
           build_metadata: ${{ steps.date.outputs.today_date }}
-          verbosity: DEBUG
-          args: --noop
-          config_file: pyproject.toml
-          prerelease: false
-          prerelease_token: ""
-          force: true
-          tag: v0.18.0+${{ steps.date.outputs.today_date }}
 
   # sync-css:
   #   needs: release
