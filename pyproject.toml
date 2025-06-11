@@ -31,10 +31,12 @@ version_variable = [
 [tool.semantic_release.changelog]
 template_dir = "tooling/release/templates"
 
+
 [tool.semantic_release.branches.master]
 match = "(main|master)"
 prerelease = false
-
+major_on_zero = false
+allow_zero_version = true
 
 [tool.sqlfmt]
 line_length = 88
