@@ -32,7 +32,9 @@ with
             mat.mat,
             mat.descr as description,
             mat.descr_abreg as description_abreg,
-            row_number() over (partition by mat.mat order by mat.id_eco desc) as seqid
+            row_number() over (
+                partition by mat.id_eco, mat.mat order by mat.id_eco desc
+            ) as seqid
         from {{ ref("i_gpm_t_mat") }} as mat
         where descr is not null
     )

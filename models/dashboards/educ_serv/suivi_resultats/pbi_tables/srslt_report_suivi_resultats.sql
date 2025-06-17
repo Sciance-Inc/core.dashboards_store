@@ -335,7 +335,10 @@ select
         when is_maitrise_previous_y = 1 then 'Oui' else 'Non'
     end as is_maitrise_course_previous
 from yearly_status as stt
-inner join {{ ref("stg_descr_mat") }} as descr_mat on stt.code_matiere = descr_mat.mat
+inner join
+    {{ ref("stg_descr_mat") }} as descr_mat
+    on stt.code_matiere = descr_mat.mat
+    and stt.id_eco = descr_mat.id_eco
 inner join {{ ref("dim_eleve") }} as el on stt.fiche = el.fiche
 inner join
     {{ ref("stg_descr_comp") }} as descr_comp
