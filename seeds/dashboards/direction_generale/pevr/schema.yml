@@ -26,7 +26,7 @@ seeds:
         id_indicateur_css: nvarchar(max)
         annee_scolaire: nvarchar(max)
         cible: float
-  
+
   - name: indicateurs_pevr_charl
     description: mapping obligatoire des données tirées de charlemagne.
     tests:
@@ -68,7 +68,7 @@ seeds:
       - name: objectif
         description: L'objectif de l'indicateur, en référence au PEVR
         tests:
-          - not_null    
+          - not_null
       - name: id_indicateur_meq
         description: Identifiant de l'indicateur de la cdpvd
         tests:
@@ -100,9 +100,9 @@ seeds:
       - name: objectif
         description: L'objectif de l'indicateur, en référence au PEVR
         tests:
-          - not_null        
+          - not_null
       - name: id_indicateur_meq
-        description: Identifiant de l'indicateur de la cdpvd 
+        description: Identifiant de l'indicateur de la cdpvd
         tests:
           - unique
       - name: id_indicateur_css
@@ -167,6 +167,7 @@ seeds:
     config:
       schema: dashboard_pevr_seeds
       column_types:
-        id_indicateur: nvarchar(max)
+        id_indicateur_meq: nvarchar(max)
+        id_indicateur_css: nvarchar(max)
         annee_scolaire: nvarchar(max)
         cible: float
