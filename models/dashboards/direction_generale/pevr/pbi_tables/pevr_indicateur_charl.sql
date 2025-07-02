@@ -50,6 +50,7 @@ select
     objectif,
     id_indicateur,
     description_indicateur,
+    'Jade' as source,
     annee_scolaire,
     taux,
     cible,
