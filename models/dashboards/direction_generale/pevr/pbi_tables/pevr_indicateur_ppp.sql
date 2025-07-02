@@ -180,6 +180,7 @@ select
     objectif,
     id_indicateur,
     description_indicateur,
+    'GPI' as source,
     annee_scolaire,
     taux_ppp,
     nb_ppp,
