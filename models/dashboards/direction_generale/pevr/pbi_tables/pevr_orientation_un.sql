@@ -26,7 +26,7 @@ with
             'Jade' as source,
             annee_scolaire,
             '' as nb_resultat, -- Dummy
-            taux as taux_maitrise,  -- Possibilité d'avoir un null à cause du res_etape_num peut être nulle. A voir.
+            taux as taux_maitrise,
             cible,
             taux_cible,
             '' as id_filtre -- Dummy
@@ -40,7 +40,7 @@ with
             'GPI' as source,
             annee_scolaire,
             nb_resultat,
-            taux_maitrise,  -- Possibilité d'avoir un null à cause du res_etape_num peut être nulle. A voir.
+            taux_maitrise,
             cible,
             taux_cible,
             id_filtre
@@ -55,7 +55,7 @@ select
     source,
     annee_scolaire,
     nb_resultat,
-    taux_maitrise,  -- Possibilité d'avoir un null à cause du res_etape_num peut être nulle. A voir.
+    taux_maitrise, 
     cible,
     taux_cible,
     id_filtre
