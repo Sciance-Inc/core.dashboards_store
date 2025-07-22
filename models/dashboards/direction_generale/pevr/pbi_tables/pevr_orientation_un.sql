@@ -25,14 +25,14 @@ with
             description_indicateur,
             'Jade' as source,
             annee_scolaire,
-            '' as nb_resultat, -- Dummy
+            '' as nb_resultat,  -- Dummy
             taux as taux_maitrise,
             cible,
             taux_cible,
-            '' as id_filtre -- Dummy
+            '' as id_filtre  -- Dummy
         from {{ ref("pevr_indicateur_charl") }}
         where id_indicateur like '1.1.1%'
-        UNION
+        union
         select
             objectif,
             id_indicateur,
@@ -48,14 +48,14 @@ with
         where id_indicateur like '1.1.1%'
     )
 
-select 
+select
     objectif,
     id_indicateur,
     description_indicateur,
     source,
     annee_scolaire,
     nb_resultat,
-    taux_maitrise, 
+    taux_maitrise,
     cible,
     taux_cible,
     id_filtre
