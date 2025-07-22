@@ -117,3 +117,14 @@ models:
             - description_indicateur
             - annee_scolaire
             - id_filtre
+
+  - name: pevr_orientation_un
+    description: >
+       Table qui contient l'orientation 1
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - id_indicateur
+            - description_indicateur
+            - annee_scolaire
+            - id_filtre
