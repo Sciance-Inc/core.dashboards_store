@@ -89,14 +89,97 @@ with
             and bilan_comp.etat != 0
             and bilan_mat.is_reprise = 0
             and bilan_comp.is_reprise = 0
-
-    -- Compute the lagged success / failure status
+    -- collapse to one row per year
     ),
+    yearly as (
+        select
+            -- Attributes 
+            fiche,
+            id_eco,
+            annee,
+            no_comp,
+            description_matiere,
+            -- Current and lagged stauts 
+            max(
+                case
+                    when is_reussite_mat = 'R'
+                    then 1
+                    when is_reussite_mat = 'NR'
+                    then 0
+                    else null
+                end
+            ) as is_reussite_mat_yearly,
+            case when max(is_echec_mat) = 1 then 1 else 0 end as is_echec_mat_yearly,
+            case
+                when max(is_difficulte_mat) = 1 then 1 else 0
+            end as is_difficulte_mat_yearly,
+            case
+                when max(is_maitrise_mat) = 1 then 1 else 0
+            end as is_maitrise_mat_yearly,
+            max(
+                case
+                    when is_reussite_comp = 'R'
+                    then 1
+                    when is_reussite_comp = 'NR'
+                    then 0
+                    else null
+                end
+            ) as is_reussite_comp_yearly,
+            case when max(is_echec_comp) = 1 then 1 else 0 end as is_echec_comp_yearly,
+            case
+                when max(is_difficulte_comp) = 1 then 1 else 0
+            end as is_difficulte_comp_yearly,
+            case
+                when max(is_maitrise_comp) = 1 then 1 else 0
+            end as is_maitrise_comp_yearly
+        from res_history
+        group by fiche, id_eco, annee, description_matiere, no_comp
+    )
+    -- Compute the lagged success / failure status
+    ,
     lagged as (
         select
             -- Attributes 
             fiche,
             id_eco,
+            annee,
+            description_matiere,
+            no_comp,
+            -- Current and lagged stauts 
+            lag(is_reussite_mat_yearly, 1, null) over (
+                partition by fiche, no_comp, description_matiere order by annee
+            ) as is_reussite_mat_lagged,
+            lag(is_echec_mat_yearly, 1, null) over (
+                partition by fiche, no_comp, description_matiere order by annee
+            ) as is_echec_mat_lagged,
+            lag(is_difficulte_mat_yearly, 1, null) over (
+                partition by fiche, no_comp, description_matiere order by annee
+            ) as is_difficulte_mat_lagged,
+            lag(is_maitrise_mat_yearly, 1, null) over (
+                partition by fiche, no_comp, description_matiere order by annee
+            ) as is_maitrise_mat_lagged,
+            lag(is_reussite_comp_yearly, 1, null) over (
+                partition by fiche, no_comp, description_matiere order by annee
+            ) as is_reussite_comp_lagged,
+            lag(is_echec_comp_yearly, 1, null) over (
+                partition by fiche, no_comp, description_matiere order by annee
+            ) as is_echec_comp_lagged,
+            lag(is_difficulte_comp_yearly, 1, null) over (
+                partition by fiche, no_comp, description_matiere order by annee
+            ) as is_difficulte_comp_lagged,
+            lag(is_maitrise_comp_yearly, 1, null) over (
+                partition by fiche, no_comp, description_matiere order by annee
+            ) as is_maitrise_comp_lagged
+        from yearly
+
+    )
+    -- join between the results and the lagged success / failure status
+    ,
+    _join as (
+        select
+            -- Attributes 
+            r.fiche,
+            r.id_eco,
             ordre_ens,
             eco,
             nom_ecole,
@@ -104,50 +187,41 @@ with
             grp_rep,
             class,
             dist,
-            annee,
+            r.annee,
             niveau_scolaire,
             code_matiere,
             groupe_matiere,
-            description_matiere,
+            r.description_matiere,
             etat,
             niveau_res,
-            no_comp,
+            r.no_comp,
             res_num_som,
             res_num_comp,
             -- Current and lagged stauts 
             is_reussite_mat,
-            lag(is_reussite_mat, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
-            ) as is_reussite_mat_lagged,
+            is_reussite_mat_lagged,
             is_echec_mat,
-            lag(is_echec_mat, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
-            ) as is_echec_mat_lagged,
+            is_echec_mat_lagged,
             is_difficulte_mat,
-            lag(is_difficulte_mat, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
-            ) as is_difficulte_mat_lagged,
+            is_difficulte_mat_lagged,
             is_maitrise_mat,
-            lag(is_maitrise_mat, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
-            ) as is_maitrise_mat_lagged,
+            is_maitrise_mat_lagged,
             is_reussite_comp,
-            lag(is_reussite_comp, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
-            ) as is_reussite_comp_lagged,
+            is_reussite_comp_lagged,
             is_echec_comp,
-            lag(is_echec_comp, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
-            ) as is_echec_comp_lagged,
+            is_echec_comp_lagged,
             is_difficulte_comp,
-            lag(is_difficulte_comp, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
-            ) as is_difficulte_comp_lagged,
+            is_difficulte_comp_lagged,
             is_maitrise_comp,
-            lag(is_maitrise_comp, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
-            ) as is_maitrise_comp_lagged
-        from res_history
+            is_maitrise_comp_lagged
+        from res_history as r
+        left join
+            lagged as l
+            on r.fiche = l.fiche
+            and r.id_eco = l.id_eco
+            and r.annee = l.annee
+            and r.description_matiere = l.description_matiere
+            and r.no_comp = l.no_comp
 
     -- Add the yearly status
     ),
@@ -217,7 +291,7 @@ with
                 then 1
                 else 0
             end as is_maitrise_previous_y
-        from lagged
+        from _join
 
     -- Squeeze the yearly dimension to only keep the current year for filtering   
     -- IF we want to keep the year as a filter, we could juste remove this step
@@ -335,10 +409,7 @@ select
         when is_maitrise_previous_y = 1 then 'Oui' else 'Non'
     end as is_maitrise_course_previous
 from yearly_status as stt
-inner join
-    {{ ref("stg_descr_mat") }} as descr_mat
-    on stt.code_matiere = descr_mat.mat
-    and stt.id_eco = descr_mat.id_eco
+inner join {{ ref("stg_descr_mat") }} as descr_mat on stt.code_matiere = descr_mat.mat
 inner join {{ ref("dim_eleve") }} as el on stt.fiche = el.fiche
 inner join
     {{ ref("stg_descr_comp") }} as descr_comp
