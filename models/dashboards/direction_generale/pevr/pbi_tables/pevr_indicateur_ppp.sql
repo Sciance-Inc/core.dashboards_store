@@ -183,11 +183,16 @@ select
     'GPI' as source,
     annee_scolaire,
     case
-        when annee_scolaire = 'Valeur de départ' then 1
-        when annee_scolaire = '2023 - 2024' then 2
-        when annee_scolaire = '2024 - 2025' then 3
-        when annee_scolaire = '2025 - 2026' then 4
-        when annee_scolaire = '2026 - 2027' then 5
+        when annee_scolaire = 'Valeur de départ'
+        then 1
+        when annee_scolaire = '2023 - 2024'
+        then 2
+        when annee_scolaire = '2024 - 2025'
+        then 3
+        when annee_scolaire = '2025 - 2026'
+        then 4
+        when annee_scolaire = '2026 - 2027'
+        then 5
         else 0
     end as tri_annee,
     taux_ppp,
