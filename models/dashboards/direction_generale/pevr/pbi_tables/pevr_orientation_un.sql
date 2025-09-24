@@ -25,11 +25,11 @@ with
             description_indicateur,
             'Jade' as source,
             annee_scolaire,
-            '' as nb_resultat,  -- Dummy
+            null as nb_resultat,  -- Dummy
             taux as taux_maitrise,
             cible,
             taux_cible,
-            '' as id_filtre  -- Dummy
+            null as id_filtre  -- Dummy
         from {{ ref("pevr_indicateur_charl") }}
         where id_indicateur like '1.1.1%'
         union
@@ -54,6 +54,14 @@ select
     description_indicateur,
     source,
     annee_scolaire,
+    case
+        when annee_scolaire = 'Valeur de départ' then 1
+        when annee_scolaire = '2023 - 2024' then 2
+        when annee_scolaire = '2024 - 2025' then 3
+        when annee_scolaire = '2025 - 2026' then 4
+        when annee_scolaire = '2026 - 2027' then 5
+        else 0
+    end as tri_annee,
     nb_resultat,
     taux_maitrise,
     cible,
