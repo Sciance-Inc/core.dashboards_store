@@ -25,11 +25,11 @@ with
             description_indicateur,
             'Jade' as source,
             annee_scolaire,
-            null as nb_resultat,  -- Dummy
+            null as nb_resultat,  -- Field not present in pevr_indicateur_charl; set to null for schema alignment in union
             taux as taux_maitrise,
             cible,
             taux_cible,
-            null as id_filtre  -- Dummy
+            null as id_filtre  -- Field not present in pevr_indicateur_charl; set to null for schema alignment in union
         from {{ ref("pevr_indicateur_charl") }}
         where id_indicateur like '1.1.1%'
         union
