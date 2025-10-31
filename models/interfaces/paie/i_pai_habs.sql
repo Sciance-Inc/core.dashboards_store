@@ -17,15 +17,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select
     matr,
-    date_eff,
-    lieu_trav,
-    corp_empl,
-    etat,
-    stat_eng,
-    type,
+    date,
     ref_empl,
-    date_fin,
-    pourc_sal,
-    gr_paie,
-    sect
-from {{ var("database_paie") }}.dbo.pai_hemp
+    dure,
+    lieu_trav,
+    mot_abs,
+    reg_abs,
+    corp_empl,
+    sect,
+    code_pmnt,
+    ind_annul,
+    pourc_indem
+from {{ var("database_paie") }}.dbo.pai_habs
