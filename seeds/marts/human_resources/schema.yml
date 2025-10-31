@@ -38,6 +38,8 @@ seeds:
         description: >
           The YEAR (integer) from which the status stops to be valid. The upper bound is excluded from the validity period.
           If not populated, the status is valid until the current year + 1 .
+      - name: duree
+        description: Is the code identifiing a currently a long or short absence ?
     config:
       tags:
         - human_resources
@@ -51,6 +53,7 @@ seeds:
         etat_actif: bit
         valid_from: int
         valid_until: int
+        duree: bit
 
   - name: stat_eng
     description: >
@@ -87,3 +90,64 @@ seeds:
         is_reg: bit
         valid_from: int
         valid_until: int
+
+  - name: secteur
+    description: >
+      Une table contenant les informations sur les secteurs des écoles et leurs caractéristiques.
+    columns:
+      - name: ua_Id
+        description: L'ID de l'école
+        tests:
+          - not_null
+      - name: secteur_Id
+        description: L'ID du secteur
+        tests:
+          - not_null
+      - name: secteur_Descr
+        description: Description du secteur
+        tests:
+          - not_null
+    config:
+      tags:
+        - human_resources
+      schema: human_resources_seeds
+      column_types:
+        ua_Id: int
+        secteur_Id: int
+        secteur_Descr: nvarchar(32)
+
+  - name: type_absence
+    description: >
+      Table de référence des motifs d’absence. 
+      Chaque enregistrement correspond à une catégorie de motif 
+      associée à un identifiant unique et à un statut d’activation.
+
+    columns:
+      - name: motif_id
+        description: >
+          Identifiant unique du motif d’absence (ex. "01" = Maladie, "C8" = catégorie inactive).
+        tests:
+          - not_null
+          - unique
+
+      - name: categories
+        description: >
+          Nom ou description de la catégorie du motif d’absence (ex. Maladie, Vacances, etc.).
+
+      - name: statut
+        description: >
+          Statut du motif d’absence :
+          - 0 = actif
+          - 1 = inactif ou non utilisé
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+    config:
+      tags:
+        - human_resources
+      schema: human_resources_seeds
+    column_types:
+        motif_id: varchar(5)
+        categories: varchar(100)
+        statut: int      
