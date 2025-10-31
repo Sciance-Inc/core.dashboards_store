@@ -1,6 +1,6 @@
 {#
-CDPVD Dashboards store
-Copyright (C) 2024 CDPVD.
+Dashboards Store - Helping students, one dashboard at a time.
+Copyright (C) 2023  Sciance Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
