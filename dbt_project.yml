@@ -2,7 +2,7 @@ name: "core_dashboards_store"
 version: "0.9.0"
 config-version: 2
 
-profile: "nightly_profile" #"Make sure you a runing DBT from the cssXX repository, not the core.dashboards_store repository."
+profile: "csvt_store" #"Make sure you a runing DBT from the cssXX repository, not the core.dashboards_store repository."
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -46,7 +46,9 @@ seeds:
           +tags: ["chronic_absenteeism"]
           +schema: "dashboard_chronic_absenteeism"
       direction_generale:
+        
         pevr:
+          +enabled: false
           +tags: ["pevr"]
           +schema: "dashboard_pevr"          
 
@@ -74,6 +76,7 @@ models:
 
     dashboards:
       educ_serv:
+        +enabled: false
         +tags: ["educ_serv"]
         effectif_css:
           +tags: ["effectif_css"]
@@ -82,7 +85,7 @@ models:
             +post-hook:
               [
                 "{{ core_dashboards_store.stamp_model('dashboard_effectif_css') }}",
-              ]
+              ]    
 
         res_epreuves:
           +tags: ["res_epreuves"]
@@ -130,6 +133,7 @@ models:
               ]
 
         predictive_view_aggregated:
+          +enabled: false
           +tags: ["predictive_view_aggregated"]
           +schema: "dashboard_predictive_view_aggregated"
           pbi_tables:
@@ -139,6 +143,7 @@ models:
               ]
 
         diplome:
+          +enabled: false
           +tags: ["diplome"]
           +schema: dashboard_diplome
           pbi_tables:
@@ -147,7 +152,8 @@ models:
 
       human_resources:
         +tags: ["human_resources"]
-        emp_conge:
+        emp_conge:  
+          +enabled: false
           +tags: ["emp_conge"]
           +schema: dashboard_emp_conge
           pbi_tables:
@@ -155,6 +161,7 @@ models:
               ["{{ core_dashboards_store.stamp_model('dashboard_emp_conge') }}"]
 
         emp_actif:
+          +enabled: false
           +tags: ["emp_actif"]
           +schema: dashboard_emp_actif
           pbi_tables:
@@ -169,17 +176,23 @@ models:
               [
                 "{{ core_dashboards_store.stamp_model('dashboard_retirement') }}",
               ]
+        emp_abs:
+          +tags: ["emp_abs"]
+          +schema: "dashboard_emp_abs"
+
       direction_generale:
+        +enabled: false
         pevr:
           +tags: ["pevr"]
           +schema: "dashboard_pevr"
           pbi_tables:
-              +post-hook:
-                [
-                  "{{ core_dashboards_store.stamp_model('dashboard_pevr') }}",
-                  "{{ core_dashboards_store.seeds_validator('dashboard_pevr_seeds','custom','3') }}"
-                ]
+            +post-hook:
+              [
+                "{{ core_dashboards_store.stamp_model('dashboard_pevr') }}",
+                "{{ core_dashboards_store.seeds_validator('dashboard_pevr_seeds','custom','3') }}"
+              ]
       org_scolaire:
+        +enabled: false
         anomalies:
           +tags: ["anomalies"]
           +schema: "dashboard_anomalies"
