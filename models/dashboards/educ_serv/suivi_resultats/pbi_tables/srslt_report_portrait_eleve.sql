@@ -34,6 +34,8 @@ with
             code_matiere,
             discipline,
             description_competence_abreg,
+            is_semestrialisation,
+            is_promotion_matiere,
             niveau_res,
             no_comp,
             res_num_comp
@@ -52,6 +54,8 @@ with
             fiche,
             id_eco,
             niveau_res,
+            is_semestrialisation,
+            is_promotion_matiere,            
             max(lire) as lire,
             max(écrire) as écrire,
             max(résoudre) as résoudre,
@@ -64,6 +68,8 @@ with
                     fiche,
                     id_eco,
                     niveau_res,
+                    is_semestrialisation,
+                    is_promotion_matiere,
                     case
                         when description_competence_abreg = 'lire' then res_num_comp
                     end as 'Lire',
@@ -88,7 +94,7 @@ with
                     end as 'Comprendre'
                 from src_tab
             ) as srctable
-        group by fiche, id_eco, niveau_res
+        group by fiche, id_eco, niveau_res, is_semestrialisation, is_promotion_matiere
 
     )
 
@@ -100,6 +106,8 @@ select
     el.nom_ecole,
     el.annee,
     el.niveau_scolaire,
+    is_semestrialisation,
+    is_promotion_matiere,    
     el.grp_rep,
     el.is_doubleur,
     el.plan_interv_ehdaa,
