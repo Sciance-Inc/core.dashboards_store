@@ -62,7 +62,7 @@ with
             is_echec_comp,
             is_difficulte_comp,
             is_maitrise_comp
-        from {{ ref("srlt_semestrialisation_promomatiere_groupe_matiere") }}  
+        from {{ ref("srlt_stg_semestrialisation_promomatiere_groupe_matiere") }}
     -- collapse to one row per year #}
     ),
     yearly as (
@@ -106,7 +106,7 @@ with
             case
                 when max(is_maitrise_comp) = 1 then 1 else 0
             end as is_maitrise_comp_yearly
-        from base 
+        from base
         group by base.fiche, base.id_eco, annee, description_matiere, no_comp
     )
     -- Compute the lagged success / failure status
@@ -369,8 +369,8 @@ select
     discipline,
     sq.groupe_matiere,
     groupe_matiere_actu,
-    CASE WHEN Semestrialisation = 1 THEN 'Oui' ELSE 'Non' END AS is_semestrialisation,
-    CASE WHEN Promotion_matiere = 1 THEN 'Oui' ELSE 'Non' END AS is_promotion_matiere,
+    case when semestrialisation = 1 then 'Oui' else 'Non' end as is_semestrialisation,
+    case when promotion_matiere = 1 then 'Oui' else 'Non' end as is_promotion_matiere,
     sq.etat,
     sq.description_matiere,
     res_num_som,
