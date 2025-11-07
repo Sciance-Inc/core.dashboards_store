@@ -15,6 +15,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
+{{ config(alias="stg_semestrialisation_promomatiere_groupe_matiere") }}
 
 with
     base as (
@@ -31,7 +32,8 @@ with
             niveau_scolaire
         from {{ ref("fact_yearly_student") }}
         where annee = {{ core_dashboards_store.get_current_year() }}
-    ), res_history as (
+    ),
+    res_history as (
         select
             -- Attributes
             base.fiche,
@@ -72,7 +74,8 @@ with
             bilan_comp.is_difficulte as is_difficulte_comp,
             bilan_comp.is_maitrise as is_maitrise_comp
         from base
-        left join {{ ref("fact_resultat_bilan_matiere") }} as bilan_mat
+        left join
+            {{ ref("fact_resultat_bilan_matiere") }} as bilan_mat
             on base.fiche = bilan_mat.fiche
             and bilan_mat.annee
             between {{ core_dashboards_store.get_current_year() - 4 }}
@@ -83,13 +86,14 @@ with
             and bilan_mat.code_matiere = bilan_comp.code_matiere
             and bilan_mat.groupe_matiere = bilan_comp.groupe_matiere
             and bilan_mat.id_eco = bilan_comp.id_eco
-        inner join {{ ref("srslt_dim_matieres_suivi") }} as dim on dim.code_matiere = bilan_mat.code_matiere  -- Only keep the tracked courses   
+        inner join
+            {{ ref("srslt_dim_matieres_suivi") }} as dim
+            on dim.code_matiere = bilan_mat.code_matiere  -- Only keep the tracked courses   
         where
             bilan_mat.etat != 0
             and bilan_comp.etat != 0
             and bilan_mat.is_reprise = 0
             and bilan_comp.is_reprise = 0
-         
 
     /* 
    aggregate by fiche, annee, famille_matiere
