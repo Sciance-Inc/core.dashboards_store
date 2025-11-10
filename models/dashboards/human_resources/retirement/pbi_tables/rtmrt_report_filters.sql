@@ -70,7 +70,7 @@ with
 
 -- Join the friendly name
 select
-    src.genre as sex,
+    src.genre,
     empl.etat_empl as employment_status_name,
     eng.stat_eng as engagement_status_name,
     work.workplace_name,
