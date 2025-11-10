@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {{ config(alias="report_suivi_resultats") }}
 
--- Fetch the students currently enrolled in the school system
+-- Creation of the current groupe matiere to allow selection by student/teacher group
 with
     base as (
         select
@@ -27,75 +27,49 @@ with
             eco,
             nom_ecole,
             population,
+            niveau_res,
+            niveau_scolaire,
             grp_rep,
             class,
             dist,
-            niveau_scolaire
-        from {{ ref("fact_yearly_student") }}
-        where annee = {{ core_dashboards_store.get_current_year() }}
-
-    -- Fetch the results for the students currently enrolled 
-    ),
-    res_history as (
-        select
-            -- Attributes
-            base.fiche,
-            base.id_eco,
-            base.ordre_ens,
-            base.eco,
-            base.nom_ecole,
-            base.population,
-            niveau_res,
-            base.niveau_scolaire,
-            base.grp_rep,
-            base.class,
-            base.dist,
-            -- Matiere 
-            bilan_mat.annee,
-            bilan_mat.code_matiere,
-            bilan_mat.groupe_matiere,
-            bilan_mat.etat,
-            dim.description_matiere,
-            bilan_mat.res_num_som,
-            bilan_mat.is_reussite as is_reussite_mat,
-            bilan_mat.is_echec as is_echec_mat,
-            bilan_mat.is_difficulte as is_difficulte_mat,
-            bilan_mat.is_maitrise as is_maitrise_mat,
+            annee,
+            code_matiere,
+            groupe_matiere,
+            discipline,
+            case
+                when max(annee) over (partition by fiche, discipline) = 2025
+                then
+                    first_value(groupe_matiere) over (
+                        partition by fiche, discipline
+                        order by annee desc
+                        rows between unbounded preceding and unbounded following
+                    )
+                else null
+            end as groupe_matiere_actu,
+            semestrialisation,
+            promotion_matiere,
+            etat,
+            description_matiere,
+            res_num_som,
+            is_reussite_mat,
+            is_echec_mat,
+            is_difficulte_mat,
+            is_maitrise_mat,
             -- Comp 
-            bilan_comp.no_comp,
-            bilan_comp.res_num_comp,
-            bilan_comp.is_reussite as is_reussite_comp,
-            bilan_comp.is_echec as is_echec_comp,
-            bilan_comp.is_difficulte as is_difficulte_comp,
-            bilan_comp.is_maitrise as is_maitrise_comp
-        from base
-        left join
-            {{ ref("fact_resultat_bilan_matiere") }} as bilan_mat
-            on base.fiche = bilan_mat.fiche
-            and bilan_mat.annee
-            between {{ core_dashboards_store.get_current_year() - 4 }}
-            and {{ core_dashboards_store.get_current_year() }}
-        left join
-            {{ ref("fact_resultat_bilan_competence") }} as bilan_comp
-            on bilan_mat.fiche = bilan_comp.fiche
-            and bilan_mat.code_matiere = bilan_comp.code_matiere
-            and bilan_mat.groupe_matiere = bilan_comp.groupe_matiere
-            and bilan_mat.id_eco = bilan_comp.id_eco
-        inner join
-            {{ ref("srslt_dim_matieres_suivi") }} as dim
-            on dim.code_matiere = bilan_mat.code_matiere  -- Only keep the tracked courses   
-        where
-            bilan_mat.etat != 0
-            and bilan_comp.etat != 0
-            and bilan_mat.is_reprise = 0
-            and bilan_comp.is_reprise = 0
-    -- collapse to one row per year
+            no_comp,
+            res_num_comp,
+            is_reussite_comp,
+            is_echec_comp,
+            is_difficulte_comp,
+            is_maitrise_comp
+        from {{ ref("srlt_stg_semestrialisation_promomatiere_groupe_matiere") }}
+    -- collapse to one row per year #}
     ),
     yearly as (
         select
             -- Attributes 
-            fiche,
-            id_eco,
+            base.fiche,
+            base.id_eco,
             annee,
             no_comp,
             description_matiere,
@@ -132,8 +106,8 @@ with
             case
                 when max(is_maitrise_comp) = 1 then 1 else 0
             end as is_maitrise_comp_yearly
-        from res_history
-        group by fiche, id_eco, annee, description_matiere, no_comp
+        from base
+        group by base.fiche, base.id_eco, annee, description_matiere, no_comp
     )
     -- Compute the lagged success / failure status
     ,
@@ -178,8 +152,8 @@ with
     _join as (
         select
             -- Attributes 
-            r.fiche,
-            r.id_eco,
+            base.fiche,
+            base.id_eco,
             ordre_ens,
             eco,
             nom_ecole,
@@ -187,14 +161,18 @@ with
             grp_rep,
             class,
             dist,
-            r.annee,
+            base.annee,
             niveau_scolaire,
             code_matiere,
+            discipline,
             groupe_matiere,
-            r.description_matiere,
+            groupe_matiere_actu,
+            semestrialisation,
+            promotion_matiere,
+            base.description_matiere,
             etat,
             niveau_res,
-            r.no_comp,
+            base.no_comp,
             res_num_som,
             res_num_comp,
             -- Current and lagged stauts 
@@ -214,14 +192,14 @@ with
             is_difficulte_comp_lagged,
             is_maitrise_comp,
             is_maitrise_comp_lagged
-        from res_history as r
+        from base
         left join
             lagged as l
-            on r.fiche = l.fiche
-            and r.id_eco = l.id_eco
-            and r.annee = l.annee
-            and r.description_matiere = l.description_matiere
-            and r.no_comp = l.no_comp
+            on base.fiche = l.fiche
+            and base.id_eco = l.id_eco
+            and base.annee = l.annee
+            and base.description_matiere = l.description_matiere
+            and base.no_comp = l.no_comp
 
     -- Add the yearly status
     ),
@@ -239,8 +217,12 @@ with
             dist,
             annee,
             niveau_scolaire,
+            semestrialisation,
+            promotion_matiere,
             code_matiere,
+            discipline,
             groupe_matiere,
+            groupe_matiere_actu,
             description_matiere,
             etat,
             no_comp,
@@ -308,14 +290,19 @@ with
             class,
             dist,
             niveau_scolaire,
+            semestrialisation,
+            promotion_matiere,
             annee,
             code_matiere,
+            discipline,
             groupe_matiere,
+            groupe_matiere_actu,
             description_matiere,
             etat,
             niveau_res,
             no_comp,
             res_num_som,
+            res_num_comp,
             -- squeeze the year : the row attributes become students attributes
             max(
                 case
@@ -370,26 +357,29 @@ with
 
 -- add friendly dimensions
 select
-    stt.id_eco,
-    stt.annee,
-    stt.fiche,
-    stt.eco,
-    stt.nom_ecole,
+    sq.id_eco,
+    sq.annee,
+    sq.fiche,
+    sq.eco,
+    sq.nom_ecole,
     el.nom_prenom_fiche,
-    stt.population,
-    stt.ordre_ens,
-    stt.code_matiere,
-    stt.groupe_matiere,
-    descr_mat.description_abreg as discipline,
-    stt.etat,
-    stt.description_matiere,
+    sq.population,
+    sq.ordre_ens,
+    sq.code_matiere,
+    discipline,
+    sq.groupe_matiere,
+    groupe_matiere_actu,
+    case when semestrialisation = 1 then 'Oui' else 'Non' end as is_semestrialisation,
+    case when promotion_matiere = 1 then 'Oui' else 'Non' end as is_promotion_matiere,
+    sq.etat,
+    sq.description_matiere,
     res_num_som,
-    stt.niveau_scolaire,
-    stt.grp_rep,
-    stt.class,
-    stt.dist,
-    stt.niveau_res,
-    stt.no_comp,
+    sq.niveau_scolaire,
+    sq.grp_rep,
+    sq.class,
+    sq.dist,
+    sq.niveau_res,
+    sq.no_comp,
     res_num_comp,
     descr_comp.description_abreg as description_competence_abreg,
     case
@@ -408,10 +398,13 @@ select
     case
         when is_maitrise_previous_y = 1 then 'Oui' else 'Non'
     end as is_maitrise_course_previous
-from yearly_status as stt
-inner join {{ ref("stg_descr_mat") }} as descr_mat on stt.code_matiere = descr_mat.mat
-inner join {{ ref("dim_eleve") }} as el on stt.fiche = el.fiche
+from squeezed as sq
+inner join
+    {{ ref("stg_descr_mat") }} as descr_mat
+    on sq.code_matiere = descr_mat.mat
+    and sq.id_eco = descr_mat.id_eco
+inner join {{ ref("dim_eleve") }} as el on sq.fiche = el.fiche
 inner join
     {{ ref("stg_descr_comp") }} as descr_comp
-    on stt.code_matiere = descr_comp.mat
-    and stt.no_comp = descr_comp.obj_01
+    on sq.code_matiere = descr_comp.mat
+    and sq.no_comp = descr_comp.obj_01

@@ -30,3 +30,15 @@ models:
             - groupe_matiere
             - annee
             - no_comp
+  - name: srlt_stg_semestrialisation_promomatiere_groupe_matiere
+    description: >
+      Cette table de staging a pour but d'optimiser l'execution du script de la table srslt_report_suivi_resultats.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - id_eco
+            - fiche
+            - code_matiere
+            - groupe_matiere
+            - annee
+            - no_comp            
