@@ -155,16 +155,6 @@ select
     code_matiere,
     groupe_matiere,
     discipline,
-    {# case
-        when max(rh.annee) over (partition by rh.fiche, discipline) = 2025
-        then
-            first_value(groupe_matiere) over (
-                partition by rh.fiche, discipline
-                order by rh.annee desc
-                rows between unbounded preceding and unbounded following
-            )
-        else null
-    end as groupe_matiere_actu, #}
     semestrialisation,
     promotion_matiere,
     etat,
@@ -182,4 +172,4 @@ select
     is_difficulte_comp,
     is_maitrise_comp
 from res_history rh
-left join flags on flags.fiche = rh.fiche  -- AND flags.annee = rh.annee
+left join flags on flags.fiche = rh.fiche
