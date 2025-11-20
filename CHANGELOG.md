@@ -2,6 +2,53 @@
 
 
 
+## v0.19.0+20251120 (2025-11-20)
+
+### Bug fixes
+
+* fix: suprression du code commenté ([`d47680f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d47680fabac15a575ad617be4d30d9679ff6450e))
+
+* fix(pevr): adding custom seed s missing columns ([`092f55e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/092f55eac28c238c775cb582c9ad4de15a69cf9a))
+
+* fix(educ_serv): stg_descr_mat is now properly computed at a school level. Propagating the eco_id to the tables joining on this table ([`24e2ff1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/24e2ff17cb809691f2d513d6de64dbb860b5c996))
+
+### Chores
+
+* chore: sqlfmt et table rename ([`8162f82`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8162f82787baeff792e961fa923d57a8b7a8fde1))
+
+* chore: sqlfmt ([`6e8a443`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6e8a443bf3359ac5d4b635baf0bc62d3e4a25333))
+
+* chore: modification de la colonne tri dans le tdb ([`7e667e5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7e667e5488568bed55f3728b26824d6e8d176c71))
+
+* chore: ajout d'orientation_un dans le schema ([`ce3afeb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ce3afebdb06cd672f6a21ba4cd14fa1b362ca254))
+
+* chore: sqlfmt et licence checker ([`845f115`](https://github.com/Sciance-Inc/core.dashboards_store/commit/845f115aa95bd016cfd6344d7011281abf443ac2))
+
+* chore(pevr): ajout de la colonne 'Source' et jumleages des indicateurs de l'orientation 1 ([`936566c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/936566c663f2a8f71bd01a8c2576991bfb300c0e))
+
+### Documentation
+
+* docs: improving comment
+
+Co-authored-by: Copilot <175728472+Copilot@users.noreply.github.com> ([`41b484f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/41b484f5f1b9a1631e6caa9f6f0bf5c4fe49a57a))
+
+### Features
+
+* feat: Changement du terme pour genre ([`b33fc6a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b33fc6a3f5b17de65591e2d3cce47f8f9b3970d7))
+
+* feat: création d'une staging et ajout de nouveaux champs ([`8f1b28f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8f1b28f793a56b64aa65628dea03dacc919c6f53))
+
+* feat: ajout d'une colonne de tri ([`50c650c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/50c650ce4b3fa6dcbe4b76391635ac46f33faaf9))
+
+* feat: jumelage de l'orientation 1 et ajoût de la source. ([`fd4d656`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fd4d656919c0d5c83c5789dcf94ac0e99c67f778))
+
+### Refactoring
+
+* refactor: enlever eco_off car supprimé de la table par la Grics ([`c2dd256`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c2dd256ebf56571f9f5b01330073bb9e8f3029da))
+
+* refactor: changer l'interface i_pai_tab_lieu_trav par i_gpm_t_eco ([`43de351`](https://github.com/Sciance-Inc/core.dashboards_store/commit/43de351a98481f124cd0a77bb9ebd17c3dd6c081))
+
+
 ## v0.18.0+20250611 (2025-06-11)
 
 ### Bug fixes
