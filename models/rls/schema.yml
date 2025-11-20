@@ -1,6 +1,21 @@
 version: 2
 
 models:
+  - name: ecoles
+    tags: ["rls"]
+    description: >
+      Table utilisée uniquement pour avoir la liste des codes d'écoles et leur nom.
+    tests: 
+      - resolution: 
+          combination_of_columns: 
+            - lieu_trav
+    columns:
+      - name: lieu_trav
+        tests: 
+            - not_null
+      - name: lieu_trav_desc
+        tests: 
+            - not_null            
   - name: utilisateurs_ecoles
     tags: ["rls"]
     description: >
