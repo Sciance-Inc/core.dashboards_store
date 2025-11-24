@@ -2,6 +2,15 @@
 
 
 
+## v0.19.2+20251124 (2025-11-24)
+
+### Bug fixes
+
+* fix(suivi_resultats): supprimer la jointure de stg_descr_mat qui ne sert plus (#104)
+
+Co-authored-by: sadqim <sadqim@csvdc.qc.ca> ([`2e2f99e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2e2f99ecc90b1764a1f8743e6653b76d0e057d19))
+
+
 ## v0.19.1+20251121 (2025-11-21)
 
 ### Bug fixes
