@@ -76,7 +76,7 @@ models:
         description: "Type de durée après UNPIVOT : 'dl' = longue durée, 'cl' = courte durée."
         tests:
           - accepted_values:
-              values: ['dl','cl']
+              values: ['duree_longue','duree_courte']
       - name: valeur
         description: "Valeur de l'absence pour le type de durée correspondant (1 = applicable, 0 = non)."
 

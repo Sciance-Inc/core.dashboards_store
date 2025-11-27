@@ -137,7 +137,7 @@ select
     abe.lieu_trav,
     abe.categories,
     case
-        when type_duree = 'cl' then 'Courte durée' else 'Longue durée'
+        when type_duree = 'duree_courte' then 'Courte durée' else 'Longue durée'
     end as duree_descr,
     abe.jour as jour_absence,
     jr_tr.jour_trav as jour_travaille,

@@ -1,4 +1,4 @@
-{#
+﻿{#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
 
@@ -15,7 +15,6 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{{ config(alias="fact_absence_e1") }}
 {{
     config(
         materialized="table",
@@ -30,6 +29,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     )
 }}
 
+{% set AssurangeLongTerme = var("dashboards")["emp_abs"]["code_paiement"] %}
+
 with
     -- --------------------------------------------------------------------------------------------------
     -- Absences brutes avec contexte
@@ -37,14 +38,14 @@ with
     absences_brutes_avec_contexte as (
         select
             cast(
-                year(absence. [date])
-                - case when month(absence. [date]) < 7 then 1 else 0 end as varchar(4)
+                year(absence.date)
+                - case when month(absence.date) < 7 then 1 else 0 end as varchar(4)
             ) + cast(
-                year(absence. [date])
-                + case when month(absence. [date]) < 7 then 0 else 1 end as varchar(4)
+                year(absence.date)
+                + case when month(absence.date) < 7 then 0 else 1 end as varchar(4)
             ) as annee,
-            absence. [matr] as [matricule],
-            absence. [date],
+            absence.matr as matricule,
+            absence.date,
             absence.mot_abs as motif_abs,
             absence.lieu_trav as lieu_trav,
             hemp.pourc_sal,
@@ -52,13 +53,21 @@ with
             absence.corp_empl,
             hemp.stat_eng,
             dure,
-            -- Code de paiement :103525 => Assurance long terme
+
             case
-                when absence.code_pmnt = 103525 or etat.duree = 1 then 1 else 0
-            end as dl,
+                when
+                    absence.code_pmnt in ({{ AssurangeLongTerme | join(", ") }})
+                    or etat.duree = 1
+                then 1
+                else 0
+            end as duree_longue,
             case
-                when absence.code_pmnt != 103525 and etat.duree != 1 then 1 else 0
-            end as cl
+                when
+                    absence.code_pmnt not in ({{ AssurangeLongTerme | join(", ") }})
+                    and etat.duree != 1
+                then 1
+                else 0
+            end as duree_courte
 
         from {{ ref("i_pai_habs") }} as absence
 
@@ -104,6 +113,7 @@ with
 -- --------------------------------------------------------------------------------------------------
 select *
 from
-    absences_scolaires_categorisees unpivot (valeur for type_duree in (dl, cl)) as unpvt
+    absences_scolaires_categorisees
+    unpivot (valeur for type_duree in (duree_longue, duree_courte)) as unpvt
 
 where valeur != 0
