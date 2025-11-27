@@ -179,11 +179,7 @@ models:
         emp_abs:
           +tags: ["emp_abs"]
           +schema: "dashboard_emp_abs"
-          pbi_tables:
-            +post-hook:
-              [
-                "{{core_dashboards_store.stamp_model('dashboard_emp_abs')}}",
-              ]
+
       direction_generale:
         +enabled: false
         pevr:
