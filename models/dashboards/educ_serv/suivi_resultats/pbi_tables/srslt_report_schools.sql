@@ -23,8 +23,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 with
     ecoles as (
-        select distinct lieu_trav, descr as lieu_trav_desc
-        from {{ ref("i_pai_tab_lieu_trav") }}
+        select distinct eco as lieu_trav, nom_eco as lieu_trav_desc
+        from {{ ref("i_gpm_t_eco") }}
 
         where
             -- Écoles seulement (les autres ce sont des services)
