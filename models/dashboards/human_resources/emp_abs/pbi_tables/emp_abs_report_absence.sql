@@ -38,7 +38,7 @@ with
         select
             concat(left(abs.annee, 4), '-', left(abs.annee, 4) + 1) as annee,
             abs.matricule,
-            emp.legal_name as 'nom',
+            emp.legal_name as nom,
             emp.sex_friendly_name as genre,
             case
                 when
