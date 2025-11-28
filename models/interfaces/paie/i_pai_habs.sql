@@ -29,3 +29,4 @@ select
     ind_annul,
     pourc_indem
 from {{ var("database_paie") }}.dbo.pai_habs
+with (nolock)
