@@ -21,17 +21,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         post_hook=[
             core_dashboards_store.create_clustered_index(
                 "{{ this }}", ["annee", "gr_paie"]
-            ),
-            core_dashboards_store.create_nonclustered_index(
-                "{{ this }}", ["jour_trav"]
-            ),
+            )
         ],
     )
 }}
 
 select
-    [an_budg] as annee,  -- Année budgétaire
-    [gr_paie],  -- Groupe de paie | Pour sélectionner les employés selon leur type d'emploi 
+    an_budg as annee,  -- Année budgétaire
+    gr_paie,  -- Groupe de paie | Pour sélectionner les employés selon leur type d'emploi 
     sum(
         case
             -- Jours de l'année courante ou suivante jusqu'à aujourd'hui
