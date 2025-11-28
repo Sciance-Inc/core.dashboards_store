@@ -39,7 +39,7 @@ with
             annee,
             matricule,
             corp_empl,
-            e2.gr_paie,
+            abs_scolaire.gr_paie,
             lieu_trav,
             pourc_sal,
             categories,
@@ -71,7 +71,7 @@ with
                 end
             ) as jds_vendredi,
             count(*) as nbr_jours
-        from {{ ref("fact_absence_e1") }} as e2
+        from {{ ref("stg_absences_scolaires_unpivot") }} as abs_scolaire
 
         inner join {{ ref("i_pai_tab_cal_jour") }} as cal on cal.date_jour = date
 
@@ -79,7 +79,7 @@ with
             annee,
             matricule,
             corp_empl,
-            e2.gr_paie,
+            abs_scolaire.gr_paie,
             stat_eng,
             type_duree,
             lieu_trav,
@@ -152,6 +152,6 @@ select
     hr_abs
 from absences_agregees_employe as abe
 inner join
-    {{ ref("fact_absence_e0") }} as jr_tr
+    {{ ref("stg_calendrier-jours-eligibles") }} as jr_tr
     on abe.annee = jr_tr.annee
     and abe.gr_paie = jr_tr.gr_paie
