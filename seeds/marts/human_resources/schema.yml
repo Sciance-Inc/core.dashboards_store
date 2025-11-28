@@ -130,7 +130,7 @@ seeds:
           - not_null
           - unique
 
-      - name: categories
+      - name: categorie
         description: >
           Nom ou description de la catégorie du motif d’absence (ex. Maladie, Vacances, etc.).
 

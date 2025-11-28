@@ -2,7 +2,7 @@
 
 models:
 
-  - name: fact_absence_e2
+  - name: fact_absence
     description: >
       Table des absences des employés avec répartition par jour de semaine.
       Chaque absence est pondérée par le pourcentage de salaire et filtrée sur les jours ouvrés.

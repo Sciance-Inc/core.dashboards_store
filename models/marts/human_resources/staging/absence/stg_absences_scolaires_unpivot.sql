@@ -87,7 +87,7 @@ with
     -- Absences scolaires categorisées
     -- --------------------------------------------------------------------------------------------------
     absences_scolaires_categorisees as (
-        select abac.*, jour_sem, typabs.categories
+        select abac.*, jour_sem, typabs.categorie
         from absences_brutes_avec_contexte as abac
 
         inner join

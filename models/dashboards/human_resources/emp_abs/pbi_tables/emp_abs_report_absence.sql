@@ -29,7 +29,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             core_dashboards_store.create_nonclustered_index(
                 "{{ this }}", ["secteur", "cat_emp"]
             ),
-            core_dashboards_store.stamp_model("dashboard_emp_abs"),
         ],
     )
 }}
@@ -77,11 +76,11 @@ with
             datediff(
                 year, emp.birth_date, cast(left(annee, 4) + '-07-01' as date)
             ) as age,
-            jc.code_job_name as corp_empl,
+            jg.job_group as corp_empl,
             wp.workplace_name as lieu_trav,
             sec.secteur_descr as secteur,
             jg.job_group_category as cat_emp,
-            abs.categories,
+            abs.categorie,
             jds_lundi,
             jds_mardi,
             jds_mercredi,
@@ -93,7 +92,7 @@ with
             jour_travaille,
             hr_abs,
             etc_abs
-        from {{ ref("fact_absence_e2") }} as abs
+        from {{ ref("fact_absence") }} as abs
 
         inner join {{ ref("dim_employees") }} as emp on abs.matricule = emp.matr
 
@@ -101,9 +100,6 @@ with
 
         inner join
             {{ ref("dim_mapper_job_group") }} as jg on abs.corp_empl = jg.job_group
-
-        inner join
-            {{ ref("dim_mapper_job_class") }} as jc on abs.corp_empl = jc.code_job
 
         inner join
             {{ ref("dim_mapper_workplace") }} as wp on abs.lieu_trav = wp.workplace
