@@ -70,7 +70,7 @@ models:
         description: "Durée de l'absence en unité définie (ex. heures)."
       - name: jour_sem
         description: "Jour de la semaine (0=dimanche, 1=lundi,...,6=samedi)."
-      - name: categories
+      - name: categorie
         description: "Catégorie d'absence après jointure avec type_absence."
       - name: type_duree
         description: "Type de durée après UNPIVOT : 'dl' = longue durée, 'cl' = courte durée."
