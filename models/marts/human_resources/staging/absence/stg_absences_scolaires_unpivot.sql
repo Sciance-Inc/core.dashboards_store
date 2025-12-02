@@ -87,25 +87,18 @@ with
     -- Absences scolaires categorisées
     -- --------------------------------------------------------------------------------------------------
     absences_scolaires_categorisees as (
-        select abac.*, jour_sem, typabs.categorie
+        select abac.*, typabs.categorie
         from absences_brutes_avec_contexte as abac
 
         inner join
-            {{ ref("i_pai_tab_cal_jour") }} as cal
-            on abac.annee = cal.an_budg
-            and abac.gr_paie = cal.gr_paie
-            and abac.date = cal.date_jour
+            {{ ref("stg_calendrier-jours-eligibles") }} as jr_tr
+            on abac.annee = jr_tr.annee
+            and abac.gr_paie = jr_tr.gr_paie
 
         inner join
             {{ ref("type_absence") }} as typabs on abac.motif_abs = typabs.motif_id
 
-        where
-            typabs.statut = 0
-            and (jour_sem not in (0, 6))
-            and type_jour != 'C'  -- Type_jour C => Congé | On ne le prend pas en compte
-            and type_jour != 'E'  -- Type_jour E => Été | On ne le prend pas en compte
-            and jour_sem != 0  -- jour_sem 0 => Dimanche | On ne le prend pas en compte
-            and jour_sem != 6  -- jour_sem 6 => Samedi | On ne le prend pas en compte
+        where typabs.statut = 0
     )
 
 -- --------------------------------------------------------------------------------------------------
