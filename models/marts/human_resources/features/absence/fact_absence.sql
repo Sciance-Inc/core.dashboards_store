@@ -69,7 +69,8 @@ with
                 end
             ) as jds_vendredi,
             count(*) as nbr_jours,
-            dure
+            dure,
+            min((pourc_sal * dure) / 100.0) as duree_absence
         from {{ ref("stg_absences_scolaires_unpivot") }} as abs_scolaire
 
         inner join {{ ref("i_pai_tab_cal_jour") }} as cal on cal.date_jour = date
@@ -95,9 +96,9 @@ with
             max(jds_vendredi) as jds_vendredi,
             min(pourc_sal) as pourc_sal,
             min(type_duree) as type_duree,
-            sum(pourc_sal * dure) / 100.0 as jour,
-            (sum(pourc_sal * dure) / 100.0) * 7 as hr_abs,
-            ((sum(pourc_sal * dure) / 100.0) * 7) / 1826.3 as etc_abs,
+            duree_absence as jour,
+            (duree_absence) * 7 as hr_abs,
+            ((duree_absence) * 7) / 1826.3 as etc_abs,
             date
         from absences_detail_jours_semaine
         group by matricule, date

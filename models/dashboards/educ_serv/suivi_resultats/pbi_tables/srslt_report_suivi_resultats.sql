@@ -107,8 +107,72 @@ with
                 when max(is_maitrise_comp) = 1 then 1 else 0
             end as is_maitrise_comp_yearly
         from base
+        left join
+            {{ ref("fact_resultat_bilan_matiere") }} as bilan_mat
+            on base.fiche = bilan_mat.fiche
+            and bilan_mat.annee
+            between {{ core_dashboards_store.get_current_year() - 4 }}
+            and {{ core_dashboards_store.get_current_year() }}
+        left join
+            {{ ref("fact_resultat_bilan_competence") }} as bilan_comp
+            on bilan_mat.fiche = bilan_comp.fiche
+            and bilan_mat.code_matiere = bilan_comp.code_matiere
+            and bilan_mat.groupe_matiere = bilan_comp.groupe_matiere
+            and bilan_mat.id_eco = bilan_comp.id_eco
+        inner join
+            {{ ref("srslt_dim_matieres_suivi") }} as dim
+            on dim.code_matiere = bilan_mat.code_matiere  -- Only keep the tracked courses   
+        where
+            bilan_mat.etat != 0
+            and bilan_comp.etat != 0
+            and bilan_mat.is_reprise = 0
+            and bilan_comp.is_reprise = 0
+    -- collapse to one row per year
+    ),
+    yearly as (
+        select
+            -- Attributes 
+            base.fiche,
+            base.id_eco,
+            annee,
+            no_comp,
+            description_matiere,
+            -- Current and lagged stauts 
+            max(
+                case
+                    when is_reussite_mat = 'R'
+                    then 1
+                    when is_reussite_mat = 'NR'
+                    then 0
+                    else null
+                end
+            ) as is_reussite_mat_yearly,
+            case when max(is_echec_mat) = 1 then 1 else 0 end as is_echec_mat_yearly,
+            case
+                when max(is_difficulte_mat) = 1 then 1 else 0
+            end as is_difficulte_mat_yearly,
+            case
+                when max(is_maitrise_mat) = 1 then 1 else 0
+            end as is_maitrise_mat_yearly,
+            max(
+                case
+                    when is_reussite_comp = 'R'
+                    then 1
+                    when is_reussite_comp = 'NR'
+                    then 0
+                    else null
+                end
+            ) as is_reussite_comp_yearly,
+            case when max(is_echec_comp) = 1 then 1 else 0 end as is_echec_comp_yearly,
+            case
+                when max(is_difficulte_comp) = 1 then 1 else 0
+            end as is_difficulte_comp_yearly,
+            case
+                when max(is_maitrise_comp) = 1 then 1 else 0
+            end as is_maitrise_comp_yearly
+        from base
         group by base.fiche, base.id_eco, annee, description_matiere, no_comp
-    )
+    ),
     -- Compute the lagged success / failure status
     ,
     lagged as (
@@ -178,17 +242,24 @@ with
             -- Current and lagged stauts 
             is_reussite_mat,
             is_reussite_mat_lagged,
+            is_reussite_mat_lagged,
             is_echec_mat,
+            is_echec_mat_lagged,
             is_echec_mat_lagged,
             is_difficulte_mat,
             is_difficulte_mat_lagged,
+            is_difficulte_mat_lagged,
             is_maitrise_mat,
+            is_maitrise_mat_lagged,
             is_maitrise_mat_lagged,
             is_reussite_comp,
             is_reussite_comp_lagged,
+            is_reussite_comp_lagged,
             is_echec_comp,
             is_echec_comp_lagged,
+            is_echec_comp_lagged,
             is_difficulte_comp,
+            is_difficulte_comp_lagged,
             is_difficulte_comp_lagged,
             is_maitrise_comp,
             is_maitrise_comp_lagged
@@ -273,6 +344,7 @@ with
                 then 1
                 else 0
             end as is_maitrise_previous_y
+        from _join
         from _join
 
     -- Squeeze the yearly dimension to only keep the current year for filtering   
