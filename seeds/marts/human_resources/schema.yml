@@ -96,15 +96,15 @@ seeds:
       Une table contenant les informations sur les secteurs des écoles et leurs caractéristiques.
     columns:
       - name: lieu_trav
-        description: Le numéro du lieu de travail
+        description: Le numéro de l'unité administrative ou de l'école
         tests:
           - not_null
       - name: secteur_Id
-        description: L'ID du secteur
+        description: L'ID du secteur géographique ou subdivition de votre territoire
         tests:
           - not_null
       - name: secteur_Descr
-        description: Description du secteur
+        description: Description du secteur géographique ou subdivition de votre territoire
         tests:
           - not_null
     config:
