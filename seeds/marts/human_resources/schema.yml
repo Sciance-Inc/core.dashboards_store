@@ -95,8 +95,8 @@ seeds:
     description: >
       Une table contenant les informations sur les secteurs des écoles et leurs caractéristiques.
     columns:
-      - name: ua_Id
-        description: L'ID de l'école
+      - name: lieu_trav
+        description: Le numéro du lieu de travail
         tests:
           - not_null
       - name: secteur_Id
@@ -112,7 +112,7 @@ seeds:
         - human_resources
       schema: human_resources_seeds
       column_types:
-        ua_Id: int
+        lieu_trav: nvarchar(3)
         secteur_Id: int
         secteur_Descr: nvarchar(32)
 
