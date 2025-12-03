@@ -69,12 +69,10 @@ with
                 end
             ) as jds_vendredi,
             count(*) as nbr_jours,
-            dure,
-            min((pourc_sal * dure) / 100.0) as duree_absence
+            dure
+
         from {{ ref("stg_absences_scolaires_unpivot") }} as abs_scolaire
-
         inner join {{ ref("i_pai_tab_cal_jour") }} as cal on cal.date_jour = date
-
         group by matricule, date, corp_empl, lieu_trav, categorie, pourc_sal, dure
     ),
 
@@ -85,7 +83,7 @@ with
         select
             min(annee) as annee,
             matricule,
-            min(corp_empl) as corp_empl,
+            min(adjs.corp_empl) as corp_empl,
             min(gr_paie) as gr_paie,
             min(lieu_trav) as lieu_trav,
             min(categorie) as categorie,
@@ -96,11 +94,28 @@ with
             max(jds_vendredi) as jds_vendredi,
             min(pourc_sal) as pourc_sal,
             min(type_duree) as type_duree,
-            duree_absence as jour,
-            (duree_absence) * 7 as hr_abs,
-            ((duree_absence) * 7) / 1826.3 as etc_abs,
+            min(pourc_sal * dure) / 100.0 as jour,
+
+            case
+                when
+                    max(cast(hq.poste_specifique as int)) = 1
+                    and max(hq.corp_empl) = max(adjs.corp_empl)
+                then (sum(pourc_sal * dure) / 100.0) * max(hq.heure)
+                else (sum(pourc_sal * dure) / 100.0) * min(hq.heure)
+            end as hr_abs,
+
+            case
+                when
+                    max(cast(hq.poste_specifique as int)) = 1
+                    and max(hq.corp_empl) = max(adjs.corp_empl)
+                then (sum(pourc_sal * dure) / 100.0) * max(hq.heure) / 1826.3
+                else (sum(pourc_sal * dure) / 100.0) * min(hq.heure) / 1826.3
+            end as etc_abs,
             date
-        from absences_detail_jours_semaine
+        from absences_detail_jours_semaine as adjs
+        inner join
+            {{ ref("heure_quotidienne") }} as hq
+            on left(adjs.corp_empl, 1) = hq.categorieemp
         group by matricule, date
     )
 

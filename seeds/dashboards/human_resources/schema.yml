@@ -1,4 +1,4 @@
-﻿version: 2
+version: 2
 
 seeds:
   - name: secteur
@@ -25,3 +25,32 @@ seeds:
         lieu_trav: nvarchar(3)
         secteur_Id: int
         secteur_Descr: nvarchar(32)
+
+  - name: heure_quotidienne
+    description: >
+      Une table contenant les heures quotidiennes selon le corps d'emploi
+      et si le poste est spécifique ou non.
+    columns:
+      - name: categorieEmp
+        description: Catégorie d'emploi. ex - 1 = Cadre, 2 = professionnel etc
+        tests:
+          - not_null    
+      - name: poste_specifique
+        description: Indique si le poste est spécifique (1) ou non (0)
+        tests:
+          - not_null
+      - name: corp_empl
+        description: Code du corps d'emploi (4 caractères)
+      - name: heure
+        description: Nombre d'heures quotidiennes associées
+        tests:
+          - not_null
+    config:
+      tags:
+        - human_resources
+      schema: human_resources_seeds
+      column_types:
+        categorieEmp: nvarchar(1)
+        poste_specifique: bit
+        corp_empl: nvarchar(4)
+        heure: decimal(5,2)        
