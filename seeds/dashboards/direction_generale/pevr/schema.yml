@@ -58,7 +58,7 @@ seeds:
         taux: float
         cible: float
 
-  - name: indicateurs_pevr_css
+  - name: indicateurs_pevr_meq
     description: Mapping des indicateurs communs avec leur description.
     tests:
       - core_dashboards_store.resolution:
@@ -94,7 +94,7 @@ seeds:
         code_matiere: nvarchar(max)
         no_competence: nvarchar(max)
 
-  - name: custom_indicateurs_pevr_css
+  - name: custom_indicateurs_pevr_meq
     description: mapping optionnel des indicateurs personalisés des css.
     columns:
       - name: objectif
