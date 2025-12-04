@@ -399,10 +399,6 @@ select
         when is_maitrise_previous_y = 1 then 'Oui' else 'Non'
     end as is_maitrise_course_previous
 from squeezed as sq
-inner join
-    {{ ref("stg_descr_mat") }} as descr_mat
-    on sq.code_matiere = descr_mat.mat
-    and sq.id_eco = descr_mat.id_eco
 inner join {{ ref("dim_eleve") }} as el on sq.fiche = el.fiche
 inner join
     {{ ref("stg_descr_comp") }} as descr_comp
