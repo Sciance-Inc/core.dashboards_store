@@ -96,7 +96,7 @@ with
 
         inner join {{ ref("dim_employees") }} as emp on abs.matricule = emp.matr
 
-        inner join {{ ref("secteur") }} as sec on abs.lieu_trav = sec.lieu_trav
+        left join {{ ref("secteur") }} as sec on abs.lieu_trav = sec.lieu_trav
 
         inner join
             {{ ref("dim_mapper_job_group") }} as jg on abs.corp_empl = jg.job_group
