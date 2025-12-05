@@ -111,6 +111,7 @@ with
                 then (sum(pourc_sal * dure) / 100.0) * max(hq.heure) / 1826.3
                 else (sum(pourc_sal * dure) / 100.0) * min(hq.heure) / 1826.3
             end as etc_abs,
+
             date
         from absences_detail_jours_semaine as adjs
         inner join
