@@ -17,3 +17,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select an_budg, gr_paie, date_jour, jour_sem, bal_jour_ouv, type_jour, bal_jour_pay
 from {{ var("database_paie") }}.dbo.pai_tab_cal_jour
+with (nolock)

@@ -2,7 +2,7 @@ name: "core_dashboards_store"
 version: "0.9.0"
 config-version: 2
 
-profile: "csvt_store" #"Make sure you a runing DBT from the cssXX repository, not the core.dashboards_store repository."
+profile: "nightly_profile" #"Make sure you a runing DBT from the cssXX repository, not the core.dashboards_store repository."
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -46,7 +46,6 @@ seeds:
           +tags: ["chronic_absenteeism"]
           +schema: "dashboard_chronic_absenteeism"
       direction_generale:
-        
         pevr:
           +enabled: true
           +tags: ["pevr"]
@@ -85,7 +84,7 @@ models:
             +post-hook:
               [
                 "{{ core_dashboards_store.stamp_model('dashboard_effectif_css') }}",
-              ]    
+              ]
 
         res_epreuves:
           +tags: ["res_epreuves"]
@@ -179,18 +178,22 @@ models:
         emp_abs:
           +tags: ["emp_abs"]
           +schema: "dashboard_emp_abs"
+          pbi_tables:
+            +post-hook:
+              [
+                "{{ core_dashboards_store.stamp_model('dashboard_emp_abs') }}",
+              ]          
 
       direction_generale:
-        +enabled: false
         pevr:
           +tags: ["pevr"]
           +schema: "dashboard_pevr"
           pbi_tables:
-            +post-hook:
-              [
-                "{{ core_dashboards_store.stamp_model('dashboard_pevr') }}",
-                "{{ core_dashboards_store.seeds_validator('dashboard_pevr_seeds','custom','3') }}"
-              ]
+              +post-hook:
+                [
+                  "{{ core_dashboards_store.stamp_model('dashboard_pevr') }}",
+                  "{{ core_dashboards_store.seeds_validator('dashboard_pevr_seeds','custom','3') }}"
+                ]
       org_scolaire:
         +enabled: true
         anomalies:
@@ -231,3 +234,6 @@ vars:
   dashboards:
     res_epreuves:
       cod_css: replacemeplease
+
+    emp_abs:
+      code_paiement: replacemeplease      

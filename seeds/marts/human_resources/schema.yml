@@ -91,31 +91,6 @@ seeds:
         valid_from: int
         valid_until: int
 
-  - name: secteur
-    description: >
-      Une table contenant les informations sur les secteurs des écoles et leurs caractéristiques.
-    columns:
-      - name: ua_Id
-        description: L'ID de l'école
-        tests:
-          - not_null
-      - name: secteur_Id
-        description: L'ID du secteur
-        tests:
-          - not_null
-      - name: secteur_Descr
-        description: Description du secteur
-        tests:
-          - not_null
-    config:
-      tags:
-        - human_resources
-      schema: human_resources_seeds
-      column_types:
-        ua_Id: int
-        secteur_Id: int
-        secteur_Descr: nvarchar(32)
-
   - name: type_absence
     description: >
       Table de référence des motifs d’absence. 
@@ -130,7 +105,7 @@ seeds:
           - not_null
           - unique
 
-      - name: categories
+      - name: categorie
         description: >
           Nom ou description de la catégorie du motif d’absence (ex. Maladie, Vacances, etc.).
 

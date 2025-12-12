@@ -29,3 +29,4 @@ select
     gr_paie,
     sect
 from {{ var("database_paie") }}.dbo.pai_hemp
+with (nolock)

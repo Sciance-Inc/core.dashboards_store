@@ -2,85 +2,7 @@
 
 models:
 
-  - name: fact_absence_e0
-    description: >
-      Table de faits calculant le nombre de jours travaillés par groupe de paie et par année budgétaire. 
-      Exclut les congés, les jours d’été et les fins de semaine. 
-      Sert de base au calcul du taux d’absentéisme dans les tableaux de bord RH.
-
-    columns:
-      - name: annee
-        description: >
-          Année budgétaire (champ [an_budg]) utilisée pour agréger les jours travaillés.
-        tests:
-          - not_null
-      - name: gr_paie
-        description: >
-          Groupe de paie permettant de segmenter les employés selon leur type d’emploi (ex. enseignant, soutien, cadre).
-        tests:
-          - not_null
-
-      - name: jour_trav
-        description: >
-          Nombre total de jours travaillés selon les critères suivants :
-          - Année courante ou suivante : jours jusqu’à la date actuelle
-          - Années précédentes : jours jusqu’à la veille
-          Les jours de congé ('C'), d’été ('E') et de fin de semaine (0 = dimanche, 6 = samedi) sont exclus.
-        tests:
-          - not_null    
-
-  - name: fact_absence_e1
-    description: >
-      Table des absences brutes des employés enrichie avec le contexte RH,
-      filtrée pour l'année scolaire et les jours ouvrés.
-      Les absences sont catégorisées et transformées via UNPIVOT pour distinguer
-      les absences de courte durée (CL) et longue durée (DL).
-
-    columns:
-      - name: annee
-        description: "Année scolaire correspondant à l'absence (ex. '2023-2024')."
-        tests:
-          - not_null
-      - name: matricule
-        description: "Identifiant unique de l'employé."
-        tests:
-          - not_null
-          - relationships:
-              to: ref('dim_employees')
-              field: matr
-      - name: date
-        description: "Date de l'absence."
-        tests:
-          - not_null
-      - name: motif_abs
-        description: "Code du motif d'absence (ex. maladie, congé) provenant de i_pai_habs."
-      - name: lieu_trav
-        description: "Code du lieu de travail de l'employé."
-      - name: pourc_sal
-        description: "Pourcentage de salaire de l'employé à la date de l'absence."
-      - name: gr_paie
-        description: "Groupe de paie de l'employé."
-        tests:
-          - not_null
-      - name: corp_empl
-        description: "Code du corps d'emploi de l'employé."
-      - name: stat_eng
-        description: "Statut d'engagement de l'employé (ex. temps plein, temps partiel)."
-      - name: dure
-        description: "Durée de l'absence en unité définie (ex. heures)."
-      - name: jour_sem
-        description: "Jour de la semaine (0=dimanche, 1=lundi,...,6=samedi)."
-      - name: categories
-        description: "Catégorie d'absence après jointure avec type_absence."
-      - name: type_duree
-        description: "Type de durée après UNPIVOT : 'dl' = longue durée, 'cl' = courte durée."
-        tests:
-          - accepted_values:
-              values: ['dl','cl']
-      - name: valeur
-        description: "Valeur de l'absence pour le type de durée correspondant (1 = applicable, 0 = non)."
-
-  - name: fact_absence_e2
+  - name: fact_absence
     description: >
       Table des absences des employés avec répartition par jour de semaine.
       Chaque absence est pondérée par le pourcentage de salaire et filtrée sur les jours ouvrés.
@@ -108,7 +30,7 @@ models:
         description: "Lieu de travail de l'employé."
       - name: pourc_sal
         description: "Pourcentage de salaire servant à pondérer les absences."
-      - name: categories
+      - name: categorie
         description: "Catégorie de l'absence (ex. maladie, congé)."
       - name: dure
         description: "Durée de l'absence."

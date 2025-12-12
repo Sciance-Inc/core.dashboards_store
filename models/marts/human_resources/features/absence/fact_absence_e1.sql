@@ -15,7 +15,6 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{{ config(alias="fact_absence_e1") }}
 {{
     config(
         materialized="table",
@@ -30,6 +29,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     )
 }}
 
+{% set AssurangeLongTerme = var("dashboards")["emp_abs"]["code_paiement"] %}
+
 with
     -- --------------------------------------------------------------------------------------------------
     -- Absences brutes avec contexte
@@ -37,14 +38,14 @@ with
     absences_brutes_avec_contexte as (
         select
             cast(
-                year(absence. [date])
-                - case when month(absence. [date]) < 7 then 1 else 0 end as varchar(4)
+                year(absence.date)
+                - case when month(absence.date) < 7 then 1 else 0 end as varchar(4)
             ) + cast(
-                year(absence. [date])
-                + case when month(absence. [date]) < 7 then 0 else 1 end as varchar(4)
+                year(absence.date)
+                + case when month(absence.date) < 7 then 0 else 1 end as varchar(4)
             ) as annee,
-            absence. [matr] as [matricule],
-            absence. [date],
+            absence.matr as matricule,
+            absence.date,
             absence.mot_abs as motif_abs,
             absence.lieu_trav as lieu_trav,
             hemp.pourc_sal,
@@ -52,13 +53,21 @@ with
             absence.corp_empl,
             hemp.stat_eng,
             dure,
-            -- Code de paiement :103525 => Assurance long terme
+
             case
-                when absence.code_pmnt = 103525 or etat.duree = 1 then 1 else 0
-            end as dl,
+                when
+                    absence.code_pmnt in ({{ AssurangeLongTerme | join(", ") }})
+                    or etat.duree = 1
+                then 1
+                else 0
+            end as duree_longue,
             case
-                when absence.code_pmnt != 103525 and etat.duree != 1 then 1 else 0
-            end as cl
+                when
+                    absence.code_pmnt not in ({{ AssurangeLongTerme | join(", ") }})
+                    and etat.duree != 1
+                then 1
+                else 0
+            end as duree_courte
 
         from {{ ref("i_pai_habs") }} as absence
 
@@ -78,25 +87,18 @@ with
     -- Absences scolaires categorisées
     -- --------------------------------------------------------------------------------------------------
     absences_scolaires_categorisees as (
-        select abac.*, jour_sem, typabs.categories
+        select abac.*, typabs.categorie
         from absences_brutes_avec_contexte as abac
 
         inner join
-            {{ ref("i_pai_tab_cal_jour") }} as cal
-            on abac.annee = cal.an_budg
-            and abac.gr_paie = cal.gr_paie
-            and abac.date = cal.date_jour
+            {{ ref("stg_calendrier-jours-eligibles") }} as jr_tr
+            on abac.annee = jr_tr.annee
+            and abac.gr_paie = jr_tr.gr_paie
 
         inner join
             {{ ref("type_absence") }} as typabs on abac.motif_abs = typabs.motif_id
 
-        where
-            typabs.statut = 0
-            and (jour_sem not in (0, 6))
-            and type_jour != 'C'  -- Type_jour C => Congé | On ne le prend pas en compte
-            and type_jour != 'E'  -- Type_jour E => Été | On ne le prend pas en compte
-            and jour_sem != 0  -- jour_sem 0 => Dimanche | On ne le prend pas en compte
-            and jour_sem != 6  -- jour_sem 6 => Samedi | On ne le prend pas en compte
+        where typabs.statut = 0
     )
 
 -- --------------------------------------------------------------------------------------------------
@@ -104,6 +106,7 @@ with
 -- --------------------------------------------------------------------------------------------------
 select *
 from
-    absences_scolaires_categorisees unpivot (valeur for type_duree in (dl, cl)) as unpvt
+    absences_scolaires_categorisees
+    unpivot (valeur for type_duree in (duree_longue, duree_courte)) as unpvt
 
 where valeur != 0

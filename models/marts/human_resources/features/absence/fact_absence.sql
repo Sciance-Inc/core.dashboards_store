@@ -36,16 +36,14 @@ with
     -- --------------------------------------------------------------------------------------------------
     absences_detail_jours_semaine as (
         select
-            annee,
+            min(annee) as annee,
             matricule,
             corp_empl,
-            e2.gr_paie,
+            min(abs_scolaire.gr_paie) as gr_paie,
             lieu_trav,
             pourc_sal,
-            categories,
-            dure,
-            stat_eng,
-            type_duree,
+            categorie,
+            min(type_duree) as type_duree,
             date,
             sum(
                 case
@@ -70,23 +68,12 @@ with
                     when cal.jour_sem = 5 then ((pourc_sal * dure) / 100) / 7 else 0
                 end
             ) as jds_vendredi,
-            count(*) as nbr_jours
-        from {{ ref("fact_absence_e1") }} as e2
+            count(*) as nbr_jours,
+            dure
 
+        from {{ ref("stg_absences_scolaires_unpivot") }} as abs_scolaire
         inner join {{ ref("i_pai_tab_cal_jour") }} as cal on cal.date_jour = date
-
-        group by
-            annee,
-            matricule,
-            corp_empl,
-            e2.gr_paie,
-            stat_eng,
-            type_duree,
-            lieu_trav,
-            pourc_sal,
-            categories,
-            dure,
-            date
+        group by matricule, date, corp_empl, lieu_trav, categorie, pourc_sal, dure
     ),
 
     -- --------------------------------------------------------------------------------------------------
@@ -94,40 +81,43 @@ with
     -- --------------------------------------------------------------------------------------------------
     absences_agregees_employe as (
         select
-            annee,
+            min(annee) as annee,
             matricule,
-            corp_empl,
-            gr_paie,
-            lieu_trav,
-            categories,
-            jds_lundi,
-            jds_mardi,
-            jds_mercredi,
-            jds_jeudi,
-            jds_vendredi,
-            pourc_sal,
-            type_duree,
-            sum(pourc_sal * dure) / 100.0 as jour,
-            (sum(pourc_sal * dure) / 100.0) * 7 as hr_abs,
-            ((sum(pourc_sal * dure) / 100.0) * 7) / 1826.3 as etc_abs,
+            min(adjs.corp_empl) as corp_empl,
+            min(gr_paie) as gr_paie,
+            min(lieu_trav) as lieu_trav,
+            min(categorie) as categorie,
+            max(jds_lundi) as jds_lundi,
+            max(jds_mardi) as jds_mardi,
+            max(jds_mercredi) as jds_mercredi,
+            max(jds_jeudi) as jds_jeudi,
+            max(jds_vendredi) as jds_vendredi,
+            min(pourc_sal) as pourc_sal,
+            min(type_duree) as type_duree,
+            min(pourc_sal * dure) / 100.0 as jour,
+
+            case
+                when
+                    max(cast(hq.poste_specifique as int)) = 1
+                    and max(hq.corp_empl) = max(adjs.corp_empl)
+                then (sum(pourc_sal * dure) / 100.0) * max(hq.heure)
+                else (sum(pourc_sal * dure) / 100.0) * min(hq.heure)
+            end as hr_abs,
+
+            case
+                when
+                    max(cast(hq.poste_specifique as int)) = 1
+                    and max(hq.corp_empl) = max(adjs.corp_empl)
+                then (sum(pourc_sal * dure) / 100.0) * max(hq.heure) / 1826.3
+                else (sum(pourc_sal * dure) / 100.0) * min(hq.heure) / 1826.3
+            end as etc_abs,
+
             date
-        from absences_detail_jours_semaine
-        group by
-            annee,
-            matricule,
-            corp_empl,
-            gr_paie,
-            lieu_trav,
-            categories,
-            type_duree,
-            jds_lundi,
-            jds_mardi,
-            jds_mercredi,
-            jds_jeudi,
-            jds_vendredi,
-            pourc_sal,
-            date,
-            dure
+        from absences_detail_jours_semaine as adjs
+        inner join
+            {{ ref("heure_quotidienne") }} as hq
+            on left(adjs.corp_empl, 1) = hq.categorieemp
+        group by matricule, date
     )
 
 select
@@ -135,12 +125,11 @@ select
     abe.matricule,
     abe.corp_empl,
     abe.lieu_trav,
-    abe.categories,
+    abe.categorie,
     case
-        when type_duree = 'cl' then 'Courte durée' else 'Longue durée'
+        when type_duree = 'duree_courte' then 'Courte durée' else 'Longue durée'
     end as duree_descr,
     abe.jour as jour_absence,
-    jr_tr.jour_trav as jour_travaille,
     abe.jds_lundi,
     abe.jds_mardi,
     abe.jds_mercredi,
@@ -152,6 +141,6 @@ select
     hr_abs
 from absences_agregees_employe as abe
 inner join
-    {{ ref("fact_absence_e0") }} as jr_tr
+    {{ ref("stg_calendrier-jours-eligibles") }} as jr_tr
     on abe.annee = jr_tr.annee
     and abe.gr_paie = jr_tr.gr_paie
