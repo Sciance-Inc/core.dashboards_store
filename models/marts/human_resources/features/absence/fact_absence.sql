@@ -70,7 +70,6 @@ with
             ) as jds_vendredi,
             count(*) as nbr_jours,
             dure
-
         from {{ ref("stg_absences_scolaires_unpivot") }} as abs_scolaire
         inner join {{ ref("i_pai_tab_cal_jour") }} as cal on cal.date_jour = date
         group by matricule, date, corp_empl, lieu_trav, categorie, pourc_sal, dure
@@ -130,7 +129,6 @@ select
         when type_duree = 'duree_courte' then 'Courte durée' else 'Longue durée'
     end as duree_descr,
     abe.jour as jour_absence,
-    jr_tr.jour_trav as jour_travaille,
     abe.jds_lundi,
     abe.jds_mardi,
     abe.jds_mercredi,
@@ -141,7 +139,3 @@ select
     etc_abs,
     hr_abs
 from absences_agregees_employe as abe
-inner join
-    {{ ref("stg_calendrier-jours-eligibles") }} as jr_tr
-    on abe.annee = jr_tr.annee
-    and abe.gr_paie = jr_tr.gr_paie

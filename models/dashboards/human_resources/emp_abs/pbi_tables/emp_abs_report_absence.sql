@@ -43,40 +43,51 @@ with
             case
                 when
                     datediff(
-                        year, emp.birth_date, cast(left(annee, 4) + '-07-01' as date)
+                        year,
+                        emp.birth_date,
+                        cast(left(abs.annee, 4) + '-07-01' as date)
                     )
                     < 25
                 then '24 ans et moins'
                 when
                     datediff(
-                        year, emp.birth_date, cast(left(annee, 4) + '-07-01' as date)
+                        year,
+                        emp.birth_date,
+                        cast(left(abs.annee, 4) + '-07-01' as date)
                     )
                     between 25 and 34
                 then '25 à 34 ans'
                 when
                     datediff(
-                        year, emp.birth_date, cast(left(annee, 4) + '-07-01' as date)
+                        year,
+                        emp.birth_date,
+                        cast(left(abs.annee, 4) + '-07-01' as date)
                     )
                     between 35 and 44
                 then '35 à 44 ans'
                 when
                     datediff(
-                        year, emp.birth_date, cast(left(annee, 4) + '-07-01' as date)
+                        year,
+                        emp.birth_date,
+                        cast(left(abs.annee, 4) + '-07-01' as date)
                     )
                     between 45 and 54
                 then '45 à 54 ans'
                 when
                     datediff(
-                        year, emp.birth_date, cast(left(annee, 4) + '-07-01' as date)
+                        year,
+                        emp.birth_date,
+                        cast(left(abs.annee, 4) + '-07-01' as date)
                     )
                     between 55 and 64
                 then '55 à 64 ans'
                 else '65 ans et plus'
             end as tranche_age,
             datediff(
-                year, emp.birth_date, cast(left(annee, 4) + '-07-01' as date)
+                year, emp.birth_date, cast(left(abs.annee, 4) + '-07-01' as date)
             ) as age,
-            jg.job_group as corp_empl,
+            jg.job_group + ' - ' + jg.job_group_description as corp_empl,
+            jg.code_job_name as code_job_name,
             wp.workplace_name as lieu_trav,
             sec.secteur_descr as secteur,
             jg.job_group_category as cat_emp,
@@ -89,9 +100,9 @@ with
             duree_descr,
             date,
             jour_absence,
-            jour_travaille,
             hr_abs,
-            etc_abs
+            etc_abs,
+            abs.gr_paie
         from {{ ref("fact_absence") }} as abs
 
         inner join {{ ref("dim_employees") }} as emp on abs.matricule = emp.matr
@@ -105,5 +116,14 @@ with
             {{ ref("dim_mapper_workplace") }} as wp on abs.lieu_trav = wp.workplace
     )
 
-select *
+select
+    *,
+    {{
+        dbt_utils.generate_surrogate_key(
+            [
+                "gr_paie",
+                "date",
+            ]
+        )
+    }} as filter_key
 from absences_employe_final
