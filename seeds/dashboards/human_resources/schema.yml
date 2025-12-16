@@ -7,13 +7,10 @@ seeds:
     columns:
       - name: lieu_trav
         description: Le numéro de l'unité administrative ou de l'école
-        tests:
       - name: secteur_Id
         description: L'ID du secteur géographique ou subdivition de votre territoire
-        tests:
       - name: secteur_Descr
         description: Description du secteur géographique ou subdivition de votre territoire
-        tests:
     config:
       tags:
         - human_resources

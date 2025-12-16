@@ -21,10 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         post_hook=[
             core_dashboards_store.create_clustered_index(
                 "{{ this }}", ["annee", "gr_paie"]
-            ),
-            core_dashboards_store.create_nonclustered_index(
-                "{{ this }}", ["jour_trav"]
-            ),
+            )
         ],
     )
 }}
@@ -32,7 +29,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 select
     an_budg as annee,  -- Année budgétaire
     gr_paie,  -- Groupe de paie | Pour sélectionner les employés selon leur type d'emploi 
-    sum(case when date_jour < getdate() then 1 else 0 end) as jour_trav
+    sum(case when date_jour < getdate() then 1 else 0 end) as jour_trav,
+    min(type_jour) as type_jour,
+    min(jour_sem) as jour_sem
 from {{ ref("i_pai_tab_cal_jour") }}
 where
     type_jour != 'C'  -- Type_jour C => Congé | On ne le prend pas en compte
