@@ -90,7 +90,7 @@ with
                 res_mat.code_matiere
                 not in (select code_matiere from {{ ref("matiere_evalue") }})  -- ne prendre que les résultats de l'année en cours pour les matière avec des épreuve unique 
                 or res_mat.annee = {{ core_dashboards_store.get_current_year() }}
-                and month(getdate()) < 7
+                and (month(getdate()) < 7 or month(getdate()) > 9)
             )  -- pour l'année antérieur nous allons récupérer les résultats ministériels   
     ),
 
