@@ -88,10 +88,10 @@ with
             and left(right(res_mat.code_matiere, 3), 1) in ('4', '5')  -- Matière secondaire 4 et 5
             and (
                 res_mat.code_matiere
-                not in (select code_matiere from {{ ref("matiere_evalue") }})  -- ne prendre que les résultats de l'année en cours pour les matière avec des épreuve unique 
-                or res_mat.annee = {{ core_dashboards_store.get_current_year() }}
-                and (month(getdate()) < 7 or month(getdate()) > 9)
-            )  -- pour l'année antérieur nous allons récupérer les résultats ministériels   
+                not in (select code_matiere from {{ ref("matiere_evalue") }})   
+                or (res_mat.annee = {{ core_dashboards_store.get_current_year() }}    -- pour le suivi en cours d'année pour les matières avec des épreuves uniques on prend les résultats du bilan jusqu'en juin
+                and month(getdate()) not in (7,8))                                    -- pour le résultats finaux on récupère les résultats ministériels, à l'étape suivante, quand ils vont être disponible (mois 7 et 8)    
+            )  -- pour l'année antérieur nous allons récupérer les résultats ministériels    
     ),
 
     src_ri_res as (
