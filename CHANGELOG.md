@@ -2,6 +2,28 @@
 
 
 
+## v0.19.3+20260108 (2026-01-08)
+
+### Bug fixes
+
+* fix(sqlparse): pinning sqlparse version down to 0.5.4 as the v0.5.5 ([`65f9a18`](https://github.com/Sciance-Inc/core.dashboards_store/commit/65f9a18a311520e70c2ec8217f6449fc4c3953a7))
+
+* fix(suivi_resultats): corriger le problème des doublons causé par l'historique de la table i_gpm_t_eco (#109)
+
+Co-authored-by: sadqim <sadqim@csvdc.qc.ca> ([`261d08a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/261d08aafa14616c72cba53c3df7dc1d9ec96da1))
+
+* fix(diplome): modification des conditions where pour afficher les résultats de l'étape 1 (#108)
+
+Co-authored-by: sadqim <sadqim@csvdc.qc.ca> ([`6e290ca`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6e290caaa8b10b813b67df2623a093830f336d22))
+
+### Refactoring
+
+* refactor(pevr): renomer la seed pevr_indicateurs_css vers pevr_indicateurs_meq (#106)
+
+Co-authored-by: sadqim <sadqim@csvdc.qc.ca>
+Co-authored-by: Gabriel Thiffault <thiffaultg@csvt.qc.ca> ([`d16d576`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d16d5769a38c44972b3526e684652121e41f82dc))
+
+
 ## v0.19.2+20251124 (2025-11-24)
 
 ### Bug fixes
