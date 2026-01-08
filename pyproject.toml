@@ -13,6 +13,7 @@ pyodbc = ">=5.2.0"
 python-semantic-release = "^7.33.4"
 docutils = "0.20.1"
 dbt-fabric = {git = "https://git@github.com/Sciance-Inc/dbt-fabric.git", rev = "v0.19.5"}
+sqlparse = "0.5.4" # temp. December 2025. v0.5.5 introduced the '1000 tokens' regression issue. 
 
 
 [tool.poetry.group.dev.dependencies]
