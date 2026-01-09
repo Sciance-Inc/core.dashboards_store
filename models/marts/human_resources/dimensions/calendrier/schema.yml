@@ -1,0 +1,32 @@
+﻿version: 2
+
+models:
+  - name: dim_calendrier
+    description: >
+      This table maps each job group to a job group category.
+      This dimension is designed to be overriden by the client to add custom job group categories.
+    columns:
+      - name: annee
+        description: The job group code. Use-it to merge this dimension with a fact table.
+        tests:
+          - not_null
+      - name: gr_paie
+        description: >
+          The job group category.
+        tests:
+          - not_null          
+      - name: date_jour
+        description: >
+          The job group category.  
+        tests:
+          - not_null          
+      - name: bal_jour_ouv
+        description: >
+          The job group category.
+        tests:
+          - not_null          
+      - name: filter_key
+        description: >
+          The job group category.
+        tests:
+          - not_null          
