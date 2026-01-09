@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     The code check for the custom table existence and adds it to the default table
     For the CUSTOM table to be detected, the table must be :
-        * named 'custom_indicateurs_pevr_css'
+        * named 'custom_indicateurs_pevr_meq'
         * located in the schema 'dashboard_pevr_seeds'
 #}
 {{ config(alias="dim_indicateurs_pevr") }}
@@ -29,7 +29,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {%- set source_relation = adapter.get_relation(
     database=target.database,
     schema=target.schema + "_dashboard_pevr_seeds",
-    identifier="custom_indicateurs_pevr_css",
+    identifier="custom_indicateurs_pevr_meq",
 ) -%}
 {% set table_exists = source_relation is not none %}
 
@@ -37,7 +37,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     {% if execute %}
         {{
             log(
-                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_css' DOES EXIST and will replace the default 'indicateurs_pevr_css'",
+                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_meq' DOES EXIST and will replace the default 'indicateurs_pevr_meq'",
                 true,
             )
         }}
@@ -73,7 +73,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                         description_indicateur,
                         code_matiere,
                         no_competence
-                    from {{ ref("indicateurs_pevr_css") }}
+                    from {{ ref("indicateurs_pevr_meq") }}
                 ) as results
         )
     select
@@ -90,7 +90,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     {% if execute %}
         {{
             log(
-                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_css' DOES NOT exists. The 'pevr_dim_indicateurs' table will be defaulted to 'indicateurs_pevr_css'.",
+                "The seed '*_dashboard_pevr_seeds.custom_indicateurs_pevr_meq' DOES NOT exists. The 'pevr_dim_indicateurs' table will be defaulted to 'indicateurs_pevr_meq'.",
                 true,
             )
         }}
@@ -103,5 +103,5 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         description_indicateur,
         code_matiere,
         no_competence
-    from {{ ref("indicateurs_pevr_css") }}
+    from {{ ref("indicateurs_pevr_meq") }}
 {% endif %}
