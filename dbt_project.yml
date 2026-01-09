@@ -160,7 +160,14 @@ models:
           pbi_tables:
             +post-hook:
               ["{{ core_dashboards_store.stamp_model('dashboard_emp_actif') }}"]
-
+        emp_abs:
+          +tags: ["emp_abs"]
+          +schema: "dashboard_emp_abs"
+          pbi_tables:
+            +post-hook:
+              [
+                "{{ core_dashboards_store.stamp_model('dashboard_emp_abs') }}",
+              ]          
         retirement:
           +tags: ["retirement"]
           +schema: "dashboard_retirement"
@@ -218,3 +225,6 @@ vars:
   dashboards:
     res_epreuves:
       cod_css: replacemeplease
+
+    emp_abs:
+      code_paiement: replacemeplease         
