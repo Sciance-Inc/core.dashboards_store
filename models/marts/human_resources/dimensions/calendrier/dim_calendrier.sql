@@ -26,7 +26,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     )
 }}
 
-
 with
     denombrement as (
         select
@@ -37,8 +36,10 @@ with
         where
             type_jour not in ('C', 'E')
             and jour_sem not in (0, 6)
-            and an_budg >= {{ core_dashboards_store.get_current_year() - 2 }}
-            {{ (core_dashboards_store.get_current_year() - 1) }}
+            and an_budg
+            >= '{{ (core_dashboards_store.get_current_year() - 5) ~ (core_dashboards_store.get_current_year() - 4) }}'
+            and an_budg
+            <= '{{ core_dashboards_store.get_current_year() ~ (core_dashboards_store.get_current_year() + 1) }}'
 
         group by an_budg, gr_paie
     ),
@@ -55,8 +56,10 @@ with
         where
             type_jour not in ('C', 'E')
             and jour_sem not in (0, 6)
-            and an_budg >= {{ core_dashboards_store.get_current_year() - 2 }}
-            {{ (core_dashboards_store.get_current_year() - 1) }}
+            and an_budg
+            >= '{{ (core_dashboards_store.get_current_year() - 5)~ (core_dashboards_store.get_current_year() - 4) }}'
+            and an_budg
+            <= '{{ core_dashboards_store.get_current_year() ~ (core_dashboards_store.get_current_year() + 1) }}'
     )
 
 select

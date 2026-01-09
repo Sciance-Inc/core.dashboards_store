@@ -15,14 +15,6 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{#
-    Compute the full set of slicers for the two reports tables.
-
-    Because of the double-granularity difference (age and school_year) between the rtmrt_report_retirement_age table and the trmrt_report_active_employees_age table, I can't properly combine the two report tables.
-    Since powerbi doesn't support many-to-many relations, the filters have to be implemented in a separated table.
-    
-    That's gross.
-#}
 {{ config(alias="report_filters") }}
 
 
