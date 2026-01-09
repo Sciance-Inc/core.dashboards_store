@@ -1,0 +1,54 @@
+﻿version: 2
+
+models:
+
+  - name: fact_absence
+    description: >
+      Table des absences des employés avec répartition par jour de semaine.
+      Chaque absence est pondérée par le pourcentage de salaire et filtrée sur les jours ouvrés.
+      Cette table est la base pour l’agrégation des absences par employé et par type de durée.
+
+    columns:
+      - name: annee
+        description: "Année scolaire correspondant à l'absence."
+        tests:
+          - not_null
+      - name: matricule
+        description: "Identifiant unique de l'employé."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_employees')
+              field: matr
+      - name: corp_empl
+        description: "Code du corps d'emploi de l'employé."
+      - name: gr_paie
+        description: "Groupe de paie."
+        tests:
+          - not_null
+      - name: lieu_trav
+        description: "Lieu de travail de l'employé."
+      - name: pourc_sal
+        description: "Pourcentage de salaire servant à pondérer les absences."
+      - name: categorie
+        description: "Catégorie de l'absence (ex. maladie, congé)."
+      - name: dure
+        description: "Durée de l'absence."
+      - name: stat_eng
+        description: "Statut d'engagement de l'employé."
+      - name: date
+        description: "Date de l'absence."
+        tests:
+          - not_null
+      - name: jds_lundi
+        description: "Nombre de jours équivalents pour lundi, pondéré par % salaire et durée."
+      - name: jds_mardi
+        description: "Nombre de jours équivalents pour mardi."
+      - name: jds_mercredi
+        description: "Nombre de jours équivalents pour mercredi."
+      - name: jds_jeudi
+        description: "Nombre de jours équivalents pour jeudi."
+      - name: jds_vendredi
+        description: "Nombre de jours équivalents pour vendredi."
+      - name: nbr_jours
+        description: "Nombre de jours d'absence comptabilisés avant agrégation."
