@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     config(
         alias="report_res_bilan_comp_eco",
         materialized="view",
-    ) 
+    )
 }}
 
 select
