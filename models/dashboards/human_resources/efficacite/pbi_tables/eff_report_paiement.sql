@@ -15,32 +15,24 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-
 -- Shadow the raw fact table 
-with agg as (
-        select 
-            lieu_jumele, 
+with
+    agg as (
+        select
+            lieu_jumele,
             annee,
             categorie,
             corp_empl,
             stat_eng,
-            sum(total_mnt_brut) as total_mnt_brut, 
+            sum(total_mnt_brut) as total_mnt_brut,
             sum(hrs_remunere) as hrs_remunere
         from {{ ref("eff_fact_paiement") }}
-        group by 
-            lieu_jumele, 
-            annee,
-            categorie,
-            corp_empl,
-            stat_eng
+        group by lieu_jumele, annee, categorie, corp_empl, stat_eng
     )
 
-select 
-    {{
-        dbt_utils.generate_surrogate_key(
-            ["agg.annee", "agg.lieu_jumele"]
-        )
-    }} as filter_key,
+select
+    {{ dbt_utils.generate_surrogate_key(["agg.annee", "agg.lieu_jumele"]) }}
+    as filter_key,
     map.categorie_lieu_jumele,
     agg.categorie,
     agg.corp_empl,
@@ -48,5 +40,5 @@ select
     agg.total_mnt_brut,
     agg.hrs_remunere
 from agg
-left join {{ ref("dim_mapper_lieu_jumele")}} as map
-    on agg.lieu_jumele = map.lieu_jumele
+left join
+    {{ ref("dim_mapper_lieu_jumele") }} as map on agg.lieu_jumele = map.lieu_jumele

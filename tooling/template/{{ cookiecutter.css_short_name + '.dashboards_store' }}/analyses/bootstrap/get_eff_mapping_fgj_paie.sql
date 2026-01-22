@@ -16,15 +16,13 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 -- La requête SQL extrait une version abrégé de la seed eff_mapping_fgj_paie.
--- C'est pour vous aider a comprendre a bien débuté et comprendre la construction de la seed
+-- C'est pour vous aider a comprendre a bien débuté et comprendre la construction de
+-- la seed
 -- C'est sans équivaut, vous allez devoir ajuster/modifer la seed.
-
 {% raw %}
 select distinct
-    p_tab.lieu_trav, -- Lieu de la paie.
-    eco.eco, -- Les lieux à null sont généralement des écoles satellites ou des établissements d'administration. 
-    null as lieu_jumele -- La colonne doit ABSOLUMENT CONTENIR UN lieu jumelé
-from  {{ ref("i_pai_tab_lieu_trav") }} p_tab
-left join {{ ref("i_gpm_t_eco") }} eco
-    on p_tab.lieu_trav = eco.eco
-{% endraw %}
+    p_tab.lieu_trav,  -- Lieu de la paie.
+    eco.eco,  -- Les lieux à null sont généralement des écoles satellites ou des établissements d'administration. 
+    null as lieu_jumele  -- La colonne doit ABSOLUMENT CONTENIR UN lieu jumelé
+from {{ ref("i_pai_tab_lieu_trav") }} p_tab
+left join {{ ref("i_gpm_t_eco") }} eco on p_tab.lieu_trav = eco.eco {% endraw %}

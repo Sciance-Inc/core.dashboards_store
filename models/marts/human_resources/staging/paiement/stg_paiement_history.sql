@@ -1,8 +1,22 @@
+{#
+Dashboards Store - Helping students, one dashboard at a time.
+Copyright (C) 2023  Sciance Inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#}
 with
-    source as (
-        select matr as matricule, no_cheq
-        from {{ ref("i_pai_hchq") }}
-    ),
+    source as (select matr as matricule, no_cheq from {{ ref("i_pai_hchq") }}),
 
     stg_activity as (
         select
@@ -18,9 +32,10 @@ with
             hc.nb_hres_an,
             hc.nb_hres_jrs
         from {{ ref("stg_activity_history") }} ah
-        left JOIN {{ ref("stg_hrs_calc") }} hc 
-            ON ah.corp_empl = hc.CORP_EMPL
-            AND ah.stat_eng = hc.stat_eng
+        left join
+            {{ ref("stg_hrs_calc") }} hc
+            on ah.corp_empl = hc.corp_empl
+            and ah.stat_eng = hc.stat_eng
     ),
 
     -- Table d'historique des employés
@@ -34,11 +49,11 @@ with
             coalesce(mp.lieu_jumele, 'Lieu jumelé non configuré') as lieu_jumele,
             min(date_eff) as date_debut_historique,
             max(date_fin) as date_fin_historique,
-            max(stg.nb_hres_an) as nb_hres_an, --Dummy
-            max(stg.nb_hres_jrs) as nb_hres_jrs --Dummy
+            max(stg.nb_hres_an) as nb_hres_an,  -- Dummy
+            max(stg.nb_hres_jrs) as nb_hres_jrs  -- Dummy
         from stg_activity stg
         left join {{ ref("eff_mapping_fgj_paie") }} mp on stg.lieu_trav = mp.lieu_trav
-        where stg.lieu_trav is not null -- Enlève les paiement sans lieu de travail dans l'historique.
+        where stg.lieu_trav is not null  -- Enlève les paiement sans lieu de travail dans l'historique.
         group by
             stg.matr,
             stg.ref_empl,
@@ -60,7 +75,7 @@ with
             p.ref_empl,
             p.corp_empl,
             mp.lieu_jumele,
-			SUM(p.nb_unit) as nb_unit,
+            sum(p.nb_unit) as nb_unit,
             sum(p.mnt) as total_mnt_brut,
             min(p.date_deb) as date_debut_paiement,
             max(p.date_fin) as date_fin_paiement,
@@ -75,7 +90,14 @@ with
             on p.lieu_trav = mp.lieu_trav
         where code_pmnt is not null  -- Enlève les déductions non présent dans grp_paiement
         group by
-            s.matricule, s.no_cheq, p.code_pmnt, p.mode_paiement, p.code_provenance, p.ref_empl, p.corp_empl, mp.lieu_jumele
+            s.matricule,
+            s.no_cheq,
+            p.code_pmnt,
+            p.mode_paiement,
+            p.code_provenance,
+            p.ref_empl,
+            p.corp_empl,
+            mp.lieu_jumele
     ),
 
     -- Création d'un uuid pour un fuzzy join
@@ -92,65 +114,87 @@ with
             pid.code_pmnt,
             pid.ref_empl,
             pid.mode_paiement,
-			pid.code_provenance,
-            MAX(coalesce(pid.corp_empl, hs.corp_empl)) as corp_empl,  -- Priorise la donnée de l'historique de paiement
-            MAX(coalesce(pid.lieu_jumele, hs.lieu_jumele)) as lieu_jumele,  -- Priorise la donnée de l'historique de paiement
-			MAX(pid.total_mnt_brut) AS total_mnt_brut,
-			SUM(
-				CASE
-					WHEN pid.code_pmnt = '105001'
-						 AND pid.code_provenance IN ('AX','AY','A0')
-					THEN
-						CASE
-							WHEN pid.mode_paiement IN ('1','5','J')
-								THEN hs.nb_hres_jrs * pid.nb_unit
-							WHEN pid.mode_paiement IN ('H','L','2')
-								THEN pid.nb_unit
-							WHEN pid.mode_paiement IN ('G','M','6','E')
-								THEN NULLIF(pid.nb_unit, 0) / 60
-							WHEN pid.mode_paiement = 'P'
-								THEN (pid.nb_unit * hs.nb_hres_an) / NULLIF(1000, 0)
-							WHEN pid.mode_paiement = 'F'
-								THEN (pid.nb_unit * hs.nb_hres_an) / NULLIF(720, 0)
-							WHEN pid.mode_paiement = 'D'
-								THEN (pid.nb_unit * hs.nb_hres_an) / NULLIF(800, 0)
-							WHEN pid.mode_paiement = '3'
-								THEN (pid.nb_unit * hs.nb_hres_jrs) / NULLIF(2, 0)
-							WHEN pid.mode_paiement = '4'
-								THEN (pid.nb_unit * hs.nb_hres_jrs) * 0.75
-						END
-					WHEN pid.mode_paiement IN ('1','5','J','H','L','2','G','M','6','E','P','F','D','3','4')
-						 AND pid.code_provenance NOT IN ('A6','AJ','AW','AK','A5','AL','AT','AV','AS','AU')
-						 AND pid.code_pmnt NOT LIKE '2%'
-						 AND pid.code_pmnt NOT LIKE '105%'
-					THEN
-						CASE
-							WHEN pid.mode_paiement IN ('1','5','J')
-								THEN hs.nb_hres_jrs * pid.nb_unit
-							WHEN pid.mode_paiement IN ('H','L','2')
-								THEN pid.nb_unit
-							WHEN pid.mode_paiement IN ('G','M','6','E')
-								THEN NULLIF(pid.nb_unit, 0) / 60
-							WHEN pid.mode_paiement = 'P'
-								THEN (pid.nb_unit * hs.nb_hres_an) / NULLIF(1000, 0)
-							WHEN pid.mode_paiement = 'F'
-								THEN (pid.nb_unit * hs.nb_hres_an) / NULLIF(720, 0)
-							WHEN pid.mode_paiement = 'D'
-								THEN (pid.nb_unit * hs.nb_hres_an) / NULLIF(800, 0)
-							WHEN pid.mode_paiement = '3'
-								THEN (pid.nb_unit * hs.nb_hres_jrs) / NULLIF(2, 0)
-							WHEN pid.mode_paiement = '4'
-								THEN (pid.nb_unit * hs.nb_hres_jrs) * 0.75
-						END
-				END
-			) AS hrs_remunere,
-            MIN(pid.date_debut_paiement) AS date_debut_paiement,
-            MAX(pid.date_fin_paiement) AS date_fin_paiement,
-            MIN(hs.date_debut_historique) AS date_debut_historique,
+            pid.code_provenance,
+            max(coalesce(pid.corp_empl, hs.corp_empl)) as corp_empl,  -- Priorise la donnée de l'historique de paiement
+            max(coalesce(pid.lieu_jumele, hs.lieu_jumele)) as lieu_jumele,  -- Priorise la donnée de l'historique de paiement
+            max(pid.total_mnt_brut) as total_mnt_brut,
+            sum(
+                case
+                    when
+                        pid.code_pmnt = '105001'
+                        and pid.code_provenance in ('AX', 'AY', 'A0')
+                    then
+                        case
+                            when pid.mode_paiement in ('1', '5', 'J')
+                            then hs.nb_hres_jrs * pid.nb_unit
+                            when pid.mode_paiement in ('H', 'L', '2')
+                            then pid.nb_unit
+                            when pid.mode_paiement in ('G', 'M', '6', 'E')
+                            then nullif(pid.nb_unit, 0) / 60
+                            when pid.mode_paiement = 'P'
+                            then (pid.nb_unit * hs.nb_hres_an) / nullif(1000, 0)
+                            when pid.mode_paiement = 'F'
+                            then (pid.nb_unit * hs.nb_hres_an) / nullif(720, 0)
+                            when pid.mode_paiement = 'D'
+                            then (pid.nb_unit * hs.nb_hres_an) / nullif(800, 0)
+                            when pid.mode_paiement = '3'
+                            then (pid.nb_unit * hs.nb_hres_jrs) / nullif(2, 0)
+                            when pid.mode_paiement = '4'
+                            then (pid.nb_unit * hs.nb_hres_jrs) * 0.75
+                        end
+                    when
+                        pid.mode_paiement in (
+                            '1',
+                            '5',
+                            'J',
+                            'H',
+                            'L',
+                            '2',
+                            'G',
+                            'M',
+                            '6',
+                            'E',
+                            'P',
+                            'F',
+                            'D',
+                            '3',
+                            '4'
+                        )
+                        and pid.code_provenance not in (
+                            'A6', 'AJ', 'AW', 'AK', 'A5', 'AL', 'AT', 'AV', 'AS', 'AU'
+                        )
+                        and pid.code_pmnt not like '2%'
+                        and pid.code_pmnt not like '105%'
+                    then
+                        case
+                            when pid.mode_paiement in ('1', '5', 'J')
+                            then hs.nb_hres_jrs * pid.nb_unit
+                            when pid.mode_paiement in ('H', 'L', '2')
+                            then pid.nb_unit
+                            when pid.mode_paiement in ('G', 'M', '6', 'E')
+                            then nullif(pid.nb_unit, 0) / 60
+                            when pid.mode_paiement = 'P'
+                            then (pid.nb_unit * hs.nb_hres_an) / nullif(1000, 0)
+                            when pid.mode_paiement = 'F'
+                            then (pid.nb_unit * hs.nb_hres_an) / nullif(720, 0)
+                            when pid.mode_paiement = 'D'
+                            then (pid.nb_unit * hs.nb_hres_an) / nullif(800, 0)
+                            when pid.mode_paiement = '3'
+                            then (pid.nb_unit * hs.nb_hres_jrs) / nullif(2, 0)
+                            when pid.mode_paiement = '4'
+                            then (pid.nb_unit * hs.nb_hres_jrs) * 0.75
+                        end
+                end
+            ) as hrs_remunere,
+            min(pid.date_debut_paiement) as date_debut_paiement,
+            max(pid.date_fin_paiement) as date_fin_paiement,
+            min(hs.date_debut_historique) as date_debut_historique,
             hs.etat_empl,
             hs.stat_eng,
             max(pid.date_cheq_paiement) as date_cheq_paiement,
-            min(datediff(day, pid.date_fin_paiement, hs.date_debut_historique)) as ecart,  -- créer un ranking sur la donnée la plus récente.
+            min(
+                datediff(day, pid.date_fin_paiement, hs.date_debut_historique)
+            ) as ecart,  -- créer un ranking sur la donnée la plus récente.
             pid.uuid_
         from paiement_id pid
         left join
@@ -158,16 +202,16 @@ with
             on pid.matricule = hs.matricule
             and pid.ref_empl = hs.ref_empl
             and pid.date_fin_paiement >= hs.date_debut_historique
-		GROUP BY
+        group by
             pid.matricule,
             pid.no_cheq,
             pid.code_pmnt,
-			pid.code_provenance,
+            pid.code_provenance,
             pid.ref_empl,
-			pid.mode_paiement,
-			hs.etat_empl,
+            pid.mode_paiement,
+            hs.etat_empl,
             hs.stat_eng,
-			pid.uuid_
+            pid.uuid_
     ),
 
     -- Utilisation du uuid avec un order by ecart desc pour prendre la période de
@@ -200,12 +244,12 @@ with
             ft.matricule,
             ft.no_cheq,
             ft.code_pmnt,
-			ft.mode_paiement,
-			ft.code_provenance,
+            ft.mode_paiement,
+            ft.code_provenance,
             ft.ref_empl,
             ft.corp_empl,
             ft.total_mnt_brut,
-			ft.hrs_remunere,
+            ft.hrs_remunere,
             ft.date_debut_paiement,
             ft.date_fin_paiement,
             coalesce(ft.date_fin_paiement, hs.date_fin_historique) as date_fin_periode,
@@ -234,12 +278,12 @@ with
             matricule,
             no_cheq,
             code_pmnt,
-			mode_paiement,
-			code_provenance,
+            mode_paiement,
+            code_provenance,
             ref_empl,
             corp_empl,
             total_mnt_brut,
-			hrs_remunere,
+            hrs_remunere,
             -- date_debut_paiement,
             -- date_fin_paiement,
             date_fin_periode,
@@ -255,15 +299,15 @@ select
     annee,
     matricule,
     no_cheq,
-	code_pmnt,
-	--mode_paiement,
-	--code_provenance,
+    code_pmnt,
+    -- mode_paiement,
+    -- code_provenance,
     ref_empl,
     corp_empl,
     total_mnt_brut,
-	hrs_remunere,
-    --date_debut_paiement,
-    --date_fin_paiement,
+    hrs_remunere,
+    -- date_debut_paiement,
+    -- date_fin_paiement,
     date_fin_periode,
     etat_empl,
     lieu_jumele,

@@ -15,10 +15,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select distinct
-    rp.corp_empl,
-    ce.descr
-from {{ ref('eff_report_paiement') }} rp
-left join {{ ref('i_pai_tab_corp_empl') }} ce
-    on rp.corp_empl = ce.corp_empl
-where rp.categorie = 'Non catégorisé' -- Les CE dont un historique de donnée est existante
+select distinct rp.corp_empl, ce.descr
+from {{ ref("eff_report_paiement") }} rp
+left join {{ ref("i_pai_tab_corp_empl") }} ce on rp.corp_empl = ce.corp_empl
+where rp.categorie = 'Non catégorisé'  -- Les CE dont un historique de donnée est existante

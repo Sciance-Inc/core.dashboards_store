@@ -15,8 +15,6 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-Select
-    nom_lieu_jumele,
-    categorie_lieu_jumele
-from {{ ref('eff_report_filtres') }}
+select nom_lieu_jumele, categorie_lieu_jumele
+from {{ ref("eff_report_filtres") }}
 where annee = {{ core_dashboards_store.get_current_year() }} - 1
