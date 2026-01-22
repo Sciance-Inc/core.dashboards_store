@@ -48,7 +48,11 @@ seeds:
       direction_generale:
         pevr:
           +tags: ["pevr"]
-          +schema: "dashboard_pevr"          
+          +schema: "dashboard_pevr"
+      human_resources:
+        efficacite:
+          +tags: ["efficacite"]
+          +schema: "dashboard_efficacite"
 
 models:
   +materialized: table
@@ -147,6 +151,12 @@ models:
 
       human_resources:
         +tags: ["human_resources"]
+        efficacite:
+          +tags: ["efficacite"]
+          +schema: dashboard_efficacite
+          pbi_tables:
+            +post-hook:
+              ["{{ core_dashboards_store.stamp_model('dashboard_efficacite') }}"]
         emp_conge:
           +tags: ["emp_conge"]
           +schema: dashboard_emp_conge
@@ -191,9 +201,17 @@ models:
               
     interfaces:
       +tags: ["interfaces"]
+      +schema: "interfaces"
       +materialized: ephemeral
+      paie:
+        i_pai_hchq:
+          +materialized: table
+        i_pai_hchq_pmnt:
+          +materialized: table
+        i_pai_hchq_ded:
+          +materialized: table
     rls:
-      +tags: ["rls"]    
+      +tags: ["rls"]
       +schema: rls
 vars:
   is_context_core: true
