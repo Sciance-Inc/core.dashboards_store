@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
 {#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
@@ -22,6 +25,7 @@ select
     categorie_lieu_jumele,
     case when is_school_comparable = 1 then 'Oui' else 'Non' end as comparable
 from {{ ref("dim_mapper_lieu_jumele") }}
+<<<<<<< HEAD
 =======
 {#
 Dashboards Store - Helping students, one dashboard at a time.
@@ -50,3 +54,5 @@ Select
     end as comparable
 from {{ ref('dim_mapper_lieu_jumele') }}
 >>>>>>> 7ed823e (feat(efficacite): ajout des tables de configuration)
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)

@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
 {#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
@@ -19,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 select nom_lieu_jumele, categorie_lieu_jumele
 from {{ ref("eff_report_filtres") }}
 where annee = {{ core_dashboards_store.get_current_year() }} - 1
+<<<<<<< HEAD
 =======
 {#
 Dashboards Store - Helping students, one dashboard at a time.
@@ -43,3 +47,5 @@ Select
 from {{ ref('eff_report_filtres') }}
 where annee = {{ core_dashboards_store.get_current_year() }} - 1
 >>>>>>> 7ed823e (feat(efficacite): ajout des tables de configuration)
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)

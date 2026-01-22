@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
 {#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
@@ -20,6 +23,7 @@ select distinct lt.lieu_trav, lt.descr
 from {{ ref("i_pai_tab_lieu_trav") }} lt
 left join {{ ref("eff_mapping_fgj_paie") }} mp on lt.lieu_trav = mp.lieu_trav
 where mp.lieu_trav is null
+<<<<<<< HEAD
 =======
 {#
 Dashboards Store - Helping students, one dashboard at a time.
@@ -46,3 +50,5 @@ left join {{ ref('eff_mapping_fgj_paie') }} mp
     on lt.lieu_trav = mp.lieu_trav
 where mp.lieu_trav is null
 >>>>>>> 7ed823e (feat(efficacite): ajout des tables de configuration)
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)

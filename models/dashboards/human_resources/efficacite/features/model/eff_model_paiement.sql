@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
 {#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
@@ -96,6 +99,7 @@ select
     x.is_pi_proportion
 from y_wide as y
 join school_attributes as x on y.annee = x.annee and y.lieu_jumele = x.lieu_jumele
+<<<<<<< HEAD
 =======
 {#
 Dashboards Store - Helping students, one dashboard at a time.
@@ -192,3 +196,5 @@ on
     y.annee = x.annee and 
     y.lieu_jumele = x.lieu_jumele
 >>>>>>> 3894cf5 (feat(efficacite): ajout des tables model)
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)

@@ -16,6 +16,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
 -- TODO : REPLACE NEIGHBOUR_LIEU_JUMELE WITH INSITUTION FRIENDLY NAME  BEFORE TGE
 -- UNION (TO REPLACE EFF_FACT_ECART_NEIGHBOOR)
 with
@@ -48,6 +51,7 @@ with
         left join
             {{ ref("dim_mapper_lieu_jumele") }} as jml_neighbour
             on src.neighbour_lieu_jumele = jml_neighbour.lieu_jumele
+<<<<<<< HEAD
 =======
 
 -- TODO : REPLACE NEIGHBOUR_LIEU_JUMELE WITH INSITUTION FRIENDLY NAME  BEFORE TGE UNION (TO REPLACE EFF_FACT_ECART_NEIGHBOOR)
@@ -77,6 +81,8 @@ with base as (
     left join {{ ref('dim_mapper_lieu_jumele') }} as jml on src.lieu_jumele = jml.lieu_jumele
     left join {{ ref('dim_mapper_lieu_jumele') }} as jml_neighbour on src.neighbour_lieu_jumele = jml_neighbour.lieu_jumele
 >>>>>>> e157f43 (feat(efficacite): ajout des tables de reporting)
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
     )
 
 select

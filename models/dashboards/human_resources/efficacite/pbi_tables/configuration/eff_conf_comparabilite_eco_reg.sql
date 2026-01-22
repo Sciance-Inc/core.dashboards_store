@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
 {#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
@@ -22,6 +25,7 @@ select distinct
     nom_lieu_jumele,
     categorie_lieu_jumele
 from {{ ref("eff_reporting_configuration") }}
+<<<<<<< HEAD
 =======
 {#
 Dashboards Store - Helping students, one dashboard at a time.
@@ -51,3 +55,5 @@ select distinct
     categorie_lieu_jumele
 from {{ ref('eff_reporting_configuration') }}
 >>>>>>> 7ed823e (feat(efficacite): ajout des tables de configuration)
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)

@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
 {#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
@@ -20,6 +23,7 @@ select distinct rp.corp_empl, ce.descr
 from {{ ref("eff_report_paiement") }} rp
 left join {{ ref("i_pai_tab_corp_empl") }} ce on rp.corp_empl = ce.corp_empl
 where rp.categorie = 'Non catégorisé'  -- Les CE dont un historique de donnée est existante
+<<<<<<< HEAD
 =======
 {#
 Dashboards Store - Helping students, one dashboard at a time.
@@ -46,3 +50,5 @@ left join {{ ref('i_pai_tab_corp_empl') }} ce
     on rp.corp_empl = ce.corp_empl
 where rp.categorie = 'Non catégorisé' -- Les CE dont un historique de donnée est existante
 >>>>>>> 7ed823e (feat(efficacite): ajout des tables de configuration)
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)

@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
 {#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
@@ -27,6 +30,7 @@ select distinct
     null as lieu_jumele  -- La colonne doit ABSOLUMENT CONTENIR UN lieu jumelé
 from {{ ref("i_pai_tab_lieu_trav") }} p_tab
 left join {{ ref("i_gpm_t_eco") }} eco on p_tab.lieu_trav = eco.eco {% endraw %}
+<<<<<<< HEAD
 =======
 {#
 Dashboards Store - Helping students, one dashboard at a time.
@@ -59,3 +63,5 @@ left join {{ ref("i_gpm_t_eco") }} eco
     on p_tab.lieu_trav = eco.eco
 {% endraw %}
 >>>>>>> 90335f3 (feat(efficacite): ajout du cookie cutter)
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)

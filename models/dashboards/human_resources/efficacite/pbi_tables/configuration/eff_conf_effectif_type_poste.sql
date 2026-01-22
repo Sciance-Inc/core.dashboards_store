@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
 {#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
@@ -20,6 +23,7 @@ select distinct
     concat(corp_empl, ' - ', description_corps_empl) as categorie_emploi,
     categorie as type_emploi
 from {{ ref("eff_categories_emploi_personnalises") }}
+<<<<<<< HEAD
 =======
 {#
 Dashboards Store - Helping students, one dashboard at a time.
@@ -43,3 +47,5 @@ Select distinct
     categorie as type_emploi
 from {{ ref('eff_categories_emploi_personnalises') }}
 >>>>>>> 7ed823e (feat(efficacite): ajout des tables de configuration)
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)

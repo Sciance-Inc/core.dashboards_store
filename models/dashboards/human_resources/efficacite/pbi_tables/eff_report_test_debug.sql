@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
 {#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
@@ -25,6 +28,7 @@ select
     total_mnt_brut,
     hrs_remunere
 from {{ ref("eff_fact_paiement") }}
+<<<<<<< HEAD
 =======
 {#
 Dashboards Store - Helping students, one dashboard at a time.
@@ -59,3 +63,5 @@ select
     hrs_remunere
 from {{ ref('eff_fact_paiement') }}
 >>>>>>> e157f43 (feat(efficacite): ajout des tables de reporting)
+=======
+>>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
