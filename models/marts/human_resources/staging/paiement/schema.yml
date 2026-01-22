@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: stg_paiement_history
+    description: >
+      Une table d'historique sur les paiements qu'un employé à reçu sur 3 ans. La table contient également des paiements provenant de la table des déductions.
+    columns:
+      - name: matricule
+        description: identifiant unique d'un employé
+      - name: no_cheq
+        description: numéro unique d'un chèque
+      - name: code_pmnt
+        description: code de paiement
+      - name: ref_empl
+        description: La référence de l'emploi
+      - name: corp_empl
+        description: Le numéro de l'emploi
+      - name: total_mnt_brut
+        description: Le montant total brut
+      - name: total_hrs_brut
+        description: Le nombre d'heure rémunéré
+      - name: date_fin_periode
+        description: La date de fin de la période de paiement
+      - name: etat_empl
+        description: L'état du corps d'emploi de l'employé
+      - name: lieu_trav
+        description: Le lieu de travail de l'emploi de l'employé
+      - name: stat_eng
+        description: Le statut de l'employé
+      - name: date_cheq_paiement
+        description: La date de paiement
+    config:
+      column_types:
+        matricule: nvarchar(12)
+        no_cheq: nvarchar(12)
+        code_pmnt: nvarchar(12)
+        ref_empl: nvarchar(3)
+        corp_empl: nvarchar(4)
+        total_mnt_brut: decimal(5,3)
+        total_hrs_brut: decimal(5,3)
+        date_fin_periode: date
+        etat_empl: nvarchar(3)
+        lieu_trav: nvarchar(3)
+        stat_eng: nvarchar(2)
+        date_cheq_paiement: date
+      tests:
+        - resolution:
+            combination_of_columns:
+              - matricule
+              - no_cheq
+              - code_pmnt
+              - ref_empl
