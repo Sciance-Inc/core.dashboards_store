@@ -15,18 +15,12 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-
 -- Shadow the eff_fact_paiement WITHOUT any group by for debugging purposes
-
-select 
-    {{
-        dbt_utils.generate_surrogate_key(
-            ["annee", "lieu_jumele"]
-        )
-    }} as filter_key,
+select
+    {{ dbt_utils.generate_surrogate_key(["annee", "lieu_jumele"]) }} as filter_key,
     categorie,
     corp_empl,
     stat_eng,
     total_mnt_brut,
     hrs_remunere
-from {{ ref('eff_fact_paiement') }}
+from {{ ref("eff_fact_paiement") }}

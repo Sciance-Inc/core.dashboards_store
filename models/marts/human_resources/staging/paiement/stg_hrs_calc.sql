@@ -22,20 +22,26 @@ with
             se.stat_eng,
             ce.nb_hres_an,
             -- met sur un dénominateur commun les hrs calculés en jrs
-            CASE
-                WHEN ce.corp_empl like '1%' THEN (ce.nb_hres_an / 260)
-                WHEN ce.corp_empl like '2%' THEN ce.nb_hres_an / 260.9
-                WHEN ce.corp_empl like '3%' AND se.stat_eng IN ('E1','E2','E3','E8') THEN 6.4 
-                WHEN ce.corp_empl like '3%' AND se.stat_eng IN ('E4','E5','E6','E7') THEN CE.nb_hres_an / 200
-                WHEN (ce.corp_empl like '4%' OR ce.corp_empl LIKE '5%') THEN (CONVERT(DECIMAL(7,2),LEFT(NB_HRE_SEM,2)) + CONVERT(DECIMAL(7,2),RIGHT(NB_HRE_SEM,2))/60) / 5
-            END as nb_hres_jrs
-        FROM {{ ref("i_pai_tab_corp_empl") }} ce
-        CROSS JOIN {{ ref("i_pai_tab_stat_eng") }} se
+            case
+                when ce.corp_empl like '1%'
+                then (ce.nb_hres_an / 260)
+                when ce.corp_empl like '2%'
+                then ce.nb_hres_an / 260.9
+                when ce.corp_empl like '3%' and se.stat_eng in ('E1', 'E2', 'E3', 'E8')
+                then 6.4
+                when ce.corp_empl like '3%' and se.stat_eng in ('E4', 'E5', 'E6', 'E7')
+                then ce.nb_hres_an / 200
+                when (ce.corp_empl like '4%' or ce.corp_empl like '5%')
+                then
+                    (
+                        convert(decimal(7, 2), left(nb_hre_sem, 2))
+                        + convert(decimal(7, 2), right(nb_hre_sem, 2)) / 60
+                    )
+                    / 5
+            end as nb_hres_jrs
+        from {{ ref("i_pai_tab_corp_empl") }} ce
+        cross join {{ ref("i_pai_tab_stat_eng") }} se
     )
 
-SELECT
-    corp_empl,
-    stat_eng,
-    nb_hres_an,
-    nb_hres_jrs
-FROM src
+select corp_empl, stat_eng, nb_hres_an, nb_hres_jrs
+from src

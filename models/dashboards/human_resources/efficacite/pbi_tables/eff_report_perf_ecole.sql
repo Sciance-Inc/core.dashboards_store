@@ -1,12 +1,25 @@
-select 
-    {{
-        dbt_utils.generate_surrogate_key(
-            ["annee", "lieu_jumele"]
-        )
-    }} as filter_key,
+{#
+Dashboards Store - Helping students, one dashboard at a time.
+Copyright (C) 2023  Sciance Inc.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#}
+select
+    {{ dbt_utils.generate_surrogate_key(["annee", "lieu_jumele"]) }} as filter_key,
     hrs_remunere,
     nb_totaux_eleve,
     taux_reussite,
     cohort_difficulty_score,
     ratio_heure_ele
-from {{ ref('eff_fact_perf_ecole') }}
+from {{ ref("eff_fact_perf_ecole") }}

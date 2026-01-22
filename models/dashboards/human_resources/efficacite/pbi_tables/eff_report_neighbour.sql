@@ -15,33 +15,38 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-
--- TODO : REPLACE NEIGHBOUR_LIEU_JUMELE WITH INSITUTION FRIENDLY NAME  BEFORE TGE UNION (TO REPLACE EFF_FACT_ECART_NEIGHBOOR)
-
-with base as (
-    select 
-        {{
-            dbt_utils.generate_surrogate_key(
-                ["src.annee", "src.lieu_jumele"]
-            )
-        }} as filter_key,
-        -- Source school
-        jml.nom_lieu_jumele,
-        src.taux_reussite,
-        src.cohort_difficulty_score,
-        src.nb_totaux_eleve,
-        src.ratio_heure_ele,
-        -- Comparable
-        jml_neighbour.nom_lieu_jumele as neighbour_nom_lieu_jumele,
-        src.neighbour_taux_reussite,
-        src.neighbour_cohorte_difficulty_score,
-        src.neighbour_nb_totaux_eleve,
-        src.neighbour_ratio_heure_ele,
-        -- To later match expenses per category
-        {{ dbt_utils.generate_surrogate_key( ["src.annee", "src.neighbour_lieu_jumele"]) }} as category_join_key
-    from {{ ref("eff_fact_ecart_neighbour") }} as src
-    left join {{ ref('dim_mapper_lieu_jumele') }} as jml on src.lieu_jumele = jml.lieu_jumele
-    left join {{ ref('dim_mapper_lieu_jumele') }} as jml_neighbour on src.neighbour_lieu_jumele = jml_neighbour.lieu_jumele
+-- TODO : REPLACE NEIGHBOUR_LIEU_JUMELE WITH INSITUTION FRIENDLY NAME  BEFORE TGE
+-- UNION (TO REPLACE EFF_FACT_ECART_NEIGHBOOR)
+with
+    base as (
+        select
+            {{ dbt_utils.generate_surrogate_key(["src.annee", "src.lieu_jumele"]) }}
+            as filter_key,
+            -- Source school
+            jml.nom_lieu_jumele,
+            src.taux_reussite,
+            src.cohort_difficulty_score,
+            src.nb_totaux_eleve,
+            src.ratio_heure_ele,
+            -- Comparable
+            jml_neighbour.nom_lieu_jumele as neighbour_nom_lieu_jumele,
+            src.neighbour_taux_reussite,
+            src.neighbour_cohorte_difficulty_score,
+            src.neighbour_nb_totaux_eleve,
+            src.neighbour_ratio_heure_ele,
+            -- To later match expenses per category
+            {{
+                dbt_utils.generate_surrogate_key(
+                    ["src.annee", "src.neighbour_lieu_jumele"]
+                )
+            }} as category_join_key
+        from {{ ref("eff_fact_ecart_neighbour") }} as src
+        left join
+            {{ ref("dim_mapper_lieu_jumele") }} as jml
+            on src.lieu_jumele = jml.lieu_jumele
+        left join
+            {{ ref("dim_mapper_lieu_jumele") }} as jml_neighbour
+            on src.neighbour_lieu_jumele = jml_neighbour.lieu_jumele
     )
 
 select

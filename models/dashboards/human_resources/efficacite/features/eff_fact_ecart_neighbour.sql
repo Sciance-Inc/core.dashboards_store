@@ -33,8 +33,9 @@ with
                 + power(cast(nb_totaux_eleve as float), 2)
             ) as vnorm
         from {{ ref("eff_fact_perf_ecole") }} as eco
-        left join {{ ref('dim_mapper_lieu_jumele') }} as jml 
-        on eco.lieu_jumele = jml.lieu_jumele
+        left join
+            {{ ref("dim_mapper_lieu_jumele") }} as jml
+            on eco.lieu_jumele = jml.lieu_jumele
     ),
 
     neighbours as (
@@ -70,7 +71,7 @@ with
                 where
                     b.annee = a.annee
                     and b.lieu_jumele <> a.lieu_jumele
-                    and b.categorie_lieu_jumele = a.categorie_lieu_jumele -- Only compare schools belonging to the same category
+                    and b.categorie_lieu_jumele = a.categorie_lieu_jumele  -- Only compare schools belonging to the same category
                     and (a.vnorm > 0 and b.vnorm > 0)
                 order by
                     -- Select the rows with the lower distance
