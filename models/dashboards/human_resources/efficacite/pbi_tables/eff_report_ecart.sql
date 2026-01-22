@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
@@ -16,6 +17,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 -- To compute the spread between a school sucess rate and it's closer comparable
+=======
+-- To compute the spread between a school sucess rate and it's closer comparable
+
+>>>>>>> e157f43 (feat(efficacite): ajout des tables de reporting)
 with
     src as (
         select
@@ -33,6 +38,7 @@ with
     )
 
 select
+<<<<<<< HEAD
     {{ dbt_utils.generate_surrogate_key(["annee", "lieu_jumele"]) }} as filter_key,
     taux_reussite,
     taux_moyen_voisins,
@@ -40,5 +46,16 @@ select
     cast(
         (taux_reussite - taux_moyen_voisins) * 100 as decimal(4, 2)
     ) as ecart_vs_voisins,
+=======
+    {{
+        dbt_utils.generate_surrogate_key(
+            ["annee", "lieu_jumele"]
+        )
+    }} as filter_key,
+    taux_reussite,
+    taux_moyen_voisins,
+    taux_moyen_pondere_voisins,
+    cast((taux_reussite - taux_moyen_voisins) * 100 as decimal(4,2)) as ecart_vs_voisins,
+>>>>>>> e157f43 (feat(efficacite): ajout des tables de reporting)
     taux_reussite - taux_moyen_pondere_voisins as ecart_vs_voisins_pondere
 from src
