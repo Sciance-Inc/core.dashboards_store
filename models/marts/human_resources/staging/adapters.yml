@@ -1,0 +1,84 @@
+version: 2
+
+sources:
+  - name: populations
+    description: >
+      The populations identify groups of students with consistent profiles, such as regular students, students in special education or students in general adult education. La différence avec la population de educ_serv, cette population contient les élèves inactifs également.
+    schema: "{{ target.schema }}_human_resources_staging"
+    tables:
+      - name: stg_ele_primaire_reg_raw
+        description: >
+          Identification of the primary school population with a regular course
+        columns:
+          - name: code_perm
+            description: The specific unique identifier for a student
+          - name: id_eco
+            description: The specific unique identifier for a school by year
+          - name: annee
+            description: The years the student was active
+
+      - name: stg_ele_secondaire_reg_raw
+        description: >
+          Identification of the secondary school population with a regular course.
+        columns:
+          - name: code_perm
+            description: The specific unique identifier for a student
+          - name: id_eco
+            description: The specific unique identifier for a school by year
+          - name: annee
+            description: The years the student was active
+
+models:
+  - name: stg_ele_secondaire_reg_raw
+    config:
+      schema: "human_resources_staging"
+      tags:
+        - efficacite
+    description: >
+      Identification of the population in 4-year-old kindergarten / passe partout / 5-year-old kindergarten.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - code_perm
+            - id_eco
+            - annee
+    columns:
+      - name: code_perm
+        description: The specific unique identifier for a student
+        tests:
+          - not_null
+      - name: id_eco
+        description: The specific unique identifier for a school by year
+        tests:
+          - not_null
+      - name: annee
+        description: The years the student was active
+        tests:
+          - not_null
+
+  - name: stg_ele_primaire_reg_raw
+    description: >
+      Identification of the primary school population with a regular profile.
+    config:
+      schema: "human_resources_staging"
+      tags:
+        - efficacite
+    tests:
+      - resolution:
+          combination_of_columns:
+            - code_perm
+            - id_eco
+            - annee
+    columns:
+      - name: code_perm
+        description: The specific unique identifier for a student
+        tests:
+          - not_null
+      - name: id_eco
+        description: The specific unique identifier for a school by year
+        tests:
+          - not_null
+      - name: annee
+        description: The years the student was active
+        tests:
+          - not_null

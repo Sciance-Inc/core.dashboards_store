@@ -7,3 +7,10 @@ macros:
       - name: combination_of_columns
         type: array
         description: lists all the columns to be taken into account to test the uniqueness
+
+  - name: test_max_le_zero
+    description: Vérifie chaque colonne que le max est inférieur ou égale à 0 (<=0)
+    arguments:
+      - name: columns_to_test
+        type: array of integer
+        description: Les colonnes qui doivent être pris en compte dans le test. 
