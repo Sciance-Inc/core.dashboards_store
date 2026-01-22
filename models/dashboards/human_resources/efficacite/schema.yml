@@ -1,0 +1,573 @@
+version: 2
+
+models:
+#Dimension
+  - name: eff_dim_categorie
+    description: >
+        Table de dimension qui remplace la configuration personnalisée des regroupement de corp d'emploi selon la seed categories_emploi.csv
+    columns:
+      - name: corp_empl
+        description: Le numéro du corp d'emploi
+        tests:
+          - not_null
+          - unique
+      - name: description_corps_empl
+        description: La description du corp d'emploi
+        tests:
+          - not_null
+      - name: categorie
+        description: La catégorie du corp d'emploi
+        tests:
+          - not_null
+    config:
+      column_types:
+        corp_empl: nvarchar(16)
+        description_corps_empl: nvarchar(32)
+        categorie: nvarchar(32)
+#Perimetre
+  - name: eff_fact_eleve_fgj
+    description: >
+        Table de rapports qui comptabilise le nombre de congés des employés selon l'année, le lieu de travail et le corps d'emploi.
+    columns:
+      - name: annee
+        description: L'année de la fréquentation
+      - name: lieu_jumele
+        description: Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: fiche
+        description: Le numéro de fiche de l'élève
+      - name: code_difficulte
+        description: Le code de difficulté de l'élève
+      - name: is_difficulte
+        description: Si l'élève est en difficulté (0,1)
+      - name: is_pi
+        description: Si l'élève possède un plan d'intervention (0,1)
+    config:
+      column_types:
+        fiche: nvarchar(16)
+        lieu_jumele: nvarchar(3)
+        annee: nvarchar(12)
+        code_difficulte: nvarchar(3)
+        is_difficulte: int
+        is_pi: int
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - lieu_jumele
+            - annee
+#Base
+  - name: eff_fact_coef_difficulte
+    description: >
+        Table de rapports qui calcul le score de difficulte
+    columns:
+      - name: lieu_jumele
+        description: Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: annee
+        description: L'année
+      - name: z_totaux_eleve
+        description: Le nombre totaux d'élève
+      - name: z_difficulte
+        description: Le score de la difficulté
+      - name: z_pi
+        description: La score des plan d'intervention
+      - name: cohort_difficulty_score
+        description: L'indice de difficulté
+    config:
+      column_types:
+        lieu_jumele: nvarchar(3)
+        annee: nvarchar(12)
+        z_totaux_eleve: int
+        z_difficulte: int
+        z_pi: int
+        cohort_difficulty_score: int
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_jumele
+            - annee
+
+  - name: eff_fact_paiement
+    description: >
+        Table de rapport qui contient les paiements aggrégés brut des employés.
+    columns:
+      - name: annee
+        description: L'année
+      - name: lieu_jumele
+        description: Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: categorie
+        description: La catégorie du corp d'emploi
+      - name: corp_empl
+        description: Le corp d'emploi
+      - name: stat_eng
+        description: Le statut d'engagement du corps d'emploi
+      - name: total_mnt_brut
+        description: Le montant total brut
+      - name: total_hrs_brut
+        description: Le nombre total d'heure travaillée
+    config:
+      column_types:
+        annee: nvarchar(4)
+        lieu_jumele: nvarchar(3)
+        categorie: nvarchar(64)
+        corp_empl: nvarchar(4)
+        stat_eng: nvarchar(4)
+        total_mnt_brut: float
+        total_hrs_brut: float
+    tests:
+      - resolution:
+          combination_of_columns:
+            - annee
+            - lieu_jumele
+            - categorie
+            - corp_empl
+            - stat_eng
+
+  - name: eff_fact_reussite_scolaire_fgj
+    description: >
+        Table de rapports qui contient les résultats moyens des élèves aux ministères aux seins des écoles.
+    columns:
+      - name: annee
+        description: L'année
+      - name: lieu_jumele
+        description: Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: taux_reussite
+        description: Le taux de réussite des élèves ayant fait l'examen
+    config:
+      column_types:
+        annee: nvarchar(4)
+        lieu_jumele: nvarchar(3)
+        taux_reussite: decimal(5,4)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - annee
+            - lieu_jumele
+#Feature
+  - name: eff_fact_ecart_neighbour
+    description: >
+        Table de rapport qui contient les paiements aggrégés brut des employés.
+    columns:
+      - name: lieu_jumele
+        description: Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: annee
+        description: L'année
+      - name: taux_reussite
+        description: Le taux de réussite des élèves ayant fait l'examen
+      - name: cohort_difficulty_score
+        description: L'indice de difficulté
+      - name: ratio_heure_ele
+        description: Le ratio du nombre d'heure alloué par élève.
+      - name: nb_totaux_eleve
+        description: Le nombre total d'élèves
+      - name: neighbour_cohorte_difficulty_score
+        description: Le score de difficulté des écoles voisins
+      - name: neighbour_ratio_heure_ele
+        description: Le ratio du nombre d'heure alloué par élève des écoles voisins.
+      - name: neighbour_nb_totaux_eleve
+        description: Le nombre total d'élèves des écoles voisins.
+      - name: neighbour_lieu_jumele
+        description: Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI des écoles voisins
+      - name: neighbour_taux_reussite
+        description: Le taux de réussite des élèves ayant fait l'examen des écoles voisins.
+    config:
+      column_types:
+        lieu_jumele: nvarchar(3)
+        annee: nvarchar(4)
+        taux_reussite: decimal(5,4)
+        cohort_difficulty_score: int
+        ratio_heure_ele: float
+        nb_totaux_eleve: int
+        neighbour_lieu_jumele: nvarchar(3)
+        neighbour_cohorte_difficulty_score: int
+        neighbour_ratio_heure_ele: float
+        neighbour_nb_totaux_eleve: int
+        neighbour_taux_reussite: decimal(5,4)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_jumele
+            - annee
+            - neighbour_lieu_jumele
+
+  - name: eff_fact_perf_ecole
+    description: >
+        Table de rapport qui contient les paiements aggrégés brut des employés.
+    columns:
+      - name: lieu_jumele
+        description: Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: annee
+        description: L'année
+      - name: total_hrs_brut
+        description: Le nombre total d'heure brut travaillée
+      - name: nb_totaux_eleve
+        description: Le nombre totaux d'élèves
+      - name: taux_reussite
+        description: Le taux de réussite des élèves ayant fait l'examen
+      - name: cohort_difficulty_score
+        description: L'indice de difficulté
+      - name: ratio_heure_ele
+        description: Le ratio du nombre d'heure alloué par élève.
+    config:
+      column_types:
+        lieu_jumele: nvarchar(3)
+        annee: nvarchar(4)
+        total_hrs_brut: float
+        nb_totaux_eleve: int
+        taux_reussite: decimal(5,4)
+        cohort_difficulty_score: int
+        ratio_heure_ele: float
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_jumele
+            - annee
+#configuration
+  - name: eff_conf_comparabilite_eco_reg
+    description: >
+        Table de rapport qui contient l'information de la configuration du lieu jumelé
+    columns:
+      - name: lieu_jumele
+        description: Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: comparable
+        description: Si le lieu jumelé est comparable (affiché dans le tableau de bord)
+      - name: nom_lieu_jumele
+        description: Le nom du lieu jumelé
+      - name: categorie_lieu_jumele
+        description: Le type d'enseignement du lieu jumelé
+    config:
+      column_types:
+        lieu_jumele: nvarchar(3)
+        comparable: nvarchar(3)
+        nom_lieu_jumele: nvarchar(64)
+        categorie_lieu_jumele: nvarchar(32)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_jumele
+
+  - name: eff_conf_corp_emploi_indefini
+    description: >
+        Table de rapport qui contient l'information de la configuration des corps d'emploi omis de la configuration, mais qui possède une historique de donnée. 
+    columns:
+      - name: corp_empl
+        description: Le numéro du corp d'emploi
+      - name: descr
+        description: La description du corp d'emploi
+    config:
+      column_types:
+        corp_empl: nvarchar(4)
+        descr: nvarchar(64)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - corp_empl
+  
+  - name: eff_conf_effectif_type_poste
+    description: >
+        Table de rapport qui contient la configuration des catégories d'emploi associé à un regroupement d'emploi
+    columns:
+      - name: Categorie_emploi
+        description: Le numéro et la description du corp d'emploi 
+      - name: type_emploi
+        description: Le regroupement du corps d'emploi dont il est associé.
+    config:
+      column_types:
+        corp_empl: nvarchar(64)
+        descr: nvarchar(32)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - Categorie_emploi
+
+  - name: eff_conf_liaison_paie_gpi
+    description: >
+        Table de rapport qui contient la configuration des liens entre le lieu de travail de la Paie et l'école GPI. Le résultat est le lieu jumelé.
+    columns:
+      - name: lieu_trav
+        description: Le lieu de travail dans la paie.
+      - name: ecole_gpi
+        description: Le numéro de l'école dans GPI
+      - name: lieu_jumele
+        description: Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+    config:
+      column_types:
+        lieu_trav: nvarchar(3)
+        ecole_gpi: nvarchar(3)
+        lieu_jumele: nvarchar(3)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_trav
+
+  - name: eff_conf_lieu_travail_sans_lieu_jumele
+    description: >
+        Table de rapport qui contient les lieu de travail Paie qui ne sont pas présent (Anomalie).
+    columns:
+      - name: lieu_trav
+        description: Le lieu de travail dans la paie.
+      - name: descr
+        description: Le numéro de l'école dans GPI
+    config:
+      column_types:
+        lieu_trav: nvarchar(3)
+        ecole_gpi: nvarchar(3)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_trav
+
+  - name: eff_conf_mapper
+    description: >
+        Table de rapport qui contient la configuration final des lieu jumelé qui vont être affiché dans le tableau de bord
+    columns:
+      - name: lieu_jumele
+        description: Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: nom_lieu_jumele
+        description: Le nom du lieu jumelé
+      - name: categorie_lieu_jumele
+        description: Le type d'enseignement du lieu jumelé
+      - name: comparable
+        description: Si l'école est comparable (activé) dans le tableau de bord
+    config:
+      column_types:
+        lieu_jumele: nvarchar(3)
+        nom_lieu_jumele: nvarchar(64)
+        categorie_lieu_jumele: nvarchar(32)
+        comparable: nvarchar(3)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_jumele
+
+  - name: eff_conf_type_lieux
+    description: >
+        Table de rapport qui contient la configuration des lieu jumelé avec leur catégorie.
+    columns:
+      - name: nom_lieu_jumele
+        description: Le nom du lieu jumelé
+      - name: categorie_lieu_jumele
+        description: La catégorie du lieu jumelé.
+    config:
+      column_types:
+        nom_lieu_jumele: nvarchar(64)
+        categorie_lieu_jumele: nvarchar(32)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - nom_lieu_jumele
+#Filtre
+  - name: eff_report_filtres
+    description: >
+        Table de rapport qui contient les paiements aggrégés brut des employés.
+    columns:
+      - name: filter_key
+        description: La filter key qui regroupe annee et lieu_jumele. Clé de liaison entre les tables.
+      - name: annee
+        description: L'année
+      - name: annee_scolaire
+        description: L'année scolaire
+      - name: lieu_jumele
+        description: Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: institution_friendly_name
+        description: Le nom de l'école avec son numéro
+      - name: _anomalie
+        description: définit si un lieu est manquant
+    config:
+      column_types:
+        filter_key: nvarchar(128)
+        annee: nvarchar(4)
+        annee_scolaire: nvarchar(12)
+        lieu_jumele: nvarchar(3)
+        institution_friendly_name: nvarchar(64)
+        _anomalie: int
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filter_key
+      - max_le_zero:
+          columns_to_verify:
+            - _anomalie
+#pbi_tables
+  - name: eff_report_ecart
+    description: >
+        Table de rapport qui contient les paiements aggrégés brut des employés.
+    columns:
+      - name: filter_key
+        description: Clé de filtre pour la liaison entre cette table et la table de filtre.
+      - name: taux_reussite
+        description: Le taux de réussite des élèves ayant fait l'examen
+      - name: taux_moyen_voisins
+        description: Le taux moyens des écoles les plus 'proches'
+      - name: taux_moyen_pondere_voisins
+        description: Le taux moyens pondere des écoles les plus 'proches'
+      - name: ecart_vs_voisins
+        description: L'écart entre le taux de réussite et le taux_moyen_voisins
+      - name: ecart_vs_voisins_pondere
+        description: L'écart entre le taux de réussite et le taux_moyen_pondere_voisins
+    config:
+      column_types:
+        filter_key: nvarchar(128)
+        taux_reussite: decimal(5,4)
+        taux_moyen_voisins: nvarchar(12)
+        taux_moyen_pondere_voisins: nvarchar(64)
+        ecart_vs_voisins: int
+        ecart_vs_voisins_pondere: smallint
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filter_key
+
+  - name: eff_report_neighbour_paiement
+    description: >
+        Table de rapport qui contient les paiements aggrégés brut des employés.
+    columns:
+      - name: category_join_key
+        description: La filter key pour joindre cette table et la table de filtre
+      - name: categorie
+        description: La catégorie du corp d'emploi
+      - name: total_hrs_brut
+        description: Le nombre d'heure brut total
+      - name: prct_of_total_hrs_brut
+        description: Le pourcentage total du nombre brut selon l'année et le lieu_juemele
+    config:
+      column_types:
+        category_join_key: nvarchar(128)
+        categorie: nvarchar(64)
+        total_hrs_brut: float
+        prct_of_total_hrs_brut: float
+    tests:
+      - resolution:
+          combination_of_columns:
+            - category_join_key
+            - categorie
+
+  - name: eff_neighbour
+    description: >
+        Table de rapport qui contient les paiements aggrégés brut des employés.
+    columns:
+      - name: filter_key
+        description: La filter key pour joindre cette table et la table de filtre
+      - name: taux_reussite
+        description: Le taux de réussite des élèves ayant fait l'examen
+      - name: cohort_difficulty_score
+        description: L'indice de difficulté
+      - name: nb_totaux_eleve
+        description: Le nombre d'élève totaux
+      - name: ratio_heure_ele
+        description: Le nombre d'heure accordé en moyenne par élève.
+      - name: source
+        description: Si c'est l'école source ou l'école voisin
+      - name: target_institution_friendly_name
+        description: Le nom de l'école
+      - name: category_join_key
+        description: La filter_key du côté de l'école voisin.
+    config:
+      column_types:
+        filter_key: nvarchar(128)
+        taux_reussite: decimal(5,4)
+        cohort_difficulty_score: int
+        nb_totaux_eleve: int
+        ratio_heure_ele: float
+        source: nvarchar(64)
+        target_institution_friendly_name: nvarchar(64)
+        category_join_key: nvarchar(128)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - category_join_key
+
+  - name: eff_report_paiement
+    description: >
+        Table de rapport qui contient les paiements aggrégés brut des employés.
+    columns:
+      - name: filter_key
+        description: La clé de filtre qui lie cette table et la table de filtre
+      - name: categorie_lieu_jumele
+        description: La description du type de lieu
+      - name: categorie
+        description: La catégorie du corp d'emploi
+      - name: corp_empl
+        description: Le corps d'emploi
+      - name: stat_eng
+        description: Le statut d'engagement
+      - name: total_mnt_brut
+        description: le montant total brut
+      - name: total_hrs_brut
+        description: Le nombre d'heure brut totaux
+    config:
+      column_types:
+        filter_key: nvarchar(128)
+        categorie_lieu_jumele: nvarchar(64)
+        categorie: nvarchar(32)
+        corp_empl: nvarchar(4)
+        stat_eng: nvarchar(4)
+        total_mnt_brut: float
+        total_hrs_brut: float
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filter_key
+            - categorie_lieu_jumele
+            - categorie
+            - corp_empl
+            - stat_eng
+
+  - name: eff_report_perf_ecole
+    description: >
+        Table de rapport qui contient les paiements aggrégés brut des employés.
+    columns:
+      - name: filter_key
+        description: La clé de filtre qui lie cette table et la table de filtre
+      - name: total_hrs_brut
+        description: Le nombre d'heure brut totaux
+      - name: nb_totaux_eleve
+        description: Le nombre d'élève totaux
+      - name: taux_reussite
+        description: Le taux de réussite des élèves ayant fait l'examen
+      - name: cohort_difficulty_score
+        description: L'indice de difficulté
+      - name: ratio_heure_ele
+        description: Le ratio du nombre d'heure alloué par élève.
+    config:
+      column_types:
+        filter_key: nvarchar(128)
+        total_hrs_brut: float
+        taux_reussite: decimal(5,4)
+        cohort_difficulty_score: smallint
+        ratio_heure_ele: float
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filter_key
+
+  - name: eff_report_test_debug
+    description: >
+        Table de rapport utilisé pour débugger les données dans le tableau de bord.
+    columns:
+      - name: filter_key
+        description: La clé de filtre qui lie cette table et la table de filtre
+      - name: categorie
+        description: La catégorie du corps d'emploi
+      - name: corp_empl
+        description: Le numéro du corp d'emploi
+      - name: stat_eng
+        description: Le status d'engagement du corp d'emploi
+      - name: total_mnt_brut
+        description: Le montant brut total
+      - name: hrs_remunere
+        description: Le nombre d'hrs remunere total.
+    config:
+      column_types:
+        filter_key: nvarchar(128)
+        categorie: nvarchar(32)
+        corp_empl: nvarchar(4)
+        stat_eng: nvarchar(3)
+        total_mnt_brut: float
+        hrs_remunere: float
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filter_key
+            - corp_empl
+            - categorie
+            - stat_eng
