@@ -15,6 +15,4 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select descr, corp_empl, nb_hres_an, nb_hre_sem
-from {{ var("database_paie") }}.dbo.pai_tab_corp_empl
-with (nolock)
+select matr, no_cheq, an_budg from {{ var("database_paie") }}.dbo.pai_hchq with (nolock)

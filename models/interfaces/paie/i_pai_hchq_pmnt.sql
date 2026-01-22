@@ -15,6 +15,25 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select descr, corp_empl, nb_hres_an, nb_hre_sem
-from {{ var("database_paie") }}.dbo.pai_tab_corp_empl
+select
+    matr,
+    no_cheq,
+    code_pmnt,
+    ref_empl,
+    corp_empl,
+    cast(date_deb as date) as date_deb,
+    cast(date_fin as date) as date_fin,
+    nb_unit,
+    mnt_unit,
+    mnt,
+    lieu_trav,
+    nb_heur_cont,
+    nb_heur_auto,
+    nb_heur_piec,
+    cast(date_cheq as date) as date_cheq,
+    code_prov as code_provenance,
+    mode as mode_paiement,
+    no_type_pmnt,
+    no_seq
+from {{ var("database_paie") }}.dbo.pai_hchq_pmnt
 with (nolock)
