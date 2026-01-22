@@ -15,8 +15,4 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select distinct
-    lieu_trav,
-    ecole_gpi,
-    lieu_jumele
-from {{ ref('eff_mapping_fgj_paie') }}
+select distinct lieu_trav, ecole_gpi, lieu_jumele from {{ ref("eff_mapping_fgj_paie") }}

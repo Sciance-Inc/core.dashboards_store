@@ -15,13 +15,9 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-
 select distinct
     lieu_jumele,
-    case 
-        when is_school_comparable = 1 then 'Oui'
-        else 'Non'
-    end as comparable,
+    case when is_school_comparable = 1 then 'Oui' else 'Non' end as comparable,
     nom_lieu_jumele,
     categorie_lieu_jumele
-from {{ ref('eff_reporting_configuration') }}
+from {{ ref("eff_reporting_configuration") }}

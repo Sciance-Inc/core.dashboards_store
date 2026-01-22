@@ -27,9 +27,14 @@ with
         from {{ ref("fact_yearly_student") }} y_stud
         join {{ ref("i_gpm_t_eco") }} as eco on y_stud.id_eco = eco.id_eco
         join {{ ref("eff_mapping_fgj_paie") }} as brdg on eco.eco = brdg.ecole_gpi
-        join {{ ref('eff_reporting_configuration') }} as config on brdg.lieu_jumele = config.lieu_jumele 
-        and config.is_school_comparable = 1
-        where y_stud.annee between {{ core_dashboards_store.get_current_year() - 4 }} and {{ core_dashboards_store.get_current_year() - 1 }} 
+        join
+            {{ ref("eff_reporting_configuration") }} as config
+            on brdg.lieu_jumele = config.lieu_jumele
+            and config.is_school_comparable = 1
+        where
+            y_stud.annee
+            between {{ core_dashboards_store.get_current_year() - 4 }}
+            and {{ core_dashboards_store.get_current_year() - 1 }}
     )
 
 select
