@@ -37,7 +37,9 @@ with
             groupe_matiere,
             discipline,
             case
-                when max(annee) over (partition by fiche, discipline) = {{ core_dashboards_store.get_current_year() }}
+                when
+                    max(annee) over (partition by fiche, discipline)
+                    = {{ core_dashboards_store.get_current_year() }}
                 then
                     first_value(groupe_matiere) over (
                         partition by fiche, discipline
