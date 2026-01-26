@@ -23,7 +23,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 with
     ecoles as (
-        select distinct eco as lieu_trav, nom_eco as lieu_trav_desc
+        select
+            row_number() over (partition by eco order by annee desc) seq_id,
+            eco as lieu_trav,
+            nom_eco as lieu_trav_desc
         from {{ ref("i_gpm_t_eco") }}
 
         where
@@ -33,3 +36,4 @@ with
 
 select *
 from ecoles
+where seq_id = 1

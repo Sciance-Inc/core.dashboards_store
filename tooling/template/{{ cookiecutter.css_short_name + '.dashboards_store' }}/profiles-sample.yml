@@ -13,6 +13,7 @@
       password: dontLookAtMeImSecret
       trust_cert: True
       threads: 1
+      authentication: sql
     # The staging environement : to test the data before pushing them to production. Schould probably only be used by an automated tool such as a CI/CD pipeline or cronjob.
     staging:
       type: fabric
@@ -25,6 +26,7 @@
       password: dontLookAtMeImSecret
       trust_cert: True
       threads: 1
+      authentication: sql
     # The production environement : the serious one, where the data are used by the end users. Be carefull when targetting this environement.
     prod:
       type: fabric
@@ -37,3 +39,4 @@
       password: dontLookAtMeImSecret
       trust_cert: True
       threads: 1
+      authentication: sql
