@@ -38,6 +38,9 @@ seeds:
         description: >
           The YEAR (integer) from which the status stops to be valid. The upper bound is excluded from the validity period.
           If not populated, the status is valid until the current year + 1 .
+      - name: type_duration
+        description: >
+          A binary variable indicating the duration type. 0 represents a short duration, while 1 represents a long duration.          
     config:
       tags:
         - human_resources
@@ -51,7 +54,7 @@ seeds:
         etat_actif: bit
         valid_from: int
         valid_until: int
-
+        type_duration: int
   - name: stat_eng
     description: >
       A mapping table between the employees status and arbitray meta-datas such as the description of the status, the status of the employee (active or not), the status of the employee (on leave or not), the status of the employee (on leave with pay or not), the status of the employee (on leave without pay or not).
