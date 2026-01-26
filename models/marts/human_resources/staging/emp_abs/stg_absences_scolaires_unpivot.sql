@@ -57,14 +57,14 @@ with
             case
                 when
                     absence.code_pmnt in ({{ AssurangeLongTerme | join(", ") }})
-                    or etat.duree = 1
+                    or etat.type_duration = 1
                 then 1
                 else 0
             end as duree_longue,
             case
                 when
                     absence.code_pmnt not in ({{ AssurangeLongTerme | join(", ") }})
-                    and etat.duree != 1
+                    and etat.type_duration != 1
                 then 1
                 else 0
             end as duree_courte
