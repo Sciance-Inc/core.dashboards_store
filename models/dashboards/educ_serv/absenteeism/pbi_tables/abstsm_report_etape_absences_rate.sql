@@ -47,6 +47,7 @@ with
             sum(avg_absence_rate_etape * weight_etape)
             / sum(weight_etape) as avg_absence_rate_etape_css
         from source
+        where school_friendly_name != 'Tout le CSS'  -- exclude the CSS level rows, to avoid double counting
         group by annee, etape_friendly, event_kind
 
     -- Compute the Average (past and future) absence rate for each school
@@ -77,7 +78,7 @@ with
             school.avg_absence_rate_school
         from source as src
         left join
-            css
+            source css
             on src.annee = css.annee
             and src.etape_friendly = css.etape_friendly
             and src.event_kind = css.event_kind
