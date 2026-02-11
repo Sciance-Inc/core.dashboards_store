@@ -78,7 +78,7 @@ with
             school.avg_absence_rate_school
         from source as src
         left join
-            source css
+            css as css
             on src.annee = css.annee
             and src.etape_friendly = css.etape_friendly
             and src.event_kind = css.event_kind
