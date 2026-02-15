@@ -38,6 +38,9 @@ seeds:
         description: >
           The YEAR (integer) from which the status stops to be valid. The upper bound is excluded from the validity period.
           If not populated, the status is valid until the current year + 1 .
+      - name: type_duration
+        description: >
+          A binary variable indicating the duration type. 0 represents a short duration, while 1 represents a long duration.          
     config:
       tags:
         - human_resources
@@ -51,7 +54,7 @@ seeds:
         etat_actif: bit
         valid_from: int
         valid_until: int
-
+        type_duration: int
   - name: stat_eng
     description: >
       A mapping table between the employees status and arbitray meta-datas such as the description of the status, the status of the employee (active or not), the status of the employee (on leave or not), the status of the employee (on leave with pay or not), the status of the employee (on leave without pay or not).
@@ -87,3 +90,75 @@ seeds:
         is_reg: bit
         valid_from: int
         valid_until: int
+
+  - name: secteur
+    description: >
+      Une table contenant les informations sur les secteurs des écoles et leurs caractéristiques.
+    columns:
+      - name: lieu_trav
+        description: Le numéro de l'unité administrative ou de l'école
+      - name: secteur_Id
+        description: L'ID du secteur géographique ou subdivition de votre territoire
+      - name: secteur_Descr
+        description: Description du secteur géographique ou subdivition de votre territoire
+    config:
+      tags:
+        - human_resources
+      schema: human_resources_seeds
+      column_types:
+        lieu_trav: nvarchar(3)
+        secteur_Id: int
+        secteur_Descr: nvarchar(32)
+
+  - name: heure_quotidienne
+    description: >
+      Une table contenant les heures quotidiennes selon le corps d'emploi
+      et si le poste est spécifique ou non.
+    columns:
+      - name: categorieEmp
+        description: Catégorie d'emploi. ex - 1 = Cadre, 2 = professionnel etc
+        tests:
+          - not_null    
+      - name: poste_specifique
+        description: Indique si le poste est spécifique (1) ou non (0)
+        tests:
+          - not_null
+      - name: corp_empl
+        description: Code du corps d'emploi (4 caractères)
+      - name: heure
+        description: Nombre d'heures quotidiennes associées
+        tests:
+          - not_null
+    config:
+      tags:
+        - human_resources
+      schema: human_resources_seeds
+      column_types:
+        categorieEmp: nvarchar(1)
+        poste_specifique: bit
+        corp_empl: nvarchar(4)
+        heure: decimal(5,2)        
+
+  - name: type_absence
+    description: >
+      Une table contenant les informations sur les motifs d'absence
+    columns:
+      - name: motif_id
+        description: L'ID du motif d'absence
+        tests:
+          - not_null
+          - unique          
+      - name: categorie
+        description: Description du motif
+      - name: statut
+        description: Statut du motif | Actif => 0, Inactif => 1
+        tests:
+          - not_null        
+    config:
+      tags:
+        - human_resources
+      schema: human_resources_seeds
+      column_types:
+        motif_id: nvarchar(2)
+        categorie: nvarchar(32)
+        statut: bit
