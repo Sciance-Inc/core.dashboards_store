@@ -44,7 +44,7 @@ with
             pourc_sal,
             categorie,
             min(type_duree) as type_duree,
-            date,
+            abs_scolaire.date,
             sum(
                 case
                     when cal.jour_sem = 1 then ((pourc_sal * dure) / 100) / 7 else 0
@@ -71,8 +71,16 @@ with
             count(*) as nbr_jours,
             dure
         from {{ ref("stg_absences_scolaires_unpivot") }} as abs_scolaire
-        inner join {{ ref("i_pai_tab_cal_jour") }} as cal on cal.date_jour = date
-        group by matricule, date, corp_empl, lieu_trav, categorie, pourc_sal, dure
+        inner join
+            {{ ref("i_pai_tab_cal_jour") }} as cal on cal.date_jour = abs_scolaire.date
+        group by
+            matricule,
+            abs_scolaire.date,
+            corp_empl,
+            lieu_trav,
+            categorie,
+            pourc_sal,
+            dure
     ),
 
     -- --------------------------------------------------------------------------------------------------
