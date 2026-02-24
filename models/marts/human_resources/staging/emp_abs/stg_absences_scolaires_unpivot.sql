@@ -91,7 +91,7 @@ with
         from absences_brutes_avec_contexte as abac
 
         inner join
-            {{ ref("stg_calendrier-jours-eligibles") }} as jr_tr
+            {{ ref("stg_calendrier_jours_eligibles") }} as jr_tr
             on abac.annee = jr_tr.annee
             and abac.gr_paie = jr_tr.gr_paie
 

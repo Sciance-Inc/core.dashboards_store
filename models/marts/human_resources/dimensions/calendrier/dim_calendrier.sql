@@ -31,7 +31,7 @@ with
         select
             an_budg as annee,  -- Année budgétaire
             gr_paie,  -- Groupe de paie | Pour sélectionner les employés selon leur type d'emploi 
-            count(distinct date_jour) as nbjour
+            count(distinct date_jour) as nb_jour
         from {{ ref("i_pai_tab_cal_jour") }}
         where
             type_jour not in ('C', 'E')
@@ -51,7 +51,7 @@ with
             date_jour,
             row_number() over (
                 partition by an_budg, gr_paie order by date_jour
-            ) as dernieredate
+            ) as derniere_date
         from {{ ref("i_pai_tab_cal_jour") }}
         where
             type_jour not in ('C', 'E')
@@ -66,7 +66,7 @@ select
     den.annee,
     den.gr_paie,
     liendate.date_jour,
-    (den.nbjour - liendate.dernieredate) as bal_jour_ouv,
+    (den.nb_jour - liendate.derniere_date) as bal_jour_ouv,
     {{ dbt_utils.generate_surrogate_key(["den.gr_paie", "date_jour"]) }} as filter_key
 from denombrement as den
 join liendate on den.annee = liendate.annee and den.gr_paie = liendate.gr_paie

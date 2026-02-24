@@ -102,9 +102,9 @@ seeds:
     columns:
       - name: lieu_trav
         description: Le numéro de l'unité administrative ou de l'école
-      - name: secteur_Id
+      - name: secteur_id
         description: L'ID du secteur géographique ou subdivition de votre territoire
-      - name: secteur_Descr
+      - name: secteur_descr
         description: Description du secteur géographique ou subdivition de votre territoire
     config:
       tags:
@@ -112,15 +112,15 @@ seeds:
       schema: human_resources_seeds
       column_types:
         lieu_trav: nvarchar(3)
-        secteur_Id: int
-        secteur_Descr: nvarchar(32)
+        secteur_id: int
+        secteur_descr: nvarchar(32)
 
   - name: heure_quotidienne
     description: >
       Une table contenant les heures quotidiennes selon le corps d'emploi
       et si le poste est spécifique ou non.
     columns:
-      - name: categorieEmp
+      - name: categorie_emp
         description: Catégorie d'emploi. ex - 1 = Cadre, 2 = professionnel etc
         tests:
           - not_null    
@@ -139,7 +139,7 @@ seeds:
         - human_resources
       schema: human_resources_seeds
       column_types:
-        categorieEmp: nvarchar(1)
+        categorie_emp: nvarchar(1)
         poste_specifique: bit
         corp_empl: nvarchar(4)
         heure: decimal(5,2)        
