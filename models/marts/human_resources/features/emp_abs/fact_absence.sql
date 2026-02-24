@@ -61,7 +61,9 @@ with
                 end
             ) as jds_mercredi,
             sum(
-                case when cal.jour_sem = 4 then ((pourc_sal * dure) / 100) / 7 end
+                case
+                    when cal.jour_sem = 4 then ((pourc_sal * dure) / 100) / 7 else 0
+                end
             ) as jds_jeudi,
             sum(
                 case
