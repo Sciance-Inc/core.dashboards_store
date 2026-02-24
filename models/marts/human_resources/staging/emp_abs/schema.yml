@@ -2,7 +2,7 @@
 
 models:
 
-  - name: stg_calendrier-jours-eligibles
+  - name: stg_calendrier_jours_eligibles
     description: >
       Table de faits calculant le nombre de jours travaillés par groupe de paie et par année budgétaire. 
       Exclut les congés, les jours d’été et les fins de semaine. 
