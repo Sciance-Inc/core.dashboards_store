@@ -57,9 +57,9 @@ seeds:
         cong_lt: bit
         empl_resi: bit
         etat_actif: bit
+        type_duration: int        
         valid_from: int
         valid_until: int
-        type_duration: int
   - name: stat_eng
     description: >
       A mapping table between the employees status and arbitray meta-datas such as the description of the status, the status of the employee (active or not), the status of the employee (on leave or not), the status of the employee (on leave with pay or not), the status of the employee (on leave without pay or not).
