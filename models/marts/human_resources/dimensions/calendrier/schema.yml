@@ -2,31 +2,25 @@
 
 models:
   - name: dim_calendrier
-    description: >
-      This table maps each job group to a job group category.
-      This dimension is designed to be overriden by the client to add custom job group categories.
+    description: Fournit le nombre de jours ouvrables restants par année budgétaire et groupe de paie.
     columns:
       - name: annee
-        description: The job group code. Use-it to merge this dimension with a fact table.
+        description: annee est l'année budgétaire utilisée dans la paie
         tests:
           - not_null
       - name: gr_paie
-        description: >
-          The job group category.
+        description: gr_paie est le groupe de paie de l'employé(e)
         tests:
           - not_null          
       - name: date_jour
-        description: >
-          The job group category.  
+        description: date_jour est la date d’un jour donné du calendrier
         tests:
           - not_null          
       - name: bal_jour_ouv
-        description: >
-          The job group category.
+        description: bal_jour_ouv est la balance des jours ouvrables
         tests:
           - not_null          
       - name: filter_key
-        description: >
-          The job group category.
+        description: filter_key est un identifiant unique pour une combinaison donnée de modèle, cible et catégorie.
         tests:
           - not_null          
