@@ -252,6 +252,3 @@ vars:
   dashboards:
     res_epreuves:
       cod_css: replacemeplease
-
-    emp_abs:
-      code_paiement: replacemeplease         

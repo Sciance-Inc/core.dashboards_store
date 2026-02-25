@@ -164,6 +164,27 @@ seeds:
         - human_resources
       schema: human_resources_seeds
       column_types:
-        motif_id: nvarchar(2)
+        motif_id: nvarchar(3)
         categorie: nvarchar(32)
         statut: bit
+
+  - name: code_paiement
+    description: >
+      Une table contenant les codes de paiement qui représent des absences de longues durées
+    columns:
+      - name: code_pmnt
+        description: Le code d'un paiement
+        tests:
+          - not_null
+          - unique          
+      - name: statut
+        description: Statut du code de paiement | Longue durée => 1
+        tests:
+          - not_null        
+    config:
+      tags:
+        - human_resources
+      schema: human_resources_seeds
+      column_types:
+        ccode_pmnt: nvarchar(3)
+        statut: bit        
