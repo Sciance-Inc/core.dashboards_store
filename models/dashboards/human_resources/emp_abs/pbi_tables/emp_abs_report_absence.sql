@@ -20,9 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         alias="report_absence",
         materialized="table",
         post_hook=[
-            core_dashboards_store.create_clustered_index(
-                "{{ this }}", ["annee", "matricule"]
-            ),
+            core_dashboards_store.create_clustered_index("{{ this }}", ["annee"]),
             core_dashboards_store.create_nonclustered_index(
                 "{{ this }}", ["date", "corp_empl", "lieu_trav"]
             ),
@@ -34,7 +32,6 @@ with
     absences_employe_final as (
         select
             concat(left(abs.annee, 4), '-', left(abs.annee, 4) + 1) as annee,
-            abs.matricule,
             emp.legal_name as nom,
             emp.sex_friendly_name as genre,
             case
