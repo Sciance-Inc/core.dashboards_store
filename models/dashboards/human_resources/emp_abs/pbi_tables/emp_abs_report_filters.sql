@@ -31,7 +31,10 @@ with
                 from {{ ref("dim_calendrier") }}
                 union all
                 select
-                    gr_paie, date as date_jour, filter_key, 'absence' as filter_source
+                    gr_paie,
+                    date_abs as date_jour,
+                    filter_key,
+                    'absence' as filter_source
                 from {{ ref("emp_abs_report_absence") }}
             ) as src
         group by src.gr_paie, src.date_jour, src.filter_key

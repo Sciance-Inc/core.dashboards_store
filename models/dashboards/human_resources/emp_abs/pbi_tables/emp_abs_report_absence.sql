@@ -22,7 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         post_hook=[
             core_dashboards_store.create_clustered_index("{{ this }}", ["annee"]),
             core_dashboards_store.create_nonclustered_index(
-                "{{ this }}", ["date", "corp_empl", "lieu_trav"]
+                "{{ this }}", ["date_abs", "corp_empl", "lieu_trav"]
             ),
         ],
     )
@@ -31,6 +31,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 with
     absences_employe_final as (
         select
+            emp.matr as matricule,
             concat(left(abs.annee, 4), '-', left(abs.annee, 4) + 1) as annee,
             emp.legal_name as nom,
             emp.sex_friendly_name as genre,
@@ -92,7 +93,7 @@ with
             jds_jeudi,
             jds_vendredi,
             duree_descr,
-            date,
+            date_abs,
             jour_absence,
             hr_abs,
             etc_abs,
@@ -101,7 +102,8 @@ with
 
         inner join {{ ref("dim_employees") }} as emp on abs.matricule = emp.matr
 
-        left join {{ ref("secteur") }} as sec on abs.lieu_trav = sec.lieu_trav
+        left join
+            {{ ref("secteur") }} as sec on cast(abs.lieu_trav as int) = sec.lieu_trav
 
         inner join
             {{ ref("dim_mapper_job_group") }} as jg on abs.corp_empl = jg.job_group
@@ -116,7 +118,7 @@ select
         dbt_utils.generate_surrogate_key(
             [
                 "gr_paie",
-                "date",
+                "date_abs",
             ]
         )
     }} as filter_key
