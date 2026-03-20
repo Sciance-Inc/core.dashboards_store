@@ -54,7 +54,7 @@ with
             ) as derniere_date
         from {{ ref("i_pai_tab_cal_jour") }}
         where
-            type_jour not in ('C', 'E')
+            type_jour not in ('C', 'Ecd ')
             and jour_sem not in (0, 6)
             and an_budg
             >= '{{ (core_dashboards_store.get_current_year() - 5)~ (core_dashboards_store.get_current_year() - 4) }}'

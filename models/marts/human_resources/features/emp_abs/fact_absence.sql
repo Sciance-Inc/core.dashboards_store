@@ -23,7 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                 "{{ this }}", ["annee", "gr_paie"]
             ),
             core_dashboards_store.create_nonclustered_index(
-                "{{ this }}", ["matricule", "date", "corp_empl"]
+                "{{ this }}", ["matricule", "date_abs", "corp_empl"]
             ),
         ],
     )
@@ -44,7 +44,7 @@ with
             pourc_sal,
             categorie,
             min(type_duree) as type_duree,
-            abs_scolaire.date,
+            abs_scolaire.date_abs,
             sum(
                 case
                     when cal.jour_sem = 1 then ((pourc_sal * dure) / 100) / 7 else 0
@@ -74,10 +74,11 @@ with
             dure
         from {{ ref("stg_absences_scolaires_unpivot") }} as abs_scolaire
         inner join
-            {{ ref("i_pai_tab_cal_jour") }} as cal on cal.date_jour = abs_scolaire.date
+            {{ ref("i_pai_tab_cal_jour") }} as cal
+            on cal.date_jour = abs_scolaire.date_abs
         group by
             matricule,
-            abs_scolaire.date,
+            abs_scolaire.date_abs,
             corp_empl,
             lieu_trav,
             categorie,
@@ -90,59 +91,56 @@ with
     -- --------------------------------------------------------------------------------------------------
     absences_agregees_employe as (
         select
-            min(annee) as annee,
+            annee as annee,
             matricule,
-            min(adjs.corp_empl) as corp_empl,
-            min(gr_paie) as gr_paie,
-            min(lieu_trav) as lieu_trav,
-            min(categorie) as categorie,
-            max(jds_lundi) as jds_lundi,
-            max(jds_mardi) as jds_mardi,
-            max(jds_mercredi) as jds_mercredi,
-            max(jds_jeudi) as jds_jeudi,
-            max(jds_vendredi) as jds_vendredi,
-            min(pourc_sal) as pourc_sal,
-            min(type_duree) as type_duree,
-            min(pourc_sal * dure) / 100.0 as jour,
-            case
-                when
-                    max(cast(hq.poste_specifique as int)) = 1
-                    and max(hq.corp_empl) = max(adjs.corp_empl)
-                then (sum(pourc_sal * dure) / 100.0) * max(hq.heure)
-                else (sum(pourc_sal * dure) / 100.0) * max(hq.heure)
-            end as hr_abs,
-            case
-                when
-                    max(cast(hq.poste_specifique as int)) = 1
-                    and max(hq.corp_empl) = max(adjs.corp_empl)
-                then (sum(pourc_sal * dure) / 100.0) * max(hq.heure) / 1826.3
-                else (sum(pourc_sal * dure) / 100.0) * max(hq.heure) / 1826.3
-            end as etc_abs,
-            date
+            adjs.corp_empl as corp_empl,
+            gr_paie as gr_paie,
+            lieu_trav as lieu_trav,
+            categorie as categorie,
+            jds_lundi as jds_lundi,
+            jds_mardi as jds_mardi,
+            jds_mercredi as jds_mercredi,
+            jds_jeudi as jds_jeudi,
+            jds_vendredi as jds_vendredi,
+            pourc_sal as pourc_sal,
+            type_duree as type_duree,
+            pourc_sal * dure / 100.0 as jour,
+            date_abs
         from absences_detail_jours_semaine as adjs
-        inner join
-            {{ ref("heure_quotidienne") }} as hq
-            on left(adjs.corp_empl, 1) = hq.categorieemp
-        group by matricule, date
     )
 
 select
-    abe.annee,
+    min(abe.annee) as annee,
     abe.matricule,
-    abe.corp_empl,
-    abe.lieu_trav,
-    abe.categorie,
+    min(abe.corp_empl) as corp_empl,
+    min(abe.lieu_trav) as lieu_trav,
+    min(abe.categorie) as categorie,
     case
-        when type_duree = 'duree_courte' then 'Courte durée' else 'Longue durée'
+        when min(type_duree) = 'duree_courte' then 'Courte durée' else 'Longue durée'
     end as duree_descr,
-    abe.jour as jour_absence,
-    abe.jds_lundi,
-    abe.jds_mardi,
-    abe.jds_mercredi,
-    abe.jds_jeudi,
-    abe.jds_vendredi,
-    abe.date,
-    abe.gr_paie,
-    etc_abs,
-    hr_abs
+    min(abe.jour) as jour_absence,
+    min(abe.jds_lundi) as jds_lundi,
+    min(abe.jds_mardi) as jds_mardi,
+    min(abe.jds_mercredi) as jds_mercredi,
+    min(abe.jds_jeudi) as jds_jeudi,
+    min(abe.jds_vendredi) as jds_vendredi,
+    abe.date_abs,
+    min(abe.gr_paie) as gr_paie,
+    case
+        when
+            max(cast(hq.poste_specifique as int)) = 1
+            and max(hq.corp_empl) = max(abe.corp_empl)
+        then min(abe.jour) * min(hq.heure)
+        else min(abe.jour) * min(hq.heure)
+    end as hr_abs,
+    case
+        when
+            max(cast(hq.poste_specifique as int)) = 1
+            and max(hq.corp_empl) = max(abe.corp_empl)
+        then min(abe.jour) * min(hq.heure) / 1826.3
+        else min(abe.jour) * min(hq.heure) / 1826.3
+    end as etc_abs
 from absences_agregees_employe as abe
+inner join
+    {{ ref("heure_quotidienne") }} as hq on left(abe.corp_empl, 1) = hq.categorie_emp
+group by matricule, date_abs

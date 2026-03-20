@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         materialized="table",
         post_hook=[
             core_dashboards_store.create_clustered_index(
-                "{{ this }}", ["matricule", "date"]
+                "{{ this }}", ["matricule", "date_abs"]
             ),
             core_dashboards_store.create_nonclustered_index(
                 "{{ this }}", ["annee", "gr_paie", "motif_abs"]
@@ -29,8 +29,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     )
 }}
 
-{% set AssurangeLongTerme = var("dashboards")["emp_abs"]["code_paiement"] %}
-
 with
     -- --------------------------------------------------------------------------------------------------
     -- Absences brutes avec contexte
@@ -38,14 +36,14 @@ with
     absences_brutes_avec_contexte as (
         select
             cast(
-                year(absence.date)
-                - case when month(absence.date) < 7 then 1 else 0 end as varchar(4)
+                year(absence.date_abs)
+                - case when month(absence.date_abs) < 7 then 1 else 0 end as varchar(4)
             ) + cast(
-                year(absence.date)
-                + case when month(absence.date) < 7 then 0 else 1 end as varchar(4)
+                year(absence.date_abs)
+                + case when month(absence.date_abs) < 7 then 0 else 1 end as varchar(4)
             ) as annee,
             absence.matr as matricule,
-            absence.date,
+            absence.date_abs,
             absence.mot_abs as motif_abs,
             absence.lieu_trav as lieu_trav,
             hemp.pourc_sal,
@@ -55,16 +53,14 @@ with
             dure,
 
             case
-                when
-                    absence.code_pmnt in ({{ AssurangeLongTerme | join(", ") }})
-                    or etat.type_duration = 1
+                when coalesce(cp.statut, 0) = 1 or coalesce(etat.type_duration, 0) = 1
                 then 1
                 else 0
             end as duree_longue,
+
             case
                 when
-                    absence.code_pmnt not in ({{ AssurangeLongTerme | join(", ") }})
-                    and etat.type_duration != 1
+                    coalesce(cp.statut, 0) <> 1 and coalesce(etat.type_duration, 0) <> 1
                 then 1
                 else 0
             end as duree_courte
@@ -75,11 +71,12 @@ with
             {{ ref("i_pai_hemp") }} as hemp
             on absence.matr = hemp.matr
             and absence.corp_empl = hemp.corp_empl
-            and absence.date between hemp.date_eff and hemp.date_fin
+            and absence.date_abs between hemp.date_eff and hemp.date_fin
             and absence.sect = hemp.sect
             and absence.ref_empl = hemp.ref_empl
 
         inner join {{ ref("etat_empl") }} as etat on hemp.etat = etat.etat_empl
+        left join {{ ref("code_paiement") }} as cp on cp.code_pmnt = absence.code_pmnt
         where absence.ind_annul = 0 and absence.pourc_indem != 0
     ),
 
@@ -89,7 +86,6 @@ with
     absences_scolaires_categorisees as (
         select abac.*, typabs.categorie
         from absences_brutes_avec_contexte as abac
-
         inner join
             {{ ref("stg_calendrier_jours_eligibles") }} as jr_tr
             on abac.annee = jr_tr.annee
@@ -97,7 +93,6 @@ with
 
         inner join
             {{ ref("type_absence") }} as typabs on abac.motif_abs = typabs.motif_id
-
         where typabs.statut = 0
     )
 

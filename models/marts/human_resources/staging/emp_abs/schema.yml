@@ -48,7 +48,7 @@ models:
           - relationships:
               to: ref('dim_employees')
               field: matr
-      - name: date
+      - name: date_abs
         description: "Date de l'absence."
         tests:
           - not_null

@@ -36,7 +36,7 @@ models:
         description: "Durée de l'absence."
       - name: stat_eng
         description: "Statut d'engagement de l'employé."
-      - name: date
+      - name: date_abs
         description: "Date de l'absence."
         tests:
           - not_null
