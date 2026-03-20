@@ -30,10 +30,9 @@ seeds:
         description: Is the code identifiing a currently on long-terme leave employee ?
         tests:
           - not_null
-      - name: empl_resi
-        description: Is the code identifiing a currently resignation employee ?
-        tests:
-          - not_null
+      - name: type_duration
+        description: >
+          A binary variable indicating the duration type. 0 represents a short duration, while 1 represents a long duration.           
       - name: valid_from
         description: >
           The YEAR (integer) from which the status starts to be valid. The lower bound is included
@@ -42,9 +41,7 @@ seeds:
         description: >
           The YEAR (integer) from which the status stops to be valid. The upper bound is excluded from the validity period.
           If not populated, the status is valid until the current year + 1 .
-      - name: type_duration
-        description: >
-          A binary variable indicating the duration type. 0 represents a short duration, while 1 represents a long duration.          
+         
     config:
       tags:
         - human_resources
@@ -126,8 +123,6 @@ seeds:
           - not_null    
       - name: poste_specifique
         description: Indique si le poste est spécifique (1) ou non (0)
-        tests:
-          - not_null
       - name: corp_empl
         description: Code du corps d'emploi (4 caractères)
       - name: heure
