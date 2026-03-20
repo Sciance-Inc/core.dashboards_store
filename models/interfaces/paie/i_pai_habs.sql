@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select
     matr,
-    date,
+    date as date_abs,
     ref_empl,
     dure,
     lieu_trav,
