@@ -34,50 +34,50 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 with
     demission as (
+
         select
-            stg.matr,
-            stg.etat_empl as etat,
+            foo.matr,
+            etat,
             corp_empl,
             ref_empl,
             lieu_trav,
             stat_eng,
-            date_eff as date_demission,
-            stg.school_year
-        from {{ ref("stg_activity_history") }} as stg
-
-        inner join
-            (
-                select etat_empl, school_year
-                from {{ ref("dim_employment_status_yearly") }}
-                where empl_resi = 1
-            ) as dim
-            on stg.etat_empl = dim.etat_empl
-            and stg.school_year = dim.school_year
-
-    ),
-
-    -- Il se peut qu'il y ait plusieurs dates pour le même emploi, on va chercher la
-    -- première date_eff de démission.
-    first_demission as (
-        select
-            dem_min.matr,
-            dem_min.etat,
-            dem_min.corp_empl,
-            dem_min.ref_empl,
-            dem_min.lieu_trav,
-            dem_min.stat_eng,
-            min(dem_min.date_demission) as demission_date,
-            dem_min.school_year
-        from demission as dem_min
-        group by
-            dem_min.matr,
-            dem_min.etat,
-            dem_min.corp_empl,
-            dem_min.ref_empl,
-            dem_min.lieu_trav,
-            dem_min.stat_eng,
+            demission_date,
             school_year
 
+        from
+            (
+                select
+                    stg.matr,
+                    stg.etat_empl as etat,
+                    corp_empl,
+                    ref_empl,
+                    lieu_trav,
+                    stat_eng,
+                    date_eff as demission_date,
+                    stg.school_year,
+                    row_number() over (
+                        partition by
+                            stg.matr,
+                            stg.etat_empl,
+                            stg.corp_empl,
+                            stg.ref_empl,
+                            stg.lieu_trav,
+                            stg.stat_eng,
+                            stg.school_year
+                        order by date_eff
+                    ) as seqid
+
+                from {{ ref("stg_activity_history") }} stg
+                inner join
+                    {{ ref("dim_employment_status_yearly") }} dim
+                    on stg.etat_empl = dim.etat_empl
+                    and stg.school_year = dim.school_year
+
+                where dim.empl_resi = 1
+            ) as foo
+
+        where foo.seqid = 1
     ),
 
     add_first_date as (
@@ -105,7 +105,7 @@ with
                     stg_first.ref_empl,
                     stg_first.date_eff
             ) as date_entree
-        from first_demission dem
+        from demission dem
 
     ),
     demission_age as (
