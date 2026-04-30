@@ -39,8 +39,8 @@ where
     and jour_sem != 0  -- jour_sem 0 => Dimanche | On ne le prend pas en compte
     and jour_sem != 6  -- jour_sem 6 => Samedi | On ne le prend pas en compte
     and an_budg
-    >= '{{ (core_dashboards_store.get_current_year() - 5)~ (core_dashboards_store.get_current_year() - 4) }}'
+    >= '{{ (core_dashboards_store.get_current_year() - 5)}}{{(core_dashboards_store.get_current_year() - 4) }}'
     and an_budg
-    <= '{{ core_dashboards_store.get_current_year() ~ (core_dashboards_store.get_current_year() + 1) }}'
+    <= '{{ core_dashboards_store.get_current_year()}}{{(core_dashboards_store.get_current_year() + 1) }}'
 
 group by an_budg, gr_paie
