@@ -181,5 +181,5 @@ seeds:
         - human_resources
       schema: human_resources_seeds
       column_types:
-        code_pmnt: nvarchar(3)
+        code_pmnt: nvarchar(16)
         statut: bit        
