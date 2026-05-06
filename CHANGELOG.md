@@ -2,6 +2,13 @@
 
 
 
+## v0.21.0+20260506 (2026-05-06)
+
+### Chores
+
+* chore(interfaces): remove deprecated GPI edo interfaces ([`5d85894`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5d85894c25651d40bac6ea51dd74f506918695d8))
+
+
 ## v0.21.0+20260211 (2026-02-11)
 
 ### Bug fixes
