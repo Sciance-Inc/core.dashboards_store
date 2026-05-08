@@ -179,6 +179,15 @@ models:
               [
                 "{{ core_dashboards_store.stamp_model('dashboard_retirement') }}",
               ]
+
+        resignation:
+          +tags: ["resignation"]
+          +schema: "dashboard_resignation"
+          pbi_tables:
+            +post-hook:
+              [
+                "{{ core_dashboards_store.stamp_model('dashboard_resignation') }}",
+              ]
       direction_generale:
         pevr:
           +tags: ["pevr"]

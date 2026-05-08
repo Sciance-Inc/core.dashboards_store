@@ -40,6 +40,7 @@ with
             src.empl_cong,
             src.cong_lt,
             src.etat_actif,
+            src.empl_resi,
             coalesce(src.valid_from, 1950) as valid_from,
             coalesce(
                 src.valid_until, {{ core_dashboards_store.get_current_year() }} + 1
@@ -56,6 +57,7 @@ with
             src.empl_cong,
             src.cong_lt,
             src.etat_actif,
+            src.empl_resi,
             src.valid_from + seq.seq_value as school_year,
             src.valid_until,
             row_number() over (
@@ -81,6 +83,7 @@ select
     empl_cong,
     cong_lt,
     etat_actif,
+    empl_resi,
     concat(descr, ' - (', etat_empl, ')') as employment_status_name,  -- Name first, then code
     concat(etat_empl, ' - (', descr, ')') as employment_status_code,  -- Code first, then description
     case when seq_id = 1 then 1 else 0 end as is_current
