@@ -182,4 +182,4 @@ seeds:
       schema: human_resources_seeds
       column_types:
         code_pmnt: nvarchar(16)
-        statut: bit        
+        statut: bit
