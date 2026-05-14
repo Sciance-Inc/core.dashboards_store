@@ -16,14 +16,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select
-    fiche,
-    ecole,
-    annee,
-    codematiere as code_matiere,
-    etape,
-    nocompetence as no_competence,
-    resultat,
-    resultatnumerique as resultat_numerique,
-    codereussite as code_reussite
-from {{ var("database_gpi") }}.edo.resultatscompetenceetape
-with (nolock)
+    {{ dbt_utils.generate_surrogate_key(["annee", "lieu_jumele"]) }} as filter_key,
+    hrs_remunere,
+    nb_totaux_eleve,
+    taux_reussite,
+    cohort_difficulty_score,
+    ratio_heure_ele
+from {{ ref("eff_fact_perf_ecole") }}

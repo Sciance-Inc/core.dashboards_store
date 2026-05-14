@@ -15,6 +15,6 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select descr, lieu_trav, type_lieu
-from {{ var("database_paie") }}.dbo.pai_tab_lieu_trav
+select ecocen, ecooff as eco_off, vpdeffect as vpd_effectif
+from {{ var("database_jade") }}.dbo.t_ecocen
 with (nolock)

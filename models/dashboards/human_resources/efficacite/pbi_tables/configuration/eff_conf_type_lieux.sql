@@ -15,6 +15,6 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select descr, lieu_trav, type_lieu
-from {{ var("database_paie") }}.dbo.pai_tab_lieu_trav
-with (nolock)
+select nom_lieu_jumele, categorie_lieu_jumele
+from {{ ref("eff_report_filtres") }}
+where annee = {{ core_dashboards_store.get_current_year() }} - 1

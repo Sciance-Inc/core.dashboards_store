@@ -1,0 +1,586 @@
+﻿corp_empl,description_corps_empl,categorie
+0105,Commissaire,Services administratifs et indirecte
+0106,Représ. Parents,Services administratifs et indirecte
+0107,Étudiant activité sport.,Soutien direct
+0109,Membre du CA,Services administratifs et indirecte
+0110,Tuteur,Soutien direct
+0505,Louage de services n/a,Services administratifs et indirecte
+1000,Directeur général,Services administratifs et indirecte
+1001,Directeur général adjoint,Services administratifs et indirecte
+1030,ÉP-Directeur général,Services administratifs et indirecte
+1031,ÉP-Directeur gén.adjoint,Services administratifs et indirecte
+1101,Directeur général,Services administratifs et indirecte
+1102,Directeur général adjoint,Services administratifs et indirecte
+1103,N/A Cons. cadre  dir gén,Services administratifs et indirecte
+1111,Dir. services éducatifs,Services administratifs et indirecte
+1112,Dir. des services des RH,Services administratifs et indirecte
+1113,Dir. des services autres,Services administratifs et indirecte
+1114,Dir. des services,Services administratifs et indirecte
+1130,Dir. centre éduc. adultes,Services administratifs et indirecte
+1135,Dir. serv. éduc. adultes,Services administratifs et indirecte
+1140,Dir. centre form. prof.,Services administratifs et indirecte
+1141,ÉP-Dir.services éducatifs,Services administratifs et indirecte
+1142,ÉP-Dir. services des RH,Services administratifs et indirecte
+1143,ÉP-Dir. services autres,Services administratifs et indirecte
+1144,ÉP-Dir. des services,Services administratifs et indirecte
+1145,Dir. serv. form. prof.,Services administratifs et indirecte
+1150,Dir. d'école primaire,Professionnels direct
+1155,Dir. d'école secondaire,Professionnels direct
+1160,ÉP-Dir.centre édu.adultes,Professionnels direct
+1165,ÉP-Dir.serv.éduc. adultes,Professionnels direct
+1170,ÉP-Dir. centre form. prof,Professionnels direct
+1175,ÉP-Dir. serv. form. prof.,Professionnels direct
+1180,ÉP-Dir. d'école primaire,Professionnels direct
+1185,ÉP-Dir.d'école secondaire,Professionnels direct
+1190,ÉP-Dir. école spécialisée,Professionnels direct
+1201,Dir. serv. enseignement,Professionnels direct
+1202,Dir. serv. enseig. prim.,Professionnels direct
+1203,Dir. serv. enseig. sec.,Professionnels direct
+1204,Dir. serv. aux étudiants,Professionnels direct
+1205,Dir. serv. financier,Services administratifs et indirecte
+1206,Dir. serv. équipement,Services administratifs et indirecte
+1207,Dir. serv. personnel,Services administratifs et indirecte
+1208,Secrétaire général,Services administratifs et indirecte
+1209,Dir. adjoint des services,Services administratifs et indirecte
+1210,Dir. de  zones,Services administratifs et indirecte
+1211,Dir. adjoint serv. éduc.,Services administratifs et indirecte
+1212,Dir. adjoint services RH,Services administratifs et indirecte
+1213,Dir. adjoint serv. autres,Services administratifs et indirecte
+1214,Secrétaire général,Services administratifs et indirecte
+1230,Dir.adj.centre éduc.adul.,Services administratifs et indirecte
+1231,Dir. adj. serv.équipement,Services administratifs et indirecte
+1232,Dir. adj. serv. ens.,Services administratifs et indirecte
+1233,Dir.adj. serv. financiers,Services administratifs et indirecte
+1236,Dir. adj. serv. tech. inf,Services administratifs et indirecte
+1239,ÉP-Dir. adj. des services,Services administratifs et indirecte
+1240,Dir.adj.centre form.prof.,Professionnels direct
+1241,ÉP-Dir.adjoint serv.éduc.,Professionnels direct
+1242,ÉP-Dir. adj. services RH,Services administratifs et indirecte
+1243,ÉP-Dir. adj. serv. autres,Services administratifs et indirecte
+1244,ÉP-Secrétaire général,Services administratifs et indirecte
+1250,Dir.adj.d'école primaire,Professionnels direct
+1255,Dir.ad.d'école secondaire,Professionnels direct
+1260,ÉP-Dir.adj.cen.éduc.adul.,Professionnels direct
+1270,ÉP-Dir.adj.cen.form.prof.,Professionnels direct
+1280,ÉP-Dir.adj.école primaire,Professionnels direct
+1285,ÉP-Dir. ad. école second.,Professionnels direct
+1301,Coord. ens. général,Services administratifs et indirecte
+1302,Coord. ens. professionel,Services administratifs et indirecte
+1303,Coord. ens. primaire,Services administratifs et indirecte
+1304,Coord. adapt. scolaire,Services administratifs et indirecte
+1305,Coord. mesure et évaluat.,Services administratifs et indirecte
+1306,Coord. moyens enseig. A,Services administratifs et indirecte
+1307,Coord. moyens enseig. B,Services administratifs et indirecte
+1308,Coord. serv. personnel,Services administratifs et indirecte
+1309,Coord. serv. financiers,Services administratifs et indirecte
+1310,Coord. serv. équipement,Services administratifs et indirecte
+1311,Coordon. des serv. éduc.,Services administratifs et indirecte
+1312,Coordon. des services RH,Services administratifs et indirecte
+1313,Coordon. des serv. autres,Services administratifs et indirecte
+1314,Coord.serv. aux étudiants,Services administratifs et indirecte
+1315,Coord. serv. transport,Services administratifs et indirecte
+1316,Cons. gest. de personnel,Services administratifs et indirecte
+1326,Coordon. des services,Services administratifs et indirecte
+1335,Coord.des serv.éduc.adul.,Services administratifs et indirecte
+1341,ÉP-Coord. des serv. éduc.,Services administratifs et indirecte
+1342,ÉP-Coord. des services RH,Services administratifs et indirecte
+1343,ÉP-Coord. des serv.autres,Services administratifs et indirecte
+1345,Coord.des serv.form.prof.,Services administratifs et indirecte
+1356,ÉP-Coordon. des services,Services administratifs et indirecte
+1360,ÉP-Coord.serv.éduc.adul.,Services administratifs et indirecte
+1365,ÉP-Dir.adj.serv.éduc.adul,Services administratifs et indirecte
+1370,ÉP-Coord. serv.form.prof.,Services administratifs et indirecte
+1375,ÉP-Dir.adj.serv.form.prof,Services administratifs et indirecte
+1400,Cons. direction générale,Services administratifs et indirecte
+1401,Dir. serv. éduc. adultes,Services administratifs et indirecte
+1402,Dir. centre éduc. adul.,Professionnels direct
+1403,Dir. ad. centre éd. adul.,Professionnels direct
+1404,Coord. serv. éd. adul.,Services administratifs et indirecte
+1406,Coord.form.pr.j/a,Services administratifs et indirecte
+1412,Cons.gestion de personnel,Services administratifs et indirecte
+1430,ÉP-Cons. direc. Générale,Services administratifs et indirecte
+1442,ÉP-Cons.gestion personnel,Services administratifs et indirecte
+1501,Dir. d'école primaire,Professionnels direct
+1502,Dir. d'école secondaire,Professionnels direct
+1503,Dir. adj. d'éc. primaire,Professionnels direct
+1504,Dir. adj. d'éc. sec.,Professionnels direct
+1505,Dir. adj. d'éc. sec. DA1,Professionnels direct
+1506,Dir. adj. d'éc. sec. DA2,Professionnels direct
+1507,Dir. d'école spécialisée,Professionnels direct
+1520,Régisseur de services,Services administratifs et indirecte
+1550,ÉP-Régisseur de services,Services administratifs et indirecte
+1601,Régiss. serv. équipement,Services administratifs et indirecte
+1602,Régiss. serv. transport,Services administratifs et indirecte
+1603,Adj. adm. d'école,Services administratifs et indirecte
+1604,Régiss. serv. d'entretien,Services administratifs et indirecte
+1605,Régiss. serv. approv.,Services administratifs et indirecte
+1606,Régiss. serv. alimentaire,Services administratifs et indirecte
+1607,Régiss. serv. communaut.,Services administratifs et indirecte
+1608,Rég. adj. serv. ad trans.,Services administratifs et indirecte
+1609,Contrem. entretien spéc.,Services administratifs et indirecte
+1610,Contrem entretien gén.,Services administratifs et indirecte
+1612,Agent d'administration,Services administratifs et indirecte
+1613,Chef de secrétariat,Services administratifs et indirecte
+1617,Régiss. serv. administrat,Services administratifs et indirecte
+1621,Adj.régis.transport scol.,Services administratifs et indirecte
+1651,ÉP-Adj.régis.transp.scol.,Services administratifs et indirecte
+1701,Dir. Serv. Form. Prof.,Services administratifs et indirecte
+1702,Dir. Centre Form. Prof.,Services administratifs et indirecte
+1703,Dir- adj. Centre For.Prof,Services administratifs et indirecte
+1704,Coord. Serv. Form. Prof.,Services administratifs et indirecte
+1722,Resp. gestion adm.,Services administratifs et indirecte
+1752,ÉP-Resp. gestion adm.,Services administratifs et indirecte
+1810,Adjoint adm. de services,Services administratifs et indirecte
+1811,Adjoint adm. de services,Services administratifs et indirecte
+1820,ÉP-Adj. adm. de services,Services administratifs et indirecte
+1830,Gestionnaire (CEA),Services administratifs et indirecte
+1840,Gestionnaire (CFP),Services administratifs et indirecte
+1850,Gestionnaire(école prim.),Services administratifs et indirecte
+1855,Gestionnaire(école sec.),Services administratifs et indirecte
+1860,ÉP-Gest.(CEA) éval part.,Services administratifs et indirecte
+1870,ÉP-Gest.(CFP) éval part.,Services administratifs et indirecte
+1880,ÉP-Gest(école prim),Services administratifs et indirecte
+1885,ÉP-Gest(école sec.),Services administratifs et indirecte
+1923,Contremaître d'ent. spéc.,Services administratifs et indirecte
+1924,Contremaître d'ent. gén.,Services administratifs et indirecte
+1926,Chef de secrétariat,Services administratifs et indirecte
+1927,Contremaître,Services administratifs et indirecte
+1953,ÉP-Contremaître ent.spéc.,Services administratifs et indirecte
+1954,ÉP-Contremaître ent. gén.,Services administratifs et indirecte
+1956,ÉP-Chef de secrétariat,Services administratifs et indirecte
+1957,ÉP-Contremaître,Services administratifs et indirecte
+2000,Professionnel,Professionnels direct
+2102,Bibliothécaire,Professionnels direct
+2103,Conseil. mesure & éval.,Professionnels direct
+2104,Conseiller pédagogique,Professionnels direct
+2105,Spéc. moy.&tech. d'ens.,Professionnels direct
+2106,Agent de réadaptation,Professionnels direct
+2107,Anim. de vie étudiante,Soutien direct
+2108,Anim. de pastorale,Soutien direct
+2109,Cons. orientation,Soutien direct
+2110,Conseil. éduc. chrétienne,Soutien direct
+2111,Travailleur(se) social,Soutien direct
+2112,Orthophoniste/Audiologist,Professionnels direct
+2113,Psychologue,Professionnels direct
+2114,Cons. inf. scol. et prof.,Soutien direct
+2115,Diétététiste ou nutritio.,Professionnels direct
+2116,Ergothérapeute,Professionnels direct
+2117,n/aAgentgestion personnel,Services administratifs et indirecte
+2118,Agent gestion financière,Services administratifs et indirecte
+2119,Cons. en communication,Services administratifs et indirecte
+2120,Analyste,Services administratifs et indirecte
+2121,Attaché d'administration,Services administratifs et indirecte
+2122,Ingénieur,Services administratifs et indirecte
+2123,Orthopédagogue,Professionnels direct
+2136,n/aCons.ens.rel. et moral,Soutien direct
+2137,n/a Aumônier,Services administratifs et indirecte
+2140,Traducteur,Soutien direct
+2141,Anim. dév. pers. & comm.,Soutien direct
+2142,Conseil. dév. pers.& com.,Soutien direct
+2143,Agent(e) de développement,Services administratifs et indirecte
+2144,Avocat,Services administratifs et indirecte
+2146,Traducteur(rice) agréée,Soutien direct
+2147,Cons. à l'éducation présc,Soutien direct
+2148,Architecte,Services administratifs et indirecte
+2150,psychoéducateur(rice),Professionnels direct
+2151,Agent réadaptation fonct.,Soutien direct
+2152,Agent(e) corr. lang. aud.,Soutien direct
+2153,cons. en formation scol.,Soutien direct
+2154,cons. en rééducation,Soutien direct
+2155,cons. en alimentation,Soutien direct
+2156,Analyste TI spécialisé(e),Services administratifs et indirecte
+2157,Conseiller(ère) res. mat.,Services administratifs et indirecte
+2198,Autre prof. non enseig.,Services administratifs et indirecte
+2999,PNE création pour Web,Services administratifs et indirecte
+3000,Enseignant,Enseignants
+3001,Contexte particulier ens.,Enseignants
+3101,Diff. ad.app. pré.pri.sec,Enseignants
+3102,Ens. du pré-scolaire,Enseignants
+3103,Ens. du primaire,Enseignants
+3104,Spéc. angl. au primaire,Enseignants
+3105,Spéc. éduc. pré. et prim.,Enseignants
+3106,Spéc. musique pré et prim,Enseignants
+3107,Spéc. arts plast. pré/pri,Enseignants
+3108,Form. gén. angl. sec.,Enseignants
+3109,F.g. éduc. & santé secon.,Enseignants
+3110,Form. gén. musique sec.,Enseignants
+3111,Form. gén. arts pla. sec.,Enseignants
+3112,Form. gén. franc. sec.,Enseignants
+3113,Form. gén. math /sc. sec.,Enseignants
+3114,Frm. gn. mo.rel.per. sec.,Enseignants
+3115,n/aFrm. gn. éc/sc fam sec,Enseignants
+3116,Frm. gn. in.tch/trav sec.,Enseignants
+3117,Frm. gn. sc.hum/v.éc sec.,Enseignants
+3118,Ens. informatique,Enseignants
+3119,Form gén. autre 3108/3118,Enseignants
+3120,Classe accueil immigrants,Enseignants
+3121,Suppléance régulière,Enseignants
+3122,Frm générale en danse,Enseignants
+3124,Services santé,Enseignants
+3125,Prof. meub. const.,Enseignants
+3126,Prof. électrotech.,Enseignants
+3127,Prof. Hydrothermie,Enseignants
+3128,Prof. dessin techn.,Enseignants
+3129,Prof. équip. motor.,Enseignants
+3130,Prof. mécanique,Enseignants
+3131,Prof. alimentation,Enseignants
+3132,Spécialiste ArtDramatique,Enseignants
+3133,Prof. couture hab.,Enseignants
+3136,Prof. imprimerie,Enseignants
+3138,suppléance régul.,Enseignants
+3139,Enseignant retraité FGJ,Enseignants
+3140,Orthopédagogue primaire,Enseignants
+3141,Ens. ressource secondaire,Enseignants
+3143,Enseignant(e) mentor,Enseignants
+3151,Frm prf adm. comm. et inf,Enseignants
+3152,Frm prf agriculture,Enseignants
+3153,F.p.  foresterie & papier,Enseignants
+3154,F.p. mines & trav. chant.,Enseignants
+3155,Frm prf pêches,Enseignants
+3156,F.p.  santé,Enseignants
+3157,Frm prf bois et matériaux,Enseignants
+3158,F.p. bâtiment & infrastr.,Enseignants
+3159,Frm prf électricité,Enseignants
+3160,F.p. électrotechnique,Enseignants
+3161,Frm prf méc. bâtiment,Enseignants
+3162,Frm prf métallurgie,Enseignants
+3163,F.p. chimie & biologie,Enseignants
+3164,F.p. travaux techniques,Enseignants
+3165,Frm prf équipem. motorisé,Enseignants
+3166,Frm prf transport,Enseignants
+3167,N/A Frm prf fabric. mécan,Enseignants
+3168,F.p. méc. d'entretien,Enseignants
+3169,F.p. aliment. & tourisme,Enseignants
+3170,Frm prf soins esthétiques,Enseignants
+3171,Frm prf coiffure,Enseignants
+3172,F.p. cuir textile & habil,Enseignants
+3173,N/AFrm prf protect.civile,Enseignants
+3174,F.p. arts,Enseignants
+3175,F.p. communic. & docum.,Enseignants
+3176,Frm prf op. machn. lourde,Enseignants
+3177,Frm prf méc. véhi. lourds,Enseignants
+3178,F.p. montage de lignes él,Enseignants
+3179,F.p. conduite de camions,Enseignants
+3180,F.p. envir.&amén. territ.,Enseignants
+3181,F.p. production,Enseignants
+3182,F.p. services techniques,Enseignants
+3183,N/A F.p.serv.soc edu jur.,Enseignants
+3192,Suppl retraité FP-Sect FR,Enseignants
+3197,Autres form. prof. non cl,Enseignants
+3198,Autres enseignants,Enseignants
+3201,Suppléant,Enseignants
+3202,Ens. à la leçon,Enseignants
+3203,Suppléant irrég sect angl,Enseignants
+3204,Suppléant retraité,Enseignants
+3301,Élèves HDAA présc pri sec,Enseignants
+3302,Cl éduc préscol autre imm,Enseignants
+3303,Spéc. franç. incl. cl imm,Enseignants
+3304,Spéc édu phy pri fr g sec,Enseignants
+3305,Spéc musique pri fr g sec,Enseignants
+3306,Spéc art plast pr fr g se,Enseignants
+3307,Primaire autre,Enseignants
+3308,Frm gén angl. l d'ens sec,Enseignants
+3309,Frm gén sciences sec,Enseignants
+3310,Frm gén  mathématique sec,Enseignants
+3311,Frm gén rel mor fr pe sec,Enseignants
+3312,Frm gén sc familiale sec,Enseignants
+3313,Frm gén init tec éduc car,Enseignants
+3314,Frm gén sc ho vie éco sec,Enseignants
+3315,Frm gén sc informati. sec,Enseignants
+3316,Frm gén langues,Enseignants
+3317,Suppl régul. éduc préscol,Enseignants
+3351,Frm prf  administration,Enseignants
+3352,Frm prf agro-technique,Enseignants
+3353,Frm prf forest. sci. pa.,Enseignants
+3354,Frm prf tra. génie +mines,Enseignants
+3355,Frm prf pêches,Enseignants
+3356,Frm prf santé + serv soc,Enseignants
+3357,Frm prf bois matér. con.,Enseignants
+3358,Frm prf construction,Enseignants
+3359,Frm prf électricité,Enseignants
+3360,Frm prf électronique,Enseignants
+3361,Frm prf mécan. bâtiment,Enseignants
+3362,Frm prf métallurgie,Enseignants
+3363,Frm prf chimie appl. env.,Enseignants
+3364,Frm prf  dessin technique,Enseignants
+3365,Frm prf  équip. motorisé,Enseignants
+3366,Frm prf  transport,Enseignants
+3367,Frm prf  fabric. mécan.,Enseignants
+3368,Frm prf  mécan. entr. ind,Enseignants
+3369,Frm prf  alim. hôt. rest.,Enseignants
+3370,Frm prf soins esthétiques,Enseignants
+3371,Frm prf coiffure,Enseignants
+3372,Frm prf prod. tex. habi.,Enseignants
+3373,Frm prf protect. civile,Enseignants
+3374,Frm prf arts appliqués,Enseignants
+3375,Frm prf imprimerie,Enseignants
+3376,Frm prf op.machine lou.,Enseignants
+3377,Frm prf méc. machine lou.,Enseignants
+3378,Frm prf montage de ligne,Enseignants
+3379,Frm prf conduite véhi. l,Enseignants
+3380,Suppléant retraité FP,Enseignants
+3397,Autres spéc. prof. non cl,Enseignants
+3398,Autre personnel ens.,Enseignants
+3401,Élèves HDAA présc pri sec,Enseignants
+3402,Préscolaire autre,Enseignants
+3403,Primaire autre,Enseignants
+3404,Spéc. langue seconde prim,Enseignants
+3405,Spéc. éduc. phys. mat pri,Enseignants
+3406,Spéc. musique mat pri,Enseignants
+3407,Spéc. arts plast. mat pri,Enseignants
+3408,Frm gén langue seconde,Enseignants
+3409,Frm gén éduc. phys. sec,Enseignants
+3410,Frm gén musique sec,Enseignants
+3411,Frm gén arts plast. sec,Enseignants
+3412,Frm gén f l d'ens a.s.a.,Enseignants
+3413,Frm gén math science sec,Enseignants
+3414,Frm gén rel mor f. pe sec,Enseignants
+3415,Frm gén éco.fam.sc fam se,Enseignants
+3416,N/A Frmgénin.tecéd.carsec,Enseignants
+3417,Frm gén sc hom vie éco se,Enseignants
+3418,Informatique sec,Enseignants
+3419,Frm gén autre sec,Enseignants
+3420,Cl. acc. sout ling immigr,Enseignants
+3421,Suppléance régulière,Enseignants
+3443,Enseignant(e) mentor,Enseignants
+3451,Frm prf administration,Enseignants
+3452,Frm prf agro-technique,Enseignants
+3453,Frm prf forest. sci. pa.,Enseignants
+3454,Frm prf tra. génie +mines,Enseignants
+3455,Frm prf pêches,Enseignants
+3456,Frm prf santé + serv soc,Enseignants
+3457,Frm prf bois matér. con.,Enseignants
+3458,Frm prf construction,Enseignants
+3459,Frm prf électricité,Enseignants
+3460,Frm prf électronique,Enseignants
+3461,Frm prf mécan. bâtiment,Enseignants
+3462,Frm prf métallurgie,Enseignants
+3463,Frm prf chimie appl. env.,Enseignants
+3464,Frm prf  dessin technique,Enseignants
+3465,Frm prf  équip. motorisé,Enseignants
+3466,Frm prf  transport,Enseignants
+3467,N/AFrm prf fabric. mécan.,Enseignants
+3468,Frm prf  mécan. entr. ind,Enseignants
+3469,Frm prf  alim. hôt. rest.,Enseignants
+3470,Frm prf soins esthétiques,Enseignants
+3471,Frm prf coiffure,Enseignants
+3472,Frm prf prod. tex. habi.,Enseignants
+3473,N/AFrm prf protect.civile,Enseignants
+3474,Frm prf arts appliqués,Enseignants
+3475,Frm prf imprimerie,Enseignants
+3476,N/AFrm prf op.mach. lou.,Enseignants
+3477,Frm prf méc. machine lou.,Enseignants
+3478,Frm prf montage de ligne,Enseignants
+3479,Frm prf conduite véhi. l,Enseignants
+3480,F.p. envir.&amén. territ.,Enseignants
+3481,F.p. production,Enseignants
+3482,F.p. services techniques,Enseignants
+3483,N/A F.p.serv.soc.edu&jur.,Enseignants
+3492,Suppl retraité FP-Sect AN,Enseignants
+3497,Autres spéc. prof. non cl,Enseignants
+3498,Autre personnel ens.,Enseignants
+3500,Ens. éduc. adulte et prof,Enseignants
+3502,A-Arts,Enseignants
+3503,A-Dévelop perso et social,Enseignants
+3504,A-Éducation physique,Enseignants
+3505,A-Intégration sociale,Enseignants
+3506,A-Intégration socioprofes,Enseignants
+3508,N/ALang. second : fr. an.,Enseignants
+3509,A-Langue Francisation,Enseignants
+3510,A-Langue enseig. Anglais,Enseignants
+3511,A-Langue enseig. Français,Enseignants
+3512,N/ALang. mate.:fr.an.ink,Enseignants
+3513,A-Mathé. et Sciences,Enseignants
+3514,N/ARel morale form. pers,Enseignants
+3515,A-Langue enseig. présecon,Enseignants
+3516,A-Langue enseig Inuk Crie,Enseignants
+3517,N/ASciences humaines,Enseignants
+3518,A-Informatique,Enseignants
+3519,A-Langue seconde Anglais,Enseignants
+3520,A-Langue seconde Francais,Enseignants
+3521,A-Langue étrangère,Enseignants
+3522,A-Mathématiques,Enseignants
+3523,A-Sciences BIO CHI PHY SC,Enseignants
+3524,Sciences et tech. - Autre,Enseignants
+3525,Univers social - Histoire,Enseignants
+3526,Univers social - Autre,Enseignants
+3527,A-Sout péd Entrée formati,Enseignants
+3533,A-Formation de base commu,Enseignants
+3535,A-Présecondaire,Enseignants
+3536,A-Présecondaire/Alphabéti,Enseignants
+3537,Supp Retraité FGA,Enseignants
+3540,A-Alphabétisation,Enseignants
+3541,N/AInsert. à la vie comm.,Enseignants
+3542,N/Aut. form. géné. non cl,Enseignants
+3551,Frm prf  administration,Enseignants
+3552,Frm prf agro-technique,Enseignants
+3553,Frm prf forest. sci. pa.,Enseignants
+3554,Frm prf tra. génie +mines,Enseignants
+3555,Frm prf pêches,Enseignants
+3556,Frm prf santé + serv soc,Enseignants
+3557,Frm prf bois matér. con.,Enseignants
+3558,Frm prf construction,Enseignants
+3559,Frm prf électricité,Enseignants
+3560,Frm prf électronique,Enseignants
+3561,Frm prf mécan. bâtiment,Enseignants
+3562,Frm prf métallurgie,Enseignants
+3563,Frm prf chimie appl. env.,Enseignants
+3564,Frm prf  dessin technique,Enseignants
+3565,Frm prf  équip. motorisé,Enseignants
+3566,Frm prf  transport,Enseignants
+3567,Frm prf  fabric. mécan.,Enseignants
+3568,Frm prf  mécan. entr. ind,Enseignants
+3569,Frm prf  alim. hôt. rest.,Enseignants
+3570,Frm prf soins esthétiques,Enseignants
+3571,Frm prf coiffure,Enseignants
+3572,Frm prf prod. tex. habi.,Enseignants
+3573,Frm prf protect. civile,Enseignants
+3574,Frm prf arts appliqués,Enseignants
+3575,Frm prf imprimerie,Enseignants
+3576,Frm prf op.machine lou.,Enseignants
+3577,Frm prf méc. machine lou.,Enseignants
+3578,Frm prf montage de ligne,Enseignants
+3579,Frm prf conduite véhi. l,Enseignants
+3592,Suppléance retraités FGA,Enseignants
+3596,Formation base entreprise,Enseignants
+3597,A-Adaptation scolaire I,Enseignants
+3598,A-Adaptation scolaire II,Enseignants
+3599,Education populaire,Enseignants
+3602,Ens.  maternelle,Enseignants
+3603,Tit. Crie angl franç pri,Enseignants
+3605,Éducation phys pri + sec,Enseignants
+3609,Éducation physique sec,Enseignants
+3619,Cult. crie p et s g et f,Enseignants
+3639,Ens. gén. sec,Enseignants
+3702,Ens. maternelle,Enseignants
+3703,Tit. inuk.angl.franç. pri,Enseignants
+3705,Éducation phys  pri + sec,Enseignants
+3709,Éducation physique sec,Enseignants
+3719,Cult.inuit sec ga fi l in,Enseignants
+3739,Éns. sec général,Enseignants
+3999,Ens création pour Web,Enseignants
+4000,Soutien,Services administratifs et indirecte
+4101,Ag. de bureau cl.princ.,Services administratifs et indirecte
+4102,Ag. de bureau classe I,Services administratifs et indirecte
+4103,Ag. de bureau classe II,Services administratifs et indirecte
+4104,Auxil. en informatique,Services administratifs et indirecte
+4105,Auxil. inform. cl princ.,Services administratifs et indirecte
+4107,Acheteur,Services administratifs et indirecte
+4108,Magasinier cl. princ.,Services administratifs et indirecte
+4109,Magasinier classe I,Services administratifs et indirecte
+4110,Magasinier classe II,Services administratifs et indirecte
+4111,Secrétaire de gestion,Services administratifs et indirecte
+4113,Secrétaire,Services administratifs et indirecte
+4114,Auxiliaire de bureau,Services administratifs et indirecte
+4115,Téléphoniste,Services administratifs et indirecte
+4116,Secrétaire école/centre,Services administratifs et indirecte
+4117,Opér. repro. cl. princ.,Services administratifs et indirecte
+4118,Opér. en reprographie,Services administratifs et indirecte
+4198,Autre soutien administr.,Services administratifs et indirecte
+4199,Autre soutien élection,Services administratifs et indirecte
+4201,Opér. inform. cl. princ.,Services administratifs et indirecte
+4202,Opér. inform. classe I,Services administratifs et indirecte
+4203,Opér. inform. classe II,Services administratifs et indirecte
+4204,Techn. en informatique,Services administratifs et indirecte
+4205,Techn. en documentation,Services administratifs et indirecte
+4206,Infirmier(ère),Services administratifs et indirecte
+4207,Techn. en éduc. spéc.,Services administratifs et indirecte
+4208,Techn. en travail social,Services administratifs et indirecte
+4209,Techn. travaux pratiques,Services administratifs et indirecte
+4210,N/A .....Tech.-interprete,Services administratifs et indirecte
+4211,Techn. en administration,Services administratifs et indirecte
+4212,Techn. audio-visuel,Services administratifs et indirecte
+4213,Techn. en bâtiment,Services administratifs et indirecte
+4214,Techn. en loisirs,Services administratifs et indirecte
+4215,Techn. en organisat. scol,Services administratifs et indirecte
+4216,Techn. en psychométrie,Services administratifs et indirecte
+4217,Infirmier auxiliaire,Services administratifs et indirecte
+4218,Appariteur,Services administratifs et indirecte
+4219,Dessinateur,Services administratifs et indirecte
+4221,Opérat. en imprimerie,Services administratifs et indirecte
+4222,Photographe,Services administratifs et indirecte
+4223,Surveillant d'élèves,Services administratifs et indirecte
+4226,Surveillant sauveteur,Services administratifs et indirecte
+4227,Taxidermie,Services administratifs et indirecte
+4228,Tech. en écriture braille,Services administratifs et indirecte
+4229,Opér. imprimerie cl princ,Services administratifs et indirecte
+4230,Tech. interprète,Services administratifs et indirecte
+4232,Opér. reprographie cl pri,Services administratifs et indirecte
+4233,Opér. en reprographie,Services administratifs et indirecte
+4276,Techn. en gest. aliment.,Services administratifs et indirecte
+4277,Techn. en électronique,Services administratifs et indirecte
+4278,Techn. en inform cl princ,Services administratifs et indirecte
+4279,Techn. en arts graphiques,Services administratifs et indirecte
+4280,Techn. transport scolaire,Services administratifs et indirecte
+4281,Techn. en form. prof.,Services administratifs et indirecte
+4282,Insp. en transport scol.,Services administratifs et indirecte
+4283,Relieur,Services administratifs et indirecte
+4284,Éduc. en milieu scolaire,Services administratifs et indirecte
+4285,Techn. en srv. de garde,Services administratifs et indirecte
+4286,Préposé élève handicapé,Services administratifs et indirecte
+4288,Éduc. scol. cl. princ.,Services administratifs et indirecte
+4298,Autre soutien technique,Services administratifs et indirecte
+4999,4*** création pour Web,Services administratifs et indirecte
+5000,Soutien,Services administratifs et indirecte
+5101,Briqueteur-maçon,Services administratifs et indirecte
+5102,Ebéniste,Services administratifs et indirecte
+5103,Électricien(ne) cl. princ,Services administratifs et indirecte
+5104,Electricien,Services administratifs et indirecte
+5105,Ferblantier-couvreur,Services administratifs et indirecte
+5106,Mécanicien classe I,Services administratifs et indirecte
+5107,Mécan. mach. fixes cl I,Services administratifs et indirecte
+5108,Mécan. mach. fixes cl II,Services administratifs et indirecte
+5109,Mécan. mach. fixes cl III,Services administratifs et indirecte
+5110,Mécan. mach. fixes cl IV,Services administratifs et indirecte
+5111,Mécan. mach. fixes cl V,Services administratifs et indirecte
+5112,Mécan. mach. fixes cl VI,Services administratifs et indirecte
+5114,Maître méc. en tuyauterie,Services administratifs et indirecte
+5115,Tuyauteur,Services administratifs et indirecte
+5116,Menuisier,Services administratifs et indirecte
+5117,Ouvrier cert. d'entretien,Services administratifs et indirecte
+5118,Peintre,Services administratifs et indirecte
+5119,Plâtrier,Services administratifs et indirecte
+5120,Serrurier,Services administratifs et indirecte
+5121,Soudeur,Services administratifs et indirecte
+5122,Méc. machine de bureau,Services administratifs et indirecte
+5125,Spéc. mécanique d'ajust.,Services administratifs et indirecte
+5126,Vitrier monteur-méc.,Services administratifs et indirecte
+5127,Préposé au serv. d'alarme,Services administratifs et indirecte
+5133,Appren. métier 1ere année,Services administratifs et indirecte
+5134,Appren. métier 2e année,Services administratifs et indirecte
+5135,Appren. métier 3e année,Services administratifs et indirecte
+5136,Appren. métier 4e année,Services administratifs et indirecte
+5137,Mécanicien classe II,Services administratifs et indirecte
+5198,Autre soutien qualifié,Services administratifs et indirecte
+5301,Concierge classe I,Services administratifs et indirecte
+5302,Concierge classe II,Services administratifs et indirecte
+5303,Concierge de nuit cl. I,Services administratifs et indirecte
+5304,Concierge de nuit cl. II,Services administratifs et indirecte
+5306,Aide général de cuisine,Services administratifs et indirecte
+5307,Buandier,Services administratifs et indirecte
+5308,Conducteur véhicule lourd,Services administratifs et indirecte
+5309,Aide cond. véhicule lourd,Services administratifs et indirecte
+5310,Conducteur véhicule léger,Services administratifs et indirecte
+5311,Cuisinier classe I,Services administratifs et indirecte
+5312,Cuisinier classe II,Services administratifs et indirecte
+5313,Cuisinier classe III,Services administratifs et indirecte
+5314,Pâtissier,Services administratifs et indirecte
+5315,Boucher,Services administratifs et indirecte
+5316,Gardien,Services administratifs et indirecte
+5317,Ouvrier entretien cl I,Services administratifs et indirecte
+5318,Ouvrier d'ent. classe II,Services administratifs et indirecte
+5319,Ouvrier entretien cl III,Services administratifs et indirecte
+5321,Jardinier,Services administratifs et indirecte
+5334,Aide de métier,Services administratifs et indirecte
+5335,Opér. chauff/frigorifique,Services administratifs et indirecte
+5398,Autre soutien entr. serv.,Services administratifs et indirecte
+5999,5*** création pour Web,Services administratifs et indirecte
+6001,Autre,Services administratifs et indirecte
+9104,Cons.péd. ext.,Services administratifs et indirecte
+9107,Anim. ext.,Services administratifs et indirecte
+9108,Animateur pastor.,Services administratifs et indirecte
+9120,Analyste,Services administratifs et indirecte
+9200,Tuteur collégial,Soutien direct
+9500,Organisation d'évènements,Services administratifs et indirecte
+9600,Entraineur/activité,Soutien direct
+9700,Stagiaire,Soutien direct

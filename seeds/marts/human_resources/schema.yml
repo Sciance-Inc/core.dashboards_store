@@ -30,6 +30,10 @@ seeds:
         description: Is the code identifiing a currently on long-terme leave employee ?
         tests:
           - not_null
+      - name: empl_resi
+        description: Is the code identifiing a currently resignation employee ?
+        tests:
+          - not_null
       - name: valid_from
         description: >
           The YEAR (integer) from which the status starts to be valid. The lower bound is included
@@ -38,6 +42,7 @@ seeds:
         description: >
           The YEAR (integer) from which the status stops to be valid. The upper bound is excluded from the validity period.
           If not populated, the status is valid until the current year + 1 .
+
     config:
       tags:
         - human_resources
@@ -48,6 +53,7 @@ seeds:
         empl_retr: bit
         empl_cong: bit
         cong_lt: bit
+        empl_resi: bit
         etat_actif: bit
         valid_from: int
         valid_until: int

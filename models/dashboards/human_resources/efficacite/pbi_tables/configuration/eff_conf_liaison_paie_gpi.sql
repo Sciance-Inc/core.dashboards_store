@@ -15,16 +15,4 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select
-    annee,
-    ecole,
-    fiche,
-    etat,
-    codematiere as code_matiere,
-    matieregroupe as groupe_matiere,
-    resultat,
-    resultatnumerique as resultat_numerique,
-    codereussite as code_reussite,
-    rid
-from {{ var("database_gpi") }}.edo.matiereseleve
-with (nolock)
+select distinct lieu_trav, ecole_gpi, lieu_jumele from {{ ref("eff_mapping_fgj_paie") }}

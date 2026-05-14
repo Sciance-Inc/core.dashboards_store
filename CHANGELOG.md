@@ -2,6 +2,203 @@
 
 
 
+## v0.21.0+20260506 (2026-05-06)
+
+### Chores
+
+* chore(interfaces): remove deprecated GPI edo interfaces ([`5d85894`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5d85894c25651d40bac6ea51dd74f506918695d8))
+
+
+## v0.21.0+20260211 (2026-02-11)
+
+### Bug fixes
+
+* fix(absenteism): the css tablw was not properly refered ([`cf0344b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cf0344b42fe416efeafbf67041f3d99cf6e626db))
+
+* fix(cicd): adding missing seeds for the efficacite dashboard ([`a944f49`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a944f4957916a6e118d12c6b8aff917a6fd53bd5))
+
+
+## v0.20.0+20260209 (2026-02-09)
+
+### Bug fixes
+
+* fix(efficacite): ajout de la colonne type_lieu dans l'interface i_pai_tab_lieu_trav ([`7174510`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7174510bc89ee7d30657944d284dd5c4c1a81d05))
+
+* fix(abstsm): the css metrics is now computed as the weighted aggregation of all schools ([`a9146df`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a9146dff7fa996f6b2d537f3ace72bcd72e8457f))
+
+* fix(pevr): corriger erreur de syntaxe et ajouter Text.From() ([`ca6ba01`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ca6ba017d7fb504c36066246c1ae3defab353008))
+
+* fix(chronic_absenteeism): ajouter Text.From() pour les colonnes numeriques ([`7eabbd6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7eabbd6fa66deabb38e732523597cd334527b154))
+
+* fix: modification du nom d'un filtre ([`85dc596`](https://github.com/Sciance-Inc/core.dashboards_store/commit/85dc5968d0c6be4a6274214a4dc80462efb0a8d3))
+
+* fix(resultat): replacing hardcoded year with a macro ([`c63e625`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c63e625b1abe8ae9270bf6f49600d2139ce695d4))
+
+* fix(efficacite): ajout de la colonne type_lieu dans l'interface i_pai_tab_lieu_trav ([`5ffd11e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5ffd11e34a58d1f4ef70360f488122f63272ff15))
+
+* fix(abstsm): the css metrics is now computed as the weighted aggregation of all schools ([`4fcb836`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4fcb836fcddff1d399f0900a95abf229c547151f))
+
+* fix(pevr): corriger erreur de syntaxe et ajouter Text.From() ([`f8516e3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f8516e3c36abc3ab0e8049ec75ea2f873f7e78f5))
+
+* fix(chronic_absenteeism): ajouter Text.From() pour les colonnes numeriques ([`f648859`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f648859a25b457901c6b108039dbcd90a42a64e4))
+
+* fix: modification du nom d'un filtre ([`b7989ef`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b7989efecda21c300a45c6c13c6cb6ab3210afe8))
+
+* fix(resultat): replacing hardcoded year with a macro ([`1b8959c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1b8959c61bdcf124fefef2173785e522977c1b6e))
+
+### Chores
+
+* chore(efficacite): correction d'erreur d'orthographe dans le tdb ([`2a7e6ed`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2a7e6ed63f783742c2f4918bb7175bef384f3475))
+
+* chore: sqlfmt et licence-checker
+
+chore: sqlfmt ([`36ad5c1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/36ad5c1415439f32e0e86228c80d146d54dbdcff))
+
+* chore: sqlfmt 2 ([`36ad5c1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/36ad5c1415439f32e0e86228c80d146d54dbdcff))
+
+* chore: sqlfmt ([`f69f79d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f69f79d4cad9071a78c944e5f13ec16749747651))
+
+* chore: sqlfmt ([`9dd82b5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9dd82b53f11abc03275ed7e2058f85719eb426da))
+
+* chore: fixing the datashboard typo ([`f838b81`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f838b8116847c88651f69ce0baf21949224faaf6))
+
+* chore(efficacite): correction d'erreur d'orthographe dans le tdb ([`acf5e64`](https://github.com/Sciance-Inc/core.dashboards_store/commit/acf5e6450ebfe60075f74100232e13633735a3fd))
+
+* chore: sqlfmt et licence-checker
+
+chore: sqlfmt ([`838d3ff`](https://github.com/Sciance-Inc/core.dashboards_store/commit/838d3ff810c37945511748ed2753ef413bd8d223))
+
+* chore: sqlfmt 2 ([`838d3ff`](https://github.com/Sciance-Inc/core.dashboards_store/commit/838d3ff810c37945511748ed2753ef413bd8d223))
+
+* chore: sqlfmt ([`0cee32b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0cee32bec665544f7a2725a8869bf4a019d18204))
+
+* chore: sqlfmt ([`51d6dd7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/51d6dd7df2b3ceab16e11d2e8fe73a23d8f7e848))
+
+* chore: fixing the datashboard typo ([`470cfa1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/470cfa1cd023e94e577baa17a0be8bc08b548b61))
+
+### Documentation
+
+* docs(poetry): updating references to environement activation for poetry 2.0 ([`8279a1f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8279a1f162d81b48afc69a2cc31469c2400d90b4))
+
+* docs(template): adding missing authentication: sql to the profile sample ([`d7ae9e7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d7ae9e7ee1f140e9ef61390c3ff94d823d6794e2))
+
+* docs(poetry): updating references to environement activation for poetry 2.0 ([`74bb8d7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/74bb8d75985a1fbccb87426830b7a70469ebead2))
+
+* docs(template): adding missing authentication: sql to the profile sample ([`6dd1544`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6dd1544c34ad990185c83fc7be8e4d5402a85344))
+
+### Features
+
+* feat(efficacite): adding script for computing coefficients ([`6f6cb2d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6f6cb2d1c6da11e916b721a0833cd9bbac1e64c2))
+
+* feat(efficacite): ajout du cookie cutter ([`90335f3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/90335f3f3e30c242bb7db0860e06baa74449c0d3))
+
+* feat(efficicate): ajout du tdb ([`ff061db`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ff061dbc9498a7bd3e3ae8745175f4e9ae5c08ef))
+
+* feat(efficacite): ajout du schema ([`ea6f941`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ea6f9417f99824b06b3bb82131857579e96670e1))
+
+* feat(efficacite): ajout de la table de filtre ([`14d1aa4`](https://github.com/Sciance-Inc/core.dashboards_store/commit/14d1aa4e101a53cf10be209f3b0eae8b98681024))
+
+* feat(efficacite): ajout des tables de configuration ([`7ed823e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7ed823e259e273354a31d77103cb1ce6be58f562))
+
+* feat(efficacite): ajout des tables model ([`3894cf5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3894cf5e215d9e948d2ab17cbb35f6c65d728206))
+
+* feat(efficacite): ajout des tables de reporting ([`e157f43`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e157f43a674ebb7f2ea64572a7734703f6b0cafd))
+
+* feat(efficacite): ajout des tables de facts ([`d7ba483`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d7ba483a073b8d45eb3ef199b87c314d44138c6d))
+
+* feat(efficacite): ajout de la dim mapper_lieu_jumele ([`8ba2e9b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/8ba2e9bfb9e3f06160e8cc1b614168aea790d615))
+
+* feat(efficaite): création du pmnt_history et des seeds liées ([`fcd4a8e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fcd4a8eba9a5fd250d0f7eb099f681276a7631b6))
+
+* feat(efficacite): ajout des interfaces et du dbt project ([`47b8d57`](https://github.com/Sciance-Inc/core.dashboards_store/commit/47b8d574e3786effb7df6c74efc8ac2b8998d333))
+
+* feat: ajout d'une vue pour la table res_bilan_comp_eco ([`9ded26f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9ded26f7454f00af09bf1092fc3ae93f15fdd9f2))
+
+* feat(efficacite): adding script for computing coefficients ([`99d29ea`](https://github.com/Sciance-Inc/core.dashboards_store/commit/99d29ea9829cd8b0b20d02b033fe68db7e7451c8))
+
+* feat(efficacite): ajout du cookie cutter ([`f59d928`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f59d9281d5ef4685ca234b95abd7ba2c7d725f3a))
+
+* feat(efficicate): ajout du tdb ([`87f8c6c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/87f8c6c9eefa17de12b06a3301f67886eb2f8f0e))
+
+* feat(efficacite): ajout du schema ([`fce48b5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fce48b5a0c525cafea800771ceb2e49ea1736a38))
+
+* feat(efficacite): ajout de la table de filtre ([`927a0cc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/927a0cc0398fae5929bae3aa533de426a0f5551b))
+
+* feat(efficacite): ajout des tables de configuration ([`533e452`](https://github.com/Sciance-Inc/core.dashboards_store/commit/533e452c6421658156a2acab0f1132b330558034))
+
+* feat(efficacite): ajout des tables model ([`66ba7af`](https://github.com/Sciance-Inc/core.dashboards_store/commit/66ba7afba4d036658faf041cee2f17df020a2f14))
+
+* feat(efficacite): ajout des tables de reporting ([`3fa08c2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3fa08c2bdca5d96ffbc8da1cc6a64b302bb27efd))
+
+* feat(efficacite): ajout des tables de facts ([`7a35532`](https://github.com/Sciance-Inc/core.dashboards_store/commit/7a3553255f836f05e3c287afc2c3c54721aeb376))
+
+* feat(efficacite): ajout de la dim mapper_lieu_jumele ([`cdf999b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/cdf999bf1f2b6f7aeab06e61fbc993e5a366c3fc))
+
+* feat(efficaite): création du pmnt_history et des seeds liées ([`5f5cff2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5f5cff2135046bbfcd534096225664c0a0d89157))
+
+* feat(efficacite): ajout des interfaces et du dbt project ([`871b3ab`](https://github.com/Sciance-Inc/core.dashboards_store/commit/871b3ab2d8e750df8c8e3436e2b0b3e7f7d56e0f))
+
+* feat: ajout d'une vue pour la table res_bilan_comp_eco ([`6defb8c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6defb8c8bcbcf36e1bc54f960a011a92acf8c760))
+
+### Refactoring
+
+* refactor(gabarit): standardiser le code M avec anonymisation automatique ([`fcd05ea`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fcd05ea215dbb7fd4b9f68296501ac4f0c06f2b8))
+
+* refactor(anomalies): standardiser le code M avec anonymisation automatique ([`636a327`](https://github.com/Sciance-Inc/core.dashboards_store/commit/636a32781e3607fb13fdd0f5a9327c3e70c5f561))
+
+* refactor(retirement): standardiser le code M avec anonymisation automatique ([`3448a6e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3448a6e01e44492dcf7bf7a9d0b5ed3b6094520e))
+
+* refactor(emp_conge): standardiser le code M avec anonymisation automatique ([`ef53acb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ef53acba98e435eb72b99ae8bd02dc2763cc38b6))
+
+* refactor(suivi_resultats): standardiser le code M avec anonymisation automatique ([`3a2310e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3a2310e3636e3b8f603e35f34411af55d007433d))
+
+* refactor(res_scolaires): standardiser le code M avec anonymisation automatique ([`2db0701`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2db07017d8c2bb67d4d506ac746945f67bf64898))
+
+* refactor(predictive_view_aggregated): standardiser le code M avec anonymisation automatique ([`2fc0e16`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2fc0e16226a0626214314733b7ba97a48a730f67))
+
+* refactor(chronic_absenteeism): standardiser le code M avec anonymisation automatique ([`a6f7987`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a6f7987ee44fb3a85b447bbc5e55a9635e53d59b))
+
+* refactor(absenteeism): standardiser le code M avec anonymisation automatique ([`213cc12`](https://github.com/Sciance-Inc/core.dashboards_store/commit/213cc1295ff4abe01af7a707b6d1cd5edec838a4))
+
+* refactor(emp_actif): standardiser le code M avec anonymisation automatique ([`deb453c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/deb453c1a5bcd7eaffc4993698c63a7bad77dbff))
+
+* refactor(rslt_epreuves): standardiser le code M avec anonymisation automatique ([`3f2dc82`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3f2dc822ca69a44be36d1baa87b3e9b01b9c49da))
+
+* refactor(effectif_css): standardiser le code M avec anonymisation automatique pour le tableau effectif ([`683fc7b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/683fc7b280ce8da0cd9545e4f412cbe47b6b31a9))
+
+* refactor(diplome): standardiser le code M avec anonymisation automatique du tableau diplome ([`b7400ea`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b7400ea7c75d7dd40ad135f5e3afcd1d56692495))
+
+* refactor(pevr): standardiser le code M avec anonymisation automatique pour le tableau PEVR ([`b9df908`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b9df9086e3340c3f9e6b55087ab0d73a7f9f42f4))
+
+* refactor(gabarit): standardiser le code M avec anonymisation automatique ([`f296e14`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f296e14612ea05919b2fbce7b143b8147d1e9f09))
+
+* refactor(anomalies): standardiser le code M avec anonymisation automatique ([`c85c8d3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c85c8d3108eb6e8d62eb01fd411a54c5da2a6b4d))
+
+* refactor(retirement): standardiser le code M avec anonymisation automatique ([`a2a82b5`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a2a82b5f4a927b653384cbf886fea5470885f360))
+
+* refactor(emp_conge): standardiser le code M avec anonymisation automatique ([`e2d0d1e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/e2d0d1e56777e5d7921ccd036adc34b69df0d967))
+
+* refactor(suivi_resultats): standardiser le code M avec anonymisation automatique ([`da07795`](https://github.com/Sciance-Inc/core.dashboards_store/commit/da0779521a05ff96751f4a32a4472084dec8bd3a))
+
+* refactor(res_scolaires): standardiser le code M avec anonymisation automatique ([`ad4d87e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ad4d87eb655c39ab22c6bef17431fd506e8f5ab0))
+
+* refactor(predictive_view_aggregated): standardiser le code M avec anonymisation automatique ([`784138e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/784138e7b416a2647cb7b99a9f442cae7047d97f))
+
+* refactor(chronic_absenteeism): standardiser le code M avec anonymisation automatique ([`024157a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/024157a0fb4c4a638799a26e4157e6faf479d2df))
+
+* refactor(absenteeism): standardiser le code M avec anonymisation automatique ([`9b68a29`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9b68a2917560140308ddbf2609889e1a7b760e05))
+
+* refactor(emp_actif): standardiser le code M avec anonymisation automatique ([`2af7317`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2af731702462c5e876f5f53d841af5935a305111))
+
+* refactor(rslt_epreuves): standardiser le code M avec anonymisation automatique ([`f3095c2`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f3095c2739252fc28dfafae32bf7ec3cdd77e2b6))
+
+* refactor(effectif_css): standardiser le code M avec anonymisation automatique pour le tableau effectif ([`4e9657c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4e9657ce102b5bdddd74e4232083484f60110b11))
+
+* refactor(diplome): standardiser le code M avec anonymisation automatique du tableau diplome ([`9cee8a9`](https://github.com/Sciance-Inc/core.dashboards_store/commit/9cee8a92a6afddb80a7e8e5e1146636b9505329f))
+
+* refactor(pevr): standardiser le code M avec anonymisation automatique pour le tableau PEVR ([`f86eb58`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f86eb5883f58120f0792e78bf179116bfe435dd4))
+
+
 ## v0.19.3+20260108 (2026-01-08)
 
 ### Bug fixes

@@ -15,6 +15,9 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select descr, lieu_trav, type_lieu
-from {{ var("database_paie") }}.dbo.pai_tab_lieu_trav
-with (nolock)
+select distinct
+    lieu_jumele,
+    case when is_school_comparable = 1 then 'Oui' else 'Non' end as comparable,
+    nom_lieu_jumele,
+    categorie_lieu_jumele
+from {{ ref("eff_reporting_configuration") }}

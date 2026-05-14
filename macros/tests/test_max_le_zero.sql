@@ -15,6 +15,20 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select descr, lieu_trav, type_lieu
-from {{ var("database_paie") }}.dbo.pai_tab_lieu_trav
-with (nolock)
+{% test max_le_zero(model, columns_to_verify) %}
+
+    select *
+    from
+        (
+            select
+                {% for col in columns_to_verify -%}
+                    max({{ col }}) as {{ col }}{% if not loop.last %}, {% endif %}
+                {%- endfor %}
+            from {{ model }}
+        ) as val
+    where
+        {% for col in columns_to_verify %}
+            {% if not loop.first %} or {% endif %} {{ col }} > 0
+        {% endfor %}
+
+{% endtest %}
