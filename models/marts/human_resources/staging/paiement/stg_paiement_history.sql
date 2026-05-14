@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
 {#
 Dashboards Store - Helping students, one dashboard at a time.
 Copyright (C) 2023  Sciance Inc.
@@ -19,20 +15,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-<<<<<<< HEAD
 with
     source as (select matr as matricule, no_cheq from {{ ref("i_pai_hchq") }}),
-=======
-with
-    source as (
-        select matr as matricule, no_cheq
-        from {{ ref("i_pai_hchq") }}
-    ),
->>>>>>> fcd4a8e (feat(efficaite): création du pmnt_history et des seeds liées)
-=======
-with
-    source as (select matr as matricule, no_cheq from {{ ref("i_pai_hchq") }}),
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
 
     stg_activity as (
         select
@@ -48,22 +32,10 @@ with
             hc.nb_hres_an,
             hc.nb_hres_jrs
         from {{ ref("stg_activity_history") }} ah
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
         left join
             {{ ref("stg_hrs_calc") }} hc
             on ah.corp_empl = hc.corp_empl
             and ah.stat_eng = hc.stat_eng
-<<<<<<< HEAD
-=======
-        left JOIN {{ ref("stg_hrs_calc") }} hc 
-            ON ah.corp_empl = hc.CORP_EMPL
-            AND ah.stat_eng = hc.stat_eng
->>>>>>> fcd4a8e (feat(efficaite): création du pmnt_history et des seeds liées)
-=======
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
     ),
 
     -- Table d'historique des employés
@@ -77,27 +49,11 @@ with
             coalesce(mp.lieu_jumele, 'Lieu jumelé non configuré') as lieu_jumele,
             min(date_eff) as date_debut_historique,
             max(date_fin) as date_fin_historique,
-<<<<<<< HEAD
-<<<<<<< HEAD
             max(stg.nb_hres_an) as nb_hres_an,  -- Dummy
             max(stg.nb_hres_jrs) as nb_hres_jrs  -- Dummy
         from stg_activity stg
         left join {{ ref("eff_mapping_fgj_paie") }} mp on stg.lieu_trav = mp.lieu_trav
         where stg.lieu_trav is not null  -- Enlève les paiement sans lieu de travail dans l'historique.
-=======
-            max(stg.nb_hres_an) as nb_hres_an, --Dummy
-            max(stg.nb_hres_jrs) as nb_hres_jrs --Dummy
-        from stg_activity stg
-        left join {{ ref("eff_mapping_fgj_paie") }} mp on stg.lieu_trav = mp.lieu_trav
-        where stg.lieu_trav is not null -- Enlève les paiement sans lieu de travail dans l'historique.
->>>>>>> fcd4a8e (feat(efficaite): création du pmnt_history et des seeds liées)
-=======
-            max(stg.nb_hres_an) as nb_hres_an,  -- Dummy
-            max(stg.nb_hres_jrs) as nb_hres_jrs  -- Dummy
-        from stg_activity stg
-        left join {{ ref("eff_mapping_fgj_paie") }} mp on stg.lieu_trav = mp.lieu_trav
-        where stg.lieu_trav is not null  -- Enlève les paiement sans lieu de travail dans l'historique.
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
         group by
             stg.matr,
             stg.ref_empl,
@@ -119,15 +75,7 @@ with
             p.ref_empl,
             p.corp_empl,
             mp.lieu_jumele,
-<<<<<<< HEAD
-<<<<<<< HEAD
             sum(p.nb_unit) as nb_unit,
-=======
-			SUM(p.nb_unit) as nb_unit,
->>>>>>> fcd4a8e (feat(efficaite): création du pmnt_history et des seeds liées)
-=======
-            sum(p.nb_unit) as nb_unit,
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
             sum(p.mnt) as total_mnt_brut,
             min(p.date_deb) as date_debut_paiement,
             max(p.date_fin) as date_fin_paiement,
@@ -142,10 +90,6 @@ with
             on p.lieu_trav = mp.lieu_trav
         where code_pmnt is not null  -- Enlève les déductions non présent dans grp_paiement
         group by
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
             s.matricule,
             s.no_cheq,
             p.code_pmnt,
@@ -154,12 +98,6 @@ with
             p.ref_empl,
             p.corp_empl,
             mp.lieu_jumele
-<<<<<<< HEAD
-=======
-            s.matricule, s.no_cheq, p.code_pmnt, p.mode_paiement, p.code_provenance, p.ref_empl, p.corp_empl, mp.lieu_jumele
->>>>>>> fcd4a8e (feat(efficaite): création du pmnt_history et des seeds liées)
-=======
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
     ),
 
     -- Création d'un uuid pour un fuzzy join
@@ -176,10 +114,6 @@ with
             pid.code_pmnt,
             pid.ref_empl,
             pid.mode_paiement,
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
             pid.code_provenance,
             max(coalesce(pid.corp_empl, hs.corp_empl)) as corp_empl,  -- Priorise la donnée de l'historique de paiement
             max(coalesce(pid.lieu_jumele, hs.lieu_jumele)) as lieu_jumele,  -- Priorise la donnée de l'historique de paiement
@@ -255,82 +189,12 @@ with
             min(pid.date_debut_paiement) as date_debut_paiement,
             max(pid.date_fin_paiement) as date_fin_paiement,
             min(hs.date_debut_historique) as date_debut_historique,
-<<<<<<< HEAD
             hs.etat_empl,
             hs.stat_eng,
             max(pid.date_cheq_paiement) as date_cheq_paiement,
             min(
                 datediff(day, pid.date_fin_paiement, hs.date_debut_historique)
             ) as ecart,  -- créer un ranking sur la donnée la plus récente.
-=======
-			pid.code_provenance,
-            MAX(coalesce(pid.corp_empl, hs.corp_empl)) as corp_empl,  -- Priorise la donnée de l'historique de paiement
-            MAX(coalesce(pid.lieu_jumele, hs.lieu_jumele)) as lieu_jumele,  -- Priorise la donnée de l'historique de paiement
-			MAX(pid.total_mnt_brut) AS total_mnt_brut,
-			SUM(
-				CASE
-					WHEN pid.code_pmnt = '105001'
-						 AND pid.code_provenance IN ('AX','AY','A0')
-					THEN
-						CASE
-							WHEN pid.mode_paiement IN ('1','5','J')
-								THEN hs.nb_hres_jrs * pid.nb_unit
-							WHEN pid.mode_paiement IN ('H','L','2')
-								THEN pid.nb_unit
-							WHEN pid.mode_paiement IN ('G','M','6','E')
-								THEN NULLIF(pid.nb_unit, 0) / 60
-							WHEN pid.mode_paiement = 'P'
-								THEN (pid.nb_unit * hs.nb_hres_an) / NULLIF(1000, 0)
-							WHEN pid.mode_paiement = 'F'
-								THEN (pid.nb_unit * hs.nb_hres_an) / NULLIF(720, 0)
-							WHEN pid.mode_paiement = 'D'
-								THEN (pid.nb_unit * hs.nb_hres_an) / NULLIF(800, 0)
-							WHEN pid.mode_paiement = '3'
-								THEN (pid.nb_unit * hs.nb_hres_jrs) / NULLIF(2, 0)
-							WHEN pid.mode_paiement = '4'
-								THEN (pid.nb_unit * hs.nb_hres_jrs) * 0.75
-						END
-					WHEN pid.mode_paiement IN ('1','5','J','H','L','2','G','M','6','E','P','F','D','3','4')
-						 AND pid.code_provenance NOT IN ('A6','AJ','AW','AK','A5','AL','AT','AV','AS','AU')
-						 AND pid.code_pmnt NOT LIKE '2%'
-						 AND pid.code_pmnt NOT LIKE '105%'
-					THEN
-						CASE
-							WHEN pid.mode_paiement IN ('1','5','J')
-								THEN hs.nb_hres_jrs * pid.nb_unit
-							WHEN pid.mode_paiement IN ('H','L','2')
-								THEN pid.nb_unit
-							WHEN pid.mode_paiement IN ('G','M','6','E')
-								THEN NULLIF(pid.nb_unit, 0) / 60
-							WHEN pid.mode_paiement = 'P'
-								THEN (pid.nb_unit * hs.nb_hres_an) / NULLIF(1000, 0)
-							WHEN pid.mode_paiement = 'F'
-								THEN (pid.nb_unit * hs.nb_hres_an) / NULLIF(720, 0)
-							WHEN pid.mode_paiement = 'D'
-								THEN (pid.nb_unit * hs.nb_hres_an) / NULLIF(800, 0)
-							WHEN pid.mode_paiement = '3'
-								THEN (pid.nb_unit * hs.nb_hres_jrs) / NULLIF(2, 0)
-							WHEN pid.mode_paiement = '4'
-								THEN (pid.nb_unit * hs.nb_hres_jrs) * 0.75
-						END
-				END
-			) AS hrs_remunere,
-            MIN(pid.date_debut_paiement) AS date_debut_paiement,
-            MAX(pid.date_fin_paiement) AS date_fin_paiement,
-            MIN(hs.date_debut_historique) AS date_debut_historique,
-            hs.etat_empl,
-            hs.stat_eng,
-            max(pid.date_cheq_paiement) as date_cheq_paiement,
-            min(datediff(day, pid.date_fin_paiement, hs.date_debut_historique)) as ecart,  -- créer un ranking sur la donnée la plus récente.
->>>>>>> fcd4a8e (feat(efficaite): création du pmnt_history et des seeds liées)
-=======
-            hs.etat_empl,
-            hs.stat_eng,
-            max(pid.date_cheq_paiement) as date_cheq_paiement,
-            min(
-                datediff(day, pid.date_fin_paiement, hs.date_debut_historique)
-            ) as ecart,  -- créer un ranking sur la donnée la plus récente.
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
             pid.uuid_
         from paiement_id pid
         left join
@@ -338,8 +202,6 @@ with
             on pid.matricule = hs.matricule
             and pid.ref_empl = hs.ref_empl
             and pid.date_fin_paiement >= hs.date_debut_historique
-<<<<<<< HEAD
-<<<<<<< HEAD
         group by
             pid.matricule,
             pid.no_cheq,
@@ -350,25 +212,6 @@ with
             hs.etat_empl,
             hs.stat_eng,
             pid.uuid_
-=======
-		GROUP BY
-=======
-        group by
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
-            pid.matricule,
-            pid.no_cheq,
-            pid.code_pmnt,
-            pid.code_provenance,
-            pid.ref_empl,
-            pid.mode_paiement,
-            hs.etat_empl,
-            hs.stat_eng,
-<<<<<<< HEAD
-			pid.uuid_
->>>>>>> fcd4a8e (feat(efficaite): création du pmnt_history et des seeds liées)
-=======
-            pid.uuid_
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
     ),
 
     -- Utilisation du uuid avec un order by ecart desc pour prendre la période de
@@ -401,30 +244,12 @@ with
             ft.matricule,
             ft.no_cheq,
             ft.code_pmnt,
-<<<<<<< HEAD
-<<<<<<< HEAD
             ft.mode_paiement,
             ft.code_provenance,
             ft.ref_empl,
             ft.corp_empl,
             ft.total_mnt_brut,
             ft.hrs_remunere,
-=======
-			ft.mode_paiement,
-			ft.code_provenance,
-            ft.ref_empl,
-            ft.corp_empl,
-            ft.total_mnt_brut,
-			ft.hrs_remunere,
->>>>>>> fcd4a8e (feat(efficaite): création du pmnt_history et des seeds liées)
-=======
-            ft.mode_paiement,
-            ft.code_provenance,
-            ft.ref_empl,
-            ft.corp_empl,
-            ft.total_mnt_brut,
-            ft.hrs_remunere,
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
             ft.date_debut_paiement,
             ft.date_fin_paiement,
             coalesce(ft.date_fin_paiement, hs.date_fin_historique) as date_fin_periode,
@@ -453,30 +278,12 @@ with
             matricule,
             no_cheq,
             code_pmnt,
-<<<<<<< HEAD
-<<<<<<< HEAD
             mode_paiement,
             code_provenance,
             ref_empl,
             corp_empl,
             total_mnt_brut,
             hrs_remunere,
-=======
-			mode_paiement,
-			code_provenance,
-            ref_empl,
-            corp_empl,
-            total_mnt_brut,
-			hrs_remunere,
->>>>>>> fcd4a8e (feat(efficaite): création du pmnt_history et des seeds liées)
-=======
-            mode_paiement,
-            code_provenance,
-            ref_empl,
-            corp_empl,
-            total_mnt_brut,
-            hrs_remunere,
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
             -- date_debut_paiement,
             -- date_fin_paiement,
             date_fin_periode,
@@ -492,8 +299,6 @@ select
     annee,
     matricule,
     no_cheq,
-<<<<<<< HEAD
-<<<<<<< HEAD
     code_pmnt,
     -- mode_paiement,
     -- code_provenance,
@@ -503,39 +308,9 @@ select
     hrs_remunere,
     -- date_debut_paiement,
     -- date_fin_paiement,
-=======
-	code_pmnt,
-	--mode_paiement,
-	--code_provenance,
-    ref_empl,
-    corp_empl,
-    total_mnt_brut,
-	hrs_remunere,
-    --date_debut_paiement,
-    --date_fin_paiement,
->>>>>>> fcd4a8e (feat(efficaite): création du pmnt_history et des seeds liées)
-=======
-    code_pmnt,
-    -- mode_paiement,
-    -- code_provenance,
-    ref_empl,
-    corp_empl,
-    total_mnt_brut,
-    hrs_remunere,
-    -- date_debut_paiement,
-    -- date_fin_paiement,
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
     date_fin_periode,
     etat_empl,
     lieu_jumele,
     stat_eng,
     date_cheq_paiement
-<<<<<<< HEAD
-<<<<<<< HEAD
 from ann_sco
-=======
-from ann_sco
->>>>>>> fcd4a8e (feat(efficaite): création du pmnt_history et des seeds liées)
-=======
-from ann_sco
->>>>>>> 36ad5c1 (chore: sqlfmt et licence-checker)
