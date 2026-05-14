@@ -15,6 +15,18 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select descr, lieu_trav, type_lieu
-from {{ var("database_paie") }}.dbo.pai_tab_lieu_trav
-with (nolock)
+select
+    src.annee,
+    src.lieu_jumele,
+    coalesce(cat.categorie, 'Non catégorisé') as categorie,
+    src.corp_empl,
+    src.stat_eng,
+    sum(src.total_mnt_brut) as total_mnt_brut,
+    sum(src.hrs_remunere) as hrs_remunere
+from {{ ref("stg_paiement_history") }} as src
+left join {{ ref("eff_dim_categorie") }} cat on src.corp_empl = cat.corp_empl
+where
+    src.annee
+    between {{ core_dashboards_store.get_current_year() - 4 }}
+    and {{ core_dashboards_store.get_current_year() - 1 }}  -- 4 ans d'historique -> 2021 - 2024, 2022 - 2025...
+group by src.annee, src.lieu_jumele, cat.categorie, src.corp_empl, src.stat_eng

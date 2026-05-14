@@ -1,0 +1,116 @@
+version: 2
+
+seeds:
+  - name: eff_categories_emploi
+    description: Contient les regroupements des catérogies d'emplois selon le corps d'emploi
+    columns:
+      - name: corp_empl
+        description: Le numéro du corp d'emploi
+        tests:
+          - not_null
+          - unique
+      - name: description_corps_empl
+        description: La description du corp d'emploi
+        tests:
+          - not_null
+      - name: categorie
+        description: La catégorie du corp d'emploi
+        tests:
+          - not_null
+    config:
+      column_types:
+        corp_empl: nvarchar(16)
+        description_corps_empl: nvarchar(32)
+        categorie: nvarchar(64)
+
+  - name: eff_categories_emploi_personnalises
+    description: Contient les regroupements des catérogies d'emplois selon le corps d'emploi
+    columns:
+      - name: corp_empl
+        description: Le numéro du corp d'emploi
+        tests:
+          - not_null
+          - unique
+      - name: description_corps_empl
+        description: La description du corp d'emploi
+        tests:
+          - not_null
+      - name: categorie
+        description: La catégorie du corp d'emploi
+        tests:
+          - not_null
+    config:
+      schema: dashboard_efficacite_seeds
+      tags: efficacite
+      column_types:
+        corp_empl: nvarchar(16)
+        description_corps_empl: nvarchar(32)
+        categorie: nvarchar(64)
+
+  - name: eff_reporting_configuration
+    description: Contient les lieu_jumele qui
+    columns:
+      - name: lieu_jumele
+        description: L'id du lieu jumele
+        tests:
+          - unique
+      - name : is_school_comparable
+        description: boolean pour que le lieu jumele affiche dans le tableau de bord
+        tests:
+          - not_null
+      - name: nom_lieu_jumele
+        description: Le nom du lieu jumelé à forcer dans dim_mapper_paie. Utile pour coutourner / overrider la logique par défaut notamment lorsque plusieurs écoles sont mappées au meme lieu jumelé
+      - name: categorie_lieu_jumele
+        description: La catégorie du lieu jumelé à forcer dans dim_mapper_paie. Utile pour coutourner / overrider la logique par défaut notamment lorsque plusieurs écoles sont mappées au meme lieu jumelé
+    config:
+      schema: dashboard_efficacite_seeds
+      tags: efficacite
+      column_types:
+        lieu_jumele: nvarchar(3)
+        is_school_comparable: bit
+        nom_lieu_jumele: nvarchar(128)
+        categorie_lieu_jumele: nvarchar(128)
+
+  - name: eff_coefficients_premier_axes
+    description: Contient les coeffients mandataire pour le calcul du score de difficulte
+    columns:
+      - name: w_totaux_eleve
+        description: coefficient du nombre total d'élève
+        tests:
+          - not_null
+      - name: w_nb_difficulte
+        description: coefficient du nombre d'élève en difficulte
+        tests:
+          - not_null
+      - name: w_pi
+        description: coefficient du nombre d'élève avec un PI
+        tests:
+          - not_null
+    config:
+      schema: dashboard_efficacite_seeds
+      tags: efficacite
+      column_types:
+        w_totaux_eleve: float
+        w_nb_difficulte: float
+        w_pi: float
+
+  - name: eff_mapping_fgj_paie
+    description: Contient les eco en lien de la paie à gpi
+    columns:
+      - name: lieu_trav
+        description: Le numéro de l'école du côté de la paie
+        tests:
+          - unique
+      - name: ecole_gpi
+        description: Le numéro de l'école du côté de gpi
+        tests:
+          - unique
+      - name: lieu_jumele
+        description: L'école parent de l'école dites jumelé.
+    config:
+      schema: dashboard_efficacite_seeds
+      tags: efficacite
+      column_types:
+        lieu_trav: nvarchar(3)
+        ecole_gpi: nvarchar(3)
+        lieu_jumele: nvarchar(3)

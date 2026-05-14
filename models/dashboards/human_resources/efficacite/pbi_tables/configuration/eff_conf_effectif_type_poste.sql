@@ -15,6 +15,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select descr, lieu_trav, type_lieu
-from {{ var("database_paie") }}.dbo.pai_tab_lieu_trav
-with (nolock)
+select distinct
+    concat(corp_empl, ' - ', description_corps_empl) as categorie_emploi,
+    categorie as type_emploi
+from {{ ref("eff_categories_emploi_personnalises") }}

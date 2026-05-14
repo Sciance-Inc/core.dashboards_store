@@ -15,6 +15,9 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select annee, ecole, nomecole as nom_ecole, rid
-from {{ var("database_gpi") }}.edo.ecoles
-with (nolock)
+select
+    lieu_jumele,
+    nom_lieu_jumele,
+    categorie_lieu_jumele,
+    case when is_school_comparable = 1 then 'Oui' else 'Non' end as comparable
+from {{ ref("dim_mapper_lieu_jumele") }}
