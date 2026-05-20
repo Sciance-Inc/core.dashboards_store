@@ -15,9 +15,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select
-    lieu_jumele,
-    nom_lieu_jumele,
-    categorie_lieu_jumele,
-    case when is_school_comparable = 1 then 'Oui' else 'Non' end as comparable
-from {{ ref("dim_mapper_lieu_jumele") }}
+select distinct lt.lieu_trav, lt.descr
+from {{ ref("i_pai_tab_lieu_trav") }} lt
+left join {{ ref("eff_mapping_fgj_paie") }} mp on lt.lieu_trav = mp.lieu_trav
+where mp.lieu_trav is null
