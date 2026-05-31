@@ -1,39 +1,45 @@
 export default defineAppConfig({
-  docus: {
-    title: 'Dashboard Store docs',
-    description: 'Where dashboards happen.',
-    socials: {
-      github: 'Sciance-Inc/core.dashboards_store'
-    },
-    url: 'https://docs.dashboards-store.sciance.ca',
-    github: {
-      dir: 'content',
-      branch: 'develop',
-      repo: 'core.dashboards_store.docs',
-      owner: 'Sciance-inc',
-      edit: true
-    },
-    aside: {
-      level: 0,
-      collapsed: false,
-      exclude: []
-    },
-    main: {
-      padded: true,
-      fluid: true
-    },
-    header: {
-      logo: true,
-      showLinkIcon: true,
-      exclude: [],
-      fluid: true
-    },
-    footer: {
-      credits: {
-        icon: 'IconDocus',
-        text: 'Powered by Sciance Inc.',
-        href: 'https://sciance.ca',
-      },
+  header: {
+    title: 'Dashboard Store docs'
+  },
+  socials: {
+    github: 'Sciance-Inc/core.dashboards_store'
+  },
+  github: {
+    owner: 'Sciance-Inc',
+    name: 'core.dashboards_store',
+    url: 'https://github.com/Sciance-Inc/core.dashboards_store',
+    branch: 'develop',
+    rootDir: 'tooling/docs/content/en',
+    edit: true
+  },
+  toc: {
+    bottom: {
+      title: 'Community',
+      links: [
+        {
+          label: 'Sciance',
+          to: 'https://sciance.ca',
+          target: '_blank'
+        },
+        {
+          label: 'GitHub',
+          to: 'https://github.com/Sciance-Inc/core.dashboards_store',
+          target: '_blank'
+        }
+      ]
+    }
+  },
+  footer: {
+    credits: {
+      text: 'Powered by Sciance Inc.',
+      href: 'https://sciance.ca'
+    }
+  },
+  ui: {
+    colors: {
+      primary: 'blue',
+      neutral: 'zinc'
     }
   }
 })

@@ -1,11 +1,115 @@
 export default defineNuxtConfig({
-  // https://github.com/nuxt-themes/docus
-  extends: '@nuxt-themes/docus',
+  extends: ['docus'],
 
-  modules: [
-    // // https://github.com/nuxt-modules/plausible
-    // '@nuxtjs/plausible',
-    // https://github.com/nuxt/devtools
-    '@nuxt/devtools'
-  ]
+  modules: ['@nuxtjs/i18n'],
+
+  site: {
+    name: 'Dashboard Store docs',
+    url: 'https://docs.dashboards-store.sciance.ca'
+  },
+
+  i18n: {
+    strategy: 'prefix',
+    defaultLocale: 'en',
+    locales: [
+      { code: 'en', name: 'English' }
+    ]
+  },
+
+  routeRules: {
+    '/': {
+      redirect: '/en'
+    }
+  },
+
+  runtimeConfig: {
+    public: {
+      siteUrl: 'https://docs.dashboards-store.sciance.ca'
+    }
+  },
+
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en'
+      },
+      link: [
+        { rel: 'icon', href: '/favicon.ico' },
+        { rel: 'canonical', href: 'https://docs.dashboards-store.sciance.ca/en' }
+      ]
+    }
+  },
+
+  colorMode: {
+    preference: 'light',
+    fallback: 'light'
+  },
+
+  llms: {
+    domain: 'https://docs.dashboards-store.sciance.ca',
+    title: 'Dashboard Store docs',
+    description: 'Documentation for Dashboard Store.'
+  },
+
+  fonts: {
+    providers: {
+      adobe: false,
+      bunny: false,
+      fontshare: false,
+      fontsource: false,
+      google: false,
+      googleicons: false,
+      npm: false
+    }
+  },
+
+  icon: {
+    provider: 'server',
+    serverBundle: {
+      collections: ['lucide', 'simple-icons', 'vscode-icons']
+    },
+    clientBundle: {
+      icons: [
+        'lucide:alert-circle',
+        'lucide:arrow-left',
+        'lucide:arrow-right',
+        'lucide:bookmark',
+        'lucide:box',
+        'lucide:chevron-down',
+        'lucide:copy',
+        'lucide:hash',
+        'lucide:moon',
+        'lucide:pen',
+        'lucide:puzzle',
+        'lucide:rocket',
+        'lucide:search',
+        'lucide:settings',
+        'lucide:sun',
+        'lucide:triangle',
+        'simple-icons:github'
+      ]
+    }
+  },
+
+  ogImage: {
+    enabled: false
+  },
+
+  vite: {
+    build: {
+      minify: false,
+      reportCompressedSize: false,
+      sourcemap: false
+    }
+  },
+
+  nitro: {
+    minify: false,
+    sourceMap: false,
+    prerender: {
+      concurrency: 1,
+      failOnError: false,
+      routes: ['/en']
+    }
+  }
 })

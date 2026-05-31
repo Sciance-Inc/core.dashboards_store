@@ -1,21 +1,21 @@
 {
-  "name": "docus-starter",
+  "name": "dashboards-store-docs",
   "version": "0.1.0",
   "private": true,
+  "description": "Documentation for Dashboard Store.",
   "scripts": {
-    "dev": "nuxi dev",
-    "build": "nuxi build",
-    "generate": "nuxi generate",
-    "preview": "nuxi preview",
-    "lint": "eslint ."
+    "dev": "nuxt dev",
+    "build": "NODE_OPTIONS=--max-old-space-size=3072 nuxt build",
+    "generate": "NODE_OPTIONS=--max-old-space-size=3072 nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "@nuxtjs/i18n": "^10.4.0",
+    "better-sqlite3": "^12.10.0",
+    "docus": "5.11.0",
+    "nuxt": "^4.4.6"
   },
   "devDependencies": {
-    "@nuxt-themes/docus": "^1.13.1",
-    "@nuxt/devtools": "^0.6.7",
-    "@nuxt/eslint-config": "^0.1.1",
-    "@nuxtjs/plausible": "^0.2.1",
-    "@types/node": "^20.4.0",
-    "eslint": "^8.44.0",
-    "nuxt": "^3.6.2"
+    "typescript": "^5.9.3"
   }
 }
