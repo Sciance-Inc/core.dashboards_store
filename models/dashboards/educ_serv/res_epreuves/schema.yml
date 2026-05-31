@@ -3,14 +3,14 @@ version: 2
 models:
   - name: rstep_dim_epreuves
     description: >
-      Table de dimensions mappant à chaque épreuve unique / obligatoire / maison, les codes_matières, les no_competences et les cod_etapes requis.
-      La table est constuite en unionant la dimension par défaut (core/seeds/res_epreuves/default_subject_evaluation.csv) et la dimension custom (cssss/seeds/res_epreuves/custom_subject_evaluation.csv).
-      La table `custom` peut-etre adaptée pour chaque CSS pour rajouter des épreuves.
+      Table de dimensions mappant, pour chaque épreuve unique / obligatoire / maison, les codes matières, les no_competences et les cod_etapes requis.
+      La table est construite en faisant l'union de la dimension par défaut (`core.dashboards_store/seeds/dashboards/educ_serv/res_epreuves/rstep_epreuves_communes.csv`) et de la dimension personnalisée (`cssXX.dashboards_store/seeds/dashboards/educ_serv/res_epreuves/rstep_epreuves_personnalisees.csv`).
+      La table personnalisée peut être adaptée pour chaque CSS pour ajouter des épreuves.
 
   - name: rstep_fact_epreuves_obligatoires_internes
     description: >
       La table regroupe les notes des épreuves obligatoires et locales. 
-      Cette table accumule les résultats pour les matières identifées dans 'rstep_dim_epreuves'.
+      Cette table accumule les résultats pour les matières identifiées dans `rstep_dim_epreuves`.
     tests:
       - resolution:
           combination_of_columns:
@@ -27,8 +27,8 @@ models:
 
   - name: rstep_fact_epreuves_uniques
     description: >
-      La table regroupe les notes des épreuves unique de 4ème et 5ème secondaire. 
-      Cette table accumule les résultats pour les matières identifées dans 'rstep_liste_matiere_epr_unique'.
+      La table regroupe les notes des épreuves uniques de 4e et 5e secondaire.
+      Cette table accumule les résultats pour les matières identifiées dans `rstep_liste_matiere_epr_unique`.
     tests:
       - resolution:
           combination_of_columns:
@@ -43,7 +43,7 @@ models:
           - not_null   
   - name: rstep_report_liste_eleves_epreuves_uniques
     description: >
-      Cette table liste toutes les informations liées à l'élèves en relation avec les résultats aux épreuves uniques. 
+      Cette table liste toutes les informations liées à l'élève en relation avec les résultats aux épreuves uniques.
     tests:
       - resolution:
           combination_of_columns:
@@ -54,7 +54,7 @@ models:
   
   - name: rstep_report_liste_eleves_epreuves_obligatoires_internes
     description: >
-      Cette table liste toutes les informations liées à l'élèves en relation avec les résultats aux épreuves obligatoires et locales. 
+      Cette table liste toutes les informations liées à l'élève en relation avec les résultats aux épreuves obligatoires et locales.
     tests:
       - resolution:
           combination_of_columns:
@@ -73,4 +73,3 @@ models:
             - mois_resultat
             - code_matiere
             - ecole          
-

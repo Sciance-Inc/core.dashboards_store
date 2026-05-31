@@ -2,19 +2,19 @@ version: 2
 
 seeds:
   - name: eff_categories_emploi
-    description: Contient les regroupements des catérogies d'emplois selon le corps d'emploi
+    description: Contient les regroupements des catégories d'emplois selon le corps d'emploi
     columns:
       - name: corp_empl
-        description: Le numéro du corp d'emploi
+        description: Le numéro du corps d'emploi
         tests:
           - not_null
           - unique
       - name: description_corps_empl
-        description: La description du corp d'emploi
+        description: La description du corps d'emploi
         tests:
           - not_null
       - name: categorie
-        description: La catégorie du corp d'emploi
+        description: La catégorie du corps d'emploi
         tests:
           - not_null
     config:
@@ -24,19 +24,19 @@ seeds:
         categorie: nvarchar(64)
 
   - name: eff_categories_emploi_personnalises
-    description: Contient les regroupements des catérogies d'emplois selon le corps d'emploi
+    description: Contient les regroupements des catégories d'emplois selon le corps d'emploi
     columns:
       - name: corp_empl
-        description: Le numéro du corp d'emploi
+        description: Le numéro du corps d'emploi
         tests:
           - not_null
           - unique
       - name: description_corps_empl
-        description: La description du corp d'emploi
+        description: La description du corps d'emploi
         tests:
           - not_null
       - name: categorie
-        description: La catégorie du corp d'emploi
+        description: La catégorie du corps d'emploi
         tests:
           - not_null
     config:
@@ -48,20 +48,20 @@ seeds:
         categorie: nvarchar(64)
 
   - name: eff_reporting_configuration
-    description: Contient les lieu_jumele qui
+    description: Contient les lieux jumelés utilisés par le tableau de bord.
     columns:
       - name: lieu_jumele
-        description: L'id du lieu jumele
+        description: L'id du lieu jumelé
         tests:
           - unique
       - name : is_school_comparable
-        description: boolean pour que le lieu jumele affiche dans le tableau de bord
+        description: Booléen indiquant si le lieu jumelé s'affiche dans le tableau de bord
         tests:
           - not_null
       - name: nom_lieu_jumele
-        description: Le nom du lieu jumelé à forcer dans dim_mapper_paie. Utile pour coutourner / overrider la logique par défaut notamment lorsque plusieurs écoles sont mappées au meme lieu jumelé
+        description: Le nom du lieu jumelé à forcer dans `dim_mapper_paie`. Utile pour contourner / overrider la logique par défaut, notamment lorsque plusieurs écoles sont mappées au même lieu jumelé
       - name: categorie_lieu_jumele
-        description: La catégorie du lieu jumelé à forcer dans dim_mapper_paie. Utile pour coutourner / overrider la logique par défaut notamment lorsque plusieurs écoles sont mappées au meme lieu jumelé
+        description: La catégorie du lieu jumelé à forcer dans `dim_mapper_paie`. Utile pour contourner / overrider la logique par défaut, notamment lorsque plusieurs écoles sont mappées au même lieu jumelé
     config:
       schema: dashboard_efficacite_seeds
       tags: efficacite
@@ -72,18 +72,18 @@ seeds:
         categorie_lieu_jumele: nvarchar(128)
 
   - name: eff_coefficients_premier_axes
-    description: Contient les coeffients mandataire pour le calcul du score de difficulte
+    description: Contient les coefficients obligatoires pour le calcul du score de difficulté
     columns:
       - name: w_totaux_eleve
-        description: coefficient du nombre total d'élève
+        description: Coefficient du nombre total d'élèves
         tests:
           - not_null
       - name: w_nb_difficulte
-        description: coefficient du nombre d'élève en difficulte
+        description: Coefficient du nombre d'élèves en difficulté
         tests:
           - not_null
       - name: w_pi
-        description: coefficient du nombre d'élève avec un PI
+        description: Coefficient du nombre d'élèves avec un PI
         tests:
           - not_null
     config:
@@ -95,7 +95,7 @@ seeds:
         w_pi: float
 
   - name: eff_mapping_fgj_paie
-    description: Contient les eco en lien de la paie à gpi
+    description: Contient les écoles liant la paie à GPI
     columns:
       - name: lieu_trav
         description: Le numéro de l'école du côté de la paie
@@ -106,7 +106,7 @@ seeds:
         tests:
           - unique
       - name: lieu_jumele
-        description: L'école parent de l'école dites jumelé.
+        description: L'école parent de l'école dite jumelée.
     config:
       schema: dashboard_efficacite_seeds
       tags: efficacite

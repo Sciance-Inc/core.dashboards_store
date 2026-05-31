@@ -12,7 +12,7 @@ models:
   - name: eff_report_effectif_css
     description: >
         Table de rapports qui comptabilise la population au sein de la CSS selon l'année, l'école, la classe, l'ordre d'enseignement
-        le niveau scolaire de l'élève, la difficulte et son type de population.
+        le niveau scolaire de l'élève, la difficulté et son type de population.
     tests:
       - resolution:
           combination_of_columns:
@@ -29,4 +29,4 @@ models:
             - class
             - is_doubleur
             - is_francisation
-            - type_mesure  
+            - type_mesure

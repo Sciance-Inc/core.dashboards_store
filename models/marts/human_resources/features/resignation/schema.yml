@@ -19,7 +19,7 @@ models:
       - name: etat_empl
         description: The school year (from september the first to august the 31 of the following year) for which the status mapping is valid.
       - name: corp_empl
-        description: Le corp d'emploi.
+        description: Le corps d'emploi.
       - name: ref_empl
         description: La référence d'emploi.
       - name: lieu_trav

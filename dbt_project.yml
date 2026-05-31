@@ -2,7 +2,7 @@ name: "core_dashboards_store"
 version: "0.9.0"
 config-version: 2
 
-profile: "nightly_profile" #"Make sure you a runing DBT from the cssXX repository, not the core.dashboards_store repository."
+profile: "nightly_profile" # Make sure you run dbt from the cssXX repository, not the core.dashboards_store repository.
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -16,7 +16,7 @@ clean-targets:
   - "target"
   - "dbt_packages"
 
-# Hooks : copy thoose hooks into your `cssXX.data.store/dbt_project.yml` file to enable the stamper collection
+# Hooks: copy these hooks into your `cssXX.dashboards_store/dbt_project.yml` file to enable the stamper collection.
 on-run-start:
   - "{{ core_dashboards_store.init_metadata_table() }}"
 on-run-end:

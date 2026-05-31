@@ -1,9 +1,9 @@
 ﻿version: 2
 
 models:
-  - name: dip_report_suivi_diplomation
+  - name: dip_report_suivi_diplome
     description: >
-      Table de rapports qui fait un suivi sur l'année scolaire en cours des élèves en voie d'obtention ou non du diplome d'étude secondaire.
+      Table de rapport qui fait un suivi sur l'année scolaire en cours des élèves en voie d'obtention, ou non, du diplôme d'études secondaires.
     tests:
       - resolution:
           combination_of_columns:
@@ -59,11 +59,11 @@ models:
       - name: res_compl_5_eps
         description: Le résultat de la matière complémentaire Éducation physique et à la santé du 5e secondaire (043502)
       - name: nb_unites_acquis_g4
-        description: Le nombre d'unités du 4e secondaire dont l'élève à eu une mention réussi à la matière.
+        description: Le nombre d'unités du 4e secondaire pour lesquelles l'élève a obtenu une mention de réussite à la matière.
       - name: nb_unites_g4_en_cours
         description: Le nombre d'unités 4e secondaire dont l'élève est en ce moment en cours d'apprentissage.
       - name: nb_unites_acquis_g5
-        description: Le nombre d'unités du 5e secondaire dont l'élève à eu une mention réussi à la matière.
+        description: Le nombre d'unités du 5e secondaire pour lesquelles l'élève a obtenu une mention de réussite à la matière.
       - name: nb_unites_g5_en_cours
         description: Le nombre d'unités du 5e secondaire dont l'élève est en ce moment en cours d'apprentissage.
       - name: nb_unites_previsionnel_4
@@ -71,6 +71,6 @@ models:
       - name: nb_unites_previsionnel_5
         description: Le nombre d'unités du 5e secondaire en prévision selon le nombre d'unités acquis en voie de réussite et le nombre d'unités en cours en voie de réussite.
       - name: nb_unites_previsionnel_total
-        description: La nombre d'unités prévionnel de 4e et 5e secondaire.
+        description: Le nombre d'unités prévisionnel de 4e et 5e secondaire.
       - name: ind_obtention_dip_previsionnel
         description: Si l'élève respecte les conditions d'obtention du diplôme secondaire.

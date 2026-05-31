@@ -3,7 +3,7 @@ version: 2
 models:
   - name: dim_employees
     description: >
-      Provide employees level static informations.
+      Provides employee-level static information.
     columns:
       - name: matr
         description: The unique identifier of an employee.

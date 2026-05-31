@@ -3,8 +3,8 @@ version: 2
 seeds:
   - name: etat_empl
     description: >
-      A mapping table between the employees status and arbitray meta-datas such as the description of the status, the status of the employee (active or not), the status of the employee (on leave or not), the status of the employee (on leave with pay or not), the status of the employee (on leave without pay or not).
-      The code to be poppulated are the ones we can find in the i_paie_hemp.etat column.
+      A mapping table between employee statuses and arbitrary metadata such as the description of the status, the status of the employee (active or not), the status of the employee (on leave or not), the status of the employee (on leave with pay or not), and the status of the employee (on leave without pay or not).
+      The codes to populate are the ones found in the `i_paie_hemp.etat` column.
     columns:
       - name: etat_empl
         description: The codified representation of the etat_employe.
@@ -15,19 +15,19 @@ seeds:
         tests:
           - not_null
       - name: etat_actif
-        description: Is the code identifiing a currently active employee ?
+        description: Does the code identify a currently active employee?
         tests:
           - not_null
       - name: empl_retr
-        description: Is the code identifiing a currently retired employee ?
+        description: Does the code identify a currently retired employee?
         tests:
           - not_null
       - name: empl_cong
-        description: Is the code identifiing a currently on leave employee ?
+        description: Does the code identify an employee currently on leave?
         tests:
           - not_null
       - name: cong_lt
-        description: Is the code identifiing a currently on long-terme leave employee ?
+        description: Does the code identify an employee currently on long-term leave?
         tests:
           - not_null
       - name: type_duration
@@ -59,8 +59,8 @@ seeds:
         valid_until: int
   - name: stat_eng
     description: >
-      A mapping table between the employees status and arbitray meta-datas such as the description of the status, the status of the employee (active or not), the status of the employee (on leave or not), the status of the employee (on leave with pay or not), the status of the employee (on leave without pay or not).
-      The code to be poppulated are the ones we can find in the i_paie_hemp.etat column.
+      A mapping table between engagement statuses and arbitrary metadata such as the description of the status and whether the engagement is regular.
+      The codes to populate are the engagement-status codes found in the source payroll data.
     columns:
       - name: stat_eng
         description: The codified representation of the etat_employe.
@@ -71,7 +71,7 @@ seeds:
         tests:
           - not_null
       - name: is_reg
-        description: Is the job satisfies the `regular` definition of a job ?
+        description: Does the job satisfy the `regular` definition of a job?
         tests:
           - not_null
       - name: valid_from
@@ -100,9 +100,9 @@ seeds:
       - name: lieu_trav
         description: Le numéro de l'unité administrative ou de l'école
       - name: secteur_id
-        description: L'ID du secteur géographique ou subdivition de votre territoire
+        description: L'ID du secteur géographique ou subdivision de votre territoire
       - name: secteur_descr
-        description: Description du secteur géographique ou subdivition de votre territoire
+        description: Description du secteur géographique ou subdivision de votre territoire
     config:
       tags:
         - human_resources
@@ -165,7 +165,7 @@ seeds:
 
   - name: code_paiement
     description: >
-      Une table contenant les codes de paiement qui représent des absences de longues durées
+      Une table contenant les codes de paiement qui représentent des absences de longue durée
     columns:
       - name: code_pmnt
         description: Le code d'un paiement

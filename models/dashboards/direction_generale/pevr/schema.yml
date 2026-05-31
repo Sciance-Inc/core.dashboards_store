@@ -4,14 +4,14 @@ models:
   - name: pevr_dim_cibles_annuelles
     description: >
       Table de dimension qui mappe les données prévisionnelles.
-      La table est constuite en unionant la dimension commune (core/seeds/pevr/cibles_indicateurs_annuelles_pevr_cdpvd.csv) et la dimension personalisée (cssss/seeds/pevr/custom_cibles_indicateurs_annuelles_pevr_cdpvd.csv).
+      La table est construite en faisant l'union de la dimension commune (`core.dashboards_store/seeds/dashboards/direction_generale/pevr/cibles_indicateurs_annuelles_pevr.csv`) et de la dimension personnalisée (`cssXX.dashboards_store/seeds/dashboards/direction_generale/pevr/custom_cibles_indicateurs_annuelles_pevr.csv`).
     columns:
       - name: id_indicateur_meq
-        description: Identifiant meq unique de l'indicateur.
+        description: Identifiant MEQ unique de l'indicateur.
         tests:
           - not_null      
       - name: id_indicateur_css
-        description: Identifiant css unique de l'indicateur si l'id est différent du meq.
+        description: Identifiant CSS unique de l'indicateur si l'id est différent du MEQ.
       - name: annee_scolaire
         description: L'année scolaire
       - name: cible
@@ -24,13 +24,13 @@ models:
     
   - name: pevr_dim_indicateur_charl
     description: >
-      Table de dimension qui mappe les indicateurs des données de charlemagne communs avec les indicateurs des données de charlemagne personnalisés.
-      La table est constuite en unionant la dimension commune (core/seeds/pevr/indicateurs_pevr_charl.csv) et la dimension personalisée (cssxx/seeds/pevr/custom_indicateurs_pevr_charl.csv).
+      Table de dimension qui mappe les indicateurs des données de Charlemagne communs avec les indicateurs des données de Charlemagne personnalisés.
+      La table est construite en faisant l'union de la dimension commune (`core.dashboards_store/seeds/dashboards/direction_generale/pevr/indicateurs_pevr_charl.csv`) et de la dimension personnalisée (`cssXX.dashboards_store/seeds/dashboards/direction_generale/pevr/custom_indicateurs_pevr_charl.csv`).
     columns:
       - name: id_indicateur_meq
-        description: Identifiant meq unique de l'indicateur.
+        description: Identifiant MEQ unique de l'indicateur.
       - name: id_indicateur_css
-        description: Identifiant css unique de l'indicateur si l'id est différent du meq.
+        description: Identifiant CSS unique de l'indicateur si l'id est différent du MEQ.
       - name: annee_scolaire
         description: L'année scolaire
       - name: taux
@@ -47,21 +47,21 @@ models:
 
   - name: pevr_dim_indicateurs
     description: >
-      Table de dimension qui mappe les indicateurs des données de charlemagne communs avec les indicateurs des données de charlemagne personnalisés.
-      La table est constuite en unionant la dimension commune (core/seeds/pevr/indicateurs_pevr_charl.csv) et la dimension personalisée (cssxx/seeds/pevr/custom_indicateurs_pevr_charl.csv).
+      Table de dimension qui mappe les indicateurs communs avec les indicateurs personnalisés.
+      La table est construite en faisant l'union de la dimension commune (`core.dashboards_store/seeds/dashboards/direction_generale/pevr/indicateurs_pevr_meq.csv`) et de la dimension personnalisée (`cssXX.dashboards_store/seeds/dashboards/direction_generale/pevr/custom_indicateurs_pevr_meq.csv`).
     columns:
       - name: objectif
-        description: Identifiant meq unique de l'indicateur.
+        description: Identifiant MEQ unique de l'indicateur.
       - name: id_indicateur_meq
-        description: Identifiant meq unique de l'indicateur.
+        description: Identifiant MEQ unique de l'indicateur.
       - name: id_indicateur_css
-        description: Identifiant css unique de l'indicateur si l'id est différent du meq.
+        description: Identifiant CSS unique de l'indicateur si l'id est différent du MEQ.
       - name: description_indicateur
-        description: Description text of the indicator
+        description: Description textuelle de l'indicateur
       - name: code_matiere
         description: Le résultat.
       - name: no_competence
-        description: Le numéro de compétence de la matière (code_matière)
+        description: Le numéro de compétence de la matière (`code_matiere`)
     config:
           column_types:
             objectif: nvarchar(max)
@@ -77,7 +77,7 @@ models:
 
   - name: pevr_indicateur_charl
     description: >
-      Table qui contient les indicateurs PEVR dont les données provient de charlemagne.
+      Table qui contient les indicateurs PEVR dont les données proviennent de Charlemagne.
     tests:
       - core_dashboards_store.resolution:
           combination_of_columns:
@@ -96,9 +96,9 @@ models:
             - annee_scolaire
             - id_filtre
 
-  - name: pevr_indicateurs_ppp
+  - name: pevr_indicateur_ppp
     description: >
-       Table qui contient l'indicateurs des projets pédagogiques particuliers.
+       Table qui contient les indicateurs des projets pédagogiques particuliers.
     tests:
       - core_dashboards_store.resolution:
           combination_of_columns:
@@ -109,7 +109,7 @@ models:
 
   - name: pevr_orientation_un
     description: >
-       Table qui contient l'orientation 1
+       Table qui contient l'orientation 1.
     tests:
       - core_dashboards_store.resolution:
           combination_of_columns:

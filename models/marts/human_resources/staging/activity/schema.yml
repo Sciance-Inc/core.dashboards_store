@@ -4,14 +4,14 @@ models:
   - name: stg_activity_history
     description: >
       This table is a re-implementation of pai_dos_empl with all historical data.
-      The table list all `experiences` of a given employee.
+      The table lists all `experiences` of a given employee.
       An experience is defined as a period of time during which an employee has an unchanged job category, workplace, employment status, and engagement status.
 
     columns:
       - name: matr
         description: The unique identifier of an employee.
       - name: school_year
-        description: The school year (from september the first to august the 31 of the following year) for which the status mapping is valid.
+        description: The school year (from September 1 to August 31 of the following year) for which the status mapping is valid.
       - name: ref_empl
         description: The unique identifier of an employment.
       - name: corp_empl
@@ -30,14 +30,14 @@ models:
   - name: stg_main_job_history
     description: >
       Provide the history of main jobs for each employee.
-      The table is represented as a from -> to table, meaning that each row represent a period of time during which the employee had the same main job.
+      The table is represented as a from -> to table, meaning that each row represents a period of time during which the employee had the same main job.
     columns:
       - name: school_year
-        description: The school year (from september the first to august the 31 of the following year) for which the status mapping is valid.
+        description: The school year (from September 1 to August 31 of the following year) for which the status mapping is valid.
       - name: matr
-        description: A flag indicating if the job schould be treated as the main job for this employee
+        description: A flag indicating whether the job should be treated as the main job for this employee.
       - name: main_job
-        description: The main job of the employee for the given school year. Can be joined on a ref_empl
+        description: The main job of the employee for the given school year. Can be joined on `ref_empl`.
       - name: valid_from
         description: The date at which the main job started.
       - name: valid_until

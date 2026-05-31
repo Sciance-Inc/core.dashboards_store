@@ -4,8 +4,8 @@ seeds:
   - name: predictive_models_to_include
     description: >
       A list of the predictive models to be included in the reporting.
-      The list is to be populated from the PowerPoint describing the performances of the model.
-      You schould only include the models that are good enough to deliver trustfull predictions.
+      The list is to be populated from the PowerPoint describing the performance of the model.
+      You should only include the models that are good enough to deliver trustworthy predictions.
     columns:
       - name: model
         description: The name of the model family (dropout, diplomation, exam_meq) as populated in the model column of the prodrome.reporting.core_models_reporting_shap table.
