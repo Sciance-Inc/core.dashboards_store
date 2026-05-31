@@ -4,7 +4,7 @@ models:
   - name: rtrmt_report_retirement_age
     description: >
       Aggregated data about retirement age.
-      Drill-down by engagement status, worplace, job category, and employment status.
+      Drill-down by engagement status, workplace, job category, and employment status.
     tests:
       - resolution:
           combination_of_columns:
@@ -19,7 +19,7 @@ models:
   - name: rtmrt_report_active_employees_age
     description: >
       The number of active employees by age group.
-      Drill-down by engagement status, worplace, job category, and employment status.
+      Drill-down by engagement status, workplace, job category, and employment status.
     tests:
       - resolution:
           combination_of_columns:

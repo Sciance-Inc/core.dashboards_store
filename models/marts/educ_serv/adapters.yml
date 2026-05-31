@@ -1,6 +1,6 @@
 version: 2
 
-# Manually register all the dashboards / tags using the population mechanism so the DBT's select clause will actualy triggers the population's computation.
+# Manually register all dashboards / tags using the population mechanism so the dbt selector actually triggers the population computation.
 x-common-tags: &x-common-tags
   tags:
     - population
