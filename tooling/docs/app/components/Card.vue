@@ -30,6 +30,7 @@ defineProps({
   width: 100%;
   padding: 2rem;
   border-radius: 0.75rem;
+  color: var(--ui-text);
   backdrop-filter: blur(12px);
 }
 
@@ -38,11 +39,12 @@ defineProps({
   width: 1.5rem;
   height: 1.5rem;
   margin-bottom: 0.5rem;
+  color: var(--ui-primary);
 }
 
 .card__title {
   margin-bottom: 0.5rem;
-  color: rgb(24 24 27);
+  color: var(--ui-text-highlighted);
   font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.75rem;
@@ -54,7 +56,7 @@ defineProps({
 }
 
 .card__description {
-  color: rgb(82 82 91);
+  color: var(--ui-text-muted);
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.5rem;

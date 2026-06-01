@@ -35,26 +35,26 @@ const normalizedType = computed(() => props.type.trim() || 'info')
 
 .alert--primary,
 .alert--info {
-  border-color: rgb(147 197 253);
-  background: rgb(239 246 255);
-  color: rgb(30 64 175);
+  border-color: color-mix(in srgb, var(--ui-primary) 35%, transparent);
+  background: color-mix(in srgb, var(--ui-primary) 12%, transparent);
+  color: var(--ui-primary);
 }
 
 .alert--success {
-  border-color: rgb(134 239 172);
-  background: rgb(240 253 244);
-  color: rgb(22 101 52);
+  border-color: color-mix(in srgb, var(--ui-success) 35%, transparent);
+  background: color-mix(in srgb, var(--ui-success) 12%, transparent);
+  color: var(--ui-success);
 }
 
 .alert--warning {
-  border-color: rgb(253 224 71);
-  background: rgb(254 252 232);
-  color: rgb(133 77 14);
+  border-color: color-mix(in srgb, var(--ui-warning) 35%, transparent);
+  background: color-mix(in srgb, var(--ui-warning) 12%, transparent);
+  color: var(--ui-warning);
 }
 
 .alert--danger {
-  border-color: rgb(252 165 165);
-  background: rgb(254 242 242);
-  color: rgb(153 27 27);
+  border-color: color-mix(in srgb, var(--ui-error) 35%, transparent);
+  background: color-mix(in srgb, var(--ui-error) 12%, transparent);
+  color: var(--ui-error);
 }
 </style>

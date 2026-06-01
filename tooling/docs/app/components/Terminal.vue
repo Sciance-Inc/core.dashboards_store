@@ -41,15 +41,16 @@ const lines = computed(() => {
 .terminal {
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
   width: 100%;
   min-width: 0;
   max-width: min(32rem, 100%);
   height: 16rem;
   margin: 0 auto;
   overflow: hidden;
-  border: 1px solid rgb(212 212 216);
+  border: 1px solid var(--ui-border-accented);
   border-radius: 0.5rem;
-  background: white;
+  background: var(--ui-bg-elevated);
 }
 
 .terminal__header {
@@ -57,7 +58,7 @@ const lines = computed(() => {
   display: flex;
   align-items: center;
   height: 3rem;
-  border-bottom: 1px solid rgb(212 212 216);
+  border-bottom: 1px solid var(--ui-border-accented);
 }
 
 .terminal__controls {
@@ -91,7 +92,7 @@ const lines = computed(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgb(39 39 42);
+  color: var(--ui-text-highlighted);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   font-weight: 700;
 }
@@ -102,7 +103,7 @@ const lines = computed(() => {
   margin: 0;
   padding: 1rem;
   overflow: auto;
-  color: rgb(39 39 42);
+  color: var(--ui-text);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   font-size: 0.875rem;
   line-height: 1.5rem;
@@ -121,6 +122,7 @@ const lines = computed(() => {
 .terminal__sign {
   flex: 0 0 auto;
   margin-right: 0.5rem;
+  color: var(--ui-primary);
   font-weight: 700;
   user-select: none;
 }

@@ -1,5 +1,9 @@
 <script setup lang="ts">
 defineProps({
+  home: {
+    type: Boolean,
+    default: false
+  },
   title: {
     type: String,
     default: 'Features'
@@ -8,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <section class="card-grid">
+  <section :class="['card-grid', { 'card-grid--home': home }]">
     <slot name="root" />
 
     <div class="card-grid__title">
@@ -33,9 +37,15 @@ defineProps({
   padding: 0 1rem 5rem;
 }
 
+.card-grid--home {
+  width: calc(100% - 2rem);
+  max-width: 72rem;
+  padding-inline: 0;
+}
+
 .card-grid__title {
   margin-bottom: 2rem;
-  color: rgb(24 24 27);
+  color: var(--ui-text-highlighted);
   font-size: 2.25rem;
   font-weight: 800;
   line-height: 2.5rem;
@@ -55,6 +65,11 @@ defineProps({
     padding: 0 1.5rem 6rem;
   }
 
+  .card-grid--home {
+    width: calc(100% - 3rem);
+    padding-inline: 0;
+  }
+
   .card-grid__layout {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -63,6 +78,11 @@ defineProps({
 @media (min-width: 1024px) {
   .card-grid {
     padding: 0 2rem 8rem;
+  }
+
+  .card-grid--home {
+    width: calc(100% - 6rem);
+    padding-inline: 0;
   }
 
   .card-grid__layout {

@@ -2,6 +2,10 @@
 import type { PropType } from 'vue'
 
 defineProps({
+  home: {
+    type: Boolean,
+    default: false
+  },
   cta: {
     type: Array as PropType<string[]>,
     default: () => []
@@ -14,7 +18,7 @@ defineProps({
 </script>
 
 <template>
-  <section class="block-hero">
+  <section :class="['block-hero', { 'block-hero--home': home }]">
     <div class="block-hero__layout">
       <div class="block-hero__content">
         <div v-if="$slots.title" class="block-hero__title">
@@ -59,6 +63,12 @@ defineProps({
   overflow-x: hidden;
 }
 
+.block-hero--home {
+  width: calc(100% - 2rem);
+  max-width: 72rem;
+  padding-inline: 0;
+}
+
 .block-hero__layout {
   display: grid;
   width: 100%;
@@ -75,7 +85,7 @@ defineProps({
 
 .block-hero__title {
   margin-bottom: 2rem;
-  color: rgb(24 24 27);
+  color: var(--ui-text-highlighted);
   font-size: 2rem;
   font-weight: 800;
   line-height: 1.05;
@@ -89,7 +99,7 @@ defineProps({
 .block-hero__description {
   max-width: 44rem;
   margin-bottom: 3rem;
-  color: rgb(82 82 91);
+  color: var(--ui-text-muted);
   font-size: 1.125rem;
   line-height: 1.75rem;
   overflow-wrap: break-word;
@@ -119,24 +129,24 @@ defineProps({
   min-height: 2.75rem;
   padding: 0 1rem;
   border-radius: 0.375rem;
-  background: rgb(37 99 235);
-  color: white;
+  background: var(--ui-primary);
+  color: var(--ui-text-inverted);
   font-weight: 700;
   text-decoration: none;
 }
 
 .block-hero__cta:hover {
-  background: rgb(29 78 216);
+  background: color-mix(in srgb, var(--ui-primary) 86%, black);
 }
 
 .block-hero__secondary {
-  color: rgb(82 82 91);
+  color: var(--ui-text-muted);
   font-weight: 600;
   text-decoration: none;
 }
 
 .block-hero__secondary:hover {
-  color: rgb(24 24 27);
+  color: var(--ui-text-highlighted);
 }
 
 .block-hero__support {
@@ -150,6 +160,11 @@ defineProps({
     padding-inline: 1.5rem;
   }
 
+  .block-hero--home {
+    width: calc(100% - 3rem);
+    padding-inline: 0;
+  }
+
   .block-hero__title {
     font-size: 2.25rem;
   }
@@ -158,6 +173,11 @@ defineProps({
 @media (min-width: 1024px) {
   .block-hero {
     padding: 8rem 2rem;
+  }
+
+  .block-hero--home {
+    width: calc(100% - 6rem);
+    padding-inline: 0;
   }
 
   .block-hero__layout {
