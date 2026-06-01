@@ -10,15 +10,16 @@ export default defineNuxtConfig({
 
   i18n: {
     strategy: 'prefix',
-    defaultLocale: 'en',
+    defaultLocale: 'fr',
     locales: [
+      { code: 'fr', name: 'Français' },
       { code: 'en', name: 'English' }
     ]
   },
 
   routeRules: {
     '/': {
-      redirect: '/en'
+      redirect: '/fr'
     }
   },
 
@@ -28,14 +29,24 @@ export default defineNuxtConfig({
     }
   },
 
+  appConfig: {
+    github: {
+      owner: 'Sciance-Inc',
+      name: 'core.dashboards_store',
+      url: 'https://github.com/Sciance-Inc/core.dashboards_store',
+      branch: 'develop',
+      rootDir: 'tooling/docs'
+    }
+  },
+
   app: {
     head: {
       htmlAttrs: {
-        lang: 'en'
+        lang: 'fr'
       },
       link: [
         { rel: 'icon', href: '/favicon.ico' },
-        { rel: 'canonical', href: 'https://docs.dashboards-store.sciance.ca/en' }
+        { rel: 'canonical', href: 'https://docs.dashboards-store.sciance.ca/fr' }
       ]
     }
   },
@@ -48,7 +59,7 @@ export default defineNuxtConfig({
   llms: {
     domain: 'https://docs.dashboards-store.sciance.ca',
     title: 'Dashboard Store docs',
-    description: 'Documentation for Dashboard Store.'
+    description: 'Documentation pour Dashboard Store.'
   },
 
   fonts: {
@@ -109,7 +120,7 @@ export default defineNuxtConfig({
     prerender: {
       concurrency: 1,
       failOnError: false,
-      routes: ['/en']
+      routes: ['/fr', '/en']
     }
   }
 })

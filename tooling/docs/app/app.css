@@ -1,5 +1,5 @@
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
 }
 
 body {
@@ -8,7 +8,7 @@ body {
 }
 
 .legacy-prose-card {
-  border: 1px solid rgb(228 228 231);
-  background: rgb(255 255 255 / 0.86);
+  border: 1px solid var(--ui-border);
+  background: color-mix(in srgb, var(--ui-bg-elevated) 86%, transparent);
   box-shadow: 0 1px 2px rgb(24 24 27 / 0.04);
 }

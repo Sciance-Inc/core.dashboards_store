@@ -10,6 +10,7 @@ main:
 
 ::block-hero
 ---
+home: true
 cta:
   - Get started
   - /en/introduction/introduction
@@ -46,6 +47,9 @@ Write SQL in [dbt](https://docs.getdbt.com/), get a dockerized ETL with [Docker]
 ::
 
 ::card-grid
+---
+home: true
+---
 #title
 What's included
 

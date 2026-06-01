@@ -44,12 +44,17 @@ defineProps({
   width: min(v-bind(width), 100%);
   height: v-bind(height);
   filter: blur(v-bind(blur));
-  opacity: 0.72;
+  opacity: 0.6;
 }
 
 .ellipsis > div {
   width: 100%;
   height: 100%;
-  background: linear-gradient(98deg, rgb(0 71 225 / 0.2), rgb(26 214 255 / 0.18), rgb(0 220 130 / 0.18));
+  background: linear-gradient(
+    98deg,
+    color-mix(in srgb, var(--ui-primary) 24%, transparent),
+    color-mix(in srgb, var(--ui-info) 18%, transparent),
+    color-mix(in srgb, var(--ui-success) 16%, transparent)
+  );
 }
 </style>

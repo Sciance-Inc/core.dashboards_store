@@ -21,9 +21,10 @@ defineProps({
 .props-reference {
   margin: 1rem 0;
   padding: 1rem;
-  border: 1px solid rgb(228 228 231);
+  border: 1px solid var(--ui-border);
   border-radius: 0.375rem;
-  background: rgb(250 250 250);
+  background: var(--ui-bg-muted);
+  color: var(--ui-text);
 }
 
 .props-reference :deep(p:first-child) {

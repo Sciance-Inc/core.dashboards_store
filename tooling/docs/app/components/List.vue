@@ -15,23 +15,24 @@ defineProps({
 
 <style scoped>
 .legacy-list {
-  --list-color: rgb(37 99 235);
+  --list-color: var(--ui-primary);
+  color: var(--ui-text);
 }
 
 .legacy-list--success {
-  --list-color: rgb(22 163 74);
+  --list-color: var(--ui-success);
 }
 
 .legacy-list--info {
-  --list-color: rgb(2 132 199);
+  --list-color: var(--ui-info);
 }
 
 .legacy-list--warning {
-  --list-color: rgb(202 138 4);
+  --list-color: var(--ui-warning);
 }
 
 .legacy-list--danger {
-  --list-color: rgb(220 38 38);
+  --list-color: var(--ui-error);
 }
 
 .legacy-list :deep(ul) {
@@ -44,6 +45,7 @@ defineProps({
   position: relative;
   margin: 0 0 0.75rem;
   padding-left: 2.25rem;
+  overflow-wrap: break-word;
 }
 
 .legacy-list :deep(li:last-child) {
