@@ -2,6 +2,28 @@
 
 
 
+## v0.22.0+20260610 (2026-06-10)
+
+### Documentation
+
+* docs: adding french ([`bf2cf9f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/bf2cf9f3d8c41883b05cf8ad69082947cae453c7))
+
+### Features
+
+* feat(docs): updating docus and migrating docs under the en path ([`06c5ce1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/06c5ce1e5eba194757aba5c5831eda9f828110d7))
+
+* feat(emp_abs): ajout du tableau de bord (#111)
+
+Co-authored-by: hugoJuhel <juhel.hugo@sciance.ca>
+Co-authored-by: sadqim <sadqim@csvdc.qc.ca>
+Co-authored-by: Frederyk Busque <147734849+busquef@users.noreply.github.com>
+Co-authored-by: Hugo Juhel <22279443+hugoJuhel@users.noreply.github.com>
+Co-authored-by: Sylvain Gelinas <161489091+gelinassCSSRS@users.noreply.github.com>
+Co-authored-by: busquef <busquef@csvt.qc.ca> ([`c8e7521`](https://github.com/Sciance-Inc/core.dashboards_store/commit/c8e7521d1d0ef593da00460eed0b9e6397770095))
+
+* feat(résignation): ajout du tableau de bord démissions ([`783d239`](https://github.com/Sciance-Inc/core.dashboards_store/commit/783d23927b13cd43346343b9f13b18b019aa31a3))
+
+
 ## v0.21.0+20260506 (2026-05-06)
 
 ### Chores
