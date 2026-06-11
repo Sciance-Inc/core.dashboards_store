@@ -20,16 +20,16 @@ secondary:
 ---
 
 #title
-Aider les enfants, un *dashboard* à la fois.
+La plateforme de mutualisation des tableaux de bord pour le réseau des centres de services scolaires du Québec.
 
 #description
-Écrivez du SQL avec [*dbt*](https://docs.getdbt.com/), exécutez un *ETL* conteneurisé avec [Docker](https://www.docker.com/) et exploitez votre entrepôt de données avec [*Power BI*](https://powerbi.microsoft.com/).
+Une bibliothèque de tableaux de bord mutualisée pour les centres de services scolaires. Écrivez du SQL avec [*dbt*](https://docs.getdbt.com/), exécutez un *ETL* conteneurisé avec [Docker](https://www.docker.com/) et exploitez votre entrepôt de données avec [*Power BI*](https://powerbi.microsoft.com/).
 
 #extra
   ::list
-  - **+10 *dashboards*** prêts à l'emploi
+  - **+10 tableaux de bord** prêts à l'emploi
   - Des valeurs par défaut raisonnables dès l'installation
-  - Des ***dashboards*** et ***scripts* SQL** entièrement configurables
+  - Des **tableaux de bord** et **scripts SQL** entièrement configurables
   ::
 
 #support
@@ -76,7 +76,7 @@ Ce qui est inclus
   #title
   Pur *dbt*
   #description
-  Utilisez les fonctionnalités de *dbt* pour construire vos *dashboards*: profitez de **tests** et d'une documentation toujours à jour.
+  Utilisez les fonctionnalités de *dbt* pour construire vos tableaux de bord: profitez de **tests** et d'une documentation toujours à jour.
   ::
 
 ::

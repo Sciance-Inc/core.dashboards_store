@@ -20,10 +20,10 @@ secondary:
 ---
 
 #title
-Helping children, one dashboard at the time.
+The shared dashboard platform for Quebec's school service centre network.
 
 #description
-Write SQL in [dbt](https://docs.getdbt.com/), get a dockerized ETL with [Docker](https://www.docker.com/) and leverage your data warehouse with [Power BI](https://powerbi.microsoft.com/).
+A shared library of dashboards for Quebec's school service centres. Write SQL in [dbt](https://docs.getdbt.com/), get a dockerized ETL with [Docker](https://www.docker.com/) and leverage your data warehouse with [Power BI](https://powerbi.microsoft.com/).
 
 #extra
   ::list
