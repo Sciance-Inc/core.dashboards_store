@@ -60,16 +60,16 @@ Ce qui est inclus
 
   ::card{icon=lucide:puzzle}
   #title
-  Extensible.
+  Extensible
   #description
-  Personnalisez n'importe quel *script* SQL ou ajoutez vos propres transformations: vous pouvez vous approprier le Store.
+  Personnalisez n'importe quel *script* SQL ou ajoutez vos propres transformations: vous pouvez vous approprier la Bibliothèque de tableaux de bord (le *Dashboards Store*).
   ::
 
   ::card{icon=lucide:rocket}
   #title
   Déployer partout
   #description
-  Déployez et exécutez le Store n'importe où avec la *target* Docker.
+  Déployez et exécutez la Bibliothèque n'importe où avec la *target* Docker.
   ::
 
   ::card{icon=lucide:settings}

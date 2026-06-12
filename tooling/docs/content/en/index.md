@@ -23,11 +23,11 @@ secondary:
 The shared dashboard platform for Quebec's school service centre network.
 
 #description
-A shared library of dashboards for Quebec's school service centres. Write SQL in [dbt](https://docs.getdbt.com/), get a dockerized ETL with [Docker](https://www.docker.com/) and leverage your data warehouse with [Power BI](https://powerbi.microsoft.com/).
+A shared library of dashboards for Quebec's school service centres. Write SQL in [dbt](https://docs.getdbt.com/), get a containerized ETL with [Docker](https://www.docker.com/), and leverage your data warehouse with [Power BI](https://powerbi.microsoft.com/).
 
 #extra
   ::list
-  - **+10 dashboards** ready to use
+  - **10+ dashboards** ready to use
   - Sensible defaults provided out of the box
   - Fully configurable **dashboards** and **SQL scripts**
   ::
@@ -60,9 +60,9 @@ What's included
 
   ::card{icon=lucide:puzzle}
   #title
-  Extensible.
+  Extensible
   #description
-  Customize any SQL script, or add your own transformation - you can make the Store your own.
+  Customize any SQL script, or add your own transformations — you can make the Store your own.
   ::
 
   ::card{icon=lucide:rocket}
