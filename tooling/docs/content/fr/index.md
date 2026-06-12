@@ -20,16 +20,16 @@ secondary:
 ---
 
 #title
-Aider les enfants, un *dashboard* à la fois.
+La plateforme de mutualisation des tableaux de bord pour le réseau des centres de services scolaires du Québec.
 
 #description
-Écrivez du SQL avec [*dbt*](https://docs.getdbt.com/), exécutez un *ETL* conteneurisé avec [Docker](https://www.docker.com/) et exploitez votre entrepôt de données avec [*Power BI*](https://powerbi.microsoft.com/).
+Une bibliothèque de tableaux de bord mutualisée pour les centres de services scolaires. Écrivez du SQL avec [*dbt*](https://docs.getdbt.com/), exécutez un *ETL* conteneurisé avec [Docker](https://www.docker.com/) et exploitez votre entrepôt de données avec [*Power BI*](https://powerbi.microsoft.com/).
 
 #extra
   ::list
-  - **+10 *dashboards*** prêts à l'emploi
+  - **+10 tableaux de bord** prêts à l'emploi
   - Des valeurs par défaut raisonnables dès l'installation
-  - Des ***dashboards*** et ***scripts* SQL** entièrement configurables
+  - Des **tableaux de bord** et **scripts SQL** entièrement configurables
   ::
 
 #support
@@ -60,23 +60,23 @@ Ce qui est inclus
 
   ::card{icon=lucide:puzzle}
   #title
-  Extensible.
+  Extensible
   #description
-  Personnalisez n'importe quel *script* SQL ou ajoutez vos propres transformations: vous pouvez vous approprier le Store.
+  Personnalisez n'importe quel *script* SQL ou ajoutez vos propres transformations: vous pouvez vous approprier la Bibliothèque de tableaux de bord (le *Dashboards Store*).
   ::
 
   ::card{icon=lucide:rocket}
   #title
   Déployer partout
   #description
-  Déployez et exécutez le Store n'importe où avec la *target* Docker.
+  Déployez et exécutez la Bibliothèque n'importe où avec la *target* Docker.
   ::
 
   ::card{icon=lucide:settings}
   #title
   Pur *dbt*
   #description
-  Utilisez les fonctionnalités de *dbt* pour construire vos *dashboards*: profitez de **tests** et d'une documentation toujours à jour.
+  Utilisez les fonctionnalités de *dbt* pour construire vos tableaux de bord: profitez de **tests** et d'une documentation toujours à jour.
   ::
 
 ::
