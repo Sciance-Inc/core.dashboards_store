@@ -2,6 +2,13 @@
 
 
 
+## v0.22.0+20260612 (2026-06-12)
+
+### Documentation
+
+* docs: refonte de la documentation (terminologie française, en-tête bilingue, mode sombre) (#119) ([`f0dab68`](https://github.com/Sciance-Inc/core.dashboards_store/commit/f0dab6835ac864589400897eb15f73adea03c3f0))
+
+
 ## v0.22.0+20260610 (2026-06-10)
 
 ### Documentation
