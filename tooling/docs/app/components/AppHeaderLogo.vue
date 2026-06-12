@@ -1,6 +1,9 @@
 <template>
   <span class="app-header-logo">
-    <img src="/logo.png" alt="Dashboard Store" width="120">
+    <!-- Light mode: dark-ink wordmark -->
+    <img src="/logo.png" alt="Dashboard Store" class="h-[29px] w-auto block dark:hidden">
+    <!-- Dark mode: white wordmark -->
+    <img src="/logo-dark.webp" alt="Dashboard Store" class="h-[29px] w-auto hidden dark:block">
   </span>
 </template>
 
