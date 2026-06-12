@@ -96,9 +96,13 @@ export default defineNuxtConfig({
         'lucide:rocket',
         'lucide:search',
         'lucide:settings',
+        'lucide:mail',
+        'lucide:phone',
         'lucide:sun',
         'lucide:triangle',
-        'simple-icons:github'
+        'lucide:user-round',
+        'simple-icons:github',
+        'simple-icons:microsoftteams'
       ]
     }
   },
