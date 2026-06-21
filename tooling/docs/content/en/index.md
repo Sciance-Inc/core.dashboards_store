@@ -80,3 +80,17 @@ What's included
   ::
 
 ::
+
+::edition-banner
+---
+icon: lucide:snowflake
+cta:
+  - Open the Snowflake documentation →
+  - https://docs-snowflake.dashboards-store.sciance.ca/fr
+---
+#title
+Using Snowflake?
+
+#description
+The Store also comes in a **Snowflake edition**, with its own documentation. Head there to deploy the Store on your Snowflake warehouse.
+::

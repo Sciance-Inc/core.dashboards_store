@@ -80,3 +80,17 @@ Ce qui est inclus
   ::
 
 ::
+
+::edition-banner
+---
+icon: lucide:snowflake
+cta:
+  - Ouvrir la documentation Snowflake →
+  - https://docs-snowflake.dashboards-store.sciance.ca/fr
+---
+#title
+Vous utilisez Snowflake ?
+
+#description
+La Bibliothèque existe aussi en **édition Snowflake**, avec sa propre documentation. Consultez-la pour déployer la Bibliothèque sur votre entrepôt Snowflake.
+::
