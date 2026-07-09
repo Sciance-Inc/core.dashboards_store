@@ -1,0 +1,38 @@
+version: 2
+models:
+  - name: eff_fact_eleve_fgj
+    description: |-
+      Table de rapports qui comptabilise le nombre de congés des employés selon l'année, le lieu de travail et le corps d'emploi.
+    columns:
+      - name: annee
+        description: |-
+          L'année de la fréquentation
+      - name: lieu_jumele
+        description: |-
+          Un numéro créé par la liaison entre le lieu de travail Paie et l'école GPI
+      - name: fiche
+        description: |-
+          Le numéro de fiche de l'élève
+      - name: code_difficulte
+        description: |-
+          Le code de difficulté de l'élève
+      - name: is_difficulte
+        description: |-
+          Si l'élève est en difficulté (0,1)
+      - name: is_pi
+        description: |-
+          Si l'élève possède un plan d'intervention (0,1)
+    config:
+      column_types:
+        fiche: nvarchar(16)
+        lieu_jumele: nvarchar(3)
+        annee: nvarchar(12)
+        code_difficulte: nvarchar(3)
+        is_difficulte: int
+        is_pi: int
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - lieu_jumele
+            - annee

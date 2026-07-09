@@ -1,49 +1,26 @@
 version: 2
-
 models:
-  - name: resco_dim_matiere
-    description: >
-      Table de dimension qui mappe les matières par défaut avec les matières custom.
-      La table est construite en faisant l'union de la dimension par défaut (`core.dashboards_store/seeds/dashboards/educ_serv/res_scolaires/default_matiere.csv`) et de la dimension personnalisée (`cssXX.dashboards_store/seeds/dashboards/educ_serv/res_scolaires/custom_matiere.csv`).
-      La table personnalisée peut être adaptée pour chaque CSS pour ajouter des matières.
-    columns:
-      - name: cod_matiere
-        description: Code de la matière
-      - name: des_matiere
-        description: Description de la matière
-    config:
-      column_types:
-        cod_matiere: nvarchar(32)
-        des_matiere: nvarchar(32)
-
   - name: resco_report_res_bilan_comp_css
-    description: >
+    description: |-
       Cette table regroupe les résultats agrégés au bilan du css par compétence par année.
-
   - name: resco_report_res_bilan_comp_eco
-    description: >
+    description: |-
       Cette table regroupe les résultats agrégés au bilan des écoles par compétence par année.
-
   - name: resco_report_res_bilan_mat_css
-    description: >
+    description: |-
       Cette table regroupe les résultats agrégés au bilan du css par matière par année.
-
   - name: resco_report_res_bilan_mat_eco
-    description: >
+    description: |-
       Cette table regroupe les résultats agrégés au bilan des écoles par matière et par année.
-
   - name: resco_report_res_etape_comp_css
-    description: >
+    description: |-
       Cette table regroupe les résultats agrégés à l'étape du css selon la compétence, l'étape, la matière et l'année
-
   - name: resco_report_res_etape_comp_eco
-    description: >
+    description: |-
       Cette table regroupe les résultats agrégés à l'étape des écoles selon la compétence, l'étape, la matière et l'année
-
   - name: resco_report_res_etape_mat_css
-    description: >
+    description: |-
       Cette table regroupe les résultats agrégés à l'étape de la matière du css selon l'année, la compétence, l'étape et la population
-
   - name: resco_report_res_etape_mat_eco
-    description: >
+    description: |-
       Cette table regroupe les résultats agrégés à l'étape de la matière du css selon l'année, la compétence, l'étape et la population

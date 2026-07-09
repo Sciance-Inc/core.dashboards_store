@@ -1,0 +1,5 @@
+version: 2
+models:
+  - name: emp_abs_fact_base
+    description: |-
+      Table de faits ou de caractéristiques emp_abs construite sous le nom `emp_abs_fact_base`. Sources dbt visibles dans le SQL: `dim_employees`, `fact_absence`.

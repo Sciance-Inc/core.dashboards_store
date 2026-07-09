@@ -1,0 +1,5 @@
+version: 2
+models:
+  - name: anml_dim_ordre_enseignement
+    description: |-
+      Dimension anomalies qui structure les attributs de référence exposés par `anml_dim_ordre_enseignement`. Sources dbt visibles dans le SQL: `i_wl_descr`.

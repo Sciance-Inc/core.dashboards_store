@@ -1,0 +1,31 @@
+version: 2
+models:
+  - name: spine
+    config:
+      tags:
+        - population
+        - educ_serv
+    description: |-
+      La table de spine de résolution code_perm, annee, population, eco qui contient l'ensemble des numéros de fiches par année scolaire et population. Elle permet la construction des tables de faits via l'utilisation de left joins.
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - code_perm
+            - id_eco
+            - annee
+            - population
+            - eco
+  - name: stg_perimetre_eleve_diplomation_des
+    description: |-
+      Modèle de staging mart educ_serv qui prépare les données intermédiaires sous le nom `stg_perimetre_eleve_diplomation_des`. Sources dbt visibles dans le SQL: `fact_yearly_student`.
+  - name: stg_type_mesure
+    config:
+      tags:
+        - res_scolaires
+    description: |-
+      Table de staging qui liste des élèves qui ont des types de mesure (frnacisation etc) par année.
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - fiche
+            - id_eco

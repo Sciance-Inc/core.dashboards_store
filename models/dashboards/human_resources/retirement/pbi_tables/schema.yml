@@ -1,0 +1,45 @@
+version: 2
+models:
+  - name: rtmrt_report_active_employees_age
+    description: |-
+      The number of active employees by age group. Drill-down by engagement status, workplace, job category, and employment status.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - genre
+            - etat
+            - job_group_category
+            - lieu_trav
+            - stat_eng
+            - age
+  - name: rtmrt_report_filters
+    description: |-
+      The set of filters to be applied on the report. This table exists because of a double granularity difference between the report_retirement_age and the report_active_employees_age tables.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - genre
+            - employment_status_name
+            - engagement_status_name
+            - workplace_name
+            - job_group_category
+            - filter_key
+  - name: rtmrt_report_retiring_forecasts
+    description: |-
+      Table de reporting du tableau de bord retirement. Elle prépare le modèle `rtmrt_report_retiring_forecasts` pour la consommation Power BI. Sources dbt visibles dans le SQL: `dim_mapper_job_group`, `fact_retirement`, `fact_retirement_forecasts`.
+  - name: rtmrt_report_survival_curve
+    description: |-
+      Shadow the stg_retirement_survival_curve table. Please refer to the stg_retirement_survival_curve table for more information.
+  - name: rtrmt_report_retirement_age
+    description: |-
+      Aggregated data about retirement age. Drill-down by engagement status, workplace, job category, and employment status.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - genre
+            - school_year
+            - etat
+            - job_group_category
+            - lieu_trav
+            - stat_eng
+            - retirement_age

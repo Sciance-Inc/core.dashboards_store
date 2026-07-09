@@ -1,0 +1,11 @@
+version: 2
+models:
+  - name: ema_report_emp_actif
+    description: |-
+      Table de reporting du tableau de bord emp_actif. Elle prépare le modèle `ema_report_emp_actif` pour la consommation Power BI. Sources dbt visibles dans le SQL: `emp_actif_fact_base`.
+  - name: ema_report_filter
+    description: |-
+      Table de reporting du tableau de bord emp_actif. Elle prépare le modèle `ema_report_filter` pour la consommation Power BI. Sources dbt visibles dans le SQL: `emp_actif_fact_base`.
+  - name: ema_report_stat
+    description: |-
+      Table de reporting du tableau de bord emp_actif. Elle prépare le modèle `ema_report_stat` pour la consommation Power BI. Sources dbt visibles dans le SQL: `emp_actif_fact_base`.

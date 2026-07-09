@@ -1,218 +1,39 @@
 version: 2
-
 models:
-  - name: fact_resultat_bilan_competence
-    config:
-      tags:
-        - res_scolaires
-    description: >
-      Lists end-of-year competency results for all students.
-    columns:
-      - name: annee
-        description: The school year.
-      - name: fiche
-        description: Unique student file identifier.
-      - name: id_eco
-        description: Unique school identifier for a given year.
-      - name: code_matiere
-        description: Subject code.
-      - name: groupe_matiere
-        description: Subject group.
-      - name: id_obj_mat
-        description: Unique subject competency identifier.
-      - name: no_comp
-        description: Competency number within the subject.
-      - name: etat
-        description: Subject state.
-      - name: res_comp
-        description: Raw competency result.
-      - name: res_num_comp
-        description: Numeric competency result.
-      - name: is_reprise
-        description: Indicates whether the result is a retake.
-      - name: is_reussite
-        description: Indicates whether the result is a success.
-      - name: is_echec
-        description: Indicates whether the numeric result is below the success threshold.
-      - name: is_difficulte
-        description: Indicates whether the numeric result is between 60 and 69.
-      - name: is_maitrise
-        description: Indicates whether the numeric result is 70 or higher.
-    tests:
-      - resolution:
-          combination_of_columns:
-            - fiche
-            - id_eco
-            - is_reprise
-            - code_matiere
-            - no_comp
-            - groupe_matiere
-
-  - name: fact_resultat_bilan_matiere
-    config:
-      tags:
-        - res_scolaires
-    description: >
-      Lists end-of-year subject results for all students.
-    columns:
-      - name: id_eco
-        description: Unique school identifier for a given year.
-      - name: annee
-        description: The school year.
-      - name: fiche
-        description: Unique student file identifier.
-      - name: id_mat_ele
-        description: Unique subject-per-student-per-year identifier.
-      - name: code_matiere
-        description: Subject code.
-      - name: groupe_matiere
-        description: Subject group.
-      - name: etat
-        description: Subject state.
-      - name: res_num_som
-        description: Numeric subject result.
-      - name: res_som
-        description: Raw subject result.
-      - name: res_meq
-        description: MEQ result when available.
-      - name: unites
-        description: Number of units attached to the subject.
-      - name: is_reprise
-        description: Indicates whether the result is a retake.
-      - name: is_reussite
-        description: Indicates whether the result is a success.
-      - name: is_echec
-        description: Indicates whether the numeric result is below the success threshold.
-      - name: is_difficulte
-        description: Indicates whether the numeric result is between 60 and 69.
-      - name: is_maitrise
-        description: Indicates whether the numeric result is 70 or higher.
-    tests:
-      - resolution:
-          combination_of_columns:
-            - fiche
-            - id_eco
-            - is_reprise
-            - code_matiere
-            - groupe_matiere
-
-  - name: fact_resultat_etape_competence
-    config:
-      tags:
-        - res_scolaires
-    description: >
-      Lists step-level competency results for all students.
-    columns:
-      - name: annee
-        description: The school year.
-      - name: fiche
-        description: Unique student file identifier.
-      - name: id_eco
-        description: Unique school identifier for a given year.
-      - name: code_matiere
-        description: Subject code.
-      - name: groupe_matiere
-        description: Subject group.
-      - name: id_obj_mat
-        description: Unique subject competency identifier.
-      - name: no_comp
-        description: Competency number within the subject.
-      - name: etat
-        description: Subject state.
-      - name: etape
-        description: Reporting step.
-      - name: res_comp_etape
-        description: Raw step-level competency result.
-      - name: res_etape_num
-        description: Numeric step-level competency result.
-      - name: is_reprise
-        description: Indicates whether the result is a retake.
-      - name: is_reussite
-        description: Indicates whether the result is a success.
-      - name: is_echec
-        description: Indicates whether the numeric result is below the success threshold.
-      - name: is_difficulte
-        description: Indicates whether the numeric result is between 60 and 69.
-      - name: is_maitrise
-        description: Indicates whether the numeric result is 70 or higher.
-    tests:
-      - resolution:
-          combination_of_columns:
-            - fiche
-            - id_eco
-            - etape
-            - groupe_matiere
-            - id_obj_mat
-
-  - name: fact_resultat_etape_matiere
-    config:
-      tags:
-        - res_scolaires
-    description: >
-      Lists step-level subject results for all students.
-    columns:
-      - name: annee
-        description: The school year.
-      - name: fiche
-        description: Unique student file identifier.
-      - name: id_eco
-        description: Unique school identifier for a given year.
-      - name: code_matiere
-        description: Subject code.
-      - name: groupe_matiere
-        description: Subject group.
-      - name: etat
-        description: Subject state.
-      - name: etape
-        description: Reporting step.
-      - name: res_etape
-        description: Raw step-level subject result.
-      - name: res_etape_num
-        description: Numeric step-level subject result.
-      - name: is_reprise
-        description: Indicates whether the result is a retake.
-      - name: is_reussite
-        description: Indicates whether the result is a success.
-      - name: is_echec
-        description: Indicates whether the numeric result is below the success threshold.
-      - name: is_difficulte
-        description: Indicates whether the numeric result is between 60 and 69.
-      - name: is_maitrise
-        description: Indicates whether the numeric result is 70 or higher.
-    tests:
-      - resolution:
-          combination_of_columns:
-            - fiche
-            - id_eco
-            - etape
-            - groupe_matiere
-            - code_matiere
-
   - name: fact_yearly_student
     config:
       tags:
         - res_scolaires
-    description: >
+    description: |-
       Groups spine students with school-year attributes used for filtering and reporting.
     columns:
       - name: code_perm
-        description: Unique student permanent code.
+        description: |-
+          Unique student permanent code.
       - name: id_eco
-        description: Unique school identifier for a given year.
+        description: |-
+          Unique school identifier for a given year.
       - name: annee
-        description: The school year.
+        description: |-
+          The school year.
       - name: fiche
-        description: Unique student file identifier.
+        description: |-
+          Unique student file identifier.
       - name: population
-        description: Student population classification.
+        description: |-
+          Student population classification.
       - name: eco
-        description: School code.
+        description: |-
+          School code.
       - name: nom_ecole
-        description: Formatted school name.
+        description: |-
+          Formatted school name.
       - name: ordre_ens
-        description: Order of education.
+        description: |-
+          Order of education.
       - name: niveau_scolaire
-        description: Student grade level.
+        description: |-
+          Student grade level.
     tests:
       - resolution:
           combination_of_columns:

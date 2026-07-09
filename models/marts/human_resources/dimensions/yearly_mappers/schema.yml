@@ -1,48 +1,48 @@
 version: 2
-
 models:
   - name: dim_employment_status_yearly
-    description: >
-      This table maps and formats each employment status to its friendly name.
-      The dimension is built from the `etat_empl` seed.
-      The dimension is yearly padded, meaning that an additional column named `school_year` is inferred from the `valid_from` and `valid_until` seed columns and added to the dimension.
-      The dimension gives, for a given year, the valid employment status for this year.
-      Using this dimension therefore requires you to join on the school year as well as the `etat_empl` columns.
-      In case you only need the most up-to-date (i.e. used during this school year) mapping, you can add the following join clause / filter to your query:
-      `is_current = 1`
-
+    description: |-
+      This table maps and formats each employment status to its friendly name. The dimension is built from the `etat_empl` seed. The dimension is yearly padded, meaning that an additional column named `school_year` is inferred from the `valid_from` and `valid_until` seed columns and added to the dimension. The dimension gives, for a given year, the valid employment status for this year. Using this dimension therefore requires you to join on the school year as well as the `etat_empl` columns. In case you only need the most up-to-date (i.e. used during this school year) mapping, you can add the following join clause / filter to your query: `is_current = 1`
       This dimension can be overridden by the client to add consistent employment status names' formatting.
     columns:
       - name: etat_empl
-        description: The codified representation of the etat_employe.
+        description: |-
+          The codified representation of the etat_employe.
         tests:
           - not_null
       - name: descr
-        description: The description of the etat_employe.
+        description: |-
+          The description of the etat_employe.
         tests:
           - not_null
       - name: etat_actif
-        description: Does the code identify a currently active employee?
+        description: |-
+          Does the code identify a currently active employee?
         tests:
           - not_null
       - name: empl_retr
-        description: Does the code identify a currently retired employee?
+        description: |-
+          Does the code identify a currently retired employee?
         tests:
           - not_null
       - name: empl_cong
-        description: Does the code identify an employee currently on leave?
+        description: |-
+          Does the code identify an employee currently on leave?
         tests:
           - not_null
       - name: cong_lt
-        description: Does the code identify an employee currently on long-term leave?
+        description: |-
+          Does the code identify an employee currently on long-term leave?
         tests:
           - not_null
       - name: empl_resi
-        description: Does the code identify an employee who has resigned?
+        description: |-
+          Does the code identify an employee who has resigned?
         tests:
           - not_null
       - name: school_year
-        description: The school year (from September to August 31 of the following year) for which the status mapping is valid.
+        description: |-
+          The school year (from September to August 31 of the following year) for which the status mapping is valid.
         tests:
           - not_null
     tests:
@@ -50,33 +50,29 @@ models:
           combination_of_columns:
             - etat_empl
             - school_year
-
   - name: dim_engagement_status_yearly
-    description: >
-      This table maps and formats each engagement status to its friendly name.
-      The dimension is built from the `stat_eng` seed.
-      The dimension is yearly padded, meaning that an additional column named `school_year` is inferred from the `valid_from` and `valid_until` seed columns and added to the dimension.
-      The dimension gives, for a given year, the valid engagement status for this year.
-      Using this dimension therefore requires you to join on the school year as well as the `stat_eng` columns.
-      In case you only need the most up-to-date (i.e. used during this school year) mapping, you can add the following join clause / filter to your query:
-      `is_current = 1`
-
+    description: |-
+      This table maps and formats each engagement status to its friendly name. The dimension is built from the `stat_eng` seed. The dimension is yearly padded, meaning that an additional column named `school_year` is inferred from the `valid_from` and `valid_until` seed columns and added to the dimension. The dimension gives, for a given year, the valid engagement status for this year. Using this dimension therefore requires you to join on the school year as well as the `stat_eng` columns. In case you only need the most up-to-date (i.e. used during this school year) mapping, you can add the following join clause / filter to your query: `is_current = 1`
       This dimension is designed to be overridden by the client to add consistent engagement status names' formatting.
     columns:
       - name: stat_eng
-        description: The codified representation of the etat_employe.
+        description: |-
+          The codified representation of the etat_employe.
         tests:
           - not_null
       - name: descr
-        description: The description of the etat_employe.
+        description: |-
+          The description of the etat_employe.
         tests:
           - not_null
       - name: is_reg
-        description: Does the job satisfy the `regular` definition of a job?
+        description: |-
+          Does the job satisfy the `regular` definition of a job?
         tests:
           - not_null
       - name: school_year
-        description: The school year (from September to August 31 of the following year) for which the status mapping is valid.
+        description: |-
+          The school year (from September to August 31 of the following year) for which the status mapping is valid.
         tests:
           - not_null
     tests:

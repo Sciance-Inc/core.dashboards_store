@@ -1,0 +1,8 @@
+version: 2
+models:
+  - name: eff_model_paiement
+    description: |-
+      Table de faits ou de caractéristiques efficacite construite sous le nom `eff_model_paiement`. Sources dbt visibles dans le SQL: `eff_fact_eleve_fgj`, `fact_resultat_etape_competence`.
+  - name: eff_model_partial_design
+    description: |-
+      Table de faits ou de caractéristiques efficacite construite sous le nom `eff_model_partial_design`. Sources dbt visibles dans le SQL: `eff_fact_eleve_fgj`, `fact_resultat_etape_competence`.

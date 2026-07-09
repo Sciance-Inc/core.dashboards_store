@@ -1,0 +1,5 @@
+version: 2
+models:
+  - name: rstep_dim_epreuves
+    description: |-
+      Table de dimensions mappant, pour chaque épreuve unique / obligatoire / maison, les codes matières, les no_competences et les cod_etapes requis. La table est construite en faisant l'union de la dimension par défaut (`core.dashboards_store/seeds/dashboards/educ_serv/res_epreuves/rstep_epreuves_communes.csv`) et de la dimension personnalisée (`cssXX.dashboards_store/seeds/dashboards/educ_serv/res_epreuves/rstep_epreuves_personnalisees.csv`). La table personnalisée peut être adaptée pour chaque CSS pour ajouter des épreuves.

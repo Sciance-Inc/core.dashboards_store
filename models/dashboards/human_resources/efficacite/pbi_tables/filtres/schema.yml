@@ -1,0 +1,39 @@
+version: 2
+models:
+  - name: eff_report_filtres
+    description: |-
+      Table de rapport qui contient les paiements bruts agrégés des employés.
+    columns:
+      - name: filter_key
+        description: |-
+          La clé de filtre qui regroupe `annee` et `lieu_jumele`. Clé de liaison entre les tables.
+      - name: annee
+        description: |-
+          L'année
+      - name: annee_scolaire
+        description: |-
+          L'année scolaire
+      - name: lieu_jumele
+        description: |-
+          Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: institution_friendly_name
+        description: |-
+          Le nom de l'école avec son numéro
+      - name: _anomalie
+        description: |-
+          définit si un lieu est manquant
+    config:
+      column_types:
+        filter_key: nvarchar(128)
+        annee: nvarchar(4)
+        annee_scolaire: nvarchar(12)
+        lieu_jumele: nvarchar(3)
+        institution_friendly_name: nvarchar(64)
+        _anomalie: int
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filter_key
+      - max_le_zero:
+          columns_to_verify:
+            - _anomalie

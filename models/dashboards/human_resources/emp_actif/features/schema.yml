@@ -1,0 +1,5 @@
+version: 2
+models:
+  - name: emp_actif_fact_base
+    description: |-
+      Table de faits ou de caractéristiques emp_actif construite sous le nom `emp_actif_fact_base`. Sources dbt visibles dans le SQL: `dim_employees`, `dim_employment_status_yearly`, `dim_engagement_status_yearly`, `dim_mapper_job_group`, `dim_mapper_workplace`, `i_pai_dos`, `i_pai_dos_empl`, `i_pai_dos_perc`.

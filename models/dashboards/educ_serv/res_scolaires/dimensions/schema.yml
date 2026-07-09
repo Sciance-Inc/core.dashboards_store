@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: resco_dim_matiere
+    description: |-
+      Table de dimension qui mappe les matières par défaut avec les matières custom. La table est construite en faisant l'union de la dimension par défaut (`core.dashboards_store/seeds/dashboards/educ_serv/res_scolaires/default_matiere.csv`) et de la dimension personnalisée (`cssXX.dashboards_store/seeds/dashboards/educ_serv/res_scolaires/custom_matiere.csv`). La table personnalisée peut être adaptée pour chaque CSS pour ajouter des matières.
+    columns:
+      - name: cod_matiere
+        description: |-
+          Code de la matière
+      - name: des_matiere
+        description: |-
+          Description de la matière
+    config:
+      column_types:
+        cod_matiere: nvarchar(32)
+        des_matiere: nvarchar(32)

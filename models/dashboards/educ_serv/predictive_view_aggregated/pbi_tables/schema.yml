@@ -1,0 +1,68 @@
+version: 2
+models:
+  - name: prdctv_vw_report_aggregated_metrics
+    description: |-
+      Report table. Displays aggregated metrics broken down by risk level for each school, model, target and population, allowing comparisons between schools.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filter_key
+            - risk_level
+    columns:
+      - name: filter_key
+        description: |-
+          The filter key is a unique identifier for a given combination of model, target, category. Used to sync filters between the different page of the report.
+      - name: risk_level
+        description: |-
+          The risk level is output by Sciance's models. For a given model and target, it is an estimate of the probability that a student belongs to the target category.
+      - name: n_students
+        description: |-
+          The number of students in the school, model, target, population and risk level combination.
+      - name: proportion
+        description: |-
+          The proportion of students in the school, model, target, population and risk level combination, as compared to the total number of students in the school, model, target and population combination.
+  - name: prdctv_vw_report_filters
+    description: |-
+      Report table. Ancillary table used to sync filters between the different page of the report.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filter_key
+    columns:
+      - name: filter_key
+        description: |-
+          The filter key is a unique identifier for a given combination of model, target and category. It is used to sync filters between the different pages of the report.
+      - name: population
+        description: |-
+          The population the students belong to.
+      - name: school
+        description: |-
+          The school the students belong to.
+      - name: model_target
+        description: |-
+          The model and target the predictions apply to.
+  - name: prdctv_vw_report_shap_schools_scores
+    description: |-
+      Report table. Displays SHAP values and approximate quantiles for each school, model, target and population, allowing comparisons between schools.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filter_key
+            - scope_friendly_name
+            - category
+    columns:
+      - name: filter_key
+        description: |-
+          The filter key is a unique identifier for a given combination of model, target, category. Used to sync filters between the different page of the report.
+      - name: scope_friendly_name
+        description: |-
+          A friendly name for the scope to be displayed in the dashboard. The scope is a set of student we want to compare the school score to.
+      - name: category
+        description: |-
+          The meta-category the SHAP value has been computed for.
+      - name: shap_value_avg
+        description: |-
+          The average shap value for the school, model, target, category and scope combination.
+      - name: quantile
+        description: |-
+          The approximate quantile of the shap value for the school, model, target, category and scope combination. Estimated using the prdctv_vw_stg_shap_quantiles table.

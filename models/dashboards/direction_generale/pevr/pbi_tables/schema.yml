@@ -1,0 +1,44 @@
+version: 2
+models:
+  - name: pevr_filtres
+    description: |-
+      Table qui contient les combinaisons possibles des filtres pour la liaison des tables de données par rapport à la table de filtre.
+  - name: pevr_indicateur_charl
+    description: |-
+      Table qui contient les indicateurs PEVR dont les données proviennent de Charlemagne.
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - id_indicateur
+            - description_indicateur
+            - annee_scolaire
+  - name: pevr_indicateur_epreuves
+    description: |-
+      Table qui contient les indicateurs des résultats aux épreuves du PEVR.
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - id_indicateur
+            - description_indicateur
+            - annee_scolaire
+            - id_filtre
+  - name: pevr_indicateur_ppp
+    description: |-
+      Table qui contient les indicateurs des projets pédagogiques particuliers.
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - id_indicateur
+            - description_indicateur
+            - annee_scolaire
+            - id_filtre
+  - name: pevr_orientation_un
+    description: |-
+      Table qui contient l'orientation 1.
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - id_indicateur
+            - description_indicateur
+            - annee_scolaire
+            - id_filtre

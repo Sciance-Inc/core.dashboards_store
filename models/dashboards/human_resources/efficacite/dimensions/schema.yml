@@ -1,0 +1,27 @@
+version: 2
+models:
+  - name: eff_dim_categorie
+    description: |-
+      Table de dimension qui remplace la configuration personnalisée des regroupements de corps d'emploi selon la seed `categories_emploi.csv`.
+    columns:
+      - name: corp_empl
+        description: |-
+          Le numéro du corps d'emploi
+        tests:
+          - not_null
+          - unique
+      - name: description_corps_empl
+        description: |-
+          La description du corps d'emploi
+        tests:
+          - not_null
+      - name: categorie
+        description: |-
+          La catégorie du corps d'emploi
+        tests:
+          - not_null
+    config:
+      column_types:
+        corp_empl: nvarchar(16)
+        description_corps_empl: nvarchar(32)
+        categorie: nvarchar(32)
