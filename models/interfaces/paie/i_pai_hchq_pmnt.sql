@@ -30,6 +30,7 @@ select
     nb_heur_cont,
     nb_heur_auto,
     nb_heur_piec,
+    cast(date_cheq as date) as date_cheq,
     code_prov as code_provenance,
     mode as mode_paiement,
     no_type_pmnt,
