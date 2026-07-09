@@ -16,7 +16,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 with
-    source as (select matr as matricule, no_cheq from {{ ref("i_pai_hchq") }}),
+    source as (
+        select matr as matricule, no_cheq, date_cheq from {{ ref("i_pai_hchq") }}
+    ),
 
     stg_activity as (
         select
@@ -79,7 +81,7 @@ with
             sum(p.mnt) as total_mnt_brut,
             min(p.date_deb) as date_debut_paiement,
             max(p.date_fin) as date_fin_paiement,
-            min(p.date_cheq) as date_cheq_paiement
+            min(s.date_cheq) as date_cheq_paiement
         from source s
         left join
             {{ ref("i_pai_hchq_pmnt") }} p
