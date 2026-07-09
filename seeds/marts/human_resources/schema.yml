@@ -30,6 +30,8 @@ seeds:
         description: Does the code identify an employee currently on long-term leave?
         tests:
           - not_null
+      - name: empl_resi
+        description: Does the code identify an employee who resigned?
       - name: type_duration
         description: >
           A binary variable indicating the duration type. 0 represents a short duration, while 1 represents a long duration.           
