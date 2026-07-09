@@ -16,95 +16,42 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 with
-    source as (
-        select matr as matricule, no_cheq, date_cheq from {{ ref("i_pai_hchq") }}
+    payment_groups as (
+        select
+            matricule,
+            no_cheq,
+            code_pmnt,
+            mode_paiement,
+            code_provenance,
+            ref_empl,
+            corp_empl,
+            lieu_jumele,
+            nb_unit,
+            total_mnt_brut,
+            date_debut_paiement,
+            date_fin_paiement,
+            date_cheq_paiement
+        from {{ ref("stg_paiement_history_payment_groups") }}
     ),
 
-    stg_activity as (
+    employment_periods as (
         select
-            ah.matr,
-            ah.school_year,
-            ah.ref_empl,
-            ah.corp_empl,
-            ah.etat_empl,
-            ah.stat_eng,
-            ah.lieu_trav,
-            ah.date_eff,
-            ah.date_fin,
-            hc.nb_hres_an,
-            hc.nb_hres_jrs
-        from {{ ref("stg_activity_history") }} ah
-        left join
-            {{ ref("stg_hrs_calc") }} hc
-            on ah.corp_empl = hc.corp_empl
-            and ah.stat_eng = hc.stat_eng
-    ),
-
-    -- Table d'historique des employés
-    stg_hist_source as (
-        select
-            stg.matr as matricule,
-            stg.ref_empl,
-            stg.corp_empl,
-            stg.etat_empl,
-            stg.stat_eng,
-            coalesce(mp.lieu_jumele, 'Lieu jumelé non configuré') as lieu_jumele,
-            min(date_eff) as date_debut_historique,
-            max(date_fin) as date_fin_historique,
-            max(stg.nb_hres_an) as nb_hres_an,  -- Dummy
-            max(stg.nb_hres_jrs) as nb_hres_jrs  -- Dummy
-        from stg_activity stg
-        left join {{ ref("eff_mapping_fgj_paie") }} mp on stg.lieu_trav = mp.lieu_trav
-        where stg.lieu_trav is not null  -- Enlève les paiement sans lieu de travail dans l'historique.
-        group by
-            stg.matr,
-            stg.ref_empl,
-            stg.corp_empl,
-            stg.etat_empl,
-            stg.stat_eng,
-            mp.lieu_jumele,
-            stg.lieu_trav
-    ),
-
-    -- Table des paiements
-    grp_paiement as (
-        select
-            s.matricule,
-            s.no_cheq,
-            p.code_pmnt,
-            p.mode_paiement,
-            p.code_provenance,
-            p.ref_empl,
-            p.corp_empl,
-            mp.lieu_jumele,
-            sum(p.nb_unit) as nb_unit,
-            sum(p.mnt) as total_mnt_brut,
-            min(p.date_deb) as date_debut_paiement,
-            max(p.date_fin) as date_fin_paiement,
-            min(s.date_cheq) as date_cheq_paiement
-        from source s
-        left join
-            {{ ref("i_pai_hchq_pmnt") }} p
-            on s.matricule = p.matr
-            and s.no_cheq = p.no_cheq
-        left join
-            {{ ref("eff_mapping_fgj_paie") }} mp  -- Lien avec les écoles dites jumulé
-            on p.lieu_trav = mp.lieu_trav
-        where code_pmnt is not null  -- Enlève les déductions non présent dans grp_paiement
-        group by
-            s.matricule,
-            s.no_cheq,
-            p.code_pmnt,
-            p.mode_paiement,
-            p.code_provenance,
-            p.ref_empl,
-            p.corp_empl,
-            mp.lieu_jumele
+            matricule,
+            ref_empl,
+            corp_empl,
+            etat_empl,
+            stat_eng,
+            lieu_jumele,
+            date_debut_historique,
+            date_fin_historique,
+            nb_hres_an,
+            nb_hres_jrs
+        from {{ ref("stg_paiement_history_employment_periods") }}
     ),
 
     -- Création d'un uuid pour un fuzzy join
     paiement_id as (
-        select *, row_number() over (order by matricule) as uuid_ from grp_paiement
+        select *, row_number() over (order by matricule) as uuid_ from payment_groups
     ),
 
     -- left join sur hist pour avoir l'ecart de la date de paiement le plus récent sur
@@ -200,7 +147,7 @@ with
             pid.uuid_
         from paiement_id pid
         left join
-            stg_hist_source hs
+            employment_periods hs
             on pid.matricule = hs.matricule
             and pid.ref_empl = hs.ref_empl
             and pid.date_fin_paiement >= hs.date_debut_historique
@@ -263,7 +210,7 @@ with
             ft.uuid_
         from _flaggedteacher ft
         left join
-            stg_hist_source hs
+            employment_periods hs
             on ft.matricule = hs.matricule
             and ft.ref_empl = hs.ref_empl
             and ft.date_fin_paiement = dateadd(day, -1, hs.date_debut_historique)
