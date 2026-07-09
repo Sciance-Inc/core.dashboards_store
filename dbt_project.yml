@@ -53,6 +53,9 @@ seeds:
         efficacite:
           +tags: ["efficacite"]
           +schema: "dashboard_efficacite"
+        emp_abs:
+          +tags: ["emp_abs"]
+          +schema: "dashboard_emp_abs"
 
 models:
   +materialized: table
