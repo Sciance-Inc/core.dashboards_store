@@ -1,0 +1,25 @@
+version: 2
+
+seeds:
+  - name: secteur
+    description: >
+      Table optionnelle qui associe les lieux de travail du rapport d'absences
+      des employés à des secteurs géographiques ou administratifs.
+    columns:
+      - name: lieu_trav
+        description: Le numéro de l'unité administrative ou de l'école.
+      - name: secteur_Id
+        description: L'ID du secteur géographique ou subdivision de votre territoire.
+      - name: secteur_Descr
+        description: Description du secteur géographique ou subdivision de votre territoire.
+      - name: ordre_Ens
+        description: Ordre d'enseignement associé à ce secteur.
+    config:
+      tags:
+        - emp_abs
+      schema: dashboard_emp_abs_seeds
+      column_types:
+        lieu_trav: nvarchar(3)
+        secteur_Id: nvarchar(20)
+        secteur_Descr: nvarchar(32)
+        ordre_Ens: nvarchar(10)

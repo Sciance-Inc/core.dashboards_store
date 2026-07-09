@@ -95,30 +95,6 @@ seeds:
         valid_from: int
         valid_until: int
 
-  - name: secteur
-    description: >
-      Une table contenant les informations sur les secteurs des écoles et leurs caractéristiques.
-    columns:
-      - name: lieu_trav
-        description: Le numéro de l'unité administrative ou de l'école
-      - name: secteur_Id
-        description: L'ID du secteur géographique ou subdivition de votre territoire
-      - name: secteur_Descr
-        description: Description du secteur géographique ou subdivition de votre territoire
-      - name: ordre_Ens
-        description: Ordre des enseignants dans ce secteur
-
-    config:
-      tags:
-        - human_resources
-        - endb
-      schema: human_resources_seeds
-      column_types:
-        lieu_trav: nvarchar(3)
-        secteur_Id: nvarchar(20)
-        secteur_Descr: nvarchar(32) 
-        ordre_Ens: nvarchar(10)
-
   - name: heure_quotidienne
     description: >
       Une table contenant les heures quotidiennes selon le corps d'emploi
