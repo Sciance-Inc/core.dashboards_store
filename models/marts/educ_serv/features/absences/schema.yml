@@ -16,6 +16,14 @@ models:
             - absence_sequence_id
             - event_kind
 
+  - name: fact_absences_retards_daily_src
+    description: >
+      Technical intermediate table for fact_absences_retards_daily. It materializes qualified absence and delay events after mapping each student to the calendar grid followed in GPI.
+
+  - name: fact_absences_retards_daily_grid
+    description: >
+      Technical intermediate table for fact_absences_retards_daily. It materializes the expected period count and daily event kind computation before the final rollup.
+
   - name: fact_absences_retards_daily
     description: >
       Compute the aggregated number of absences and delay per day, for each student with at LEAST one absence for a given period.

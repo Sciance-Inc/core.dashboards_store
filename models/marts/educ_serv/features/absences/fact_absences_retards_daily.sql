@@ -33,94 +33,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 }}
 
 with
-    -- Extract all the qualified absences / retards
-    src as (
-        select
-            fct.date_abs,
-            fct.fiche,
-            fct.id_eco,
-            coalesce(dim.is_absence, 1) as is_absence,  -- Default to 0 if the absence is not qualified (prefer false positive over false negative)
-            count(*) as n_periods_events,
-            coalesce(min(dim.description_abs), 'inconnue') as event_description  -- Take the first one, in lexicographic order. It's completely arbitrary ;) A better proxy would be the most common occurence
-        from {{ ref("i_gpm_e_abs") }} as fct
-        inner join
-            {{ ref("stg_dim_absences_retards_inclusion") }} as dim
-            on fct.id_eco = dim.id_eco
-            and fct.motif_abs = dim.motif_abs
-        group by fct.date_abs, fct.fiche, fct.id_eco, dim.is_absence
-
-    -- Add the calendar grille the student follows from the DAN
-    ),
-    src_with_grid_id as (
-        select
-            src.date_abs,
-            src.fiche,
-            src.id_eco,
-            dan.grille,
-            src.is_absence,
-            src.n_periods_events,
-            src.event_description
-        from src
-        join
-            {{ ref("i_gpm_e_dan") }} as dan
-            on src.fiche = dan.fiche
-            and src.id_eco = dan.id_eco
-
-    -- Pre compute the expected daily number of periods per grid : later used to split
-    -- days between the day of complete absence, and day of partial absence
-    ),
-    -- OVERRIDE THE dim_absences_grid TABLE TO MANUALLY CONTROL THE NUMBER OF PERIODES
-    -- PER GRID AND
-    -- SCHOOL, OR TO EXCLUDE SOME SCHOOLS / YEAR FROM THE COMPUTATION
-    grid as (
-        select * from {{ ref("dim_cal_eco_grid") }} where jour_cycle is not null  -- Only keep working days
-
-    -- Add the expected number of periods to the observed events
-    ),
     src_with_expected_periodes as (
         select
-            src.date_abs,
-            src.fiche,
-            src.id_eco,
-            src.grille,
-            src.is_absence,
-            src.n_periods_events,
-            grid.n_periods_expected,
-            src.event_description,
-            src.n_periods_events
-            * 100.0
-            / grid.n_periods_expected as prct_observed_periods_over_expected,
-            -- Categorize the events based on : full-day / partial and absence / retard
-            -- By construyction , the category is not nullable. The null case is
-            -- outputed as test hook.
-            case
-                when src.n_periods_events >= grid.n_periods_expected  -- Schould logically be a strict = but a few students have more event than expected periods
-                then
-                    case
-                        when src.is_absence = 1
-                        then 'absence (journée complète)'
-                        when src.is_absence = 0
-                        then 'retard (journée complète)'
-                        else null
-                    end
-                when src.n_periods_events < grid.n_periods_expected
-                then
-                    case
-                        when src.is_absence = 1
-                        then 'absence (période)'
-                        when src.is_absence = 0
-                        then 'retard (période)'
-                        else null
-                    end
-                else null
-            end as event_kind
-        from src_with_grid_id as src
-        join
-            grid
-            on src.id_eco = grid.id_eco
-            and src.date_abs = grid.date_evenement
-            and src.grille = grid.grille
-        where grid.n_periods_expected > 0  -- If no period is expected then we can't compute an absence rate.
+            date_abs,
+            fiche,
+            id_eco,
+            grille,
+            is_absence,
+            event_description,
+            prct_observed_periods_over_expected,
+            event_kind
+        from {{ ref("fact_absences_retards_daily_grid") }}
 
     -- Add a 'tous types' category
     ),

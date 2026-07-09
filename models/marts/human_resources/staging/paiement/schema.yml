@@ -1,6 +1,14 @@
 version: 2
 
 models:
+  - name: stg_paiement_history_employment_periods
+    description: >
+      Table intermediaire technique materialisant les periodes d'emploi utilisees par stg_paiement_history pour eviter de recalculer l'historique avant la jointure temporelle.
+
+  - name: stg_paiement_history_payment_groups
+    description: >
+      Table intermediaire technique materialisant les paiements regroupes par cheque et code de paiement avant leur rattachement a l'historique d'emploi.
+
   - name: stg_paiement_history
     description: >
       Une table d'historique sur les paiements qu'un employé à reçu sur 3 ans. La table contient également des paiements provenant de la table des déductions.
