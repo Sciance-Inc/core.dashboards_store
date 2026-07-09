@@ -1,0 +1,97 @@
+version: 2
+models:
+  - name: eff_fact_ecart_neighbour
+    description: |-
+      Table de rapport qui contient les paiements bruts agrégés des employés.
+    columns:
+      - name: lieu_jumele
+        description: |-
+          Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: annee
+        description: |-
+          L'année
+      - name: taux_reussite
+        description: |-
+          Le taux de réussite des élèves ayant fait l'examen
+      - name: cohort_difficulty_score
+        description: |-
+          L'indice de difficulté
+      - name: ratio_heure_ele
+        description: |-
+          Le ratio du nombre d'heure alloué par élève.
+      - name: nb_totaux_eleve
+        description: |-
+          Le nombre total d'élèves
+      - name: neighbour_cohorte_difficulty_score
+        description: |-
+          Le score de difficulté des écoles voisins
+      - name: neighbour_ratio_heure_ele
+        description: |-
+          Le ratio du nombre d'heure alloué par élève des écoles voisins.
+      - name: neighbour_nb_totaux_eleve
+        description: |-
+          Le nombre total d'élèves des écoles voisins.
+      - name: neighbour_lieu_jumele
+        description: |-
+          Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI des écoles voisins
+      - name: neighbour_taux_reussite
+        description: |-
+          Le taux de réussite des élèves ayant fait l'examen des écoles voisins.
+    config:
+      column_types:
+        lieu_jumele: nvarchar(3)
+        annee: nvarchar(4)
+        taux_reussite: decimal(5,4)
+        cohort_difficulty_score: int
+        ratio_heure_ele: float
+        nb_totaux_eleve: int
+        neighbour_lieu_jumele: nvarchar(3)
+        neighbour_cohorte_difficulty_score: int
+        neighbour_ratio_heure_ele: float
+        neighbour_nb_totaux_eleve: int
+        neighbour_taux_reussite: decimal(5,4)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_jumele
+            - annee
+            - neighbour_lieu_jumele
+  - name: eff_fact_perf_ecole
+    description: |-
+      Table de rapport qui contient les paiements bruts agrégés des employés.
+    columns:
+      - name: lieu_jumele
+        description: |-
+          Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: annee
+        description: |-
+          L'année
+      - name: total_hrs_brut
+        description: |-
+          Le nombre total d'heures brutes travaillées
+      - name: nb_totaux_eleve
+        description: |-
+          Le nombre total d'élèves
+      - name: taux_reussite
+        description: |-
+          Le taux de réussite des élèves ayant fait l'examen
+      - name: cohort_difficulty_score
+        description: |-
+          L'indice de difficulté
+      - name: ratio_heure_ele
+        description: |-
+          Le ratio du nombre d'heure alloué par élève.
+    config:
+      column_types:
+        lieu_jumele: nvarchar(3)
+        annee: nvarchar(4)
+        total_hrs_brut: float
+        nb_totaux_eleve: int
+        taux_reussite: decimal(5,4)
+        cohort_difficulty_score: int
+        ratio_heure_ele: float
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_jumele
+            - annee

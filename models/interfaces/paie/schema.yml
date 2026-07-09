@@ -1,38 +1,72 @@
 version: 2
-
 models:
+  - name: i_hcha_pai_dos_empl
+    description: |-
+      Table d'interface PAIE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_hcha_pai_dos_empl`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_identite
+    description: |-
+      Table d'interface PAIE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_identite`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_pai_cum_budg
+    description: |-
+      Table d'interface PAIE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_pai_cum_budg`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_pai_dos
+    tags:
+      - interface
+    description: |-
+      Table d'interface. 1er cas : utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `pai_dos` de la base de données source. 2e cas : utilisée pour le ratio de prévision du nombre de départs à la retraite pour les postes permanents.
+  - name: i_pai_dos_2
+    tags:
+      - interface
+    description: |-
+      Table d'interface. Utilisée uniquement pour aller chercher les courriels des employé(e)s.
   - name: i_pai_dos_empl
-    tags: ["interface"]
-    description: >
-      Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `pai_dos` de la base de données source.
-      Utilisée pour la prévision des départs à la retraite pour les postes permanents. Jointure avec les tables `i_pai_tab_stat_eng`, `i_pai_tab_corp_empl`, `i_pai_dos` et `i_pai_etat_empl`.
+    tags:
+      - interface
+    description: |-
+      Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `pai_dos` de la base de données source. Utilisée pour la prévision des départs à la retraite pour les postes permanents. Jointure avec les tables `i_pai_tab_stat_eng`, `i_pai_tab_corp_empl`, `i_pai_dos` et `i_pai_etat_empl`.
+  - name: i_pai_dos_perc
+    description: |-
+      Table d'interface PAIE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_pai_dos_perc`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_pai_habs
+    description: |-
+      Table d'interface PAIE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_pai_habs`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_pai_hchq
+    description: |-
+      Table d'interface PAIE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_pai_hchq`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_pai_hchq_ded
+    description: |-
+      Table d'interface PAIE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_pai_hchq_ded`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_pai_hchq_pmnt
+    description: |-
+      Table d'interface PAIE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_pai_hchq_pmnt`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_pai_hemp
+    tags:
+      - interface
+    description: |-
+      Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `i_pai_hemp` de la base de données source.
+  - name: i_pai_tab_cal_jour
+    description: |-
+      Table d'interface PAIE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_pai_tab_cal_jour`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
   - name: i_pai_tab_corp_empl
-    tags: ["interface"]
-    description: >
+    tags:
+      - interface
+    description: |-
       Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `i_pai_tab_corp_empl` de la base de données source.
   - name: i_pai_tab_etat_empl
-    tags: ["interface"]
-    description: >
+    tags:
+      - interface
+    description: |-
       Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `i_pai_tab_etat_empl_conge` de la base de données source.
   - name: i_pai_tab_lieu_trav
-    tags: ["interface"]
-    description: >
+    tags:
+      - interface
+    description: |-
       Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `i_pai_tab_lieu_trav` de la base de données source.
-  - name: i_pai_hemp
-    tags: ["interface"]
-    description: >
-      Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `i_pai_hemp` de la base de données source.
-  - name: i_pai_dos
-    tags: ["interface"]
-    description: >
-      Table d'interface.
-      1er cas : utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `pai_dos` de la base de données source.
-      2e cas : utilisée pour le ratio de prévision du nombre de départs à la retraite pour les postes permanents.
   - name: i_pai_tab_stat_eng
-    tags: ["interface"]
-    description: >
+    tags:
+      - interface
+    description: |-
       Table d'interface. Utilisée pour le ratio de prévision du nombre de départs à la retraite pour les postes permanents.
-  - name: i_pai_dos_2
-    tags: ["interface"]
-    description: >
-      Table d'interface. Utilisée uniquement pour aller chercher les courriels des employé(e)s.
+  - name: i_pai_tab_type_lieu
+    description: |-
+      Table d'interface PAIE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_pai_tab_type_lieu`. Le SQL ne contient pas de `ref()` ou `source()` explicite.

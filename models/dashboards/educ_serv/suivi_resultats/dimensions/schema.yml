@@ -1,0 +1,8 @@
+version: 2
+models:
+  - name: srslt_dim_matieres_suivi
+    description: |-
+      Table de dimensions listant les codes matières et leur description. La table est construite en faisant l'union de la dimension par défaut (`core.dashboards_store/seeds/dashboards/educ_serv/suivi_resultats/default_tracked_courses.csv`) et de la dimension personnalisée (`cssXX.dashboards_store/seeds/dashboards/educ_serv/suivi_resultats/custom_tracked_courses.csv`). La table personnalisée peut être adaptée pour chaque CSS pour ajouter des matières.
+  - name: srslt_stg_matieres_suivi
+    description: |-
+      Dimension suivi_resultats qui structure les attributs de référence exposés par `srslt_stg_matieres_suivi`. Sources dbt visibles dans le SQL: `default_tracked_courses`.

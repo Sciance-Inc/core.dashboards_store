@@ -1,0 +1,33 @@
+version: 2
+models:
+  - name: rstep_fact_epreuves_obligatoires_internes
+    description: |-
+      La table regroupe les notes des épreuves obligatoires et locales.  Cette table accumule les résultats pour les matières identifiées dans `rstep_dim_epreuves`.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - ecole
+            - code_matiere
+            - annee_scolaire
+            - description_matiere
+            - is_reprise
+    columns:
+      - name: res_comp_etape
+        tests:
+          - not_null
+  - name: rstep_fact_epreuves_uniques
+    description: |-
+      La table regroupe les notes des épreuves uniques de 4e et 5e secondaire. Cette table accumule les résultats pour les matières identifiées dans `rstep_liste_matiere_epr_unique`.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - annee
+            - code_matiere
+            - mois_resultat
+            - groupe
+    columns:
+      - name: res_ministere_final
+        tests:
+          - not_null

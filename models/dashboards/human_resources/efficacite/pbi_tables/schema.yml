@@ -1,0 +1,217 @@
+version: 2
+models:
+  - name: eff_report_ecart
+    description: |-
+      Table de rapport qui contient les paiements bruts agrégés des employés.
+    columns:
+      - name: filter_key
+        description: |-
+          Clé de filtre pour la liaison entre cette table et la table de filtre.
+      - name: taux_reussite
+        description: |-
+          Le taux de réussite des élèves ayant fait l'examen
+      - name: taux_moyen_voisins
+        description: |-
+          Le taux moyens des écoles les plus 'proches'
+      - name: taux_moyen_pondere_voisins
+        description: |-
+          Le taux moyen pondéré des écoles les plus proches
+      - name: ecart_vs_voisins
+        description: |-
+          L'écart entre le taux de réussite et le taux_moyen_voisins
+      - name: ecart_vs_voisins_pondere
+        description: |-
+          L'écart entre le taux de réussite et le taux_moyen_pondere_voisins
+    config:
+      column_types:
+        filter_key: nvarchar(128)
+        taux_reussite: decimal(5,4)
+        taux_moyen_voisins: nvarchar(12)
+        taux_moyen_pondere_voisins: nvarchar(64)
+        ecart_vs_voisins: int
+        ecart_vs_voisins_pondere: smallint
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filter_key
+  - name: eff_report_neighbour
+    description: |-
+      Table de rapport qui contient les écoles voisines utilisées pour la comparaison.
+    columns:
+      - name: filter_key
+        description: |-
+          La clé de filtre pour joindre cette table et la table de filtre
+      - name: taux_reussite
+        description: |-
+          Le taux de réussite des élèves ayant fait l'examen
+      - name: cohort_difficulty_score
+        description: |-
+          L'indice de difficulté
+      - name: nb_totaux_eleve
+        description: |-
+          Le nombre total d'élèves
+      - name: ratio_heure_ele
+        description: |-
+          Le nombre d'heures accordées en moyenne par élève.
+      - name: source
+        description: |-
+          Indique s'il s'agit de l'école source ou d'une école voisine
+      - name: target_institution_friendly_name
+        description: |-
+          Le nom de l'école
+      - name: category_join_key
+        description: |-
+          La clé de filtre du côté de l'école voisine.
+    config:
+      column_types:
+        filter_key: nvarchar(128)
+        taux_reussite: decimal(5,4)
+        cohort_difficulty_score: int
+        nb_totaux_eleve: int
+        ratio_heure_ele: float
+        source: nvarchar(64)
+        target_institution_friendly_name: nvarchar(64)
+        category_join_key: nvarchar(128)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - category_join_key
+  - name: eff_report_neighbour_paiement
+    description: |-
+      Table de rapport qui contient les paiements bruts agrégés des employés.
+    columns:
+      - name: category_join_key
+        description: |-
+          La clé de filtre pour joindre cette table et la table de filtre
+      - name: categorie
+        description: |-
+          La catégorie du corps d'emploi
+      - name: total_hrs_brut
+        description: |-
+          Le nombre total d'heures brutes
+      - name: prct_of_total_hrs_brut
+        description: |-
+          Le pourcentage total du nombre brut selon l'année et le `lieu_jumele`
+    config:
+      column_types:
+        category_join_key: nvarchar(128)
+        categorie: nvarchar(64)
+        total_hrs_brut: float
+        prct_of_total_hrs_brut: float
+    tests:
+      - resolution:
+          combination_of_columns:
+            - category_join_key
+            - categorie
+  - name: eff_report_paiement
+    description: |-
+      Table de rapport qui contient les paiements bruts agrégés des employés.
+    columns:
+      - name: filter_key
+        description: |-
+          La clé de filtre qui lie cette table et la table de filtre
+      - name: categorie_lieu_jumele
+        description: |-
+          La description du type de lieu
+      - name: categorie
+        description: |-
+          La catégorie du corps d'emploi
+      - name: corp_empl
+        description: |-
+          Le corps d'emploi
+      - name: stat_eng
+        description: |-
+          Le statut d'engagement
+      - name: total_mnt_brut
+        description: |-
+          Le montant total brut
+      - name: total_hrs_brut
+        description: |-
+          Le nombre total d'heures brutes
+    config:
+      column_types:
+        filter_key: nvarchar(128)
+        categorie_lieu_jumele: nvarchar(64)
+        categorie: nvarchar(32)
+        corp_empl: nvarchar(4)
+        stat_eng: nvarchar(4)
+        total_mnt_brut: float
+        total_hrs_brut: float
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filter_key
+            - categorie_lieu_jumele
+            - categorie
+            - corp_empl
+            - stat_eng
+  - name: eff_report_perf_ecole
+    description: |-
+      Table de rapport qui contient les paiements bruts agrégés des employés.
+    columns:
+      - name: filter_key
+        description: |-
+          La clé de filtre qui lie cette table et la table de filtre
+      - name: total_hrs_brut
+        description: |-
+          Le nombre total d'heures brutes
+      - name: nb_totaux_eleve
+        description: |-
+          Le nombre total d'élèves
+      - name: taux_reussite
+        description: |-
+          Le taux de réussite des élèves ayant fait l'examen
+      - name: cohort_difficulty_score
+        description: |-
+          L'indice de difficulté
+      - name: ratio_heure_ele
+        description: |-
+          Le ratio du nombre d'heures allouées par élève.
+    config:
+      column_types:
+        filter_key: nvarchar(128)
+        total_hrs_brut: float
+        taux_reussite: decimal(5,4)
+        cohort_difficulty_score: smallint
+        ratio_heure_ele: float
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filter_key
+  - name: eff_report_test_debug
+    description: |-
+      Table de rapport utilisé pour débugger les données dans le tableau de bord.
+    columns:
+      - name: filter_key
+        description: |-
+          La clé de filtre qui lie cette table et la table de filtre
+      - name: categorie
+        description: |-
+          La catégorie du corps d'emploi
+      - name: corp_empl
+        description: |-
+          Le numéro du corps d'emploi
+      - name: stat_eng
+        description: |-
+          Le statut d'engagement du corps d'emploi
+      - name: total_mnt_brut
+        description: |-
+          Le montant brut total
+      - name: hrs_remunere
+        description: |-
+          Le nombre total d'heures rémunérées.
+    config:
+      column_types:
+        filter_key: nvarchar(128)
+        categorie: nvarchar(32)
+        corp_empl: nvarchar(4)
+        stat_eng: nvarchar(3)
+        total_mnt_brut: float
+        hrs_remunere: float
+    tests:
+      - resolution:
+          combination_of_columns:
+            - filter_key
+            - corp_empl
+            - categorie
+            - stat_eng

@@ -1,79 +1,83 @@
 version: 2
-
 models:
-  - name: fact_main_job_yearly
-    description: >
-      Yearly table.
-      Map each employee to their main job for a given school year.
+  - name: fact_activity_current
+    description: |-
+      Map each employee to all of their active employments (to be understood as `ref_empl`) for the current school year. The current school year being defined as the one the ETL run is executed in.
+      Only active employees, at the time of the ETL's run, are considered. An employee is considered active if they have been paid at least once during the previous two weeks.
     columns:
       - name: matr
-        description: The unique identifier of an employee.
+        description: |-
+          The unique identifier of an employee.
         tests:
-          - not_null
-      - name: school_year
-        description: The school year (from September 1 to August 31 of the following year) for which the status mapping is valid.
-        tests:
-          - not_null
-      - name: main_job
-        description: >
-          The main job of the employee for the given school year.
-          In case there are multiple main jobs for a given year, the main job is defined as the last one.
-        tests:
-          - not_null
-    tests:
-      - resolution:
-          combination_of_columns:
-            - matr
-            - school_year
-
+          - unique
+      - name: corp_empl
+        description: |-
+          The job category of the employment.
+      - name: etat_empl
+        description: |-
+          The employment status of the employment.
+      - name: lieu_trav
+        description: |-
+          The workplace of the employment.
+      - name: stat_eng
+        description: |-
+          The engagement status of the employment.
   - name: fact_activity_yearly
-    description: >
-      Yearly table.
-      Map each employee to all of their active employments (to be understood as `ref_empl`) for a given year.
-      In case there are multiple active employments under the same `ref_empl` for a given year, the last one is kept.
-
+    description: |-
+      Yearly table. Map each employee to all of their active employments (to be understood as `ref_empl`) for a given year. In case there are multiple active employments under the same `ref_empl` for a given year, the last one is kept.
       The table can be used to retrieve metadata (such as the job category, the workplace, the employment status, etc.) of an ACTIVE employee for a given year.
     columns:
       - name: matr
-        description: The unique identifier of an employee.
+        description: |-
+          The unique identifier of an employee.
       - name: school_year
-        description: The school year (from September 1 to August 31 of the following year) for which the status mapping is valid.
+        description: |-
+          The school year (from September 1 to August 31 of the following year) for which the status mapping is valid.
       - name: ref_empl
-        description: The unique identifier of an employment.
+        description: |-
+          The unique identifier of an employment.
       - name: corp_empl
-        description: The job category of the employment.
+        description: |-
+          The job category of the employment.
       - name: etat_empl
-        description: The employment status of the employment.
+        description: |-
+          The employment status of the employment.
       - name: lieu_trav
-        description: The workplace of the employment.
+        description: |-
+          The workplace of the employment.
       - name: stat_eng
-        description: The engagement status of the employment.
+        description: |-
+          The engagement status of the employment.
       - name: is_main_job
-        description: Is the employment the main job of the employee for the given school year?
+        description: |-
+          Is the employment the main job of the employee for the given school year?
     tests:
       - resolution:
           combination_of_columns:
             - matr
             - school_year
             - ref_empl
-
-  - name: fact_activity_current
-    description: >
-      Map each employee to all of their active employments (to be understood as `ref_empl`) for the current school year.
-      The current school year being defined as the one the ETL run is executed in.
-
-      Only active employees, at the time of the ETL's run, are considered.
-      An employee is considered active if they have been paid at least once during the previous two weeks.
+  - name: fact_main_job_yearly
+    description: |-
+      Yearly table. Map each employee to their main job for a given school year.
     columns:
       - name: matr
-        description: The unique identifier of an employee.
+        description: |-
+          The unique identifier of an employee.
         tests:
-          - unique
-      - name: corp_empl
-        description: The job category of the employment.
-      - name: etat_empl
-        description: The employment status of the employment.
-      - name: lieu_trav
-        description: The workplace of the employment.
-      - name: stat_eng
-        description: The engagement status of the employment.
+          - not_null
+      - name: school_year
+        description: |-
+          The school year (from September 1 to August 31 of the following year) for which the status mapping is valid.
+        tests:
+          - not_null
+      - name: main_job
+        description: |-
+          The main job of the employee for the given school year. In case there are multiple main jobs for a given year, the main job is defined as the last one.
+        tests:
+          - not_null
+    tests:
+      - resolution:
+          combination_of_columns:
+            - matr
+            - school_year

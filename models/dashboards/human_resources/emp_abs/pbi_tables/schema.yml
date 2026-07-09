@@ -1,0 +1,8 @@
+version: 2
+models:
+  - name: emp_abs_report_absence
+    description: |-
+      Table de reporting du tableau de bord emp_abs. Elle prépare le modèle `emp_abs_report_absence` pour la consommation Power BI. Sources dbt visibles dans le SQL: `dim_employees`, `dim_mapper_job_group`, `dim_mapper_workplace`, `emp_abs_fact_base`, `fact_absence`, `secteur`.
+  - name: emp_abs_report_filters
+    description: |-
+      Table de reporting du tableau de bord emp_abs. Elle prépare le modèle `emp_abs_report_filters` pour la consommation Power BI. Sources dbt visibles dans le SQL: `dim_calendrier`, `emp_abs_report_absence`, `i_pai_tab_cal_jour`.

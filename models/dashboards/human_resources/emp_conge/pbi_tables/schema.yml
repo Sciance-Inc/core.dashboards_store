@@ -1,0 +1,13 @@
+version: 2
+models:
+  - name: empcong_report_emp_conge
+    description: |-
+      Table de rapports qui comptabilise le nombre de congés des employés selon l'année, le lieu de travail et le corps d'emploi.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - annee
+            - lieu_trav
+            - corps_demploi_description
+            - etat_description
+            - n_matr

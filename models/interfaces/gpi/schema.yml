@@ -1,12 +1,81 @@
 version: 2
-
 models:
+  - name: i_coursgroupeseleves
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_coursgroupeseleves`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_coursgroupesenseignants
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_coursgroupesenseignants`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_e_abs
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_e_abs`. Sources dbt visibles dans le SQL: `i_gpm_t_eco`.
   - name: i_gpm_e_dan
-    tags: ["interface"]
-    description: >
+    tags:
+      - interface
+    description: |-
       Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `gpm_e_dan` de la base de données source.
-
+  - name: i_gpm_e_ele
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_e_ele`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_e_mat_ele
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_e_mat_ele`. Sources dbt visibles dans le SQL: `i_gpm_t_eco`.
+  - name: i_gpm_e_mesures
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_e_mesures`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_e_obj
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_e_obj`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_t_cal
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_cal`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_t_cotes
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_cotes`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
   - name: i_gpm_t_eco
-    tags: ["interface"]
-    description: >
+    tags:
+      - interface
+    description: |-
       Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `gpm_t_eco` de la base de données source.
+  - name: i_gpm_t_etape
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_etape`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_t_grp_rep
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_grp_rep`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_t_interv
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_interv`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_t_leg
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_leg`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_t_mat
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_mat`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_t_mat_grp
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_mat_grp`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_t_modele_etape
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_modele_etape`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_t_modele_etape_client
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_modele_etape_client`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_t_modele_etape_etapes
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_modele_etape_etapes`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_t_motif_abs
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_motif_abs`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_t_obj_mat
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_obj_mat`. Sources dbt visibles dans le SQL: `i_gpm_t_eco`.
+  - name: i_gpm_t_obj_mat_grp
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_obj_mat_grp`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_gpm_t_org_annee
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_gpm_t_org_annee`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_wl_descr
+    description: |-
+      Table d'interface GPI exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_wl_descr`. Le SQL ne contient pas de `ref()` ou `source()` explicite.

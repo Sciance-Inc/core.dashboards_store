@@ -1,0 +1,148 @@
+version: 2
+models:
+  - name: eff_conf_comparabilite_eco_reg
+    description: |-
+      Table de rapport qui contient l'information de la configuration du lieu jumelé
+    columns:
+      - name: lieu_jumele
+        description: |-
+          Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: comparable
+        description: |-
+          Si le lieu jumelé est comparable (affiché dans le tableau de bord)
+      - name: nom_lieu_jumele
+        description: |-
+          Le nom du lieu jumelé
+      - name: categorie_lieu_jumele
+        description: |-
+          Le type d'enseignement du lieu jumelé
+    config:
+      column_types:
+        lieu_jumele: nvarchar(3)
+        comparable: nvarchar(3)
+        nom_lieu_jumele: nvarchar(64)
+        categorie_lieu_jumele: nvarchar(32)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_jumele
+  - name: eff_conf_corp_emploi_indefini
+    description: |-
+      Table de rapport qui contient l'information de configuration des corps d'emploi omis de la configuration, mais qui possèdent un historique de données.
+    columns:
+      - name: corp_empl
+        description: |-
+          Le numéro du corps d'emploi
+      - name: descr
+        description: |-
+          La description du corps d'emploi
+    config:
+      column_types:
+        corp_empl: nvarchar(4)
+        descr: nvarchar(64)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - corp_empl
+  - name: eff_conf_effectif_type_poste
+    description: |-
+      Table de rapport qui contient la configuration des catégories d'emploi associées à un regroupement d'emploi.
+    columns:
+      - name: Categorie_emploi
+        description: |-
+          Le numéro et la description du corps d'emploi
+      - name: type_emploi
+        description: |-
+          Le regroupement du corps d'emploi auquel il est associé.
+    config:
+      column_types:
+        corp_empl: nvarchar(64)
+        descr: nvarchar(32)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - Categorie_emploi
+  - name: eff_conf_liaison_paie_gpi
+    description: |-
+      Table de rapport qui contient la configuration des liens entre le lieu de travail de la Paie et l'école GPI. Le résultat est le lieu jumelé.
+    columns:
+      - name: lieu_trav
+        description: |-
+          Le lieu de travail dans la paie.
+      - name: ecole_gpi
+        description: |-
+          Le numéro de l'école dans GPI
+      - name: lieu_jumele
+        description: |-
+          Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+    config:
+      column_types:
+        lieu_trav: nvarchar(3)
+        ecole_gpi: nvarchar(3)
+        lieu_jumele: nvarchar(3)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_trav
+  - name: eff_conf_lieu_travail_sans_lieu_jumele
+    description: |-
+      Table de rapport qui contient les lieu de travail Paie qui ne sont pas présent (Anomalie).
+    columns:
+      - name: lieu_trav
+        description: |-
+          Le lieu de travail dans la paie.
+      - name: descr
+        description: |-
+          Le numéro de l'école dans GPI
+    config:
+      column_types:
+        lieu_trav: nvarchar(3)
+        ecole_gpi: nvarchar(3)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_trav
+  - name: eff_conf_mapper
+    description: |-
+      Table de rapport qui contient la configuration final des lieu jumelé qui vont être affiché dans le tableau de bord
+    columns:
+      - name: lieu_jumele
+        description: |-
+          Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
+      - name: nom_lieu_jumele
+        description: |-
+          Le nom du lieu jumelé
+      - name: categorie_lieu_jumele
+        description: |-
+          Le type d'enseignement du lieu jumelé
+      - name: comparable
+        description: |-
+          Si l'école est comparable (activé) dans le tableau de bord
+    config:
+      column_types:
+        lieu_jumele: nvarchar(3)
+        nom_lieu_jumele: nvarchar(64)
+        categorie_lieu_jumele: nvarchar(32)
+        comparable: nvarchar(3)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_jumele
+  - name: eff_conf_type_lieux
+    description: |-
+      Table de rapport qui contient la configuration des lieu jumelé avec leur catégorie.
+    columns:
+      - name: nom_lieu_jumele
+        description: |-
+          Le nom du lieu jumelé
+      - name: categorie_lieu_jumele
+        description: |-
+          La catégorie du lieu jumelé.
+    config:
+      column_types:
+        nom_lieu_jumele: nvarchar(64)
+        categorie_lieu_jumele: nvarchar(32)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - nom_lieu_jumele

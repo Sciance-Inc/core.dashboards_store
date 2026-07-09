@@ -1,0 +1,11 @@
+version: 2
+models:
+  - name: liste_unique_eleve
+    description: |-
+      Table RLS construite pour contrôler les associations de sécurité exposées par `liste_unique_eleve`. Sources dbt visibles dans le SQL: `eleve_groupes`.
+  - name: liste_unique_groupes_primaire_tuteurs
+    description: |-
+      Table RLS construite pour contrôler les associations de sécurité exposées par `liste_unique_groupes_primaire_tuteurs`. Sources dbt visibles dans le SQL: `enseignants_primaire_tuteurs`.
+  - name: liste_unique_groupes_secondaire
+    description: |-
+      Table RLS construite pour contrôler les associations de sécurité exposées par `liste_unique_groupes_secondaire`. Sources dbt visibles dans le SQL: `enseignants_secondaire`.

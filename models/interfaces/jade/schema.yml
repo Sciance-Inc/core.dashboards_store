@@ -1,34 +1,36 @@
 version: 2
-
 models:
   - name: i_e_ele
-    tags: 
+    tags:
       - interface
       - educ_serv
       - prospectif_cdp
-    description: >
+    description: |-
       Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `E_Ele` de la base de données source.
-
-  - name: i_t_prog
-    tags: 
-      - interface
-      - educ_serv
-      - prospectif_cdp
-    description: >
-      Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `T_Prog` de la base de données source.
-
-  - name: i_t_wl_descr
-    tags: 
-      - interface
-      - educ_serv
-      - prospectif_cdp
-    description: >
-      Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `WL_Descr` de la base de données source.
-
+  - name: i_e_freq
+    description: |-
+      Table d'interface JADE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_e_freq`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
   - name: i_e_ri_resultats
-    tags: 
+    tags:
       - interface
       - educ_serv
       - prospectif_cdp
-    description: >
+    description: |-
       Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `E_RI_Resultats` de la base de données source.
+  - name: i_t_ecoCen
+    description: |-
+      Table d'interface JADE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_t_ecoCen`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_t_prog
+    tags:
+      - interface
+      - educ_serv
+      - prospectif_cdp
+    description: |-
+      Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `T_Prog` de la base de données source.
+  - name: i_t_wl_descr
+    tags:
+      - interface
+      - educ_serv
+      - prospectif_cdp
+    description: |-
+      Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `WL_Descr` de la base de données source.

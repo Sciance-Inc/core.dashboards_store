@@ -1,0 +1,102 @@
+version: 2
+models:
+  - name: eff_fact_coef_difficulte
+    description: |-
+      Table de rapports qui calcule le score de difficulté.
+    columns:
+      - name: lieu_jumele
+        description: |-
+          Un numéro créé par la liaison entre le lieu de travail Paie et l'école GPI
+      - name: annee
+        description: |-
+          L'année
+      - name: z_totaux_eleve
+        description: |-
+          Le nombre total d'élèves
+      - name: z_difficulte
+        description: |-
+          Le score de la difficulté
+      - name: z_pi
+        description: |-
+          Le score des plans d'intervention
+      - name: cohort_difficulty_score
+        description: |-
+          L'indice de difficulté
+    config:
+      column_types:
+        lieu_jumele: nvarchar(3)
+        annee: nvarchar(12)
+        z_totaux_eleve: int
+        z_difficulte: int
+        z_pi: int
+        cohort_difficulty_score: int
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_jumele
+            - annee
+  - name: eff_fact_paiement
+    description: |-
+      Table de rapport qui contient les paiements bruts agrégés des employés.
+    columns:
+      - name: annee
+        description: |-
+          L'année
+      - name: lieu_jumele
+        description: |-
+          Un numéro créé par la liaison entre le lieu de travail Paie et l'école GPI
+      - name: categorie
+        description: |-
+          La catégorie du corps d'emploi
+      - name: corp_empl
+        description: |-
+          Le corps d'emploi
+      - name: stat_eng
+        description: |-
+          Le statut d'engagement du corps d'emploi
+      - name: total_mnt_brut
+        description: |-
+          Le montant total brut
+      - name: total_hrs_brut
+        description: |-
+          Le nombre total d'heures travaillées
+    config:
+      column_types:
+        annee: nvarchar(4)
+        lieu_jumele: nvarchar(3)
+        categorie: nvarchar(64)
+        corp_empl: nvarchar(4)
+        stat_eng: nvarchar(4)
+        total_mnt_brut: float
+        total_hrs_brut: float
+    tests:
+      - resolution:
+          combination_of_columns:
+            - annee
+            - lieu_jumele
+            - categorie
+            - corp_empl
+            - stat_eng
+  - name: eff_fact_reussite_scolaire_fgj
+    description: |-
+      Table de rapports qui contient les résultats moyens des élèves aux épreuves ministérielles au sein des écoles.
+    columns:
+      - name: annee
+        description: |-
+          L'année
+      - name: lieu_jumele
+        description: |-
+          Un numéro créé par la liaison entre le lieu de travail Paie et l'école GPI
+      - name: taux_reussite
+        description: |-
+          Le taux de réussite des élèves ayant fait l'examen
+    config:
+      column_types:
+        annee: nvarchar(4)
+        lieu_jumele: nvarchar(3)
+        taux_reussite: decimal(5,4)
+    tests:
+      - resolution:
+          combination_of_columns:
+            - annee
+            - lieu_jumele

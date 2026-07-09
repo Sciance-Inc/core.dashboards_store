@@ -1,0 +1,8 @@
+version: 2
+models:
+  - name: i_core_models_reporting_probabilities
+    description: |-
+      Table d'interface PRODROME exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_core_models_reporting_probabilities`. Sources dbt visibles dans le SQL: `predictive_models_to_include`.
+  - name: i_core_models_reporting_shap
+    description: |-
+      Table d'interface PRODROME exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_core_models_reporting_shap`. Sources dbt visibles dans le SQL: `predictive_models_to_include`.

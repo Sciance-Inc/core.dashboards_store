@@ -1,29 +1,27 @@
 version: 2
-
 models:
+  - name: dim_eleve
+    description: |-
+      Table listing static information for each student.
+    columns:
+      - name: fiche
+        description: |-
+          fiche de l'élève
+        tests:
+          - not_null
+          - unique
+      - name: code_perm
+        description: |-
+          code permanent de l'élève
+        tests:
+          - not_null
+          - unique
   - name: dim_mapper_schools
-    description: >
+    description: |-
       Map each school to a friendly name to provide consistent naming across dashboards.
-
       This dimension can be overridden to allow for naming customisation.
     tests:
       - resolution:
           combination_of_columns:
             - annee
             - eco
-
-  - name: dim_eleve
-    description: >
-      Table listing static information for each student.
-    columns:
-      - name: fiche
-        description: fiche de l'élève
-        tests:
-          - not_null
-          - unique
-      - name: code_perm
-        description: code permanent de l'élève
-        tests:
-          - not_null
-          - unique
-

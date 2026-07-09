@@ -1,27 +1,35 @@
 version: 2
-
 models:
   - name: dim_employees
-    description: >
+    description: |-
       Provides employee-level static information.
     columns:
       - name: matr
-        description: The unique identifier of an employee.
+        description: |-
+          The unique identifier of an employee.
         tests:
           - unique
       - name: sex
-        description: The sex of an employee.
+        description: |-
+          The sex of an employee.
       - name: sex_friendly_name
-        description: The sex of an employee  
+        description: |-
+          The sex of an employee
       - name: legal_name
-        description: The legal name of the employee
+        description: |-
+          The legal name of the employee
       - name: birth_date
-        description: The birth date of the employee
+        description: |-
+          The birth date of the employee
       - name: last_name
-        description: The last name (preferred name) of an employee
+        description: |-
+          The last name (preferred name) of an employee
       - name: first_name
-        description: The first name (preferred name) of an employee
+        description: |-
+          The first name (preferred name) of an employee
       - name: email_address
-        description: The email address of an employee
+        description: |-
+          The email address of an employee
       - name: last_pay_date
-        description: The last pay date of an employee
+        description: |-
+          The last pay date of an employee

@@ -1,0 +1,34 @@
+version: 2
+models:
+  - name: srslt_report_portrait_eleve
+    description: |-
+      Cette table donne un portrait de l'élève en combinant les résultats des compétences de base aux informations personnelles de l'élève.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - annee
+            - fiche
+            - eco
+            - niveau_res
+  - name: srslt_report_res_bilan_comp_eco
+    description: |-
+      Table de reporting du tableau de bord suivi_resultats. Elle prépare le modèle `srslt_report_res_bilan_comp_eco` pour la consommation Power BI. Sources dbt visibles dans le SQL: `resco_report_res_bilan_comp_eco`.
+  - name: srslt_report_schools
+    description: |-
+      Cette table donne une liste unique des écoles.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - lieu_trav
+  - name: srslt_report_suivi_resultats
+    description: |-
+      Cette table permet d'obtenir les résultats historiques des cinq dernières années pour les élèves actuels, avec la possibilité de filtrer les élèves en difficulté, en maîtrise ou en échec.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - id_eco
+            - fiche
+            - code_matiere
+            - groupe_matiere
+            - annee
+            - no_comp

@@ -1,0 +1,15 @@
+version: 2
+models:
+  - name: rstep_stg_fichier_consolide_epreuves_ministerielles
+    description: |-
+      Modèle de staging res_epreuves qui prépare les données intermédiaires sous le nom `rstep_stg_fichier_consolide_epreuves_ministerielles`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: rstep_stg_resultats_ministere
+    description: |-
+      Cette table liste les résultats aux épreuves uniques au niveau régional et provincial.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - annee_scolaire
+            - mois_resultat
+            - code_matiere
+            - ecole

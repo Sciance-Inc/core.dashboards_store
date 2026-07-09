@@ -1,42 +1,48 @@
 version: 2
-
 models:
-  - name: stg_paiement_history_employment_periods
-    description: >
-      Table intermediaire technique materialisant les periodes d'emploi utilisees par stg_paiement_history pour eviter de recalculer l'historique avant la jointure temporelle.
-
-  - name: stg_paiement_history_payment_groups
-    description: >
-      Table intermediaire technique materialisant les paiements regroupes par cheque et code de paiement avant leur rattachement a l'historique d'emploi.
-
+  - name: stg_hrs_calc
+    description: |-
+      Modèle de staging mart human_resources qui prépare les données intermédiaires sous le nom `stg_hrs_calc`. Sources dbt visibles dans le SQL: `i_pai_tab_corp_empl`, `i_pai_tab_stat_eng`.
   - name: stg_paiement_history
-    description: >
+    description: |-
       Une table d'historique sur les paiements qu'un employé à reçu sur 3 ans. La table contient également des paiements provenant de la table des déductions.
     columns:
       - name: matricule
-        description: identifiant unique d'un employé
+        description: |-
+          identifiant unique d'un employé
       - name: no_cheq
-        description: numéro unique d'un chèque
+        description: |-
+          numéro unique d'un chèque
       - name: code_pmnt
-        description: code de paiement
+        description: |-
+          code de paiement
       - name: ref_empl
-        description: La référence de l'emploi
+        description: |-
+          La référence de l'emploi
       - name: corp_empl
-        description: Le numéro de l'emploi
+        description: |-
+          Le numéro de l'emploi
       - name: total_mnt_brut
-        description: Le montant total brut
+        description: |-
+          Le montant total brut
       - name: total_hrs_brut
-        description: Le nombre d'heure rémunéré
+        description: |-
+          Le nombre d'heure rémunéré
       - name: date_fin_periode
-        description: La date de fin de la période de paiement
+        description: |-
+          La date de fin de la période de paiement
       - name: etat_empl
-        description: L'état du corps d'emploi de l'employé
+        description: |-
+          L'état du corps d'emploi de l'employé
       - name: lieu_trav
-        description: Le lieu de travail de l'emploi de l'employé
+        description: |-
+          Le lieu de travail de l'emploi de l'employé
       - name: stat_eng
-        description: Le statut de l'employé
+        description: |-
+          Le statut de l'employé
       - name: date_cheq_paiement
-        description: La date de paiement
+        description: |-
+          La date de paiement
     config:
       column_types:
         matricule: nvarchar(12)
@@ -58,3 +64,9 @@ models:
               - no_cheq
               - code_pmnt
               - ref_empl
+  - name: stg_paiement_history_employment_periods
+    description: |-
+      Table intermediaire technique materialisant les periodes d'emploi utilisees par stg_paiement_history pour eviter de recalculer l'historique avant la jointure temporelle.
+  - name: stg_paiement_history_payment_groups
+    description: |-
+      Table intermediaire technique materialisant les paiements regroupes par cheque et code de paiement avant leur rattachement a l'historique d'emploi.

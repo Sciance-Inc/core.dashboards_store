@@ -1,0 +1,12 @@
+version: 2
+models:
+  - name: empcong_fact_emp_conge
+    description: |-
+      Table de faits qui comptabilise le nombre d'employés ayant un congé.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - date_eff
+            - matricule
+            - corps_emploi
+            - etat_description

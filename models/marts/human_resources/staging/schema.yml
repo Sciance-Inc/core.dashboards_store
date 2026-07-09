@@ -1,0 +1,5 @@
+version: 2
+models:
+  - name: stg_seniority
+    description: |-
+      Modèle de staging mart human_resources qui prépare les données intermédiaires sous le nom `stg_seniority`. Sources dbt visibles dans le SQL: `dim_employment_status_yearly`, `dim_engagement_status_yearly`, `dim_mapper_job_group`, `int_sequence_0_to_1000`, `stg_activity_history`, `stg_main_job_history`.

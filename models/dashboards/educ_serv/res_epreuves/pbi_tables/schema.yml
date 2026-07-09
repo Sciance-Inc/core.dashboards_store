@@ -1,0 +1,28 @@
+version: 2
+models:
+  - name: rstep_report_epreuves_obligatoires_internes
+    description: |-
+      Table de reporting du tableau de bord res_epreuves. Elle prépare le modèle `rstep_report_epreuves_obligatoires_internes` pour la consommation Power BI. Sources dbt visibles dans le SQL: `dim_eleve`, `fact_yearly_student`, `rstep_fact_epreuves_obligatoires_internes`.
+  - name: rstep_report_epreuves_uniques
+    description: |-
+      Table de reporting du tableau de bord res_epreuves. Elle prépare le modèle `rstep_report_epreuves_uniques` pour la consommation Power BI. Sources dbt visibles dans le SQL: `dim_eleve`, `dim_mapper_schools`, `fact_yearly_student`, `rstep_fact_epreuves_uniques`, `rstep_stg_resultats_ministere`.
+  - name: rstep_report_liste_eleves_epreuves_obligatoires_internes
+    description: |-
+      Cette table liste toutes les informations liées à l'élève en relation avec les résultats aux épreuves obligatoires et locales.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - annee_scolaire
+            - description_matiere
+            - is_reprise
+  - name: rstep_report_liste_eleves_epreuves_uniques
+    description: |-
+      Cette table liste toutes les informations liées à l'élève en relation avec les résultats aux épreuves uniques.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - fiche
+            - annee_scolaire
+            - code_matiere
+            - mois_resultat

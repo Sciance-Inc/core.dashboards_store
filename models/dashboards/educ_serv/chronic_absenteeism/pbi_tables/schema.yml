@@ -1,38 +1,36 @@
 version: 2
-
 models:
   - name: cabstsm_report_absences_concentration
-    description: >
-      The degree of `concentration` of absences among students.
-      Computed as a Lorenz curve for each bracket of absences.
+    description: |-
+      The degree of `concentration` of absences among students. Computed as a Lorenz curve for each bracket of absences.
     tests:
       - resolution:
           combination_of_columns:
             - filter_key
             - bracket_name
             - perc_target
-
   - name: cabstsm_report_absences_listing
-    description: A list of students / schools and their corresponding sequences of absences.
-
+    description: |-
+      A list of students / schools and their corresponding sequences of absences.
   - name: cabstsm_report_distributions
-    description: The empirical statistical distributions of the number of sequences and the length of sequences of absences.
+    description: |-
+      The empirical statistical distributions of the number of sequences and the length of sequences of absences.
     tests:
       - resolution:
           combination_of_columns:
             - filter_key
             - absences_sequence_length
             - n_absences
-
   - name: cabstsm_report_filters
-    description: A filtering table used to keep filtering consistent across the report pages.
+    description: |-
+      A filtering table used to keep filtering consistent across the report pages.
     tests:
       - resolution:
           combination_of_columns:
             - filter_key
-
   - name: cabstsm_report_high_level_metrics
-    description: School / year / population aggregated metrics. Used to display main KPI and their evolution over time
+    description: |-
+      School / year / population aggregated metrics. Used to display main KPI and their evolution over time
     tests:
       - resolution:
           combination_of_columns:

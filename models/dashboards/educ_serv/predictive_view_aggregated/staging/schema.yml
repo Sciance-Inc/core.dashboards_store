@@ -1,0 +1,32 @@
+version: 2
+models:
+  - name: prdctv_vw_stg_shap_quantiles
+    description: |-
+      Staging model.  Used to store the quantiles of the SHAP values as computed for each model, target, category and scope. The computed empirical quantiles can be looked up in this table to get an approximate quantile for a given SHAP value.
+    tests:
+      - resolution:
+          combination_of_columns:
+            - model
+            - target
+            - category
+            - quantile
+            - scope
+    columns:
+      - name: model
+        description: |-
+          The model the shap value has been computed for.
+      - name: target
+        description: |-
+          The target the shap value has been computed for.
+      - name: category
+        description: |-
+          The meta-category the shap value has been computed for.
+      - name: quantile
+        description: |-
+          The quantile of the shap value.
+      - name: shap_value
+        description: |-
+          The shap value for the given quantile.
+      - name: scope
+        description: |-
+          The scope the shap value has been computed for. The scope is a set of student we want to use as reference when approximating the quantiles.
