@@ -96,10 +96,10 @@ select
     fiche,
     id_eco,
     code_matiere,
-    groupe_matiere,
-    id_obj_mat,
+    -- groupe_matiere, -- DEBUG : UNUSED IN REPORT
+    -- id_obj_mat, -- DEBUG : UNUSED IN REPORT
     no_comp,
-    etat,
+    -- etat, -- DEBUG : UNUSED IN REPORT
     etape,
     res_comp_etape,
     res_etape_num,

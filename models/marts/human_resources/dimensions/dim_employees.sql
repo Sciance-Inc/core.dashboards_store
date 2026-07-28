@@ -66,8 +66,8 @@ select
     end as sex_friendly_name,
     dos.legal_name as legal_name,
     dos.birth_date as birth_date,
-    dos.last_name as last_name,
-    dos.first_name as first_name,
+    -- dos.last_name as last_name, -- DEBUG : UNUSED IN REPORT
+    -- dos.first_name as first_name, -- DEBUG : UNUSED IN REPORT
     dos2.email_address as email_address,
     dos.last_pay_date
 from dos

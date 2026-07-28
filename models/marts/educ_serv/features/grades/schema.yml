@@ -22,18 +22,18 @@ models:
       - name: groupe_matiere
         description: |-
           Subject group.
-      - name: id_obj_mat
-        description: |-
-          Unique subject competency identifier.
+      # - name: id_obj_mat  # -- DEBUG : UNUSED IN REPORT
+      #   description: |-
+      #     Unique subject competency identifier.
       - name: no_comp
         description: |-
           Competency number within the subject.
       - name: etat
         description: |-
           Subject state.
-      - name: res_comp
-        description: |-
-          Raw competency result.
+      # - name: res_comp  # -- DEBUG : UNUSED IN REPORT
+      #   description: |-
+      #     Raw competency result.
       - name: res_num_comp
         description: |-
           Numeric competency result.
@@ -77,9 +77,9 @@ models:
       - name: fiche
         description: |-
           Unique student file identifier.
-      - name: id_mat_ele
-        description: |-
-          Unique subject-per-student-per-year identifier.
+      # - name: id_mat_ele  # -- DEBUG : UNUSED IN REPORT
+      #   description: |-
+      #     Unique subject-per-student-per-year identifier.
       - name: code_matiere
         description: |-
           Subject code.
@@ -95,9 +95,9 @@ models:
       - name: res_som
         description: |-
           Raw subject result.
-      - name: res_meq
-        description: |-
-          MEQ result when available.
+      # - name: res_meq  # -- DEBUG : UNUSED IN REPORT
+      #   description: |-
+      #     MEQ result when available.
       - name: unites
         description: |-
           Number of units attached to the subject.
@@ -143,18 +143,18 @@ models:
       - name: code_matiere
         description: |-
           Subject code.
-      - name: groupe_matiere
-        description: |-
-          Subject group.
-      - name: id_obj_mat
-        description: |-
-          Unique subject competency identifier.
+      # - name: groupe_matiere  # -- DEBUG : UNUSED IN REPORT
+      #   description: |-
+      #     Subject group.
+      # - name: id_obj_mat  # -- DEBUG : UNUSED IN REPORT
+      #   description: |-
+      #     Unique subject competency identifier.
       - name: no_comp
         description: |-
           Competency number within the subject.
-      - name: etat
-        description: |-
-          Subject state.
+      # - name: etat  # -- DEBUG : UNUSED IN REPORT
+      #   description: |-
+      #     Subject state.
       - name: etape
         description: |-
           Reporting step.
@@ -185,8 +185,8 @@ models:
             - fiche
             - id_eco
             - etape
-            - groupe_matiere
-            - id_obj_mat
+            - code_matiere
+            - no_comp
   - name: fact_resultat_etape_matiere
     config:
       tags:
@@ -206,12 +206,12 @@ models:
       - name: code_matiere
         description: |-
           Subject code.
-      - name: groupe_matiere
-        description: |-
-          Subject group.
-      - name: etat
-        description: |-
-          Subject state.
+      # - name: groupe_matiere  # -- DEBUG : UNUSED IN REPORT
+      #   description: |-
+      #     Subject group.
+      # - name: etat  # -- DEBUG : UNUSED IN REPORT
+      #   description: |-
+      #     Subject state.
       - name: etape
         description: |-
           Reporting step.
@@ -242,5 +242,4 @@ models:
             - fiche
             - id_eco
             - etape
-            - groupe_matiere
             - code_matiere

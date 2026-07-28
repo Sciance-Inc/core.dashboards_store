@@ -24,9 +24,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             core_dashboards_store.create_nonclustered_index(
                 "{{ this }}", ["code_matiere"]
             ),
-            core_dashboards_store.create_nonclustered_index(
-                "{{ this }}", ["id_obj_mat"]
-            ),
         ]
     )
 }}
@@ -110,10 +107,10 @@ select
     id_eco,
     code_matiere,
     groupe_matiere,
-    id_obj_mat,
+    -- id_obj_mat, -- DEBUG : UNUSED IN REPORT
     no_comp,
     etat,
-    res_comp,
+    -- res_comp, -- DEBUG : UNUSED IN REPORT
     case
         when annee = 2019 and res_comp in ('NR')
         then 0
