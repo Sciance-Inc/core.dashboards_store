@@ -163,51 +163,22 @@ with
     patch_1 as (
 
         select
-            ranked.matr,
-            ranked.school_year,
-            ranked.ref_empl,
-            ranked.corp_empl,
-            ranked.etat_empl,
-            ranked.lieu_trav,
-            ranked.stat_eng,
-            ranked.date_eff,
-            ranked.date_fin,
+            src.matr,
+            src.school_year,
+            src.ref_empl,
+            src.corp_empl,
+            src.etat_empl,
+            src.lieu_trav,
+            src.stat_eng,
+            src.date_eff,
+            src.date_fin,
             case
-                when
-                    -- If the rank max is 1, then I have only one (distinct) ref
-                    -- emploi for the current year
-                    max(ranked.rank_) over (
-                        partition by ranked.matr, ranked.school_year
-                        order by ranked.date_eff
-                        rows between unbounded preceding and unbounded following
-                    )
-                    = 1
+                when count(*) over (partition by src.matr, src.school_year) = 1
                 then 1
-                else ranked.is_main_job
+                else src.is_main_job
             end as is_main_job,
-            ranked.is_main_job_patched
-        from
-            (
-                select
-                    matr,
-                    school_year,
-                    ref_empl,
-                    corp_empl,
-                    etat_empl,
-                    lieu_trav,
-                    stat_eng,
-                    date_eff,
-                    date_fin,
-                    is_main_job,
-                    -- count distinct is not allowed in a windows function, so I
-                    -- first compute
-                    -- a dense rank and then max it
-                    dense_rank() over (
-                        partition by matr, school_year order by ref_empl
-                    ) as rank_,
-                    is_main_job_patched
-                from main_job
-            ) as ranked
+            src.is_main_job_patched
+        from main_job as src
 
     ),
     -- Apply the second patch
@@ -297,8 +268,6 @@ with
                     ) as patch_flag,
                     max(src.ref_empl) over (
                         partition by src.matr, src.school_year
-                        order by src.ref_empl desc
-                        rows between unbounded preceding and unbounded following
                     ) as last_ref_empl,
                     src.is_main_job_patched
                 from patch_2 as src
