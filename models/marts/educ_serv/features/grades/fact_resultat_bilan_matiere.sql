@@ -24,9 +24,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             core_dashboards_store.create_nonclustered_index(
                 "{{ this }}", ["code_matiere"]
             ),
-            core_dashboards_store.create_nonclustered_index(
-                "{{ this }}", ["id_mat_ele"]
-            ),
         ]
     )
 }}
@@ -86,7 +83,7 @@ select
     id_eco,
     annee,
     fiche,
-    id_mat_ele,
+    -- id_mat_ele, -- DEBUG : UNUSED IN REPORT
     code_matiere,
     groupe_matiere,
     etat,
@@ -98,7 +95,7 @@ select
         else res_num_som
     end as res_num_som,
     res_som,
-    res_meq,
+    -- res_meq, -- DEBUG : UNUSED IN REPORT
     unites,
     -- Attributs
     is_reprise,

@@ -30,10 +30,10 @@ with spine_keys as (select distinct code_perm, fiche from {{ ref("spine") }})
 select
     spi.code_perm,
     spi.fiche,
-    max(nom) as nom,  -- dummy aggregation
-    max(pnom) as prenom,  -- dummy aggregation
+    -- max(nom) as nom, -- DEBUG : UNUSED IN REPORT
+    -- max(pnom) as prenom, -- DEBUG : UNUSED IN REPORT
     concat(max(nom), ', ', max(pnom), ' (', spi.fiche, ' )') as nom_prenom_fiche,  -- dummy aggregation
-    max(date_naissance) as date_naissance,  -- dummy aggregation
+    -- max(date_naissance) as date_naissance, -- DEBUG : UNUSED IN REPORT
     max(
         case
             when el.sexe = 'F'
