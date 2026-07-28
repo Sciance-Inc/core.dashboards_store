@@ -55,7 +55,7 @@ with
 select
     agg.annee,
     school_friendly_name as code_ecole,
-    agg.eco,
+    -- agg.eco, -- DEBUG : UNUSED IN BI
     agg.ordre_ens,
     case
         when niveau_scolaire = 'mat 4'
