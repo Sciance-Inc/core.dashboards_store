@@ -60,11 +60,6 @@ models:
           The codified representation of the etat_employe.
         tests:
           - not_null
-      # - name: descr  # -- DEBUG : UNUSED IN REPORT
-      #   description: |-
-      #     The description of the etat_employe.
-      #   tests:
-      #     - not_null
       - name: is_reg
         description: |-
           Does the job satisfy the `regular` definition of a job?
