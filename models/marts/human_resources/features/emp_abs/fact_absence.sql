@@ -76,6 +76,7 @@ with
         inner join
             {{ ref("i_pai_tab_cal_jour") }} as cal
             on cal.date_jour = abs_scolaire.date_abs
+            and cal.gr_paie = abs_scolaire.gr_paie
         group by
             matricule,
             abs_scolaire.date_abs,
