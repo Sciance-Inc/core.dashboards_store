@@ -21,12 +21,6 @@ models:
       - name: birth_date
         description: |-
           The birth date of the employee
-      # - name: last_name  # -- DEBUG : UNUSED IN REPORT
-      #   description: |-
-      #     The last name (preferred name) of an employee
-      # - name: first_name  # -- DEBUG : UNUSED IN REPORT
-      #   description: |-
-      #     The first name (preferred name) of an employee
       - name: email_address
         description: |-
           The email address of an employee
