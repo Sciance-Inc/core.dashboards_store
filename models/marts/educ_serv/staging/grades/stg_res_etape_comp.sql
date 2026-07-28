@@ -36,7 +36,6 @@ with
             res_comp.code_matiere,
             res_comp.groupe_matiere,
             res_comp.etat,
-            res_comp.id_mat_ele,
             res_comp.modele_etape,
             res_comp.id_mat_grp,
             res_comp.date_deb,
@@ -45,8 +44,6 @@ with
             res_comp.leg_obj_non_term,
             res_comp.no_comp,
             met1.etape,
-            met1.date_deb as date_debut_etape,
-            met1.date_fin as date_fin_etape,
             res_comp.id_obj_mat,
             res_comp_etape = case
                 met1.seq_etape
@@ -97,10 +94,7 @@ select
     code_matiere,
     groupe_matiere,
     etat,
-    id_mat_ele,
     etape,
-    date_debut_etape,
-    date_fin_etape,
     id_obj_mat,
     no_comp,
     res_comp_etape,

@@ -45,7 +45,6 @@ select
     emgrp_yearly_comp.leg_obj_final,
     o.id_obj_mat,
     o.res_final_obj as res_comp,
-    eval_res_comp,
     {% for i in range(1, max_etapes) %}
         emgrp_yearly_comp.etape_eval_{{ "%02d" % i }}, o.res_obj_{{ "%02d" % i }},
     {% endfor %}

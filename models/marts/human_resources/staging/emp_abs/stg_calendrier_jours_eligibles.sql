@@ -28,10 +28,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 select
     an_budg as annee,  -- Année budgétaire
-    gr_paie,  -- Groupe de paie | Pour sélectionner les employés selon leur type d'emploi 
-    sum(case when date_jour < getdate() then 1 else 0 end) as jour_trav,
-    min(type_jour) as type_jour,
-    min(jour_sem) as jour_sem
+    gr_paie  -- Groupe de paie | Pour sélectionner les employés selon leur type d'emploi
 from {{ ref("i_pai_tab_cal_jour") }}
 where
     type_jour != 'C'  -- Type_jour C => Congé | On ne le prend pas en compte

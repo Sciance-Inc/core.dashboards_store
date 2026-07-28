@@ -61,7 +61,6 @@ select
     mg.leg_som,
     mg.leg_obj_term,
     mg.leg_obj_non_term,
-    mg.eval_res_obj_final as eval_res_comp,
     mg.leg_obj_final
 from spine as src
 inner join
