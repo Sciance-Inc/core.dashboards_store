@@ -27,9 +27,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             core_dashboards_store.create_clustered_index(
                 "{{ this }}", ["matr", "school_year"], unique=True
             ),
-            core_dashboards_store.create_nonclustered_index(
-                "{{ this }}", ["matr", "school_year", "main_job"]
-            ),
         ],
     )
 }}
