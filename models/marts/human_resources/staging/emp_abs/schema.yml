@@ -22,9 +22,6 @@ models:
           Date de l'absence.
         tests:
           - not_null
-      - name: motif_abs
-        description: |-
-          Code du motif d'absence (ex. maladie, congé) provenant de i_pai_habs.
       - name: lieu_trav
         description: |-
           Code du lieu de travail de l'employé.
@@ -39,9 +36,6 @@ models:
       - name: corp_empl
         description: |-
           Code du corps d'emploi de l'employé.
-      - name: stat_eng
-        description: |-
-          Statut d'engagement de l'employé (ex. temps plein, temps partiel).
       - name: dure
         description: |-
           Durée de l'absence en unité définie (ex. heures).
@@ -59,12 +53,9 @@ models:
               values:
                 - duree_longue
                 - duree_courte
-      - name: valeur
-        description: |-
-          Valeur de l'absence pour le type de durée correspondant (1 = applicable, 0 = non).
   - name: stg_calendrier_jours_eligibles
     description: |-
-      Table de faits calculant le nombre de jours travaillés par groupe de paie et par année budgétaire.  Exclut les congés, les jours d’été et les fins de semaine.  Sert de base au calcul du taux d’absentéisme dans les tableaux de bord RH.
+      Table des groupes de paie ayant des jours ouvrés admissibles par année budgétaire. Exclut les congés, les jours d’été et les fins de semaine.
     columns:
       - name: annee
         description: |-
@@ -74,10 +65,5 @@ models:
       - name: gr_paie
         description: |-
           Groupe de paie permettant de segmenter les employés selon leur type d’emploi (ex. enseignant, soutien, cadre).
-        tests:
-          - not_null
-      - name: jour_trav
-        description: |-
-          Nombre total de jours travaillés selon les critères suivants : - Année courante ou suivante : jours jusqu’à la date actuelle - Années précédentes : jours jusqu’à la veille Les jours de congé ('C'), d’été ('E') et de fin de semaine (0 = dimanche, 6 = samedi) sont exclus.
         tests:
           - not_null

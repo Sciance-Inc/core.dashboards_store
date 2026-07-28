@@ -36,7 +36,6 @@ select
     emgrp_yearly.groupe_matiere,
     emgrp_yearly.etat,
     emgrp_yearly.id_mat_ele,
-    emgrp_yearly.res_som,
     emgrp_yearly.modele_etape,
     emgrp_yearly.id_mat_grp,
     emgrp_yearly.date_deb,
@@ -45,7 +44,6 @@ select
     emgrp_yearly.leg_obj_non_term,
     emgrp_yearly.leg_obj_final,
     om.id_obj_mat,
-    eval_res_comp,
     {% for i in range(1, max_etapes) %} omg.etape_eval_{{ "%02d" % i }}, {% endfor %}
     om.obj_01 as no_comp
 from {{ ref("stg_yearly_eleve_matiere_groupe") }} as emgrp_yearly

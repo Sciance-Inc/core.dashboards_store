@@ -23,7 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                 "{{ this }}", ["matricule", "date_abs"]
             ),
             core_dashboards_store.create_nonclustered_index(
-                "{{ this }}", ["annee", "gr_paie", "motif_abs"]
+                "{{ this }}", ["annee", "gr_paie"]
             ),
         ],
     )
@@ -99,7 +99,17 @@ with
 -- --------------------------------------------------------------------------------------------------
 -- Unpivot
 -- --------------------------------------------------------------------------------------------------
-select *
+select
+    annee,
+    matricule,
+    date_abs,
+    lieu_trav,
+    pourc_sal,
+    gr_paie,
+    corp_empl,
+    dure,
+    categorie,
+    type_duree
 from
     absences_scolaires_categorisees
     unpivot (valeur for type_duree in (duree_longue, duree_courte)) as unpvt

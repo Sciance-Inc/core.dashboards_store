@@ -8,7 +8,3 @@ models:
           combination_of_columns:
             - id_eco
             - motif_abs
-    columns:
-      - name: category_abs
-        tests:
-          - not_null

@@ -246,20 +246,13 @@ with
 -- Champ en commentaire pour utilisation future
 select
     annee,
-    matricule,
-    no_cheq,
-    code_pmnt,
     -- mode_paiement,
     -- code_provenance,
-    ref_empl,
     corp_empl,
     total_mnt_brut,
     hrs_remunere,
     -- date_debut_paiement,
     -- date_fin_paiement,
-    date_fin_periode,
-    etat_empl,
     lieu_jumele,
-    stat_eng,
-    date_cheq_paiement
+    stat_eng
 from ann_sco

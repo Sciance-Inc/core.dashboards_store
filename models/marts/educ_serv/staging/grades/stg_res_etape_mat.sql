@@ -34,7 +34,6 @@ select
     res_mat.code_matiere,
     res_mat.groupe_matiere,
     res_mat.etat,
-    res_mat.id_mat_ele,
     res_etape = case
         met1.seq_etape
         {% for i in range(1, max_etapes) %}
@@ -54,7 +53,6 @@ select
         {% endfor %}
     end,
     met1.etape,
-    met1.date_fin,
     res_mat.is_reprise
 from {{ ref("stg_res_bilan_mat") }} as res_mat
 inner join
