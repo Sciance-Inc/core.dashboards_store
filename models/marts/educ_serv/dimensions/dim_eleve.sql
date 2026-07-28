@@ -25,6 +25,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     )
 }}
 
+with spine_keys as (select distinct code_perm, fiche from {{ ref("spine") }})
+
 select
     spi.code_perm,
     spi.fiche,
@@ -41,6 +43,6 @@ select
             else el.sexe
         end
     ) as genre  -- dummy aggregation
-from {{ ref("spine") }} as spi
+from spine_keys as spi
 inner join {{ ref("i_gpm_e_ele") }} as el on spi.fiche = el.fiche
 group by spi.code_perm, spi.fiche
