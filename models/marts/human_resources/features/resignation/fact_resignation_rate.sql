@@ -43,6 +43,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 with
 
+    resignation_keys as (
+        select distinct matr, corp_empl, lieu_trav, ref_empl, school_year, stat_eng
+        from {{ ref("fact_resignation") }}
+    ),
+
     extraction as (
         select
             act.matr,
@@ -56,7 +61,7 @@ with
             count(distinct(res.ref_empl)) as nbrdemission
         from {{ ref("fact_activity_yearly") }} act
         left join
-            {{ ref("fact_resignation") }} res  -- left join pour aller chercher tous les employés, et non seulement ceux qui ont démissionner. 
+            resignation_keys res  -- Conserve aussi les employés sans démission.
             on res.matr = act.matr
             and res.corp_empl = act.corp_empl
             and res.lieu_trav = act.lieu_trav
