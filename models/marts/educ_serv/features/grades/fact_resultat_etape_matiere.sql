@@ -63,7 +63,7 @@ select
     fiche,
     id_eco,
     code_matiere,
-    -- groupe_matiere, -- DEBUG : UNUSED IN REPORT
+    groupe_matiere,
     -- etat, -- DEBUG : UNUSED IN REPORT
     is_reprise,
     etape,

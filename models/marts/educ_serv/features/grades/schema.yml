@@ -131,6 +131,12 @@ models:
       - name: code_matiere
         description: |-
           Subject code.
+      - name: groupe_matiere
+        description: |-
+          Subject group.
+      - name: id_obj_mat
+        description: |-
+          Unique competency identifier.
       - name: no_comp
         description: |-
           Competency number within the subject.
@@ -164,8 +170,8 @@ models:
             - fiche
             - id_eco
             - etape
-            - code_matiere
-            - no_comp
+            - groupe_matiere
+            - id_obj_mat
   - name: fact_resultat_etape_matiere
     config:
       tags:
@@ -185,6 +191,9 @@ models:
       - name: code_matiere
         description: |-
           Subject code.
+      - name: groupe_matiere
+        description: |-
+          Subject group.
       - name: etape
         description: |-
           Reporting step.
@@ -215,4 +224,5 @@ models:
             - fiche
             - id_eco
             - etape
+            - groupe_matiere
             - code_matiere

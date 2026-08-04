@@ -96,8 +96,8 @@ select
     fiche,
     id_eco,
     code_matiere,
-    -- groupe_matiere, -- DEBUG : UNUSED IN REPORT
-    -- id_obj_mat, -- DEBUG : UNUSED IN REPORT
+    groupe_matiere,
+    id_obj_mat,
     no_comp,
     -- etat, -- DEBUG : UNUSED IN REPORT
     etape,
