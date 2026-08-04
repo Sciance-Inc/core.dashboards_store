@@ -13,12 +13,15 @@ models:
       - name: annee_scolaire
         description: |-
           L'année scolaire
-      - name: lieu_jumele
+      - name: nom_lieu_jumele
         description: |-
-          Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
-      - name: institution_friendly_name
+          Le nom du lieu jumelé.
+      - name: categorie_lieu_jumele
         description: |-
-          Le nom de l'école avec son numéro
+          La catégorie du lieu jumelé.
+      - name: is_school_comparable
+        description: |-
+          Indique si le lieu peut être comparé dans le rapport.
       - name: _anomalie
         description: |-
           définit si un lieu est manquant
@@ -27,8 +30,9 @@ models:
         filter_key: nvarchar(128)
         annee: nvarchar(4)
         annee_scolaire: nvarchar(12)
-        lieu_jumele: nvarchar(3)
-        institution_friendly_name: nvarchar(64)
+        nom_lieu_jumele: nvarchar(64)
+        categorie_lieu_jumele: nvarchar(32)
+        is_school_comparable: bit
         _anomalie: int
     tests:
       - resolution:
