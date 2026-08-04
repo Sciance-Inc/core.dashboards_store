@@ -26,3 +26,4 @@ models:
             - annee_scolaire
             - code_matiere
             - mois_resultat
+            - groupe
