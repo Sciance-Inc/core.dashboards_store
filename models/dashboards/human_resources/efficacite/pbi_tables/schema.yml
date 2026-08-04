@@ -75,6 +75,8 @@ models:
     tests:
       - resolution:
           combination_of_columns:
+            - filter_key
+            - source
             - category_join_key
   - name: eff_report_neighbour_paiement
     description: |-
