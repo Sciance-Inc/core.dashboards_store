@@ -104,30 +104,22 @@ models:
             - lieu_trav
   - name: eff_conf_mapper
     description: |-
-      Table de rapport qui contient la configuration final des lieu jumelé qui vont être affiché dans le tableau de bord
+      Table de validation des lieux de travail non configurés dans la liaison Paie-GPI.
     columns:
-      - name: lieu_jumele
+      - name: lieu_trav
         description: |-
-          Un numéro créer entre la liaison du lieu de travail Paie et l'école GPI
-      - name: nom_lieu_jumele
+          Le lieu de travail Paie sans correspondance configurée.
+      - name: descr
         description: |-
-          Le nom du lieu jumelé
-      - name: categorie_lieu_jumele
-        description: |-
-          Le type d'enseignement du lieu jumelé
-      - name: comparable
-        description: |-
-          Si l'école est comparable (activé) dans le tableau de bord
+          La description du lieu de travail Paie.
     config:
       column_types:
-        lieu_jumele: nvarchar(3)
-        nom_lieu_jumele: nvarchar(64)
-        categorie_lieu_jumele: nvarchar(32)
-        comparable: nvarchar(3)
+        lieu_trav: nvarchar(3)
+        descr: nvarchar(64)
     tests:
       - resolution:
           combination_of_columns:
-            - lieu_jumele
+            - lieu_trav
   - name: eff_conf_type_lieux
     description: |-
       Table de rapport qui contient la configuration des lieu jumelé avec leur catégorie.
