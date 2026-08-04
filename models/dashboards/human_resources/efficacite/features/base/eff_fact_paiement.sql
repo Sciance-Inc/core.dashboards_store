@@ -24,6 +24,9 @@ select
     sum(src.total_mnt_brut) as total_mnt_brut,
     sum(src.hrs_remunere) as hrs_remunere
 from {{ ref("stg_paiement_history") }} as src
+inner join
+    {{ ref("dim_mapper_lieu_jumele") }} as mapped
+    on src.lieu_jumele = mapped.lieu_jumele  -- Keep unmapped workplaces in validation tables, not calculations.
 left join {{ ref("eff_dim_categorie") }} cat on src.corp_empl = cat.corp_empl
 where
     src.annee

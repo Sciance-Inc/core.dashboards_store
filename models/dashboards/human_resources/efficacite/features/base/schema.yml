@@ -45,6 +45,11 @@ models:
       - name: lieu_jumele
         description: |-
           Un numéro créé par la liaison entre le lieu de travail Paie et l'école GPI
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_mapper_lieu_jumele')
+              field: lieu_jumele
       - name: categorie
         description: |-
           La catégorie du corps d'emploi
