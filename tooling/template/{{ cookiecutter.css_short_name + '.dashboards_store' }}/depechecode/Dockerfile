@@ -1,5 +1,7 @@
 # docker build --ssh default -f depechecode/Dockerfile -t rmme -o - . > out.tar
-FROM ghcr.io/sciance-inc/core.dashboards_store:develop
+FROM ghcr.io/sciance-inc/core.dashboards_store:v0.22.0
+
+COPY depechecode/deployment_profiles.yml /root/.dbt/profiles.yml
 
 # Set the working directory
 WORKDIR /src

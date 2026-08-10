@@ -1,7 +1,7 @@
 css_name: "{{ cookiecutter.css_short_name }}"
 schedule:
   staging: "0 7 * * 1-5" # Every weekday at 7am
-  main: "0 10 * * 5" # Every Friday at 10am
+  master: "0 10 * * 5" # Every Friday at 10am
 timeout: 600
 concurrency: 2
 notifications:
