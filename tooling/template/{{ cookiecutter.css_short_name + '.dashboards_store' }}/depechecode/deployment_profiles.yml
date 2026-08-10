@@ -1,0 +1,49 @@
+{% raw %}
+etl_profile:
+  target: staging
+  outputs:
+    staging:
+      type: fabric
+      driver: "ODBC Driver 17 for SQL Server"
+      server: "{{ env_var('DBT_SERVER') }}"
+      port: "{{ env_var('DBT_PORT') | int }}"
+      database: "{{ env_var('DBT_STAGING') }}"
+      schema: dev
+      user: "{{ env_var('DBT_USERNAME') }}"
+      password: "{{ env_var('DBT_PASSWORD') }}"
+      trust_cert: true
+      authentication: sql
+    develop:
+      type: fabric
+      driver: "ODBC Driver 17 for SQL Server"
+      server: "{{ env_var('DBT_SERVER') }}"
+      port: "{{ env_var('DBT_PORT') | int }}"
+      database: "{{ env_var('DBT_STAGING') }}"
+      schema: dev
+      user: "{{ env_var('DBT_USERNAME') }}"
+      password: "{{ env_var('DBT_PASSWORD') }}"
+      trust_cert: true
+      authentication: sql
+    master:
+      type: fabric
+      driver: "ODBC Driver 17 for SQL Server"
+      server: "{{ env_var('DBT_SERVER') }}"
+      port: "{{ env_var('DBT_PORT') | int }}"
+      database: "{{ env_var('DBT_DATABASE') }}"
+      schema: prod
+      user: "{{ env_var('DBT_USERNAME') }}"
+      password: "{{ env_var('DBT_PASSWORD') }}"
+      trust_cert: true
+      authentication: sql
+    main:
+      type: fabric
+      driver: "ODBC Driver 17 for SQL Server"
+      server: "{{ env_var('DBT_SERVER') }}"
+      port: "{{ env_var('DBT_PORT') | int }}"
+      database: "{{ env_var('DBT_DATABASE') }}"
+      schema: prod
+      user: "{{ env_var('DBT_USERNAME') }}"
+      password: "{{ env_var('DBT_PASSWORD') }}"
+      trust_cert: true
+      authentication: sql
+{% endraw %}
