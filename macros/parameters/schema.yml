@@ -1,5 +1,15 @@
 version: 2
 macros:
+  - name: get_school_year
+    description: >
+      Returns the starting year of the school year containing the supplied date.
+      The first month defaults to September and can be overridden with the
+      `school_year_start_month` variable.
+    arguments:
+      - name: date_expression
+        type: string
+        description: A SQL expression that evaluates to a date.
+
   - name: get_current_year
     description: >
       Return the year (as in LUMIX year) we want the student to be scored for.

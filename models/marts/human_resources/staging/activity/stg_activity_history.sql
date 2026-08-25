@@ -129,11 +129,7 @@ with
 -- Add metadata
 select
     matr,
-    case
-        when month(date_eff) between 9 and 12
-        then year(date_eff)
-        else year(date_eff) - 1
-    end as school_year,
+    {{ core_dashboards_store.get_school_year("date_eff") }} as school_year,
     ref_empl,
     corp_empl,
     etat as etat_empl,
