@@ -234,6 +234,7 @@ models:
       +schema: rls
 vars:
   is_context_core: true
+  school_year_start_month: 9
   # The source database to pull the data for a css.
   database_paie: "Replace me in the CSS repositery"
   database_gpi: "Replace me in the CSS repositery"

@@ -95,6 +95,10 @@ models:
 vars:
   is_context_core: false # A smôll piece of magic ! Do not change it.
 
+  # Optional overrides for core.dashboards_store's reasonable defaults.
+  core_dashboards_store:
+    school_year_start_month: 9 # Integer from 1 to 12.
+
   # The source database to pull the data for a css.
   database_paie: "[{{ cookiecutter.server_ip }}].[PAIE]"
   database_gpi: "[{{ cookiecutter.server_ip }}].[GPIPRIM]"
