@@ -71,11 +71,7 @@ with
                 where seq_value <= 50
             ) as seq
         where
-            case
-                when month(date_fin) between 9 and 12
-                then year(date_fin)
-                else year(date_fin) - 1
-            end
+            {{ core_dashboards_store.get_school_year("date_fin") }}
             >= (school_year + seq.seq_value)
 
     -- Only keep the latest version per year

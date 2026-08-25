@@ -48,11 +48,7 @@ with
                 where seq_value <= 50
             ) as seq
         where
-            case
-                when month(valid_until) between 9 and 12
-                then year(valid_until)
-                else year(valid_until) - 1
-            end
+            {{ core_dashboards_store.get_school_year("valid_until") }}
             >= (school_year + seq.seq_value)
 
     -- Add a flag to identify the last row per 
