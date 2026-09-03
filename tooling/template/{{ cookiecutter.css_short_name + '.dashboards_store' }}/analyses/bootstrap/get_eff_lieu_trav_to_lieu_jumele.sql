@@ -15,11 +15,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select
-    paie.lieu_trav,
-    gpi.ecole_gpi,
-    coalesce(paie.lieu_jumele, gpi.lieu_jumele) as lieu_jumele
-from {{ ref("eff_lieu_trav_to_lieu_jumele") }} as paie
-full outer join
-    {{ ref("eff_ecole_gpi_to_lieu_jumele") }} as gpi
-    on paie.lieu_jumele = gpi.lieu_jumele
+{% raw %}
+select lieu_trav, lieu_trav as lieu_jumele
+from {{ ref("i_pai_tab_lieu_trav") }}
+where lieu_trav is not null
+group by lieu_trav {% endraw %}

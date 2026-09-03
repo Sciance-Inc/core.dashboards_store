@@ -17,13 +17,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 with
     spine as (
-        select distinct lieu_jumele from {{ ref("eff_mapping_fgj_paie") }}
+        select lieu_jumele
+        from {{ ref("eff_lieu_trav_to_lieu_jumele") }}
+        union
+        select lieu_jumele
+        from {{ ref("eff_ecole_gpi_to_lieu_jumele") }}
 
     -- gpi -> lieu_jumele
     ),
     gpi_to_lieu_jumele as (
         select lieu_jumele, max(ecole_gpi) as cod_eco  -- Arbitrary taking the last entry in lexicoggraphic order
-        from {{ ref("eff_mapping_fgj_paie") }}
+        from {{ ref("eff_ecole_gpi_to_lieu_jumele") }}
         group by lieu_jumele
 
     -- Select, for each lieu_jumele defining AT LEAST ONE school in GPI, a friendly
@@ -55,7 +59,7 @@ with
     ),
     paie_to_lieu_jumele as (
         select lieu_jumele, max(lieu_trav) as lieu_trav  -- Arbitrary taking the last entry in lexicographic order
-        from {{ ref("eff_mapping_fgj_paie") }}
+        from {{ ref("eff_lieu_trav_to_lieu_jumele") }}
         group by lieu_jumele
 
     ),

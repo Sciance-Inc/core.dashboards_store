@@ -26,7 +26,9 @@ with
             case when y_stud.difficulte is not null then 1 else 0 end as is_difficulte
         from {{ ref("fact_yearly_student") }} y_stud
         join {{ ref("i_gpm_t_eco") }} as eco on y_stud.id_eco = eco.id_eco
-        join {{ ref("eff_mapping_fgj_paie") }} as brdg on eco.eco = brdg.ecole_gpi
+        join
+            {{ ref("eff_ecole_gpi_to_lieu_jumele") }} as brdg
+            on eco.eco = brdg.ecole_gpi
         join
             {{ ref("eff_reporting_configuration") }} as config
             on brdg.lieu_jumele = config.lieu_jumele

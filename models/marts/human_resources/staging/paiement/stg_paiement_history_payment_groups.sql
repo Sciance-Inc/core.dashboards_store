@@ -49,7 +49,7 @@ from source s
 left join
     {{ ref("i_pai_hchq_pmnt") }} p on s.matricule = p.matr and s.no_cheq = p.no_cheq
 left join
-    {{ ref("eff_mapping_fgj_paie") }} mp  -- Lien avec les ecoles dites jumele
+    {{ ref("eff_lieu_trav_to_lieu_jumele") }} mp  -- Lien avec les lieux jumeles
     on p.lieu_trav = mp.lieu_trav
 where code_pmnt is not null  -- Enleve les deductions non present dans grp_paiement
 group by

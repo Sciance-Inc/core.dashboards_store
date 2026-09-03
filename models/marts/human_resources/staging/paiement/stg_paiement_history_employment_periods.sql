@@ -59,7 +59,7 @@ select
     max(stg.nb_hres_an) as nb_hres_an,
     max(stg.nb_hres_jrs) as nb_hres_jrs
 from stg_activity stg
-left join {{ ref("eff_mapping_fgj_paie") }} mp on stg.lieu_trav = mp.lieu_trav
+left join {{ ref("eff_lieu_trav_to_lieu_jumele") }} mp on stg.lieu_trav = mp.lieu_trav
 where stg.lieu_trav is not null
 group by
     stg.matr,
