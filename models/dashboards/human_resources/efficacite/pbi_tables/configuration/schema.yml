@@ -68,23 +68,21 @@ models:
     columns:
       - name: lieu_trav
         description: |-
-          Le lieu de travail dans la paie.
+          Les lieux de travail Paie associés au lieu jumelé, séparés par une virgule.
       - name: ecole_gpi
         description: |-
-          Le numéro de l'école dans GPI
+          Les écoles GPI associées au lieu jumelé, séparées par une virgule.
       - name: lieu_jumele
         description: |-
           Le lieu jumelé associé au lieu de travail Paie ou à l'école GPI
     config:
       column_types:
-        lieu_trav: nvarchar(3)
-        ecole_gpi: nvarchar(3)
+        lieu_trav: nvarchar(max)
+        ecole_gpi: nvarchar(max)
         lieu_jumele: nvarchar(3)
     tests:
       - resolution:
           combination_of_columns:
-            - lieu_trav
-            - ecole_gpi
             - lieu_jumele
   - name: eff_conf_lieu_travail_sans_lieu_jumele
     description: |-
