@@ -94,23 +94,40 @@ seeds:
         w_nb_difficulte: float
         w_pi: float
 
-  - name: eff_mapping_fgj_paie
-    description: Contient les écoles liant la paie à GPI
+  - name: eff_lieu_trav_to_lieu_jumele
+    description: Associe chaque lieu de travail Paie à un lieu jumelé
     columns:
       - name: lieu_trav
-        description: Le numéro de l'école du côté de la paie
+        description: Le numéro du lieu de travail du côté de la paie
         tests:
           - unique
-      - name: ecole_gpi
-        description: Le numéro de l'école du côté de gpi
-        tests:
-          - unique
+          - not_null
       - name: lieu_jumele
-        description: L'école parent de l'école dite jumelée.
+        description: Le lieu jumelé associé au lieu de travail
+        tests:
+          - not_null
     config:
       schema: dashboard_efficacite_seeds
       tags: efficacite
       column_types:
         lieu_trav: nvarchar(3)
+        lieu_jumele: nvarchar(3)
+
+  - name: eff_ecole_gpi_to_lieu_jumele
+    description: Associe chaque école GPI à un lieu jumelé
+    columns:
+      - name: ecole_gpi
+        description: Le numéro de l'école du côté de GPI
+        tests:
+          - unique
+          - not_null
+      - name: lieu_jumele
+        description: Le lieu jumelé associé à l'école GPI
+        tests:
+          - not_null
+    config:
+      schema: dashboard_efficacite_seeds
+      tags: efficacite
+      column_types:
         ecole_gpi: nvarchar(3)
         lieu_jumele: nvarchar(3)

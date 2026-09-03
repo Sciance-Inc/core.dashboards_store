@@ -17,5 +17,5 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 select distinct lt.lieu_trav, lt.descr
 from {{ ref("i_pai_tab_lieu_trav") }} lt
-left join {{ ref("eff_mapping_fgj_paie") }} mp on lt.lieu_trav = mp.lieu_trav
+left join {{ ref("eff_lieu_trav_to_lieu_jumele") }} mp on lt.lieu_trav = mp.lieu_trav
 where mp.lieu_trav is null
