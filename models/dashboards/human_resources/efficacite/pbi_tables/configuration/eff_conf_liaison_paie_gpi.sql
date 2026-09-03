@@ -15,11 +15,34 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-select
-    paie.lieu_trav,
-    gpi.ecole_gpi,
-    coalesce(paie.lieu_jumele, gpi.lieu_jumele) as lieu_jumele
-from {{ ref("eff_lieu_trav_to_lieu_jumele") }} as paie
-full outer join
-    {{ ref("eff_ecole_gpi_to_lieu_jumele") }} as gpi
-    on paie.lieu_jumele = gpi.lieu_jumele
+with
+    lieux_jumeles as (
+        select lieu_jumele
+        from {{ ref("eff_lieu_trav_to_lieu_jumele") }}
+
+        union
+
+        select lieu_jumele
+        from {{ ref("eff_ecole_gpi_to_lieu_jumele") }}
+    ),
+
+    paie as (
+        select
+            lieu_jumele,
+            string_agg(cast(lieu_trav as nvarchar(max)), ', ') as lieu_trav
+        from {{ ref("eff_lieu_trav_to_lieu_jumele") }}
+        group by lieu_jumele
+    ),
+
+    gpi as (
+        select
+            lieu_jumele,
+            string_agg(cast(ecole_gpi as nvarchar(max)), ', ') as ecole_gpi
+        from {{ ref("eff_ecole_gpi_to_lieu_jumele") }}
+        group by lieu_jumele
+    )
+
+select paie.lieu_trav, gpi.ecole_gpi, lieux_jumeles.lieu_jumele
+from lieux_jumeles
+left join paie on lieux_jumeles.lieu_jumele = paie.lieu_jumele
+left join gpi on lieux_jumeles.lieu_jumele = gpi.lieu_jumele
