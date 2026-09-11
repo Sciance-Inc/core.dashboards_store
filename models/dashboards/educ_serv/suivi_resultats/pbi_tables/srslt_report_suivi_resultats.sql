@@ -110,7 +110,8 @@ with
                 when max(is_maitrise_comp) = 1 then 1 else 0
             end as is_maitrise_comp_yearly
         from base
-        group by base.fiche, base.id_eco, annee,discipline, description_matiere, no_comp
+        group by
+            base.fiche, base.id_eco, annee, discipline, description_matiere, no_comp
     )
     -- Compute the lagged success / failure status
     ,
@@ -314,48 +315,42 @@ with
                     then is_echec_current_y
                     else null
                 end
-            ) over (partition by fiche, no_comp, discipline)
-            as is_echec_current_y,
+            ) over (partition by fiche, no_comp, discipline) as is_echec_current_y,
             max(
                 case
                     when {{ core_dashboards_store.get_current_year() }} = annee
                     then is_diff_current_y
                     else null
                 end
-            ) over (partition by fiche, no_comp, discipline)
-            as is_diff_current_y,
+            ) over (partition by fiche, no_comp, discipline) as is_diff_current_y,
             max(
                 case
                     when {{ core_dashboards_store.get_current_year() }} = annee
                     then is_echec_previous_y
                     else null
                 end
-            ) over (partition by fiche, no_comp, discipline)
-            as is_echec_previous_y,
+            ) over (partition by fiche, no_comp, discipline) as is_echec_previous_y,
             max(
                 case
                     when {{ core_dashboards_store.get_current_year() }} = annee
                     then is_diff_previous_y
                     else null
                 end
-            ) over (partition by fiche, no_comp, discipline)
-            as is_diff_previous_y,
+            ) over (partition by fiche, no_comp, discipline) as is_diff_previous_y,
             max(
                 case
                     when {{ core_dashboards_store.get_current_year() }} = annee
                     then is_maitrise_current_y
                     else null
                 end
-            ) over (partition by fiche, no_comp, discipline)
-            as is_maitrise_current_y,
+            ) over (partition by fiche, no_comp, discipline) as is_maitrise_current_y,
             max(
                 case
                     when {{ core_dashboards_store.get_current_year() }} = annee
                     then is_maitrise_previous_y
                     else null
                 end
-            ) over (partition by fiche, no_comp, discipline)
-            as is_maitrise_previous_y
+            ) over (partition by fiche, no_comp, discipline) as is_maitrise_previous_y
         from yearly_status
     )
 
