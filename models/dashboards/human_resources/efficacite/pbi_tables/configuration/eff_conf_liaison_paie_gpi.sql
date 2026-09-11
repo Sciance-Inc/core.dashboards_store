@@ -28,16 +28,14 @@ with
 
     paie as (
         select
-            lieu_jumele,
-            string_agg(cast(lieu_trav as nvarchar(max)), ', ') as lieu_trav
+            lieu_jumele, string_agg(cast(lieu_trav as nvarchar(max)), ', ') as lieu_trav
         from {{ ref("eff_lieu_trav_to_lieu_jumele") }}
         group by lieu_jumele
     ),
 
     gpi as (
         select
-            lieu_jumele,
-            string_agg(cast(ecole_gpi as nvarchar(max)), ', ') as ecole_gpi
+            lieu_jumele, string_agg(cast(ecole_gpi as nvarchar(max)), ', ') as ecole_gpi
         from {{ ref("eff_ecole_gpi_to_lieu_jumele") }}
         group by lieu_jumele
     )
