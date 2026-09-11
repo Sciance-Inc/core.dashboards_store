@@ -2,6 +2,97 @@
 
 
 
+## v0.23.0+20260911 (2026-09-11)
+
+### Bug fixes
+
+* fix(efficacite): aggregate payroll and school mappings ([`b267ad1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b267ad1cedee619f8e9975ba0fd9bd4c46fcf016))
+
+* fix(marts): preserve result step grains ([`69991af`](https://github.com/Sciance-Inc/core.dashboards_store/commit/69991afe9ad5d5685c9ed117dfb2f2f803783c21))
+
+* fix(tests): align reporting uniqueness grains ([`4d28324`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4d2832495de640139d9d7f86b9eea4f62da29dd0))
+
+* fix(efficacite): exclude unmapped workplaces from calculations ([`a8c03dd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/a8c03dd9a564f87ff1bf6120800b5c22e20b498b))
+
+* fix(rh): match absence calendar by payroll group ([`fd96ccb`](https://github.com/Sciance-Inc/core.dashboards_store/commit/fd96ccb9fdd1c59eb7fd40d6387b5324e109c7fe))
+
+* fix(paiement): the check date is now pulled from the right table ([`949ce9b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/949ce9b9d05860a0ada038afe5f16a2ca4db1333))
+
+* fix(rh): adding forgotten ordre_ens to the secteur seed (#117) ([`3ba6bbe`](https://github.com/Sciance-Inc/core.dashboards_store/commit/3ba6bbe4a6dd086afbbc04027bb052b53660cb75))
+
+### Chores
+
+* chore(licence): add header to school year test ([`1f41195`](https://github.com/Sciance-Inc/core.dashboards_store/commit/1f41195fe808b860ade343ea87e8b75d554528a1))
+
+* chore(efficacite): remove unused population adapters ([`d4dbe9b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d4dbe9b93ac8a9c0cf3fc9dd4247039b621d9b19))
+
+* chore(efficacite): align unmapped workplace schema ([`0302d5f`](https://github.com/Sciance-Inc/core.dashboards_store/commit/0302d5f69e4c9923d888393a9709ba8807be9386))
+
+* chore(efficacite): align filter schema with model output ([`2c2b46e`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2c2b46ed9350713ebe5035ec250253d06ec4feac))
+
+* chore(efficacite): add payroll mapping setup analyses ([`85d119c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/85d119c4f511a0c7ad1388c0692f95257227bcdb))
+
+* chore(schema): remove obsolete column metadata ([`57f2c33`](https://github.com/Sciance-Inc/core.dashboards_store/commit/57f2c33bb5713e8c5699ba598e0b0afd2c8c0a79))
+
+* chore(efficacite): remove unused debug report table ([`d001874`](https://github.com/Sciance-Inc/core.dashboards_store/commit/d001874f457b61fbbbd8219181d0719802d568ef))
+
+* chore(rh): remove unused seniority staging model ([`5b5fe15`](https://github.com/Sciance-Inc/core.dashboards_store/commit/5b5fe15eb176e47e20f3b11657b1c389099d8638))
+
+* chore: moving yamls to their folder ([`77ecdb6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/77ecdb6f6b4bbf5e0b55191019b7a726ed53c64d))
+
+### Code style
+
+* style(efficacite): format payroll and school mapping projection ([`add2620`](https://github.com/Sciance-Inc/core.dashboards_store/commit/add26205f2e9fc466c5075f99157cc0818e0df14))
+
+* style(efficacite): fix analysis checks ([`06ea409`](https://github.com/Sciance-Inc/core.dashboards_store/commit/06ea409c1477f2f020b3822e5f68cd9d396698e8))
+
+### Documentation
+
+* docs(efficacite): document deployment prerequisites ([`853ae9b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/853ae9b855af5d1f8ad84b856912776922e3edae))
+
+* docs: updating docs and templated files to fix some naming discrependencies ([`91df7e8`](https://github.com/Sciance-Inc/core.dashboards_store/commit/91df7e8ac8c338a2db9a442be2102f654b9d0c38))
+
+* docs: lien vers la documentation de l'édition Snowflake sur la page d'accueil (#122) ([`b139f5a`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b139f5a55b4d9e4de0498c5d807e6cd9f969d5d4))
+
+### Features
+
+* feat(template): update ETL deployment flow ([`31a0a40`](https://github.com/Sciance-Inc/core.dashboards_store/commit/31a0a4028286066c937b650b8ec894156fcc3bfd))
+
+### Performance improvements
+
+* perf(power-bi): neutralize unused measures ([`ac7ced6`](https://github.com/Sciance-Inc/core.dashboards_store/commit/ac7ced6f61a024f9b73d8151d090ea944eca47d2))
+
+* perf(effectif): omit field unused by Power BI ([`dea90fa`](https://github.com/Sciance-Inc/core.dashboards_store/commit/dea90fa769878fc9dbaefd3dc3de5740df0dc6a7))
+
+* perf(marts): omit fields unused by reporting ([`433bf41`](https://github.com/Sciance-Inc/core.dashboards_store/commit/433bf41caa00f2127d0c500f4a0687a8181b0703))
+
+* perf(staging): remove unused output columns ([`4df6d41`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4df6d41d6e5384f4e6e670e5b5e0c4dc90e50640))
+
+* perf(activity): remove redundant main job index ([`254fc31`](https://github.com/Sciance-Inc/core.dashboards_store/commit/254fc310dc4ecbb11c529d2ea65637b9a5447198))
+
+* perf(activity): simplify main job window calculations ([`91c7717`](https://github.com/Sciance-Inc/core.dashboards_store/commit/91c7717ce47f79aae271bd74a45796e974505bca))
+
+* perf(calendar): reuse the student stage matching base ([`53c8a31`](https://github.com/Sciance-Inc/core.dashboards_store/commit/53c8a31226d906f8f3fe1aaf3bc45ad322b309bd))
+
+* perf(students): deduplicate spine keys before joining profiles ([`93a53db`](https://github.com/Sciance-Inc/core.dashboards_store/commit/93a53db6ebc04d96c3144d710fa6e603110c2e9c))
+
+* perf(resignation): deduplicate keys before joining activity ([`b154c32`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b154c32897ec4580d9239428e6dadcb78d970702))
+
+* perf: splitting tables to cache computation ([`69bb3e3`](https://github.com/Sciance-Inc/core.dashboards_store/commit/69bb3e366e4505c9290cf457ff776433cd565fae))
+
+### Refactoring
+
+* refactor(efficacite): move dashboard-specific models out of marts ([`4e25ddc`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4e25ddcba721c224a94902f5083ba31a87b76008))
+
+* refactor(efficacite): split payroll and school mappings ([`b93c09d`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b93c09d4f5bd6bd7947075e57cbd1040143a3a62))
+
+* refactor(dates): make school year start month configurable ([`49bffcd`](https://github.com/Sciance-Inc/core.dashboards_store/commit/49bffcd85875c0196cd609b1b02e3034ec78feb1))
+
+* refactor: reusing already provided check date ([`29e2251`](https://github.com/Sciance-Inc/core.dashboards_store/commit/29e22518a3d0160bd12e080567051e8062920e5d))
+
+* refactor(absences): moving the dashboard specific seed to it s dedicated folder ([`6187c0b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/6187c0b32c2a8c3192cd57656a29f1b2f2b3d849))
+
+
 ## v0.22.0+20260612 (2026-06-12)
 
 ### Documentation
