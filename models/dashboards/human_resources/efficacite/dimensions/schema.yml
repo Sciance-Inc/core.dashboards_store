@@ -25,3 +25,27 @@ models:
         corp_empl: nvarchar(16)
         description_corps_empl: nvarchar(32)
         categorie: nvarchar(32)
+  - name: dim_mapper_lieu_jumele
+    description: |-
+      Dimension du dashboard Efficacité, au grain lieu_jumele. Elle consolide les
+      mappings PAIE et GPI, complète le nom et la catégorie depuis les sources,
+      puis applique les surcharges et la comparabilité de eff_reporting_configuration.
+      Elle est matérialisée dans le schéma du dashboard Efficacité.
+    columns:
+      - name: lieu_jumele
+        description: |-
+          Linked location identifier.
+        tests:
+          - unique
+          - not_null
+      - name: nom_lieu_jumele
+        description: |-
+          The linked location's friendly name.
+        tests:
+          - not_null
+      - name: categorie_lieu_jumele
+        description: |-
+          The linked location category.
+      - name: is_school_comparable
+        description: |-
+          Indicates whether the linked school can be used for school comparison.
