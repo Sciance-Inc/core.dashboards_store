@@ -74,6 +74,7 @@ with
             base.id_eco,
             annee,
             no_comp,
+            discipline,
             description_matiere,
             -- Current and lagged stauts 
             max(
@@ -109,7 +110,7 @@ with
                 when max(is_maitrise_comp) = 1 then 1 else 0
             end as is_maitrise_comp_yearly
         from base
-        group by base.fiche, base.id_eco, annee, description_matiere, no_comp
+        group by base.fiche, base.id_eco, annee,discipline, description_matiere, no_comp
     )
     -- Compute the lagged success / failure status
     ,
@@ -119,32 +120,33 @@ with
             fiche,
             id_eco,
             annee,
+            discipline,
             description_matiere,
             no_comp,
             -- Current and lagged stauts 
             lag(is_reussite_mat_yearly, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
+                partition by fiche, no_comp, discipline order by annee
             ) as is_reussite_mat_lagged,
             lag(is_echec_mat_yearly, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
+                partition by fiche, no_comp, discipline order by annee
             ) as is_echec_mat_lagged,
             lag(is_difficulte_mat_yearly, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
+                partition by fiche, no_comp, discipline order by annee
             ) as is_difficulte_mat_lagged,
             lag(is_maitrise_mat_yearly, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
+                partition by fiche, no_comp, discipline order by annee
             ) as is_maitrise_mat_lagged,
             lag(is_reussite_comp_yearly, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
+                partition by fiche, no_comp, discipline order by annee
             ) as is_reussite_comp_lagged,
             lag(is_echec_comp_yearly, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
+                partition by fiche, no_comp, discipline order by annee
             ) as is_echec_comp_lagged,
             lag(is_difficulte_comp_yearly, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
+                partition by fiche, no_comp, discipline order by annee
             ) as is_difficulte_comp_lagged,
             lag(is_maitrise_comp_yearly, 1, null) over (
-                partition by fiche, no_comp, description_matiere order by annee
+                partition by fiche, no_comp, discipline order by annee
             ) as is_maitrise_comp_lagged
         from yearly
 
@@ -166,7 +168,7 @@ with
             base.annee,
             niveau_scolaire,
             code_matiere,
-            discipline,
+            base.discipline,
             groupe_matiere,
             groupe_matiere_actu,
             semestrialisation,
@@ -312,7 +314,7 @@ with
                     then is_echec_current_y
                     else null
                 end
-            ) over (partition by fiche, no_comp, description_matiere)
+            ) over (partition by fiche, no_comp, discipline)
             as is_echec_current_y,
             max(
                 case
@@ -320,7 +322,7 @@ with
                     then is_diff_current_y
                     else null
                 end
-            ) over (partition by fiche, no_comp, description_matiere)
+            ) over (partition by fiche, no_comp, discipline)
             as is_diff_current_y,
             max(
                 case
@@ -328,7 +330,7 @@ with
                     then is_echec_previous_y
                     else null
                 end
-            ) over (partition by fiche, no_comp, description_matiere)
+            ) over (partition by fiche, no_comp, discipline)
             as is_echec_previous_y,
             max(
                 case
@@ -336,7 +338,7 @@ with
                     then is_diff_previous_y
                     else null
                 end
-            ) over (partition by fiche, no_comp, description_matiere)
+            ) over (partition by fiche, no_comp, discipline)
             as is_diff_previous_y,
             max(
                 case
@@ -344,7 +346,7 @@ with
                     then is_maitrise_current_y
                     else null
                 end
-            ) over (partition by fiche, no_comp, description_matiere)
+            ) over (partition by fiche, no_comp, discipline)
             as is_maitrise_current_y,
             max(
                 case
@@ -352,7 +354,7 @@ with
                     then is_maitrise_previous_y
                     else null
                 end
-            ) over (partition by fiche, no_comp, description_matiere)
+            ) over (partition by fiche, no_comp, discipline)
             as is_maitrise_previous_y
         from yearly_status
     )
