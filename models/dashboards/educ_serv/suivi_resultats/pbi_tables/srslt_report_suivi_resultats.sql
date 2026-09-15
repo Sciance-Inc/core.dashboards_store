@@ -17,6 +17,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {{ config(alias="report_suivi_resultats") }}
 
+ {# 
+ Puisque description_matiere n'est pas stable dans le temps
+ (change de libellé d'une année à l'autre) ni unique par élève
+ (plusieurs parcours possibles sous une même discipline, ex. CST/SN/TS).
+ on utilisr discipline comme clé stable de regroupement/partition dans yearly, lagged, _join et squeezed
+ Elle absorbe les deux problèmes : un même parcours reste
+ rattaché à sa discipline peu importe le libellé annuel, et plusieurs
+ parcours d'une même discipline sont collapsés (logique OR : difficulté
+ dans au moins un parcours = difficulté affichée pour la discipline). 
+
+ #}
+
 -- Creation of the current groupe matiere to allow selection by student/teacher group
 with
     base as (
@@ -75,7 +87,6 @@ with
             annee,
             no_comp,
             discipline,
-            description_matiere,
             -- Current and lagged stauts 
             max(
                 case
@@ -111,7 +122,7 @@ with
             end as is_maitrise_comp_yearly
         from base
         group by
-            base.fiche, base.id_eco, annee, discipline, description_matiere, no_comp
+            base.fiche, base.id_eco, annee, discipline, no_comp
     )
     -- Compute the lagged success / failure status
     ,
@@ -122,7 +133,6 @@ with
             id_eco,
             annee,
             discipline,
-            description_matiere,
             no_comp,
             -- Current and lagged stauts 
             lag(is_reussite_mat_yearly, 1, null) over (
@@ -203,7 +213,7 @@ with
             on base.fiche = l.fiche
             and base.id_eco = l.id_eco
             and base.annee = l.annee
-            and base.description_matiere = l.description_matiere
+            and base.discipline = l.discipline
             and base.no_comp = l.no_comp
 
     -- Add the yearly status
