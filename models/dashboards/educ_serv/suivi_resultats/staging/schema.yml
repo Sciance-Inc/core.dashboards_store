@@ -12,3 +12,13 @@ models:
             - groupe_matiere
             - annee
             - no_comp
+    columns:
+      - name: discipline
+        tests:
+          - accepted_values:
+              values:
+                - 'Français'
+                - 'Mathématique'
+                - 'Anglais'
+                - 'Science'
+                - 'Histoire'
