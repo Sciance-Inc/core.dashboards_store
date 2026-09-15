@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
 {{ config(alias="report_suivi_resultats") }}
 
- {# 
+{# 
  Puisque description_matiere n'est pas stable dans le temps
  (change de libellé d'une année à l'autre) ni unique par élève
  (plusieurs parcours possibles sous une même discipline, ex. CST/SN/TS).
@@ -28,7 +28,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
  dans au moins un parcours = difficulté affichée pour la discipline). 
 
  #}
-
 -- Creation of the current groupe matiere to allow selection by student/teacher group
 with
     base as (
@@ -121,8 +120,7 @@ with
                 when max(is_maitrise_comp) = 1 then 1 else 0
             end as is_maitrise_comp_yearly
         from base
-        group by
-            base.fiche, base.id_eco, annee, discipline, no_comp
+        group by base.fiche, base.id_eco, annee, discipline, no_comp
     )
     -- Compute the lagged success / failure status
     ,
