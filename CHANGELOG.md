@@ -2,6 +2,21 @@
 
 
 
+## v0.23.1+20260916 (2026-09-16)
+
+### Bug fixes
+
+* fix: utiliser discipline plutôt que description_matiere comme clé de partition/regroupement et Ajout d'un test accepted_values sur discipline ([`732dff1`](https://github.com/Sciance-Inc/core.dashboards_store/commit/732dff14e1184328fe351cace722150d686616d3))
+
+* fix: utiliser discipline au lieu de description_matiere pour le lag et le squeeze annuel ([`2b3363b`](https://github.com/Sciance-Inc/core.dashboards_store/commit/2b3363b4d8ac352b698f496cd2814e5a77d24fd4))
+
+### Chores
+
+* chore: sqlfmt ([`4766a37`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4766a37cb72eca0cba200ad1aa89d46bd3bfc654))
+
+* chore: sqlfmt ([`56ca3ec`](https://github.com/Sciance-Inc/core.dashboards_store/commit/56ca3eccb203a91aaa07307db97debcb24b1b272))
+
+
 ## v0.23.0+20260911 (2026-09-11)
 
 ### Bug fixes
