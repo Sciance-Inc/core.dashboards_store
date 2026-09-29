@@ -43,6 +43,8 @@ select
         then 'Soutien'
         when corp_empl like ('5%')
         then 'Ressource matérielle'
-        else 'Autres'
+        -- La catégorie "Non catégorisé" permet au tdb Parametres RH de flagger les corps d'emploi non catégorisés
+        -- Gardez cette catégorie
+        else 'Non catégorisé' 
     end as job_group_category
 from {{ ref("i_pai_tab_corp_empl") }} as src
