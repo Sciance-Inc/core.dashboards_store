@@ -22,11 +22,13 @@ select
     desc_corp_empl,
     corp_empl_avec_descr,
     categorie,
-    date_deb,
-    date_fin,
+    cast(date_deb as date) as date_deb,
+    cast(date_fin as date) as date_fin,
     case
         when dans_paie = 1 then 'Avec paiement' else 'Sans paiement'
     end as statut_paie,
     case when is_termine = 1 then 'Expiré' else 'En vigueur' end as statut_validite,
-    left(corp_empl, 1) as ordre_categorie
+    case
+        when categorie = 'Non catégorisé' then 6 else cast(left(corp_empl, 1) as int)
+    end as ordre_categorie
 from {{ ref("prmrh_stg_lien_flag") }}

@@ -57,6 +57,7 @@ select
     flag.is_termine
 from {{ ref("dim_mapper_job_group") }} as map
 left join flag_paie_fin as flag on map.job_group = flag.corp_empl
+where map.job_group not like '0%'
 group by
     map.job_group,
     map.job_group_description,
