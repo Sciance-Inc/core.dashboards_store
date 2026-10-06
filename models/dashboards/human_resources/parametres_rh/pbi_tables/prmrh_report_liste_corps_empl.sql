@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 select
     corp_empl,
-    desc_corp_empl,
+    descr_corp_empl,
     corp_empl_avec_descr,
     categorie,
     cast(date_deb as date) as date_deb,

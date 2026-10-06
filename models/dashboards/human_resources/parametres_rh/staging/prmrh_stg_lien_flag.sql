@@ -48,7 +48,7 @@ with
 
 select
     map.job_group as corp_empl,
-    map.job_group_description as desc_corp_empl,
+    map.job_group_description as descr_corp_empl,
     map.code_job_name as corp_empl_avec_descr,
     map.job_group_category as categorie,
     flag.date_deb,

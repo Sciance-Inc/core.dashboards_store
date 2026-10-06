@@ -1,0 +1,98 @@
+version: 2
+
+models:
+  - name: prmrh_report_liste_corps_empl
+    description: Liste des corps d'emploi avec leur description système provenant de la PAIE
+    columns: 
+      - name: corp_empl
+        description: Le code du corps d'emploi
+        tests:
+          - not_null
+
+    columns: 
+      - name: date_deb
+        description: La date de début du corps d'emploi
+        tests:
+          - not_null
+
+    columns: 
+      - name: date_fin
+        description: La date de fin du corps d'emploi
+        tests:
+          - not_null
+
+      - name: descr_corp_empl
+        description: La description du code d'emploi selon les tables paie
+        tests:
+          - not_null
+
+      - name: corp_empl_avec_descr
+        description: Le code du corps d'emploi combiné avec la description provenant de la paie dans le format "code - (description)"
+        tests:
+          - not_null
+        
+      - name: categorie
+        description: La catégorie du corps d'emploi
+        tests:
+          - not_null
+
+      - name: statut_paie
+        description: Indique si le corps d'emploi a au moins une paie enregistrée dans la BD PAIE
+        tests:
+          - not_null
+
+      - name: statut_validite
+        description: Indique si la date de fin du corps d'emploi est passée.
+        tests:
+          - not_null
+
+      - name: ordre_categorie
+        description: Trie les catégories selon le corps d'emploi.
+        tests:
+          - not_null
+
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - corp_empl
+            - categorie
+
+  - name: prmrh_report_liste_lieu_trav
+    description: >
+            Liste des lieux de travail qui apparaissent dans la paie avec leur description et qui n'apparaissent pas dans la table des lieux de travail info établissement.
+            elle permet de vérifier également la présence de ces lieux de travail dans les principales tables/interfaces RH
+    columns:
+      - name: lieu_trav
+        description: "Code du lieu de travail provenant de la table de référence i_pai_tab_lieu_trav."
+        tests:
+          - not_null
+
+      - name: descr
+        description: "Description du lieu de travail associée au code lieu_trav."
+        tests:
+          - not_null
+
+      - name: existe_grh_poste_affect
+        description: >
+          Indique si le lieu de travail existe dans la table grh_poste_affect (affectations aux postes).
+          Valeurs possibles : 'Oui' ou 'Non'.
+
+      - name: existe_pai_dos_empl
+        description: >
+          Indique si le lieu de travail existe dans la table pai_dos_empl (dossier d'emploi de l'employé).
+          Valeurs possibles : 'Oui' ou 'Non'.
+
+      - name: existe_pai_dos
+        description: >
+          Indique si le lieu de travail existe dans la table pai_dos (dossier de l'employé).
+          Valeurs possibles : 'Oui' ou 'Non'.
+
+      - name: existe_pai_habs
+        description: >
+          Indique si le lieu de travail existe dans la table pai_habs (absences).
+          Valeurs possibles : 'Oui' ou 'Non'.
+
+      - name: existe_pai_hemp
+        description: >
+          Indique si le lieu de travail existe dans la table pai_hemp (historique d'emplois).
+          Valeurs possibles : 'Oui' ou 'Non'.
