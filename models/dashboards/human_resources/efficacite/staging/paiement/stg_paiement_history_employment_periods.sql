@@ -47,6 +47,9 @@ with
             and ah.stat_eng = hc.stat_eng
     )
 
+-- Une ligne par période d'activité de stg_activity_history (les lignes de paie
+-- consécutives aux mêmes attributs y sont déjà fusionnées en une seule période),
+-- avec son lieu jumelé et les heures de référence du corps d'emploi.
 select
     stg.matr as matricule,
     stg.ref_empl,
@@ -54,18 +57,10 @@ select
     stg.etat_empl,
     stg.stat_eng,
     coalesce(mp.lieu_jumele, 'Lieu jumelé non configuré') as lieu_jumele,
-    min(date_eff) as date_debut_historique,
-    max(date_fin) as date_fin_historique,
-    max(stg.nb_hres_an) as nb_hres_an,
-    max(stg.nb_hres_jrs) as nb_hres_jrs
+    stg.date_eff as date_debut_historique,
+    stg.date_fin as date_fin_historique,
+    stg.nb_hres_an,
+    stg.nb_hres_jrs
 from stg_activity stg
-left join {{ ref("eff_lieu_trav_to_lieu_jumele") }} mp on stg.lieu_trav = mp.lieu_trav
+left join {{ ref("eff_lieu_trav_to_lieu_jumele") }} mp on stg.lieu_trav = mp.lieu_trav  -- lieu_trav unique dans le seed
 where stg.lieu_trav is not null
-group by
-    stg.matr,
-    stg.ref_empl,
-    stg.corp_empl,
-    stg.etat_empl,
-    stg.stat_eng,
-    mp.lieu_jumele,
-    stg.lieu_trav

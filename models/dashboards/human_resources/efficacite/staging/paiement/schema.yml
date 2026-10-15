@@ -3,12 +3,22 @@ models:
   - name: stg_hrs_calc
     description: |-
       Modèle de staging du tableau de bord Efficacité qui prépare les données intermédiaires sous le nom `stg_hrs_calc`. Sources dbt visibles dans le SQL: `i_pai_tab_corp_empl`, `i_pai_tab_stat_eng`.
+    tests:
+      # Un doublon ici dupliquerait les périodes d'emploi dans stg_paiement_history_employment_periods.
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - corp_empl
+            - stat_eng
   - name: stg_paiement_history
     description: |-
       Historique des paiements du dashboard Efficacité, issu des paiements regroupés
       et des périodes emploi. Il expose les montants et heures rémunérées par
       année, lieu jumelé, corps emploi et statut engagement, sans agrégation finale.
       Il est matérialisé dans le schéma du dashboard Efficacité.
+    tests:
+      # Une ligne par paiement : la jointure avec les périodes d'emploi ne doit pas dupliquer les paiements.
+      - dbt_utils.equal_rowcount:
+          compare_model: ref("stg_paiement_history_payment_groups")
     columns:
       - name: corp_empl
         description: |-
