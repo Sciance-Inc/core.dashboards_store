@@ -3,6 +3,11 @@ models:
   - name: stg_activity_history
     description: |-
       This table is a re-implementation of pai_dos_empl with all historical data. The table lists all `experiences` of a given employee. An experience is defined as a period of time during which an employee has an unchanged job category, workplace, employment status, and engagement status.
+      Only consecutive rows within the same (matr, ref_empl) are merged, with a gap of at most one weekday. Returning to an earlier state starts a new experience. Source periods must not overlap and their effective dates must be unique within each employment.
+    tests:
+      - core_dashboards_store.no_overlapping_employment_periods:
+          config:
+            severity: error
     columns:
       - name: matr
         description: |-

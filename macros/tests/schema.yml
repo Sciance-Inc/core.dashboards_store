@@ -13,4 +13,7 @@ macros:
     arguments:
       - name: columns_to_test
         type: array of integer
-        description: Les colonnes qui doivent être pris en compte dans le test. 
+        description: Les colonnes qui doivent être pris en compte dans le test.
+
+  - name: test_no_overlapping_employment_periods
+    description: Detect overlapping inclusive source periods within each (matr, ref_empl), including nested periods.
