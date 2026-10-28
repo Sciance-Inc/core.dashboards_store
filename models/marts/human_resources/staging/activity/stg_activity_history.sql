@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     This table is a consolidated version of the paie_hempl with only the properties we are interested by,
     Properties are fetched from the paie_hempl table.
 
-    Rows with the same set of attributes are merged together
+    Consecutive rows with the same set of attributes are merged together
 
  #}
 {{
@@ -36,7 +36,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 with
-    -- Extract the raw data and compute a partition id to downstream further processing
+    -- Compare each employment with its previous state
     source as (
         select
             hmp.matr,
@@ -47,18 +47,20 @@ with
             hmp.stat_eng,
             hmp.date_eff,
             hmp.date_fin,
-            -- Compute a partition id within attributes does not changes except for
-            -- the date
-            {{
-                dbt_utils.generate_surrogate_key(
-                    ["matr", "ref_empl", "corp_empl", "etat", "lieu_trav", "stat_eng"]
-                )
-            }} as sequence_id,
-            -- Add the previeous date_eff, for a given property set to check for
-            -- continuity
+            lag(corp_empl) over (
+                partition by matr, ref_empl order by date_eff
+            ) as previous_corp_empl,
+            lag(etat) over (
+                partition by matr, ref_empl order by date_eff
+            ) as previous_etat,
+            lag(lieu_trav) over (
+                partition by matr, ref_empl order by date_eff
+            ) as previous_lieu_trav,
+            lag(stat_eng) over (
+                partition by matr, ref_empl order by date_eff
+            ) as previous_stat_eng,
             lag(date_fin) over (
-                partition by matr, ref_empl, corp_empl, etat, lieu_trav, stat_eng
-                order by date_eff
+                partition by matr, ref_empl order by date_eff
             ) as previous_date_fin
         from {{ ref("i_pai_hemp") }} as hmp
 
@@ -74,10 +76,19 @@ with
             stat_eng,
             date_eff,
             date_fin,
-            sequence_id,
             case
                 when
-                    {{
+                    -- EXCEPT treats two NULL attributes as equal.
+                    not exists (
+                        select corp_empl, etat, lieu_trav, stat_eng
+                        except
+                        select
+                            previous_corp_empl,
+                            previous_etat,
+                            previous_lieu_trav,
+                            previous_stat_eng
+                    )
+                    and {{
                         core_dashboards_store.weekdays_between(
                             "previous_date_fin", "date_eff"
                         )
@@ -87,7 +98,7 @@ with
             end as is_rupture
         from source
 
-    -- Sum the rupture flag and create a unique partition id for each continuity group 
+    -- Sum the rupture flag within each employment
     ),
     sumed as (
         select
@@ -99,31 +110,27 @@ with
             stat_eng,
             date_eff,
             date_fin,
-            sequence_id,
             sum(is_rupture) over (
-                partition by sequence_id
+                partition by matr, ref_empl
                 order by date_eff
                 rows between unbounded preceding and current row
             ) as continuity_group_id
         from continuity
 
-    -- consolidate the table by partition id and continuity group, so continuous
-    -- partition id will be merged together
+    -- Merge consecutive rows within each continuity group
     ),
     consolidated as (
         select
-            max(matr) as matr,  -- dummy aggregation
-            max(ref_empl) as ref_empl,  -- dummy aggregation
+            matr,
+            ref_empl,
             max(corp_empl) as corp_empl,  -- dummy aggregation
             max(etat) as etat,  -- dummy aggregation
             max(lieu_trav) as lieu_trav,  -- dummy aggregation
             max(stat_eng) as stat_eng,  -- dummy aggregation
             min(date_eff) as date_eff,  -- The lower bound of the continuity group
-            max(date_fin) as date_fin,  -- the upper bound of the conitnuity group
-            continuity_group_id,
-            sequence_id
+            max(date_fin) as date_fin  -- The upper bound of the continuity group
         from sumed
-        group by continuity_group_id, sequence_id
+        group by matr, ref_empl, continuity_group_id
     )
 
 -- Add metadata

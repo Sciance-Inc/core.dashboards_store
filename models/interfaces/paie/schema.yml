@@ -44,6 +44,17 @@ models:
       - interface
     description: |-
       Table d'interface. Utilisée uniquement pour pallier une éventuelle absence (complète ou partielle) de la table `i_pai_hemp` de la base de données source.
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - matr
+            - ref_empl
+            - date_eff
+          config:
+            severity: error
+      - core_dashboards_store.no_overlapping_employment_periods:
+          config:
+            severity: error
   - name: i_pai_tab_cal_jour
     description: |-
       Table d'interface PAIE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_pai_tab_cal_jour`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
