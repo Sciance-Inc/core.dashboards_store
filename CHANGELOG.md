@@ -2,6 +2,17 @@
 
 
 
+## v0.23.3+20261028 (2026-10-28)
+
+### Bug fixes
+
+* fix(human_resources): préserver les périodes continues par emploi ([`985913c`](https://github.com/Sciance-Inc/core.dashboards_store/commit/985913c2cd602f55de0eb14aaec1b89728793b43))
+
+### Chores
+
+* chore: ignorer les fichiers locaux Serena ([`b665940`](https://github.com/Sciance-Inc/core.dashboards_store/commit/b66594059da88b41e5a1a1207af016c027854d5e))
+
+
 ## v0.23.2+20261028 (2026-10-28)
 
 ### Bug fixes
