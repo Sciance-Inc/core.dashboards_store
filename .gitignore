@@ -7,3 +7,4 @@ logs/
 **/*.pbix
 .python-version
 .codex
+.serena/
