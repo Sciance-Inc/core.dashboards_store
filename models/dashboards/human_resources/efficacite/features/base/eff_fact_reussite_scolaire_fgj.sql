@@ -44,7 +44,7 @@ with
             on ele.fiche = res.fiche
             and ele.annee = res.annee
         where res.res_final_num is not null  -- Exclus les res non numérique.
-        union  -- Union les résultats du primaire.
+        union all  -- Conserve chaque résultat, même avec le même statut de réussite.
         select
             ele.fiche,
             ele.lieu_jumele,
