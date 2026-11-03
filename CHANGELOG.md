@@ -2,6 +2,13 @@
 
 
 
+## v0.23.5+20261103 (2026-11-03)
+
+### Bug fixes
+
+* fix: support dbt_utils equal_rowcount on Fabric ([`4757de7`](https://github.com/Sciance-Inc/core.dashboards_store/commit/4757de7e76017ad7dd6af099a595639ac59a9e4c))
+
+
 ## v0.23.4+20261030 (2026-10-30)
 
 ### Bug fixes
