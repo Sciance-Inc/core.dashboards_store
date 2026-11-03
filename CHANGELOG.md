@@ -2,6 +2,13 @@
 
 
 
+## v0.23.4+20261030 (2026-10-30)
+
+### Bug fixes
+
+* fix(efficiency): the dashboard does not collapse the result anymore ([`caa3f94`](https://github.com/Sciance-Inc/core.dashboards_store/commit/caa3f944ac023f689da1d65dd4cce1d2088ad5ec))
+
+
 ## v0.23.3+20261028 (2026-10-28)
 
 ### Bug fixes
