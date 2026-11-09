@@ -48,6 +48,8 @@ models:
           +enabled: False
         retirement:
           +enabled: False
+        parametres_rh:
+          +enabled: False
 
       educ_serv:
         effectif_css:

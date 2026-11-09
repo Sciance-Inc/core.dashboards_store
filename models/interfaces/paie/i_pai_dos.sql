@@ -19,6 +19,7 @@ select
     matr,
     nom_legal,
     date_nais,
+    lieu_trav,
     date_deb_serv,
     date_fin_serv,
     date_eng,

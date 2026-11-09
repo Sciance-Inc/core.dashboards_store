@@ -198,6 +198,16 @@ models:
               [
                 "{{ core_dashboards_store.stamp_model('dashboard_resignation') }}",
               ]
+
+        parametres_rh:
+          +tags: ["parametres_rh"]
+          +schema: "dashboard_parametres_rh"
+          pbi_tables:
+            +post-hook:
+              [
+                "{{ core_dashboards_store.stamp_model('dashboard_parametres_rh') }}",
+              ]
+
       direction_generale:
         pevr:
           +tags: ["pevr"]
