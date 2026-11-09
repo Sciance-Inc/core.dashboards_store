@@ -31,4 +31,4 @@ select
     case
         when categorie = 'Non catégorisé' then 6 else cast(left(corp_empl, 1) as int)
     end as ordre_categorie
-from {{ ref("prmrh_stg_lien_flag") }}
+from {{ ref("prmrh_stg_lien_flag_corp_empl") }}

@@ -1,5 +1,5 @@
 models:
-  - name: prmrh_stg_lien_flag
+  - name: prmrh_stg_lien_flag_corp_empl
     description: Liste des corps d'emploi avec leur description système provenant de la PAIE
     columns: 
       - name: corp_empl

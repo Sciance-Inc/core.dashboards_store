@@ -15,7 +15,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #}
-{{ config(alias="stg_lien_flag") }}
+{{ config(alias="stg_lien_flag_corp_empl") }}
 
 with
     base as (
