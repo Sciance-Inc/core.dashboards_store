@@ -2,10 +2,9 @@ version: 2
 models:
   - name: eff_proportions_emploi
     description: |-
-      Répartition annuelle par matricule, référence d'emploi, corps d'emploi et lieu jumelé.
-      Les pourcentages principal et secondaires sont pondérés par les jours civils en
-      emploi actif (juillet à juin). Une période invalide exclut la clé annuelle.
-      Les paiements sans lieu utilisent ces proportions et, à défaut, le lieu historique.
+      Répartition par emploi et lieu jumelé applicable à la date du chèque, du
+      valid_from inclus au valid_until exclu. Les pourcentages principal et secondaires
+      doivent totaliser 100 % sur la période. À défaut, le paiement garde son lieu historique.
     tests:
       - core_dashboards_store.proportions_emploi_valides
   - name: stg_hrs_calc

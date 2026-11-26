@@ -300,7 +300,8 @@ from ann_sco p
 left join
     {{ ref("eff_proportions_emploi") }} r
     on p.sans_lieu_cheque = 1
-    and p.annee = r.annee
+    and p.date_cheq_paiement >= r.valid_from
+    and p.date_cheq_paiement < r.valid_until
     and p.matricule = r.matricule
     and p.ref_empl = r.ref_empl
     and p.corp_empl = r.corp_empl

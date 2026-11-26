@@ -5,14 +5,15 @@ with
     etats_actifs as (
         select
             etat_empl,
-            school_year as annee,
             datefromparts(school_year, 7, 1) as debut,
-            datefromparts(school_year + 1, 6, 30) as fin
+            datefromparts(school_year + 1, 7, 1) as fin
         from {{ ref("dim_employment_status_yearly") }}
         where etat_actif = 1
     ),
-    -- Conserver chaque date d’effet Paie pour retrouver le pourcentage principal et les lieux secondaires associés.
-    -- stg_activity_history fusionne des périodes sans tenir compte des changements de répartition.
+    -- Conserver chaque date d’effet Paie pour retrouver le pourcentage principal et
+    -- les lieux secondaires associés.
+    -- stg_activity_history fusionne des périodes sans tenir compte des changements de
+    -- répartition.
     historique as (
         select
             matr,
@@ -28,32 +29,48 @@ with
             ) as suivant
         from {{ ref("i_pai_hemp") }}
     ),
-    -- Arrêter chaque période au plus tôt entre sa fin déclarée, la veille du changement suivant et aujourd’hui.
+    -- Intersecter l'affectation avec la période de statut actif. La fin Paie est
+    -- inclusive.
     periodes as (
-        select h.*, borne.fin
-        from
-            historique h
+        select
+            h.*,
+            case
+                when h.date_eff > a.debut then h.date_eff else a.debut
+            end as valid_from,
+            borne.valid_until
+        from historique h
+        join
+            etats_actifs a
+            on a.etat_empl = h.etat
+            and h.date_eff < a.fin
+            and (h.date_fin >= a.debut or h.date_fin is null)
+            and (h.suivant > a.debut or h.suivant is null)
             cross apply(
-                select min(d) as fin
+                select min(d) as valid_until
                 from
                     (
                         values
-                            (h.date_fin),
-                            (dateadd(day, -1, h.suivant)),
-                            (cast(getdate() as date))
-                    ) v(d)
+                            (a.fin),
+                            (h.suivant),
+                            (
+                                case
+                                    when h.date_fin < a.fin
+                                    then dateadd(day, 1, h.date_fin)
+                                end
+                            )
+                    ) bornes(d)
             ) borne
-        where h.date_eff <= borne.fin
+        where h.date_eff < borne.valid_until
     ),
-    -- Le pourcentage du lieu principal vient de l’historique d’emploi. Sans secondaire ni pourcentage déclaré, il reçoit 100 %.
+    -- Le pourcentage du lieu principal vient de l’historique d’emploi. Sans
+    -- secondaire ni pourcentage déclaré, il reçoit 100 %.
     lieux as (
         select
             h.matr,
             h.ref_empl,
             h.corp_empl,
-            h.etat,
-            h.date_eff,
-            h.fin,
+            h.valid_from,
+            h.valid_until,
             h.lieu_trav,
             case
                 when s.matr is null and coalesce(h.pourc_lieu_trav, 0) = 0
@@ -70,16 +87,16 @@ with
             and h.ref_empl = s.ref_empl
             and h.date_eff = s.date_eff
 
-        -- Chaque lieu secondaire porte son propre pourcentage pour cette même date d’effet.
+        -- Chaque lieu secondaire porte son propre pourcentage pour cette même date
+        -- d’effet.
         union all
 
         select
             h.matr,
             h.ref_empl,
             h.corp_empl,
-            h.etat,
-            h.date_eff,
-            h.fin,
+            h.valid_from,
+            h.valid_until,
             s.lieu_trav,
             s.pourc_lieu_trav
         from periodes h
@@ -89,70 +106,37 @@ with
             and h.ref_empl = s.ref_empl
             and h.date_eff = s.date_eff
     ),
+    -- Écarter toute la période si une part manque ou si le total diffère de 100 %.
     controles as (
-        select l.*, sum(pct) over (partition by matr, ref_empl, date_eff) as pct_total
-        from lieux l
-    ),
-    -- Pondérer chaque pourcentage par les jours actifs de la période compris dans l’année scolaire.
-    poids as (
         select
-            a.annee,
-            l.matr,
-            l.ref_empl,
-            l.corp_empl,
-            coalesce(m.lieu_jumele, l.lieu_trav) as lieu_jumele,
+            l.*,
+            sum(pct) over (partition by matr, ref_empl, valid_from) as pct_total,
             min(
                 case
                     when
-                        l.pct_total = 100
-                        and l.pct between 0 and 100
-                        and (l.pct = 0 or nullif(trim(l.lieu_trav), '') is not null)
+                        pct between 0 and 100
+                        and (pct = 0 or nullif(trim(lieu_trav), '') is not null)
                     then 1
                     else 0
                 end
-            ) as valide,
-            sum(
-                l.pct * (
-                    1 + datediff(
-                        day,
-                        case when l.date_eff > a.debut then l.date_eff else a.debut end,
-                        case when l.fin < a.fin then l.fin else a.fin end
-                    )
-                )
-            ) as poids
-        from controles l
-        join
-            etats_actifs a
-            on a.etat_empl = l.etat
-            and l.date_eff <= a.fin
-            and l.fin >= a.debut
-        left join
-            {{ ref("eff_lieu_trav_to_lieu_jumele") }} m on m.lieu_trav = l.lieu_trav
-        group by
-            a.annee,
-            l.matr,
-            l.ref_empl,
-            l.corp_empl,
-            coalesce(m.lieu_jumele, l.lieu_trav)
-    ),
-    -- Une seule période invalide écarte la répartition annuelle de cet emploi et laisse le paiement au lieu historique.
-    proportions as (
-        select
-            *,
-            min(valide) over (
-                partition by annee, matr, ref_empl, corp_empl
-            ) as annee_valide,
-            sum(poids) over (
-                partition by annee, matr, ref_empl, corp_empl
-            ) as poids_total
-        from poids
+            ) over (partition by matr, ref_empl, valid_from) as valide
+        from lieux l
     )
 select
-    annee,
-    matr as matricule,
-    ref_empl,
-    corp_empl,
-    lieu_jumele,
-    cast(poids as float) / nullif(poids_total, 0) as proportion
-from proportions
-where annee_valide = 1 and poids > 0
+    l.matr as matricule,
+    l.ref_empl,
+    l.corp_empl,
+    l.valid_from,
+    l.valid_until,
+    coalesce(m.lieu_jumele, l.lieu_trav) as lieu_jumele,
+    sum(l.pct) / 100.0 as proportion
+from controles l
+left join {{ ref("eff_lieu_trav_to_lieu_jumele") }} m on m.lieu_trav = l.lieu_trav
+where l.valide = 1 and l.pct_total = 100 and l.pct > 0
+group by
+    l.matr,
+    l.ref_empl,
+    l.corp_empl,
+    l.valid_from,
+    l.valid_until,
+    coalesce(m.lieu_jumele, l.lieu_trav)
