@@ -106,37 +106,50 @@ with
             and h.ref_empl = s.ref_empl
             and h.date_eff = s.date_eff
     ),
-    -- Écarter toute la période si une part manque ou si le total diffère de 100 %.
+    -- Regrouper les affectations qui désignent le même lieu jumelé avant de calculer sa part.
+    lieux_jumeles as (
+        select
+            l.matr,
+            l.ref_empl,
+            l.corp_empl,
+            l.valid_from,
+            l.valid_until,
+            coalesce(m.lieu_jumele, l.lieu_trav) as lieu_jumele,
+            sum(l.pct) as pct,
+            min(
+                case
+                    when
+                        l.pct between 0 and 100
+                        and (l.pct = 0 or nullif(trim(l.lieu_trav), '') is not null)
+                    then 1
+                    else 0
+                end
+            ) as valide
+        from lieux l
+        left join {{ ref("eff_lieu_trav_to_lieu_jumele") }} m on m.lieu_trav = l.lieu_trav
+        group by
+            l.matr,
+            l.ref_empl,
+            l.corp_empl,
+            l.valid_from,
+            l.valid_until,
+            coalesce(m.lieu_jumele, l.lieu_trav)
+    ),
+    -- Une part source invalide écarte toute la période, même après le jumelage.
     controles as (
         select
             l.*,
             sum(pct) over (partition by matr, ref_empl, valid_from) as pct_total,
-            min(
-                case
-                    when
-                        pct between 0 and 100
-                        and (pct = 0 or nullif(trim(lieu_trav), '') is not null)
-                    then 1
-                    else 0
-                end
-            ) over (partition by matr, ref_empl, valid_from) as valide
-        from lieux l
+            min(valide) over (partition by matr, ref_empl, valid_from) as periode_valide
+        from lieux_jumeles l
     )
 select
-    l.matr as matricule,
-    l.ref_empl,
-    l.corp_empl,
-    l.valid_from,
-    l.valid_until,
-    coalesce(m.lieu_jumele, l.lieu_trav) as lieu_jumele,
-    sum(l.pct) / 100.0 as proportion
-from controles l
-left join {{ ref("eff_lieu_trav_to_lieu_jumele") }} m on m.lieu_trav = l.lieu_trav
-where l.valide = 1 and l.pct_total = 100 and l.pct > 0
-group by
-    l.matr,
-    l.ref_empl,
-    l.corp_empl,
-    l.valid_from,
-    l.valid_until,
-    coalesce(m.lieu_jumele, l.lieu_trav)
+    matr as matricule,
+    ref_empl,
+    corp_empl,
+    valid_from,
+    valid_until,
+    lieu_jumele,
+    pct / 100.0 as proportion
+from controles
+where periode_valide = 1 and pct_total = 100 and pct > 0
