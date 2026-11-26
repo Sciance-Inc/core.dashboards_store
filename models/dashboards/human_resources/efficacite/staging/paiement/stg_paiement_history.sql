@@ -26,6 +26,9 @@ with
             ref_empl,
             corp_empl,
             lieu_jumele,
+            {% if var("eff_modele_proportions_emploi", none) %}
+                sans_lieu_cheque,
+            {% endif %}
             nb_unit,
             total_mnt_brut,
             date_debut_paiement,
@@ -66,6 +69,9 @@ with
             pid.ref_empl,
             pid.mode_paiement,
             pid.code_provenance,
+            {% if var("eff_modele_proportions_emploi", none) %}
+                pid.sans_lieu_cheque,
+            {% endif %}
             pid.nb_unit,
             pid.total_mnt_brut,
             pid.date_debut_paiement,
@@ -108,6 +114,9 @@ with
             code_provenance,
             corp_empl,
             lieu_jumele,
+            {% if var("eff_modele_proportions_emploi", none) %}
+                sans_lieu_cheque,
+            {% endif %}
             total_mnt_brut,
             case
                 when code_pmnt = '105001' and code_provenance in ('AX', 'AY', 'A0')
@@ -210,6 +219,9 @@ with
             ft.code_provenance,
             ft.ref_empl,
             ft.corp_empl,
+            {% if var("eff_modele_proportions_emploi", none) %}
+                ft.sans_lieu_cheque,
+            {% endif %}
             ft.total_mnt_brut,
             ft.hrs_remunere,
             ft.date_debut_paiement,
@@ -251,6 +263,9 @@ with
             code_provenance,
             ref_empl,
             corp_empl,
+            {% if var("eff_modele_proportions_emploi", none) %}
+                sans_lieu_cheque,
+            {% endif %}
             total_mnt_brut,
             hrs_remunere,
             -- date_debut_paiement,
@@ -264,16 +279,32 @@ with
         where rn = 1
     )
 
--- Champ en commentaire pour utilisation future
+    {% set modele = var("eff_modele_proportions_emploi", none) %}
 select
-    annee,
-    -- mode_paiement,
-    -- code_provenance,
-    corp_empl,
-    total_mnt_brut,
-    hrs_remunere,
-    -- date_debut_paiement,
-    -- date_fin_paiement,
-    lieu_jumele,
-    stat_eng
-from ann_sco
+    p.annee,
+    p.corp_empl,
+    {% if modele %}
+        case
+            when r.proportion is null
+            then p.total_mnt_brut
+            else p.total_mnt_brut * r.proportion
+        end as total_mnt_brut,
+        case
+            when r.proportion is null
+            then p.hrs_remunere
+            else p.hrs_remunere * r.proportion
+        end as hrs_remunere,
+        coalesce(r.lieu_jumele, p.lieu_jumele) as lieu_jumele,
+    {% else %} p.total_mnt_brut, p.hrs_remunere, p.lieu_jumele,
+    {% endif %}
+    p.stat_eng
+from ann_sco p
+{% if modele %}
+    left join
+        {{ ref(modele) }} r
+        on p.sans_lieu_cheque = 1
+        and p.annee = r.annee
+        and p.matricule = r.matricule
+        and p.ref_empl = r.ref_empl
+        and p.corp_empl = r.corp_empl
+{% endif %}
