@@ -283,14 +283,11 @@ select
     p.annee,
     p.corp_empl,
 
-    case
-        when r.proportion is null
-        then p.total_mnt_brut
-        else p.total_mnt_brut * r.proportion
-    end as total_mnt_brut,
-    case
-        when r.proportion is null then p.hrs_remunere else p.hrs_remunere * r.proportion
-    end as hrs_remunere,
+    -- Multiplier aussi le montant de repli par 1 pour conserver les fractions de cent
+    -- jusqu'à la somme. Un CASE avec le brut d'origine arrondit chaque part à deux
+    -- décimales.
+    p.total_mnt_brut * coalesce(r.proportion, 1) as total_mnt_brut,
+    p.hrs_remunere * coalesce(cast(r.proportion as float), 1) as hrs_remunere,
     coalesce(r.lieu_jumele, p.lieu_jumele) as lieu_jumele,
 
     p.stat_eng
