@@ -1,6 +1,7 @@
 {{ config(materialized="table") }}
 
 with
+    -- Le statut actif est défini pour chaque année scolaire, du 1er juillet au 30 juin.
     etats_actifs as (
         select
             etat_empl,
@@ -10,6 +11,8 @@ with
         from {{ ref("dim_employment_status_yearly") }}
         where etat_actif = 1
     ),
+    -- Conserver chaque date d’effet Paie pour retrouver le pourcentage principal et les lieux secondaires associés.
+    -- stg_activity_history fusionne des périodes sans tenir compte des changements de répartition.
     historique as (
         select
             matr,
@@ -25,6 +28,7 @@ with
             ) as suivant
         from {{ ref("i_pai_hemp") }}
     ),
+    -- Arrêter chaque période au plus tôt entre sa fin déclarée, la veille du changement suivant et aujourd’hui.
     periodes as (
         select h.*, borne.fin
         from
@@ -41,6 +45,7 @@ with
             ) borne
         where h.date_eff <= borne.fin
     ),
+    -- Le pourcentage du lieu principal vient de l’historique d’emploi. Sans secondaire ni pourcentage déclaré, il reçoit 100 %.
     lieux as (
         select
             h.matr,
@@ -65,6 +70,7 @@ with
             and h.ref_empl = s.ref_empl
             and h.date_eff = s.date_eff
 
+        -- Chaque lieu secondaire porte son propre pourcentage pour cette même date d’effet.
         union all
 
         select
@@ -87,6 +93,7 @@ with
         select l.*, sum(pct) over (partition by matr, ref_empl, date_eff) as pct_total
         from lieux l
     ),
+    -- Pondérer chaque pourcentage par les jours actifs de la période compris dans l’année scolaire.
     poids as (
         select
             a.annee,
@@ -128,6 +135,7 @@ with
             l.corp_empl,
             coalesce(m.lieu_jumele, l.lieu_trav)
     ),
+    -- Une seule période invalide écarte la répartition annuelle de cet emploi et laisse le paiement au lieu historique.
     proportions as (
         select
             *,

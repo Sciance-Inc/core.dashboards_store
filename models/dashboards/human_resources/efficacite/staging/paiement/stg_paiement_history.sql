@@ -294,6 +294,7 @@ select
     coalesce(r.lieu_jumele, p.lieu_jumele) as lieu_jumele,
 
     p.stat_eng
+-- Un lieu inscrit au chèque fait foi. Seuls les groupes sans lieu sont ventilés.
 from ann_sco p
 
 left join
