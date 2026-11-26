@@ -19,7 +19,6 @@ select
     matr,
     date_eff,
     lieu_trav,
-    pourc_lieu_trav,
     corp_empl,
     etat,
     stat_eng,

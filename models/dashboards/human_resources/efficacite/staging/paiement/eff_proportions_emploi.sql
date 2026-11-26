@@ -27,7 +27,7 @@ with
             lead(date_eff) over (
                 partition by matr, ref_empl order by date_eff
             ) as suivant
-        from {{ ref("i_pai_hemp") }}
+        from {{ ref("i_pai_hemp_lieu_trav_princ") }}
     ),
     -- Intersecter l'affectation avec la période de statut actif. La fin Paie est
     -- inclusive.

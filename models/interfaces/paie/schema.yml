@@ -81,5 +81,7 @@ models:
   - name: i_pai_tab_type_lieu
     description: |-
       Table d'interface PAIE exposée aux modèles dbt. Elle sélectionne les champs utilisés en aval sous le nom `i_pai_tab_type_lieu`. Le SQL ne contient pas de `ref()` ou `source()` explicite.
+  - name: i_pai_hemp_lieu_trav_princ
+    description: Lieu principal, pourcentage et dates d'effet de chaque affectation dans l'historique Paie.
   - name: i_pai_hemp_lieu_trav_sec
     description: Lieux de travail secondaires et pourcentages par emploi et date d'effet.
