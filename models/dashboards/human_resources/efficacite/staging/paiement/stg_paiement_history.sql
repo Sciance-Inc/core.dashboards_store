@@ -26,6 +26,9 @@ with
             ref_empl,
             corp_empl,
             lieu_jumele,
+
+            sans_lieu_cheque,
+
             nb_unit,
             total_mnt_brut,
             date_debut_paiement,
@@ -66,6 +69,9 @@ with
             pid.ref_empl,
             pid.mode_paiement,
             pid.code_provenance,
+
+            pid.sans_lieu_cheque,
+
             pid.nb_unit,
             pid.total_mnt_brut,
             pid.date_debut_paiement,
@@ -108,6 +114,9 @@ with
             code_provenance,
             corp_empl,
             lieu_jumele,
+
+            sans_lieu_cheque,
+
             total_mnt_brut,
             case
                 when code_pmnt = '105001' and code_provenance in ('AX', 'AY', 'A0')
@@ -210,6 +219,9 @@ with
             ft.code_provenance,
             ft.ref_empl,
             ft.corp_empl,
+
+            ft.sans_lieu_cheque,
+
             ft.total_mnt_brut,
             ft.hrs_remunere,
             ft.date_debut_paiement,
@@ -251,6 +263,9 @@ with
             code_provenance,
             ref_empl,
             corp_empl,
+
+            sans_lieu_cheque,
+
             total_mnt_brut,
             hrs_remunere,
             -- date_debut_paiement,
@@ -264,16 +279,26 @@ with
         where rn = 1
     )
 
--- Champ en commentaire pour utilisation future
 select
-    annee,
-    -- mode_paiement,
-    -- code_provenance,
-    corp_empl,
-    total_mnt_brut,
-    hrs_remunere,
-    -- date_debut_paiement,
-    -- date_fin_paiement,
-    lieu_jumele,
-    stat_eng
-from ann_sco
+    p.annee,
+    p.corp_empl,
+
+    -- Multiplier aussi le montant de repli par 1 pour conserver les fractions de cent
+    -- jusqu'à la somme. Un CASE avec le brut d'origine arrondit chaque part à deux
+    -- décimales.
+    p.total_mnt_brut * coalesce(r.proportion, 1) as total_mnt_brut,
+    p.hrs_remunere * coalesce(cast(r.proportion as float), 1) as hrs_remunere,
+    coalesce(r.lieu_jumele, p.lieu_jumele) as lieu_jumele,
+
+    p.stat_eng
+-- Un lieu inscrit au chèque fait foi. Seuls les groupes sans lieu sont ventilés.
+from ann_sco p
+
+left join
+    {{ ref("eff_proportions_emploi") }} r
+    on p.sans_lieu_cheque = 1
+    and p.date_cheq_paiement >= r.valid_from
+    and p.date_cheq_paiement < r.valid_until
+    and p.matricule = r.matricule
+    and p.ref_empl = r.ref_empl
+    and p.corp_empl = r.corp_empl

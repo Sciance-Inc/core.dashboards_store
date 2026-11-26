@@ -39,7 +39,12 @@ select
     p.code_provenance,
     p.ref_empl,
     p.corp_empl,
-    mp.lieu_jumele,
+
+    case
+        when nullif(ltrim(rtrim(p.lieu_trav)), '') is null then 1 else 0
+    end as sans_lieu_cheque,
+    coalesce(mp.lieu_jumele, nullif(ltrim(rtrim(p.lieu_trav)), '')) as lieu_jumele,
+
     sum(p.nb_unit) as nb_unit,
     sum(p.mnt) as total_mnt_brut,
     min(p.date_deb) as date_debut_paiement,
@@ -60,4 +65,6 @@ group by
     p.code_provenance,
     p.ref_empl,
     p.corp_empl,
-    mp.lieu_jumele
+
+    case when nullif(ltrim(rtrim(p.lieu_trav)), '') is null then 1 else 0 end,
+    coalesce(mp.lieu_jumele, nullif(ltrim(rtrim(p.lieu_trav)), ''))
