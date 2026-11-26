@@ -1,5 +1,13 @@
 version: 2
 models:
+  - name: eff_proportions_emploi
+    description: |-
+      Répartition annuelle par matricule, référence d'emploi, corps d'emploi et lieu jumelé.
+      Les pourcentages principal et secondaires sont pondérés par les jours civils en
+      emploi actif (juillet à juin). Une période invalide exclut la clé annuelle.
+      Les paiements sans lieu utilisent ces proportions et, à défaut, le lieu historique.
+    tests:
+      - core_dashboards_store.proportions_emploi_valides
   - name: stg_hrs_calc
     description: |-
       Modèle de staging du tableau de bord Efficacité qui prépare les données intermédiaires sous le nom `stg_hrs_calc`. Sources dbt visibles dans le SQL: `i_pai_tab_corp_empl`, `i_pai_tab_stat_eng`.
@@ -16,8 +24,7 @@ models:
       année, lieu jumelé, corps emploi et statut engagement, sans agrégation finale.
       Il est matérialisé dans le schéma du dashboard Efficacité.
     tests:
-      # Une ligne par paiement : la jointure avec les périodes d'emploi ne doit pas dupliquer les paiements.
-      - dbt_utils.equal_rowcount:
+      - core_dashboards_store.montants_paiements_conserves:
           compare_model: ref("stg_paiement_history_payment_groups")
     columns:
       - name: corp_empl
